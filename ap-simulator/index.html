@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学年別AP受講ロードマップ診断シミュレーター | AP STEM PATH</title>
+  <meta name="description" content="現在の学年（G7〜G10）と学習状況を選択するだけで、目標のSTEM/Ivy League出願に向けた最適なAP履修シークエンス（コースX/Y/Z含む）と再受験リカバリー設計を自動判定します。">
+  <link rel="canonical" href="https://apstempath.com/ap-simulator/">
+
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --bg-card: #1e293b;
+      --accent-blue: #38bdf8;
+      --accent-green: #34d399;
+      --accent-yellow: #fbbf24;
+      --accent-purple: #c084fc;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.7;
+    }
+
+    .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+
+    /* ★ 全ページ共通 Header (ロゴとナビの間隔・重なりを完全に修正) */
+    .site-header {
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      gap: 20px; /* ロゴとメニューの間に最低20pxの隙間を強制確保 */
+    }
+    .site-logo {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #f8fafc;
+      text-decoration: none;
+      letter-spacing: -0.5px;
+      white-space: nowrap;
+      flex-shrink: 0; /* ロゴが潰されるのを防止 */
+    }
+    .logo-accent { color: var(--accent-blue); }
+
+    .nav-menu-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--accent-blue);
+      font-size: 1.2rem;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    /* PC表示で絶対改行させないナビゲーション設定 */
+    .nav-list {
+      display: flex;
+      list-style: none;
+      gap: 16px;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-item {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+    .nav-item:hover, .nav-item.active { color: var(--accent-blue); }
+
+    .cta-nav-item {
+      background: var(--accent-blue);
+      color: #0f172a !important;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-weight: 700;
+      white-space: nowrap;
+      display: inline-block;
+    }
+    .cta-nav-item:hover { background: #7dd3fc !important; }
+
+    .dropdown { position: relative; }
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 0;
+      list-style: none;
+      min-width: 220px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
+    }
+    .dropdown:hover .dropdown-menu { display: block; }
+    .dropdown-menu a {
+      display: block;
+      padding: 10px 16px;
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.88rem;
+      white-space: nowrap;
+    }
+    .dropdown-menu a:hover { background: var(--border); color: var(--accent-blue); }
+
+    /* スマホ（モバイル）対応レスポンシブ CSS */
+    @media (max-width: 768px) {
+      .nav-menu-toggle { display: block; }
+      .main-nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #0f172a;
+        border-bottom: 1px solid var(--border);
+        padding: 20px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      }
+      .main-nav.is-active { display: block; }
+      .nav-list { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .dropdown { width: 100%; }
+      .dropdown-menu {
+        position: static;
+        display: block;
+        background: rgba(30, 41, 59, 0.5);
+        border: none;
+        box-shadow: none;
+        padding-left: 15px;
+        margin-top: 8px;
+        border-radius: 6px;
+      }
+    }
+
+    /* Page Header */
+    .page-header { padding: 40px 0 30px; border-bottom: 1px solid var(--border); }
+    .breadcrumb { font-size: 0.85rem; color: var(--accent-blue); margin-bottom: 12px; font-weight: 700; letter-spacing: 0.5px; }
+    h1 { font-size: 2.1rem; line-height: 1.3; font-weight: 800; margin-bottom: 15px; }
+    .lead { font-size: 1.05rem; color: var(--text-muted); }
+
+    .content-section { padding: 45px 0; border-bottom: 1px solid var(--border); }
+
+    /* Simulator Interactive Box */
+    .sim-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 30px;
+      margin-top: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .sim-title { font-size: 1.3rem; font-weight: 800; color: #f8fafc; margin-bottom: 20px; text-align: center; }
+
+    .sim-form-group { margin-bottom: 24px; }
+    .sim-label { display: block; font-size: 0.95rem; font-weight: 700; color: var(--accent-blue); margin-bottom: 10px; }
+    .sim-select {
+      width: 100%;
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: #f8fafc;
+      font-size: 1rem;
+      outline: none;
+    }
+    .sim-select:focus { border-color: var(--accent-blue); }
+
+    /* Dynamic Result Display */
+    .result-box {
+      margin-top: 30px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 2px solid var(--accent-green);
+      border-radius: 10px;
+      padding: 25px;
+      display: none;
+    }
+    .result-course-title { font-size: 1.4rem; font-weight: 800; color: var(--accent-green); margin-bottom: 8px; }
+    .result-course-desc { font-size: 0.95rem; color: #cbd5e1; margin-bottom: 20px; }
+
+    .sim-timeline { list-style: none; padding: 0; margin: 0; }
+    .sim-timeline-item {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 16px;
+      border-left: 2px solid var(--border);
+    }
+    .sim-timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -6px;
+      top: 6px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent-green);
+    }
+    .sim-grade { font-size: 0.85rem; font-weight: 800; color: var(--accent-blue); }
+    .sim-subject { font-weight: 700; color: #f8fafc; font-size: 1rem; }
+    .sim-note { font-size: 0.85rem; color: var(--accent-yellow); margin-top: 2px; }
+
+    /* Button */
+    .cta-btn {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      background: var(--accent-blue);
+      color: #0f172a;
+      font-weight: 800;
+      padding: 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      margin-top: 20px;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+    .cta-btn:hover { background: #7dd3fc; }
+
+    /* Footer */
+    .site-footer { background: #020617; border-top: 1px solid var(--border); padding: 50px 0 30px; color: var(--text-muted); font-size: 0.88rem; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .footer-logo { font-size: 1.2rem; font-weight: 800; color: #f8fafc; margin-bottom: 12px; }
+    .footer-desc { line-height: 1.6; max-width: 360px; font-size: 0.85rem; }
+    .footer-heading { color: #f8fafc; font-weight: 700; margin-bottom: 12px; font-size: 0.92rem; }
+    .footer-col ul { list-style: none; padding: 0; margin: 0; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom { text-align: center; border-top: 1px solid #1e293b; padding-top: 20px; font-size: 0.8rem; }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 1.6rem; }
+      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+      .sim-card { padding: 20px; }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "EducationalOrganization",
+        "@id": "https://apstempath.com/#organization",
+        "name": "AP STEM PATH",
+        "url": "https://apstempath.com/"
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://apstempath.com/ap-simulator/#app",
+        "name": "学年別AP受講ロードマップ診断シミュレーター",
+        "description": "G7〜G10学年別AP履修プランおよびリカバリー設計自動診断ツール。",
+        "publisher": { "@id": "https://apstempath.com/#organization" }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 全ページ共通 Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="/" class="site-logo">
+        <span class="logo-accent">AP</span> STEM PATH
+      </a>
+
+      <button class="nav-menu-toggle" aria-label="Toggle navigation">☰ Menu</button>
+      
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="/" class="nav-item">Home</a></li>
+          <li><a href="/g7-roadmap/" class="nav-item">学年別ロードマップ</a></li>
+          <li><a href="/ap-simulator/" class="nav-item active">ロードマップ診断</a></li>
+          <li><a href="/results/" class="nav-item">実績・推移</a></li>
+          <li><a href="/pricing/" class="nav-item">料金案内</a></li>
+          <li><a href="/about/" class="nav-item">代表講師</a></li>
+          <li><a href="/contact/" class="nav-item cta-nav-item">無料相談</a></li>
+          
+          <li class="dropdown">
+            <a href="#" class="nav-item dropdown-toggle">AP 専科 ▾</a>
+            <ul class="dropdown-menu">
+              <li><a href="/ap-computer-science-a/">AP CS A (Java)</a></li>
+              <li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
+              <li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+              <li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <header class="page-header">
+      <div class="breadcrumb">INTERACTIVE DIAGNOSTIC TOOL</div>
+      <h1>学年別 AP受講ロードマップ診断シミュレーター</h1>
+      <p class="lead">現在の学年と興味を選択するだけで、最適な履修シークエンス（コースX/Y/Z等）と、再受験によるScore 5到達リカバリープランを即座に判定します。</p>
+    </header>
+
+    <section class="content-section">
+      <div class="sim-card">
+        <div class="sim-title">⚡ 10秒で診断！あなた専用のロードマップを生成</div>
+        
+        <!-- STEP 1: 学年選択 -->
+        <div class="sim-form-group">
+          <label class="sim-label" for="grade-select">STEP 1: 現在の学年を選択してください</label>
+          <select id="grade-select" class="sim-select" onchange="runSimulation()">
+            <option value="" disabled selected>学年を選択...</option>
+            <option value="G7">G7 (中学1年生相当)</option>
+            <option value="G8">G8 (中学2年生相当)</option>
+            <option value="G9">G9 (中学3年生相当)</option>
+            <option value="G10">G10 (高校1年生相当)</option>
+          </select>
+        </div>
+
+        <!-- STEP 2: G9の場合のコース志向選択 -->
+        <div class="sim-form-group" id="g9-option-group" style="display: none;">
+          <label class="sim-label" for="g9-preference">STEP 2: G9での学習スタイル・得意志向を選択</label>
+          <select id="g9-preference" class="sim-select" onchange="runSimulation()">
+            <option value="X">理数フルスロットル（G9でCS A ＆ Stats 2科目同時挑戦）</option>
+            <option value="Y" selected>数学・統計重視（G9でStats先行 ➔ G10 Calc BC）</option>
+            <option value="Z">CS・プログラミング重視（G9でCS A先行 ➔ G10 Calc BC）</option>
+          </select>
+        </div>
+
+        <!-- 診断結果カード -->
+        <div id="result-box" class="result-box">
+          <div id="result-title" class="result-course-title"></div>
+          <div id="result-desc" class="result-course-desc"></div>
+
+          <div style="font-weight:700; color:var(--accent-blue); margin-bottom:10px; font-size:0.95rem;">【判定された推奨履修シークエンス】</div>
+          <ul id="result-timeline" class="sim-timeline"></ul>
+
+          <a href="/contact/" class="cta-btn">この診断結果で無料相談を申し込む ➔</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- 全ページ共通 Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo"><span class="logo-accent">AP</span> STEM PATH</div>
+          <p class="footer-desc">G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに理数最難関4科目のScore 5完全制覇を目指します。</p>
+        </div>
+
+        <div class="footer-col">
+          <div class="footer-heading">ロードマップ & 概要</div>
+          <ul>
+            <li><a href="/">トップページ</a></li>
+            <li><a href="/g7-roadmap/">学年別ロードマップ</a></li>
+            <li><a href="/ap-simulator/">ロードマップ診断</a></li>
+            <li><a href="/results/">実績・スコア推移</a></li>
+            <li><a href="/pricing/">料金案内</a></li>
+            <li><a href="/about/">代表講師</a></li>
+            <li><a href="/contact/">無料相談・お問い合わせ</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <div class="footer-heading">AP 理数4科目 専科</div>
+          <ul>
+            <li><a href="/ap-computer-science-a/">AP CS A (Java)</a></li>
+            <li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
+            <li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+            <li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ハンバーガーメニュー開閉
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggleBtn = document.querySelector('.nav-menu-toggle');
+      const mainNav = document.querySelector('.main-nav');
+      if (toggleBtn && mainNav) {
+        toggleBtn.addEventListener('click', function() {
+          mainNav.classList.toggle('is-active');
+        });
+      }
+    });
+
+    // シミュレーション診断ロジック
+    function runSimulation() {
+      const grade = document.getElementById('grade-select').value;
+      const g9Group = document.getElementById('g9-option-group');
+      const g9Pref = document.getElementById('g9-preference').value;
+      const resultBox = document.getElementById('result-box');
+      const resultTitle = document.getElementById('result-title');
+      const resultDesc = document.getElementById('result-desc');
+      const resultTimeline = document.getElementById('result-timeline');
+
+      if (!grade) {
+        resultBox.style.display = 'none';
+        return;
+      }
+
+      if (grade === 'G9') {
+        g9Group.style.display = 'block';
+      } else {
+        g9Group.style.display = 'none';
+      }
+
+      resultBox.style.display = 'block';
+      resultTimeline.innerHTML = '';
+
+      let timelineData = [];
+
+      if (grade === 'G7') {
+        resultTitle.innerText = '★ 【G7スタート】王道フルスペックコース';
+        resultDesc.innerText = '中1から段階的に着手し、全科目で「初挑戦 ➔ 翌年リカバリー再受験」の安全網を確保できる理想的なコースです。';
+        timelineData = [
+          { grade: 'G7 (中1)', subject: 'AP Computer Science A (Java)', note: '受講＆初受験' },
+          { grade: 'G8 (中2)', subject: 'AP Statistics', note: '↺ CS A リカバリー再受験枠' },
+          { grade: 'G9 (中3)', subject: 'AP Calculus BC', note: '↺ Statistics / CS A リカバリー枠' },
+          { grade: 'G10 (高1)', subject: 'AP Physics C', note: '↺ Calculus BC リカバリー枠' },
+          { grade: 'G11 (高2)', subject: '', note: '↺ AP Physics C でScore 5を逃した場合の再受験枠' }
+        ];
+      } else if (grade === 'G8') {
+        resultTitle.innerText = '★ 【G8スタート】ステップアップ＆リカバリーコース';
+        resultDesc.innerText = '中2からスタートし、1年ごとに1科目ずつ着実に攻略しながらScore 5再受験枠を保持するプランです。';
+        timelineData = [
+          { grade: 'G8 (中2)', subject: 'AP Computer Science A', note: '受講＆初受験' },
+          { grade: 'G9 (中3)', subject: 'AP Statistics', note: '↺ CS A でScore 5を逃した場合の再受験枠' },
+          { grade: 'G10 (高1)', subject: 'AP Calculus BC', note: '↺ Stats でScore 5を逃した場合の再受験枠' },
+          { grade: 'G11 (高2)', subject: 'AP Physics C', note: '↺ Calculus BC でScore 5を逃した場合の再受験枠' }
+        ];
+      } else if (grade === 'G9') {
+        if (g9Pref === 'X') {
+          resultTitle.innerText = '★ 【G9スタート】コース X（理数ダブルスロットル）';
+          resultDesc.innerText = 'G9でCS AとStatisticsを同時攻略。出願に向け高密度で実績を積み上げる最速プランです。';
+          timelineData = [
+            { grade: 'G9 (中3)', subject: 'AP CS A ＆ AP Statistics（2科目同時）', note: '集中受講＆同時受講' },
+            { grade: 'G10 (高1)', subject: 'AP Calculus BC', note: '↺ Score 5 を取り損ねた科目の再受験枠' },
+            { grade: 'G11 (高2)', subject: 'AP Physics C', note: '↺ Score 5 を取り損ねた科目の再受験枠' }
+          ];
+        } else if (g9Pref === 'Y') {
+          resultTitle.innerText = '★ 【G9スタート】コース Y（数学・統計重視ライン）';
+          resultDesc.innerText = '統計学（Stats）から入り、G10の微積分（Calculus BC）、G11の物理（Physics C）へ繋げる王道数学ルートです。';
+          timelineData = [
+            { grade: 'G9 (中3)', subject: 'AP Statistics', note: '受講＆初受験' },
+            { grade: 'G10 (高1)', subject: 'AP Calculus BC', note: '↺ Stats の再受験枠' },
+            { grade: 'G11 (高2)', subject: 'AP Physics C', note: '↺ Calculus BC の再受験枠' }
+          ];
+        } else if (g9Pref === 'Z') {
+          resultTitle.innerText = '★ 【G9スタート】コース Z（CS・プログラミング重視ライン）';
+          resultDesc.innerText = 'G9でJavaプログラミング（CS A）を固め、G10で微積分、G11で物理Cへと繋げるCS重視ルートです。';
+          timelineData = [
+            { grade: 'G9 (中3)', subject: 'AP Computer Science A', note: '受講＆初受験' },
+            { grade: 'G10 (高1)', subject: 'AP Calculus BC', note: '↺ CS A の再受験枠' },
+            { grade: 'G11 (高2)', subject: 'AP Physics C', note: '↺ Calculus BC の再受験枠' }
+          ];
+        }
+      } else if (grade === 'G10') {
+        resultTitle.innerText = '★ 【G10スタート】最重要2科目 集中攻略コース';
+        resultDesc.innerText = '大学出願までに最も強力なアピールとなるCalculus BCとPhysics Cの2大最難関科目に集中する高効率プランです。';
+        timelineData = [
+          { grade: 'G10 (高1)', subject: 'AP Calculus BC', note: '受講＆初受験' },
+          { grade: 'G11 (高2)', subject: 'AP Physics C', note: '↺ Calculus BC の再受験枠（必要に応じて）' }
+        ];
+      }
+
+      timelineData.forEach(item => {
+        const li = document.createElement('li');
+        li.className = 'sim-timeline-item';
+        li.innerHTML = `<div class="sim-grade">${item.grade}</div>
+                        <div class="sim-subject">${item.subject}</div>
+                        <div class="sim-note">${item.note}</div>`;
+        resultTimeline.appendChild(li);
+      });
+    }
+  </script>
+</body>
+</html>

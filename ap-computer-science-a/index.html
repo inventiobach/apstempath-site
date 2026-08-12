@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AP Computer Science A（Java）完全攻略＆「Score 5」獲得法 | AP STEM PATH</title>
+  <meta name="description" content="AP理数学習の最初の1歩に最適とされるAP Computer Science A（Java）の専門指導ページ。オブジェクト指向、2次元配列、FRQ（記述式）の減点回避テクニック、早期成功体験を生み出す指導法を解説。">
+  <link rel="canonical" href="https://apstempath.com/ap-computer-science-a/">
+
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --bg-card: #1e293b;
+      --accent-blue: #38bdf8;
+      --accent-green: #34d399;
+      --accent-yellow: #fbbf24;
+      --accent-red: #f87171;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.7;
+    }
+
+    .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+
+    /* 全ページ共通 Header */
+    .site-header {
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .nav-container { display: flex; justify-content: space-between; align-items: center; position: relative; gap: 20px; }
+    .site-logo { font-size: 1.3rem; font-weight: 800; color: #f8fafc; text-decoration: none; letter-spacing: -0.5px; white-space: nowrap; flex-shrink: 0; }
+    .logo-accent { color: var(--accent-blue); }
+
+    .nav-menu-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--accent-blue);
+      font-size: 1.2rem;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .nav-list {
+      display: flex;
+      list-style: none;
+      gap: 16px;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-item {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+    .nav-item:hover, .nav-item.active { color: var(--accent-blue); }
+
+    .cta-nav-item {
+      background: var(--accent-blue);
+      color: #0f172a !important;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-weight: 700;
+      white-space: nowrap;
+      display: inline-block;
+    }
+    .cta-nav-item:hover { background: #7dd3fc !important; }
+
+    .dropdown { position: relative; }
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 0;
+      list-style: none;
+      min-width: 220px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
+    }
+    .dropdown:hover .dropdown-menu { display: block; }
+    .dropdown-menu a {
+      display: block;
+      padding: 10px 16px;
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.88rem;
+      white-space: nowrap;
+    }
+    .dropdown-menu a:hover { background: var(--border); color: var(--accent-blue); }
+
+    @media (max-width: 768px) {
+      .nav-menu-toggle { display: block; }
+      .main-nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #0f172a;
+        border-bottom: 1px solid var(--border);
+        padding: 20px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      }
+      .main-nav.is-active { display: block; }
+      .nav-list { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .dropdown { width: 100%; }
+      .dropdown-menu {
+        position: static;
+        display: block;
+        background: rgba(30, 41, 59, 0.5);
+        border: none;
+        box-shadow: none;
+        padding-left: 15px;
+        margin-top: 8px;
+        border-radius: 6px;
+      }
+    }
+
+    /* Page Header */
+    .page-header { padding: 40px 0 30px; border-bottom: 1px solid var(--border); }
+    .breadcrumb { font-size: 0.85rem; color: var(--accent-blue); margin-bottom: 12px; font-weight: 700; letter-spacing: 0.5px; }
+    h1 { font-size: 2.1rem; line-height: 1.3; font-weight: 800; margin-bottom: 15px; }
+    .lead { font-size: 1.05rem; color: var(--text-muted); }
+
+    .content-section { padding: 45px 0; border-bottom: 1px solid var(--border); }
+    h2 { font-size: 1.5rem; color: var(--text-main); margin-bottom: 20px; border-left: 4px solid var(--accent-blue); padding-left: 12px; }
+    h3 { font-size: 1.2rem; color: var(--accent-blue); margin: 25px 0 12px; }
+    p { margin-bottom: 16px; color: #cbd5e1; font-size: 0.98rem; }
+
+    .feature-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      margin: 25px 0;
+    }
+    .feature-title { font-weight: 700; color: var(--accent-green); margin-bottom: 10px; font-size: 1.1rem; }
+
+    .code-box {
+      background: #020617;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 16px;
+      font-family: "Fira Code", Consolas, Monaco, monospace;
+      font-size: 0.9rem;
+      color: #e2e8f0;
+      overflow-x: auto;
+      margin: 15px 0;
+    }
+    .code-comment { color: #64748b; }
+    .code-keyword { color: var(--accent-blue); }
+    .code-alert { color: var(--accent-red); }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 20px; }
+    .topic-card { background: var(--bg-card); border: 1px solid var(--border); padding: 20px; border-radius: 8px; }
+    .topic-card h4 { color: var(--accent-blue); margin-bottom: 8px; font-size: 1.05rem; }
+    .topic-card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0; line-height: 1.5; }
+
+    .faq-item { margin-bottom: 16px; background: var(--bg-card); padding: 20px; border-radius: 8px; border: 1px solid var(--border); }
+    .faq-q { font-weight: 700; margin-bottom: 8px; color: var(--accent-blue); font-size: 1rem; }
+    .faq-a { color: #cbd5e1; font-size: 0.92rem; line-height: 1.6; }
+
+    .next-step-container { margin: 50px 0 20px; }
+    .next-step-card {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border: 1px solid var(--accent-blue);
+      border-radius: 12px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(56, 189, 248, 0.15);
+    }
+    .next-step-label { color: var(--accent-blue); font-size: 0.8rem; font-weight: 800; letter-spacing: 1px; margin-bottom: 8px; }
+    .next-step-title { font-size: 1.4rem; color: #f8fafc; font-weight: 800; margin-bottom: 10px; }
+    .next-step-desc { color: var(--text-muted); font-size: 0.95rem; max-width: 600px; margin: 0 auto 20px; }
+    .next-step-button {
+      display: inline-block;
+      background: var(--accent-blue);
+      color: #0f172a;
+      font-weight: 800;
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .next-step-button:hover { background: #7dd3fc; }
+
+    .site-footer { background: #020617; border-top: 1px solid var(--border); padding: 50px 0 30px; color: var(--text-muted); font-size: 0.88rem; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .footer-logo { font-size: 1.2rem; font-weight: 800; color: #f8fafc; margin-bottom: 12px; }
+    .footer-desc { line-height: 1.6; max-width: 360px; font-size: 0.85rem; }
+    .footer-heading { color: #f8fafc; font-weight: 700; margin-bottom: 12px; font-size: 0.92rem; }
+    .footer-col ul { list-style: none; padding: 0; margin: 0; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom { text-align: center; border-top: 1px solid #1e293b; padding-top: 20px; font-size: 0.8rem; }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 1.6rem; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+  </style>
+
+  <!-- GEO/SEO 構造化データ（JSON-LD） -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Course",
+        "@id": "https://apstempath.com/ap-computer-science-a#course",
+        "name": "AP Computer Science A（Java）専門対策コース",
+        "description": "受講生を対象に、Javaの基礎からオブジェクト指向、配列走査、College BoardのFRQ採点基準に準拠したAP CS A対策を行う特別プログラム。",
+        "provider": {
+          "@type": "EducationalOrganization",
+          "name": "AP STEM PATH"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "プログラミング未経験でもAP CS Aに合格できますか？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "はい、十分に可能です。AP CS Aは高度な数学（微積分等）を必要とせず、基本的なタイピングと「代数（Algebra 1レベル）」の変数・関数概念があれば着手できます。コードを実行して即座にフィードバックが得られるプログラミングは、AP理数科目の最初の1歩として最も適した入門科目です。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "AP CS Aの記述式試験（FRQ）で生徒が最も点数を落としやすいポイントはどこですか？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "最も多い失点要因は、配列（ArrayList / 2D Array）の境界値エラー（IndexOutOfBoundsException）、null参照のチェック漏れ、および変数のスコープ誤認です。College Boardの採点基準（Rubric）では、これらは1点単位のダイレクトな減点対象となるため、徹底的なデバッグと境界値トレーニングを行います。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 全ページ共通 Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="/" class="site-logo">
+        <span class="logo-accent">AP</span> STEM PATH
+      </a>
+
+      <button class="nav-menu-toggle" aria-label="Toggle navigation">☰ Menu</button>
+      
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="/" class="nav-item">Home</a></li>
+          <li><a href="/g7-roadmap/" class="nav-item">学年別ロードマップ</a></li>
+          <li><a href="/ap-simulator/" class="nav-item">ロードマップ診断</a></li>
+          <li><a href="/results/" class="nav-item">実績・推移</a></li>
+          <li><a href="/pricing/" class="nav-item">料金案内</a></li>
+          <li><a href="/about/" class="nav-item">代表講師</a></li>
+          <li><a href="/contact/" class="nav-item cta-nav-item">無料相談</a></li>
+          
+          <li class="dropdown">
+            <a href="#" class="nav-item dropdown-toggle">AP 専科 ▾</a>
+            <ul class="dropdown-menu">
+              <li><a href="/ap-computer-science-a/">AP CS A (Java)</a></li>
+              <li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
+              <li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+              <li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <header class="page-header">
+      <div class="breadcrumb">SUBJECT SPECIALIZED GUIDE</div>
+      <h1>AP理数学習の「ファーストステップ」に最適<br>AP Computer Science A（Java）完全攻略法</h1>
+      <p class="lead">なぜ最初のAP科目にJava（CS A）を選ぶのが最強の戦略なのか？高度な数学を必要とせず、論理的思考力の骨格を創り出し、早期に「大学レベル合格」という無敵の自信を獲得する決定版プログラム。</p>
+    </header>
+
+    <!-- ★ 汎用化・最適化セクション 1 -->
+    <section class="content-section">
+      <h2>1. なぜ最初の1歩として「AP Computer Science A」が選ばれるのか？</h2>
+      <p>AP理数最難関4科目（CS A / Statistics / Calculus BC / Physics C）の中で、<strong>唯一「微積分や高度な数学知識を前提としない」のがAP Computer Science A</strong>です。</p>
+
+      <p>AP挑戦の初期段階でJavaをマスターし、AP CS Aに合格することには、単なる資格獲得以上の学習効果が存在します。</p>
+
+      <div class="feature-box">
+        <div class="feature-title">CS Aを最初の1歩にする3つの圧倒的メリット</div>
+        <p style="margin-bottom:10px; font-size:0.95rem; line-height: 1.8;">
+          1. <strong>試行錯誤しやすく学習ハードルが低い:</strong> 抽象的な数式と違い、Javaコードは「実行結果」が即座に可視化されるため、受講生が自発的に試行錯誤（デバッグ）しやすい。<br>
+          2. <strong>理数思考のインフラ化:</strong> 変数・ループ・条件分岐・配列走査といった概念は、その後に受講するAP Statisticsの確率思考やCalculusのアルゴリズム的思考の強固な土台となる。<br>
+          3. <strong>早期成功体験の獲得:</strong> 「College Boardの公式認定（Score 3+ / 5）」を早い段階で得るという実績が、その後のSTEM学習に対する圧倒的な自己肯定感（Self-Efficacy）を生む。
+        </p>
+      </div>
+    </section>
+
+<!-- ★ セクション 2: Code Box ＆ Rubric減点トラップ（レイアウト整形版） -->
+    <section class="content-section">
+      <h2>2. College Board Rubric（採点基準）と受験生が陥る減点トラップ</h2>
+      <p>AP CS Aの試験は、選択式（MCQ 50%）と記述式（FRQ 50%）で構成されます。Score 5を獲得するためには、FRQ（手書きでJavaコードを執筆する試験）において、<strong>College Boardの採点官（Rader）が1点を差し引く「バグ」</strong>を完全に防ぐ必要があります。</p>
+
+      <h3>受講生が最も落としやすい「バグ・減点」の代表例</h3>
+
+      <div class="topic-card" style="margin-bottom:20px;">
+        <h4 style="color:#f87171;">⚠️ トラップ1: 配列境界値エラー（IndexOutOfBoundsException）</h4>
+        <p>特に <code>ArrayList</code> の要素削除や2次元配列（<code>2D Array</code>）の行・列走査において、ループ条件式を <code>&lt; list.size()</code> ではなく <code>&lt;= list.size()</code> と書いてしまい、直ちに1点減点（またはアルゴリズム不成立による複数点失点）となります。</p>
+      </div>
+
+      <!-- ★ pre/codeタグに変更し、改行とインデントを100%保持 -->
+      <div class="code-box" style="background:#020617; border:1px solid var(--border); border-radius:8px; padding:20px; font-family:'Fira Code', Consolas, Monaco, monospace; font-size:0.9rem; line-height:1.6; color:#e2e8f0; overflow-x:auto; margin:20px 0;">
+<pre style="margin:0; font-family:inherit; white-space:pre;"><span class="code-comment" style="color:#64748b;">// ❌ 減点されるコード例（境界値オーバー）</span>
+<span class="code-keyword" style="color:var(--accent-blue);">for</span> (<span class="code-keyword" style="color:var(--accent-blue);">int</span> i = 0; i <span class="code-alert" style="color:var(--accent-red); font-weight:bold;"><=</span> list.size(); i++) {
+    <span class="code-comment" style="color:#64748b;">// list.get(i) で IndexOutOfBoundsException が発生</span>
+}
+
+<span class="code-comment" style="color:#64748b;">// ⭕️ 減点を回避する正確なRubric適応コード</span>
+<span class="code-keyword" style="color:var(--accent-blue);">for</span> (<span class="code-keyword" style="color:var(--accent-blue);">int</span> i = 0; i <span class="code-keyword" style="color:var(--accent-blue);">&lt;</span> list.size(); i++) {
+    <span class="code-comment" style="color:#64748b;">// 境界値を正確に制御</span>
+}</pre>
+      </div>
+
+      <div class="topic-card">
+        <h4 style="color:#f87171;">⚠️ トラップ2: オブジェクト比較における <code>==</code> と <code>.equals()</code> の混同</h4>
+        <p>基本データ型（<code>int</code>, <code>double</code>, <code>boolean</code>）と参照型（<code>String</code>, オブジェクト）のメモリ構造の違いを理解していないと、<code>String</code> の内容比較に <code>==</code> を使ってしまい、論理エラーを起こします。</p>
+      </div>
+    </section>
+    
+    <!-- ★ セクション 3: College Board Unit 1-10 Grid -->
+    <section class="content-section">
+      <h2>3. 習得する核心ユニット（College Board Unit 1-10）</h2>
+      <p>当塾の指導では、単に構文を暗記させるのではなく、AP試験で最も配点が高い重要ユニットを短期間で直観的に理解させます。</p>
+
+      <div class="grid-2">
+        <div class="topic-card">
+          <h4>Unit 1 - 4: 基礎構文・反復・制御</h4>
+          <p>変数の型、`if-else` 条件分岐、`for` / `while` ループのネスト処理。計算量とアルゴリズムの基礎を徹底追及。</p>
+        </div>
+        <div class="topic-card">
+          <h4>Unit 5: クラスの設計（Writing Classes）</h4>
+          <p>インスタンス変数、コンストラクタ、`public`/`private` カプセル化、`this` キーワードの厳密な理解。</p>
+        </div>
+        <div class="topic-card">
+          <h4>Unit 6 - 8: 配列・ArrayList・2D Array</h4>
+          <p>AP CS A最大の最難関領域。1次元・2次元配列の縦横走査、アルゴリズム（検索・ソート）の完全手書実装。</p>
+        </div>
+        <div class="topic-card">
+          <h4>Unit 9 - 10: 継承・ポリモーフィズム・再帰</h4>
+          <p>`super` 参照、オーバーライド、再帰呼び出し（Recursion）の実行スタック追跡（Trace）能力の錬成。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ★ 汎用化・最適化セクション 4: 受講生A君の事例 -->
+    <section class="content-section">
+      <h2>4. 受講生のプログレスとリカバリー設計</h2>
+      <p>当塾では、初回の受験において「完璧なScore 5」のみを強要しません。CS Aを早期に受講する最大の目的は、<strong>「まずCollege Boardの公式スコア（大学単位認定レベル）を確実に手に入れ、必要に応じて翌年の再受験で最高得点へ底上げする」</strong>という安全網（リカバリー設計）にあります。</p>
+
+      <div class="feature-box" style="border-left: 4px solid var(--accent-blue);">
+        <div class="feature-title" style="color:var(--accent-blue);">受講生A君の成長事例（G7：CS A早期挑戦）</div>
+        <p style="margin-bottom:0; font-size:0.95rem; line-height:1.8;">
+          ・<strong>G7（中1・5月）:</strong> 初受験で <strong>Score 3 獲得</strong>（早い段階で大学1年相当のJavaプログラミング単位レベルをクリア）<br>
+          ・<strong>G8（中2・5月）:</strong> 弱点だった2次元配列とポリモーフィズムの記述（FRQ）を完全修正し、再受験で <strong>Score 4 / 5 獲得</strong><br>
+          <span style="color:var(--accent-green); font-weight:700;">➔ G7で早期受験していたからこそ、精神的プレッシャーゼロでその後のAP Statisticsでの高スコア化を達成できています。</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ★ 汎用化・最適化セクション 5: FAQ -->
+    <section class="content-section">
+      <h2>5. AP CS Aに関するQ&A</h2>
+      <div class="faq-item">
+        <div class="faq-q">Q. プログラミング未経験の中1（G7）でもAP CS Aに合格できますか？</div>
+        <div class="faq-a">はい、十分に可能です。AP CS Aは高度な数学（微積分等）を必要とせず、基本的なタイピングと「代数（Algebra 1レベル）」の変数・関数概念があれば着手できます。コードを実行して即座にフィードバックが得られるプログラミングは、中1の認知特性に最も適した理数系入門科目です。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Q. AP CS Aの記述式試験（FRQ）で生徒が最も点数を落としやすいポイントはどこですか？</div>
+        <div class="faq-a">最も多い失点要因は、配列（ArrayList / 2D Array）の境界値エラー（IndexOutOfBoundsException）、null参照のチェック漏れ、および変数のスコープ誤認です。College Boardの採点基準（Rubric）では、これらは1点単位のダイレクトな減点対象となるため、徹底的なデバッグと境界値トレーニングを行います。</div>
+      </div>
+    </section>
+  </div>
+
+  <!-- 次ステップ導線（AP Statisticsへ） -->
+  <div class="container">
+    <div class="next-step-container">
+      <div class="next-step-card">
+        <div class="next-step-label">NEXT ROADMAP STEP</div>
+        <h3 class="next-step-title">AP Statistics 専科ページへ進む ➔</h3>
+        <p class="next-step-desc">CS Aで培ったプログラミングの論理思考を活かし、FRQの「In Context（文脈記述）」を攻略する次なるステップ。</p>
+        <a href="/ap-statistics/" class="next-step-button">AP Statistics の攻略法を見る</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 全ページ共通 Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo"><span class="logo-accent">AP</span> STEM PATH</div>
+          <p class="footer-desc">戦略的AP受験。リカバリー設計と専門指導でG11までに理数最難関4科目のScore 5完全制覇を目指します。</p>
+        </div>
+
+        <div class="footer-col">
+          <div class="footer-heading">ロードマップ & 概要</div>
+          <ul>
+            <li><a href="/">トップページ</a></li>
+            <li><a href="/g7-roadmap/">学年別ロードマップ</a></li>
+            <li><a href="/ap-simulator/">ロードマップ診断</a></li>
+            <li><a href="/results/">実績・スコア推移</a></li>
+            <li><a href="/pricing/">料金案内</a></li>
+            <li><a href="/about/">代表講師</a></li>
+            <li><a href="/contact/">無料相談・お問い合わせ</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <div class="footer-heading">AP 理数4科目 専科</div>
+          <ul>
+            <li><a href="/ap-computer-science-a/">AP CS A (Java)</a></li>
+            <li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
+            <li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+            <li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggleBtn = document.querySelector('.nav-menu-toggle');
+      const mainNav = document.querySelector('.main-nav');
+      if (toggleBtn && mainNav) {
+        toggleBtn.addEventListener('click', function() {
+          mainNav.classList.toggle('is-active');
+        });
+      }
+    });
+  </script>
+</body>
+</html>
