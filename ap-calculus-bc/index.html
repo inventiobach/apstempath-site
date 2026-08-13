@@ -1,13 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AP Calculus BC完全攻略＆「Score 5」獲得法 | AP STEM PATH</title>
-  <meta name="description" content="AP Calculus BCのScore 5を獲得するための専門指導ページ。ABをスキップしてBCに挑む論理的理由、Taylor Polynomials（テイラー級数）、MVT/IVTのRubric条件明記、FRQ減点回避法を徹底解説。">
-  <link rel="canonical" href="https://apstempath.com/ap-calculus-bc/">
-
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AP Calculus BC完全攻略＆「Score 5」獲得法 | AP STEM PATH</title>
+<meta content="AP Calculus BCのScore 5を獲得するための専門指導ページ。ABをスキップしてBCに挑む論理的理由、Taylor Polynomials（テイラー級数）、MVT/IVTのRubric条件明記、FRQ減点回避法を徹底解説。" name="description"/>
+<link href="https://apstempath.com/ap-calculus-bc/" rel="canonical"/>
+<style>
     :root {
       --bg-dark: #0f172a;
       --bg-card: #1e293b;
@@ -219,49 +219,75 @@
       .footer-grid { grid-template-columns: 1fr; gap: 24px; }
     }
   </style>
-
-  <!-- GEO/SEO 構造化データ（JSON-LD） -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Course",
-        "@id": "https://apstempath.com/ap-calculus-bc#course",
-        "name": "AP Calculus BC 専門対策コース",
-        "description": "受講生を対象に、AP Calculus ABをスキップしてBC（Taylor級数、極座標、微分方程式等）を攻略し、FRQの定理適用条件（MVT/IVT）を完備してScore 5を目指す専門指導プログラム。",
-        "provider": {
-          "@type": "EducationalOrganization",
-          "name": "AP STEM PATH"
-        }
+<!-- GEO/SEO 構造化データ（JSON-LD） -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "EducationalOrganization",
+      "@id": "https://apstempath.com/#organization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/",
+      "description": "G7〜G10学年別AP理数最難関4科目（CS A / Statistics / Calculus BC / Physics C）専門指導塾。",
+      "founder": {
+        "@type": "Person",
+        "name": "Founder & Lead Instructor",
+        "jobTitle": "Lead STEM Educator & AI Architect",
+        "knowsAbout": [
+          "AP Calculus BC",
+          "AP Computer Science A",
+          "AP Statistics",
+          "AP Physics C",
+          "STEM University Admissions Strategy"
+        ]
       },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "AP STEM Intensive Courses",
+        "itemListElement": [
           {
-            "@type": "Question",
-            "name": "AP Calculus ABを受験せずに、いきなりCalculus BCを受験するのは無謀ですか？",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "いいえ、全く無謀ではありません。AP Calculus BCのカリキュラムにはABの内容（微分・積分の基礎）が100%含まれており、単にUnit 9-10（極座標・パラメータ・Infinite Series/Taylor級数）が追加されているだけです。また、BCを受験すると『AB Subscore』も同時に取得できるため、最初からBCに絞って学習するのが最も時間効率の良い戦略です。"
-            }
+            "@type": "Course",
+            "name": "AP Computer Science A Mastery",
+            "courseCode": "CSA-5",
+            "url": "https://apstempath.com/ap-computer-science-a/"
           },
           {
-            "@type": "Question",
-            "name": "AP Calculus BCの記述式問題（FRQ）で計算結果が合っているのに減点される原因は何ですか？",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "College Boardの採点基準（Rubric）では、平均値の定理（MVT）や中間値の定理（IVT）を適用する際に『関数 f(x) が閉区間で連続（Continuous）かつ開区間で微分可能（Differentiable）』という前提条件を明記していない場合、導出過程や答えが正しくても1〜2点のダイレクトな減点対象となります。"
-            }
+            "@type": "Course",
+            "name": "AP Calculus BC Intensive",
+            "courseCode": "CALC-BC-5",
+            "url": "https://apstempath.com/ap-calculus-bc/"
+          },
+          {
+            "@type": "Course",
+            "name": "AP Statistics Mastery",
+            "courseCode": "STATS-5",
+            "url": "https://apstempath.com/ap-statistics/"
+          },
+          {
+            "@type": "Course",
+            "name": "AP Physics C Intensive",
+            "courseCode": "PHYS-C-5",
+            "url": "https://apstempath.com/ap-physics-c/"
           }
         ]
-      }
-    ]
-  }
-  </script>
-
-  <!-- MathJax v3 (LaTeX数式レンダリングライブラリ) -->
-  <script>
+      },
+      "alumni": [
+        {
+          "@type": "EducationalOrganization",
+          "name": "Georgia Institute of Technology"
+        },
+        {
+          "@type": "EducationalOrganization",
+          "name": "University of California, Berkeley"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<!-- MathJax v3 (LaTeX数式レンダリングライブラリ) -->
+<script>
     window.MathJax = {
       tex: {
         inlineMath: [['$', '$'], ['\\(', '\\)']],
@@ -269,211 +295,182 @@
       }
     };
   </script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G474CNMCQT"></script>
-  <script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-G474CNMCQT"></script>
+<script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
     gtag('config', 'G-G474CNMCQT');
   </script>
-
-
 </head>
 <body>
-
-  <!-- 全ページ共通 Header -->
-  <header class="site-header">
-    <div class="container nav-container">
-      <a href="/" class="site-logo">
-        <span class="logo-accent">AP</span> STEM PATH
+<!-- 全ページ共通 Header -->
+<header class="site-header">
+<div class="container nav-container">
+<a class="site-logo" href="/">
+<span class="logo-accent">AP</span> STEM PATH
       </a>
-
-      <button class="nav-menu-toggle" aria-label="Toggle navigation">☰ Menu</button>
-      
-      <nav class="main-nav">
-        <ul class="nav-list">
-          <li><a href="/" class="nav-item">Home</a></li>
-          <li><a href="/g7-roadmap/" class="nav-item">学年別ロードマップ</a></li>
-          <li><a href="/ap-simulator/" class="nav-item">ロードマップ診断</a></li>
-          <li><a href="/results/" class="nav-item">実績・推移</a></li>
-          <li><a href="/pricing/" class="nav-item">料金案内</a></li>
-          <li><a href="/about/" class="nav-item">代表講師</a></li>
-          <li><a href="/contact/" class="nav-item cta-nav-item">無料相談</a></li>
-          
-          <li class="dropdown">
-            <a href="#" class="nav-item dropdown-toggle">AP 専科 ▾</a>
-            <ul class="dropdown-menu">
-              <li><a href="/ap-computer-science-a/">AP CS A (Java)</a></li>
-              <li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
-              <li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
-              <li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <div class="container">
-    <header class="page-header">
-      <div class="breadcrumb">SUBJECT SPECIALIZED GUIDE</div>
-      <h1>AP Calculus BC 完全攻略法<br>ABジャンプオーバー＆「Score 5」獲得ロードマップ</h1>
-      <p class="lead">なぜABを挟まず直接BCを狙うのか？高校数学の最高峰・微積分を効率的に制覇し、Taylor Polynomials（テイラー級数）や採点基準（Rubric）の前提条件明記を完備する圧倒的攻略ガイド。</p>
-    </header>
-
-    <section class="content-section">
-      <h2>1. なぜ「AB」をスキップして「BC」に直接挑むのか？</h2>
-      <p>多くの学校ではCalculus ABを1年受講した後にBCに進むカリキュラムを採用していますが、大学出願のタイムライン（G11までのポートフォリオ完成）を考慮すると、これは大きな時間のロスになります。</p>
-
-      <p>AP Calculus BCの試験範囲は、<strong>ABの内容（全8ユニット）を100%内包</strong>し、そこに「Unit 9 (Parametric/Vector/Polar)」と「Unit 10 (Infinite Sequences and Series)」を追加した構造になっています。</p>
-
-      <div class="feature-box">
-        <div class="feature-title">Calculus BCに直接挑む3つの合理的理由</div>
-        <p style="margin-bottom:10px; font-size:0.95rem; line-height: 1.8;">
-          1. <strong>AB Subscore セーフティネット:</strong> BCを受験すると、ABに相当する範囲だけのスコア（AB Subscore）が同時に公式発行されます。BC全体で仮に伸び悩んでも、AB分野でScore 4や5を獲得していれば単位認定や実績として認められます。<br>
-          2. <strong>AP Physics C への必須ブリッジ:</strong> 最難関の AP Physics C (Mechanics / E&M) を攻略するには、微分方程式やTaylor級数、ベクトル解析の完修が絶対条件となります。<br>
+<button aria-label="Toggle navigation" class="nav-menu-toggle">☰ Menu</button>
+<nav class="main-nav">
+<ul class="nav-list">
+<li><a class="nav-item" href="/">Home</a></li>
+<li><a class="nav-item" href="/g7-roadmap/">学年別ロードマップ</a></li>
+<li><a class="nav-item" href="/ap-simulator/">ロードマップ診断</a></li>
+<li><a class="nav-item" href="/results/">実績・推移</a></li>
+<li><a class="nav-item" href="/pricing/">料金案内</a></li>
+<li><a class="nav-item" href="/about/">代表講師</a></li>
+<li><a class="nav-item cta-nav-item" href="/contact/">無料相談</a></li>
+<li class="dropdown">
+<a class="nav-item dropdown-toggle" href="#">AP 専科 ▾</a>
+<ul class="dropdown-menu">
+<li><a href="/ap-computer-science-a/">AP CS A (Java)</a></li>
+<li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
+<li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+<li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="container">
+<header class="page-header">
+<div class="breadcrumb">SUBJECT SPECIALIZED GUIDE</div>
+<h1>AP Calculus BC 完全攻略法<br/>ABジャンプオーバー＆「Score 5」獲得ロードマップ</h1>
+<p class="lead">なぜABを挟まず直接BCを狙うのか？高校数学の最高峰・微積分を効率的に制覇し、Taylor Polynomials（テイラー級数）や採点基準（Rubric）の前提条件明記を完備する圧倒的攻略ガイド。</p>
+</header>
+<section class="content-section">
+<h2>1. なぜ「AB」をスキップして「BC」に直接挑むのか？</h2>
+<p>多くの学校ではCalculus ABを1年受講した後にBCに進むカリキュラムを採用していますが、大学出願のタイムライン（G11までのポートフォリオ完成）を考慮すると、これは大きな時間のロスになります。</p>
+<p>AP Calculus BCの試験範囲は、<strong>ABの内容（全8ユニット）を100%内包</strong>し、そこに「Unit 9 (Parametric/Vector/Polar)」と「Unit 10 (Infinite Sequences and Series)」を追加した構造になっています。</p>
+<div class="feature-box">
+<div class="feature-title">Calculus BCに直接挑む3つの合理的理由</div>
+<p style="margin-bottom:10px; font-size:0.95rem; line-height: 1.8;">
+          1. <strong>AB Subscore セーフティネット:</strong> BCを受験すると、ABに相当する範囲だけのスコア（AB Subscore）が同時に公式発行されます。BC全体で仮に伸び悩んでも、AB分野でScore 4や5を獲得していれば単位認定や実績として認められます。<br/>
+          2. <strong>AP Physics C への必須ブリッジ:</strong> 最難関の AP Physics C (Mechanics / E&amp;M) を攻略するには、微分方程式やTaylor級数、ベクトル解析の完修が絶対条件となります。<br/>
           3. <strong>CS A / Stats で鍛えた論理思考の直結:</strong> 事前にアルゴリズムや統計推論を学んできた生徒にとって、関数の極限や級数の収束判定は極めて自然に理解できる領域です。
         </p>
-      </div>
-    </section>
-
-    <section class="content-section">
-      <h2>2. College Board Rubricの最大の落とし穴：定理の「前提条件（Conditions）」明記</h2>
-      <p>AP Calculus BCの記述式（FRQ）において、毎年数千人の受験生が<strong>「計算は完璧なのに、前提条件をひとこと抜かしただけで失点する」</strong>という罠に直面します。</p>
-
-      <p>特に<strong>平均値の定理（Mean Value Theorem: MVT）</strong>、<strong>中間値の定理（Intermediate Value Theorem: IVT）</strong>、および<strong>極値の定理（Extreme Value Theorem: EVT）</strong>を答案で使用する際、College Boardの採点官（Rader）は条件の明記を絶対条件として求めてきます。</p>
-
-      <h3>MVT（平均値の定理）適用時の答案比較</h3>
-
+</div>
+</section>
+<section class="content-section">
+<h2>2. College Board Rubricの最大の落とし穴：定理の「前提条件（Conditions）」明記</h2>
+<p>AP Calculus BCの記述式（FRQ）において、毎年数千人の受験生が<strong>「計算は完璧なのに、前提条件をひとこと抜かしただけで失点する」</strong>という罠に直面します。</p>
+<p>特に<strong>平均値の定理（Mean Value Theorem: MVT）</strong>、<strong>中間値の定理（Intermediate Value Theorem: IVT）</strong>、および<strong>極値の定理（Extreme Value Theorem: EVT）</strong>を答案で使用する際、College Boardの採点官（Rader）は条件の明記を絶対条件として求めてきます。</p>
+<h3>MVT（平均値の定理）適用時の答案比較</h3>
 <div class="compare-box">
-        <div class="bad-example">
-          <div class="example-title" style="color:var(--accent-red);">❌ 減点される回答（1〜2点の失点）</div>
-          <p style="font-size:0.9rem; margin:0; color:#94a3b8; line-height:1.6;">
-            "By MVT, $\frac{f(5) - f(1)}{5 - 1} = f'(c) = 2$, so there exists $c \in (1, 5)$ where $f'(c) = 2$."<br>
-            <span style="color:var(--accent-red); font-size:0.8rem;">※ 理由：計算自体は完全に正しいが、$f(x)$ が「連続」かつ「微分可能」である条件を明記していないため、MVTポイントが剥奪される。</span>
-          </p>
-        </div>
-
-        <div class="good-example">
-          <div class="example-title" style="color:var(--accent-green);">⭕️ 満点を獲得するRubric適合回答</div>
-          <p style="font-size:0.9rem; margin:0; color:#e2e8f0; line-height:1.6;">
-            "<strong>Since $f(x)$ is differentiable on $(1, 5)$, it is also continuous on $[1, 5]$.</strong> Therefore, by the Mean Value Theorem, there exists at least one value $c$ in $(1, 5)$ such that $f'(c) = \frac{f(5) - f(1)}{5 - 1} = 2$."<br>
-            <span style="color:var(--accent-green); font-size:0.8rem;">※ 理由：DifferentiableおよびContinuousの前提条件を冒頭で提示し、論理的帰結としてMVTを適用しているため完全満点。</span>
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="content-section">
-      <h2>3. 最難関領域：Unit 10 (Series) と Lagrange Error Bound の攻略</h2>
-      <p>AP Calculus BCで Score 5 を獲得できるかどうかを分ける最大の決戦場が <strong>Unit 10（Infinite Sequences and Series）</strong> です。</p>
-
-      <p>当塾では、単なる数式の丸暗記ではなく、幾何学的イメージと代数操作を完全に一致させるオリジナル指導を行います。</p>
-
-      <div class="grid-2">
-        <div class="topic-card">
-          <h4>収束判定法（Convergence Tests）の体系化</h4>
-          <p>Integral Test, Ratio Test, Alternating Series Test, Comparison Test の選択チャートを頭の中に構築し、問題を見た瞬間に最適な判定法を叩き出すトレーニング。</p>
-        </div>
-        <div class="topic-card">
-          <h4>Taylor / Maclaurin Polynomials の導出</h4>
-          <p>$e^x, \sin(x), \cos(x), \frac{1}{1-x}$ などの基本級数展開をベースに、合成・微分・積分による迅速なマクローリン級数の生成。</p>
-        </div>
-        <div class="topic-card">
-          <h4>Lagrange Error Bound（誤差の評価）</h4>
-          <p>多くの受験生が諦める「誤差の上限評価」。$|R_n(x)| \le \frac{M}{(n+1)!}|x-c|^{n+1}$ における最大値 $M$ の特定手順を完全パターン化。</p>
-        </div>
-        <div class="topic-card">
-          <h4>微分方程式とEuler's Method</h4>
-          <p>変数分離法（Separable Differential Equations）における積分定数 $C$ の即時特定と、オイラー法（Euler's Method）の数値近似ステップ。</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="content-section">
-      <h2>4. 受講生のプログレス：Calculus BCを完成させるロードマップ</h2>
-      <p>早期からCS AやStatisticsでスコアを蓄積してきた受講生A君は、AP Calculus BCのScore 5獲得に向けて最終調整を行っています。</p>
-
-      <div class="feature-box" style="border-left: 4px solid var(--accent-green);">
-        <div class="feature-title" style="color:var(--accent-green);">受講生A君の取り組み事例</div>
-        <p style="margin-bottom:0; font-size:0.95rem; line-height:1.8;">
-          ・<strong>1年目:</strong> AP Calculus BC の最難関ユニット（Taylor Series / Differential Equations）を集中攻略。<br>
-          ・<strong>本試験目標:</strong> 5月の本試験で Calculus BC の Score 5 を獲得し、同時に他科目のスコアも最終底上げ。<br>
-          <span style="color:var(--accent-blue); font-weight:700;">➔ 早めにCalculus BCを終わらせることで、AP Physics C（理数系最難関物理）への無敵の架け橋が完成します。</span>
-        </p>
-      </div>
-    </section>
-
-    <section class="content-section">
-      <h2>5. AP Calculus BCに関するQ&A</h2>
-      <div class="faq-item">
-        <div class="faq-q">Q. AP Calculus ABを受験せずに、いきなりCalculus BCを受験するのは無謀ですか？</div>
-        <div class="faq-a">いいえ、全く無謀ではありません。AP Calculus BCのカリキュラムにはABの内容（微分・積分の基礎）が100%含まれており、単にUnit 9-10（極座標・パラメータ・Infinite Series/Taylor級数）が追加されているだけです。また、BCを受験すると『AB Subscore』も同時に取得できるため、最初からBCに絞って学習するのが最も時間効率の良い戦略です。</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">Q. AP Calculus BCの記述式問題（FRQ）で計算結果が合っているのに減点される原因は何ですか？</div>
-        <div class="faq-a">College Boardの採点基準（Rubric）では、平均値の定理（MVT）や中間値の定理（IVT）を適用する際に『関数 f(x) が閉区間で連続（Continuous）かつ開区間で微分可能（Differentiable）』という前提条件を明記していない場合、導出過程や答えが正しくても1〜2点のダイレクトな減点対象となります。</div>
-      </div>
-    </section>
-  </div>
-
-  <!-- 次ステップ導線（AP Physics Cへ） -->
-  <div class="container">
-    <div class="next-step-container">
-      <div class="next-step-card">
-        <div class="next-step-label">NEXT ROADMAP STEP</div>
-        <h3 class="next-step-title">AP Physics C (Mechanics & E/M) 専科ページへ進む ➔</h3>
-        <p class="next-step-desc">Calculus BC（微積分）を駆使し、最難関物理モデルを導出・攻略する最終ステップ。</p>
-        <a href="/ap-physics-c/" class="next-step-button">AP Physics C の攻略法を見る</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- 全ページ共通 Footer -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="footer-logo"><span class="logo-accent">AP</span> STEM PATH</div>
-          <p class="footer-desc">戦略的AP受験。リカバリー設計と専門指導でG11までに理数最難関4科目のScore 5完全制覇を目指します。</p>
-        </div>
-
-        <div class="footer-col">
-          <div class="footer-heading">ロードマップ & 概要</div>
-          <ul>
-            <li><a href="/">トップページ</a></li>
-            <li><a href="/g7-roadmap/">学年別ロードマップ</a></li>
-            <li><a href="/ap-simulator/">ロードマップ診断</a></li>
-            <li><a href="/results/">実績・スコア推移</a></li>
-            <li><a href="/pricing/">料金案内</a></li>
-            <li><a href="/about/">代表講師</a></li>
-            <li><a href="/contact/">無料相談・お問い合わせ</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <div class="footer-heading">AP 理数4科目 専科</div>
-          <ul>
-            <li><a href="/ap-computer-science-a/">AP CS A (Java)</a></li>
-            <li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
-            <li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
-            <li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
-
-  <script>
+<div class="bad-example">
+<div class="example-title" style="color:var(--accent-red);">❌ 減点される回答（1〜2点の失点）</div>
+<p style="font-size:0.9rem; margin:0; color:#94a3b8; line-height:1.6;">
+            "By MVT, $\frac{f(5) - f(1)}{5 - 1} = f'(c) = 2$, so there exists $c \in (1, 5)$ where $f'(c) = 2$."<br/>
+<span style="color:var(--accent-red); font-size:0.8rem;">※ 理由：計算自体は完全に正しいが、$f(x)$ が「連続」かつ「微分可能」である条件を明記していないため、MVTポイントが剥奪される。</span>
+</p>
+</div>
+<div class="good-example">
+<div class="example-title" style="color:var(--accent-green);">⭕️ 満点を獲得するRubric適合回答</div>
+<p style="font-size:0.9rem; margin:0; color:#e2e8f0; line-height:1.6;">
+            "<strong>Since $f(x)$ is differentiable on $(1, 5)$, it is also continuous on $[1, 5]$.</strong> Therefore, by the Mean Value Theorem, there exists at least one value $c$ in $(1, 5)$ such that $f'(c) = \frac{f(5) - f(1)}{5 - 1} = 2$."<br/>
+<span style="color:var(--accent-green); font-size:0.8rem;">※ 理由：DifferentiableおよびContinuousの前提条件を冒頭で提示し、論理的帰結としてMVTを適用しているため完全満点。</span>
+</p>
+</div>
+</div>
+</section>
+<section class="content-section">
+<h2>3. 最難関領域：Unit 10 (Series) と Lagrange Error Bound の攻略</h2>
+<p>AP Calculus BCで Score 5 を獲得できるかどうかを分ける最大の決戦場が <strong>Unit 10（Infinite Sequences and Series）</strong> です。</p>
+<p>当塾では、単なる数式の丸暗記ではなく、幾何学的イメージと代数操作を完全に一致させるオリジナル指導を行います。</p>
+<div class="grid-2">
+<div class="topic-card">
+<h4>収束判定法（Convergence Tests）の体系化</h4>
+<p>Integral Test, Ratio Test, Alternating Series Test, Comparison Test の選択チャートを頭の中に構築し、問題を見た瞬間に最適な判定法を叩き出すトレーニング。</p>
+</div>
+<div class="topic-card">
+<h4>Taylor / Maclaurin Polynomials の導出</h4>
+<p>$e^x, \sin(x), \cos(x), \frac{1}{1-x}$ などの基本級数展開をベースに、合成・微分・積分による迅速なマクローリン級数の生成。</p>
+</div>
+<div class="topic-card">
+<h4>Lagrange Error Bound（誤差の評価）</h4>
+<p>多くの受験生が諦める「誤差の上限評価」。$|R_n(x)| \le \frac{M}{(n+1)!}|x-c|^{n+1}$ における最大値 $M$ の特定手順を完全パターン化。</p>
+</div>
+<div class="topic-card">
+<h4>微分方程式とEuler's Method</h4>
+<p>変数分離法（Separable Differential Equations）における積分定数 $C$ の即時特定と、オイラー法（Euler's Method）の数値近似ステップ。</p>
+</div>
+</div>
+</section>
+<section class="content-section">
+<h2>4. 受講生のプログレス：Calculus BCを完成させるロードマップ</h2>
+<p>早期からCS AやStatisticsでスコアを蓄積してきた受講生A君は、AP Calculus BCのScore 5獲得に向けて最終調整を行っています。</p>
+<div class="feature-box" style="border-left: 4px solid var(--accent-green);">
+<div class="feature-title" style="color:var(--accent-green);">受講生A君の取り組み事例</div>
+<p style="margin-bottom:0; font-size:0.95rem; line-height:1.8;">
+          ・<strong>1年目:</strong> AP Calculus BC の最難関ユニット（Taylor Series / Differential Equations）を集中攻略。<br/>
+          ・<strong>本試験目標:</strong> 5月の本試験で Calculus BC の Score 5 を獲得し、同時に他科目のスコアも最終底上げ。<br/>
+<span style="color:var(--accent-blue); font-weight:700;">➔ 早めにCalculus BCを終わらせることで、AP Physics C（理数系最難関物理）への無敵の架け橋が完成します。</span>
+</p>
+</div>
+</section>
+<section class="content-section">
+<h2>5. AP Calculus BCに関するQ&amp;A</h2>
+<div class="faq-item">
+<div class="faq-q">Q. AP Calculus ABを受験せずに、いきなりCalculus BCを受験するのは無謀ですか？</div>
+<div class="faq-a">いいえ、全く無謀ではありません。AP Calculus BCのカリキュラムにはABの内容（微分・積分の基礎）が100%含まれており、単にUnit 9-10（極座標・パラメータ・Infinite Series/Taylor級数）が追加されているだけです。また、BCを受験すると『AB Subscore』も同時に取得できるため、最初からBCに絞って学習するのが最も時間効率の良い戦略です。</div>
+</div>
+<div class="faq-item">
+<div class="faq-q">Q. AP Calculus BCの記述式問題（FRQ）で計算結果が合っているのに減点される原因は何ですか？</div>
+<div class="faq-a">College Boardの採点基準（Rubric）では、平均値の定理（MVT）や中間値の定理（IVT）を適用する際に『関数 f(x) が閉区間で連続（Continuous）かつ開区間で微分可能（Differentiable）』という前提条件を明記していない場合、導出過程や答えが正しくても1〜2点のダイレクトな減点対象となります。</div>
+</div>
+</section>
+</div>
+<!-- 次ステップ導線（AP Physics Cへ） -->
+<div class="container">
+<div class="next-step-container">
+<div class="next-step-card">
+<div class="next-step-label">NEXT ROADMAP STEP</div>
+<h3 class="next-step-title">AP Physics C (Mechanics &amp; E/M) 専科ページへ進む ➔</h3>
+<p class="next-step-desc">Calculus BC（微積分）を駆使し、最難関物理モデルを導出・攻略する最終ステップ。</p>
+<a class="next-step-button" href="/ap-physics-c/">AP Physics C の攻略法を見る</a>
+</div>
+</div>
+</div>
+<!-- 全ページ共通 Footer -->
+<footer class="site-footer">
+<div class="container">
+<div class="footer-grid">
+<div class="footer-brand">
+<div class="footer-logo"><span class="logo-accent">AP</span> STEM PATH</div>
+<p class="footer-desc">戦略的AP受験。リカバリー設計と専門指導でG11までに理数最難関4科目のScore 5完全制覇を目指します。</p>
+</div>
+<div class="footer-col">
+<div class="footer-heading">ロードマップ &amp; 概要</div>
+<ul>
+<li><a href="/">トップページ</a></li>
+<li><a href="/g7-roadmap/">学年別ロードマップ</a></li>
+<li><a href="/ap-simulator/">ロードマップ診断</a></li>
+<li><a href="/results/">実績・スコア推移</a></li>
+<li><a href="/pricing/">料金案内</a></li>
+<li><a href="/about/">代表講師</a></li>
+<li><a href="/contact/">無料相談・お問い合わせ</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<div class="footer-heading">AP 理数4科目 専科</div>
+<ul>
+<li><a href="/ap-computer-science-a/">AP CS A (Java)</a></li>
+<li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
+<li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+<li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<p>© 2026 AP STEM PATH. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<script>
     document.addEventListener('DOMContentLoaded', function() {
       const toggleBtn = document.querySelector('.nav-menu-toggle');
       const mainNav = document.querySelector('.main-nav');

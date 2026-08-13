@@ -1,13 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>学年別AP受講ロードマップ診断シミュレーター | AP STEM PATH</title>
-  <meta name="description" content="現在の学年（G7〜G10）と学習状況を選択するだけで、目標のSTEM/Ivy League出願に向けた最適なAP履修シークエンス（コースX/Y/Z含む）と再受験リカバリー設計を自動判定します。">
-  <link rel="canonical" href="https://apstempath.com/ap-simulator/">
-
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>学年別AP受講ロードマップ診断シミュレーター | AP STEM PATH</title>
+<meta content="現在の学年（G7〜G10）と学習状況を選択するだけで、目標のSTEM/Ivy League出願に向けた最適なAP履修シークエンス（コースX/Y/Z含む）と再受験リカバリー設計を自動判定します。" name="description"/>
+<link href="https://apstempath.com/ap-simulator/" rel="canonical"/>
+<style>
     :root {
       --bg-dark: #0f172a;
       --bg-card: #1e293b;
@@ -255,162 +255,188 @@
       .sim-card { padding: 20px; }
     }
   </style>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "EducationalOrganization",
-        "@id": "https://apstempath.com/#organization",
-        "name": "AP STEM PATH",
-        "url": "https://apstempath.com/"
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "EducationalOrganization",
+      "@id": "https://apstempath.com/#organization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/",
+      "description": "G7〜G10学年別AP理数最難関4科目（CS A / Statistics / Calculus BC / Physics C）専門指導塾。",
+      "founder": {
+        "@type": "Person",
+        "name": "Founder & Lead Instructor",
+        "jobTitle": "Lead STEM Educator & AI Architect",
+        "knowsAbout": [
+          "AP Calculus BC",
+          "AP Computer Science A",
+          "AP Statistics",
+          "AP Physics C",
+          "STEM University Admissions Strategy"
+        ]
       },
-      {
-        "@type": "WebApplication",
-        "@id": "https://apstempath.com/ap-simulator/#app",
-        "name": "学年別AP受講ロードマップ診断シミュレーター",
-        "description": "G7〜G10学年別AP履修プランおよびリカバリー設計自動診断ツール。",
-        "publisher": { "@id": "https://apstempath.com/#organization" }
-      }
-    ]
-  }
-  </script>
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G474CNMCQT"></script>
-  <script>
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "AP STEM Intensive Courses",
+        "itemListElement": [
+          {
+            "@type": "Course",
+            "name": "AP Computer Science A Mastery",
+            "courseCode": "CSA-5",
+            "url": "https://apstempath.com/ap-computer-science-a/"
+          },
+          {
+            "@type": "Course",
+            "name": "AP Calculus BC Intensive",
+            "courseCode": "CALC-BC-5",
+            "url": "https://apstempath.com/ap-calculus-bc/"
+          },
+          {
+            "@type": "Course",
+            "name": "AP Statistics Mastery",
+            "courseCode": "STATS-5",
+            "url": "https://apstempath.com/ap-statistics/"
+          },
+          {
+            "@type": "Course",
+            "name": "AP Physics C Intensive",
+            "courseCode": "PHYS-C-5",
+            "url": "https://apstempath.com/ap-physics-c/"
+          }
+        ]
+      },
+      "alumni": [
+        {
+          "@type": "EducationalOrganization",
+          "name": "Georgia Institute of Technology"
+        },
+        {
+          "@type": "EducationalOrganization",
+          "name": "University of California, Berkeley"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-G474CNMCQT"></script>
+<script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
     gtag('config', 'G-G474CNMCQT');
   </script>
-
-
 </head>
 <body>
-
-  <!-- 全ページ共通 Header -->
-  <header class="site-header">
-    <div class="container nav-container">
-      <a href="/" class="site-logo">
-        <span class="logo-accent">AP</span> STEM PATH
+<!-- 全ページ共通 Header -->
+<header class="site-header">
+<div class="container nav-container">
+<a class="site-logo" href="/">
+<span class="logo-accent">AP</span> STEM PATH
       </a>
-
-      <button class="nav-menu-toggle" aria-label="Toggle navigation">☰ Menu</button>
-      
-      <nav class="main-nav">
-        <ul class="nav-list">
-          <li><a href="/" class="nav-item">Home</a></li>
-          <li><a href="/g7-roadmap/" class="nav-item">学年別ロードマップ</a></li>
-          <li><a href="/ap-simulator/" class="nav-item active">ロードマップ診断</a></li>
-          <li><a href="/results/" class="nav-item">実績・推移</a></li>
-          <li><a href="/pricing/" class="nav-item">料金案内</a></li>
-          <li><a href="/about/" class="nav-item">代表講師</a></li>
-          <li><a href="/contact/" class="nav-item cta-nav-item">無料相談</a></li>
-          
-          <li class="dropdown">
-            <a href="#" class="nav-item dropdown-toggle">AP 専科 ▾</a>
-            <ul class="dropdown-menu">
-              <li><a href="/ap-computer-science-a/">AP CS A (Java)</a></li>
-              <li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
-              <li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
-              <li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <div class="container">
-    <header class="page-header">
-      <div class="breadcrumb">INTERACTIVE DIAGNOSTIC TOOL</div>
-      <h1>学年別 AP受講ロードマップ診断シミュレーター</h1>
-      <p class="lead">現在の学年と興味を選択するだけで、最適な履修シークエンス（コースX/Y/Z等）と、再受験によるScore 5到達リカバリープランを即座に判定します。</p>
-    </header>
-
-    <section class="content-section">
-      <div class="sim-card">
-        <div class="sim-title">⚡ 10秒で診断！あなた専用のロードマップを生成</div>
-        
-        <!-- STEP 1: 学年選択 -->
-        <div class="sim-form-group">
-          <label class="sim-label" for="grade-select">STEP 1: 現在の学年を選択してください</label>
-          <select id="grade-select" class="sim-select" onchange="runSimulation()">
-            <option value="" disabled selected>学年を選択...</option>
-            <option value="G7">G7 (中学1年生相当)</option>
-            <option value="G8">G8 (中学2年生相当)</option>
-            <option value="G9">G9 (中学3年生相当)</option>
-            <option value="G10">G10 (高校1年生相当)</option>
-          </select>
-        </div>
-
-        <!-- STEP 2: G9の場合のコース志向選択 -->
-        <div class="sim-form-group" id="g9-option-group" style="display: none;">
-          <label class="sim-label" for="g9-preference">STEP 2: G9での学習スタイル・得意志向を選択</label>
-          <select id="g9-preference" class="sim-select" onchange="runSimulation()">
-            <option value="X">理数フルスロットル（G9でCS A ＆ Stats 2科目同時挑戦）</option>
-            <option value="Y" selected>数学・統計重視（G9でStats先行 ➔ G10 Calc BC）</option>
-            <option value="Z">CS・プログラミング重視（G9でCS A先行 ➔ G10 Calc BC）</option>
-          </select>
-        </div>
-
-        <!-- 診断結果カード -->
-        <div id="result-box" class="result-box">
-          <div id="result-title" class="result-course-title"></div>
-          <div id="result-desc" class="result-course-desc"></div>
-
-          <div style="font-weight:700; color:var(--accent-blue); margin-bottom:10px; font-size:0.95rem;">【判定された推奨履修シークエンス】</div>
-          <ul id="result-timeline" class="sim-timeline"></ul>
-
-          <a href="/contact/" class="cta-btn">この診断結果で無料相談を申し込む ➔</a>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!-- 全ページ共通 Footer -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="footer-logo"><span class="logo-accent">AP</span> STEM PATH</div>
-          <p class="footer-desc">G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに理数最難関4科目のScore 5完全制覇を目指します。</p>
-        </div>
-
-        <div class="footer-col">
-          <div class="footer-heading">ロードマップ & 概要</div>
-          <ul>
-            <li><a href="/">トップページ</a></li>
-            <li><a href="/g7-roadmap/">学年別ロードマップ</a></li>
-            <li><a href="/ap-simulator/">ロードマップ診断</a></li>
-            <li><a href="/results/">実績・スコア推移</a></li>
-            <li><a href="/pricing/">料金案内</a></li>
-            <li><a href="/about/">代表講師</a></li>
-            <li><a href="/contact/">無料相談・お問い合わせ</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <div class="footer-heading">AP 理数4科目 専科</div>
-          <ul>
-            <li><a href="/ap-computer-science-a/">AP CS A (Java)</a></li>
-            <li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
-            <li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
-            <li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
-
-  <script>
+<button aria-label="Toggle navigation" class="nav-menu-toggle">☰ Menu</button>
+<nav class="main-nav">
+<ul class="nav-list">
+<li><a class="nav-item" href="/">Home</a></li>
+<li><a class="nav-item" href="/g7-roadmap/">学年別ロードマップ</a></li>
+<li><a class="nav-item active" href="/ap-simulator/">ロードマップ診断</a></li>
+<li><a class="nav-item" href="/results/">実績・推移</a></li>
+<li><a class="nav-item" href="/pricing/">料金案内</a></li>
+<li><a class="nav-item" href="/about/">代表講師</a></li>
+<li><a class="nav-item cta-nav-item" href="/contact/">無料相談</a></li>
+<li class="dropdown">
+<a class="nav-item dropdown-toggle" href="#">AP 専科 ▾</a>
+<ul class="dropdown-menu">
+<li><a href="/ap-computer-science-a/">AP CS A (Java)</a></li>
+<li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
+<li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+<li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="container">
+<header class="page-header">
+<div class="breadcrumb">INTERACTIVE DIAGNOSTIC TOOL</div>
+<h1>学年別 AP受講ロードマップ診断シミュレーター</h1>
+<p class="lead">現在の学年と興味を選択するだけで、最適な履修シークエンス（コースX/Y/Z等）と、再受験によるScore 5到達リカバリープランを即座に判定します。</p>
+</header>
+<section class="content-section">
+<div class="sim-card">
+<div class="sim-title">⚡ 10秒で診断！あなた専用のロードマップを生成</div>
+<!-- STEP 1: 学年選択 -->
+<div class="sim-form-group">
+<label class="sim-label" for="grade-select">STEP 1: 現在の学年を選択してください</label>
+<select class="sim-select" id="grade-select" onchange="runSimulation()">
+<option disabled="" selected="" value="">学年を選択...</option>
+<option value="G7">G7 (中学1年生相当)</option>
+<option value="G8">G8 (中学2年生相当)</option>
+<option value="G9">G9 (中学3年生相当)</option>
+<option value="G10">G10 (高校1年生相当)</option>
+</select>
+</div>
+<!-- STEP 2: G9の場合のコース志向選択 -->
+<div class="sim-form-group" id="g9-option-group" style="display: none;">
+<label class="sim-label" for="g9-preference">STEP 2: G9での学習スタイル・得意志向を選択</label>
+<select class="sim-select" id="g9-preference" onchange="runSimulation()">
+<option value="X">理数フルスロットル（G9でCS A ＆ Stats 2科目同時挑戦）</option>
+<option selected="" value="Y">数学・統計重視（G9でStats先行 ➔ G10 Calc BC）</option>
+<option value="Z">CS・プログラミング重視（G9でCS A先行 ➔ G10 Calc BC）</option>
+</select>
+</div>
+<!-- 診断結果カード -->
+<div class="result-box" id="result-box">
+<div class="result-course-title" id="result-title"></div>
+<div class="result-course-desc" id="result-desc"></div>
+<div style="font-weight:700; color:var(--accent-blue); margin-bottom:10px; font-size:0.95rem;">【判定された推奨履修シークエンス】</div>
+<ul class="sim-timeline" id="result-timeline"></ul>
+<a class="cta-btn" href="/contact/">この診断結果で無料相談を申し込む ➔</a>
+</div>
+</div>
+</section>
+</div>
+<!-- 全ページ共通 Footer -->
+<footer class="site-footer">
+<div class="container">
+<div class="footer-grid">
+<div class="footer-brand">
+<div class="footer-logo"><span class="logo-accent">AP</span> STEM PATH</div>
+<p class="footer-desc">G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに理数最難関4科目のScore 5完全制覇を目指します。</p>
+</div>
+<div class="footer-col">
+<div class="footer-heading">ロードマップ &amp; 概要</div>
+<ul>
+<li><a href="/">トップページ</a></li>
+<li><a href="/g7-roadmap/">学年別ロードマップ</a></li>
+<li><a href="/ap-simulator/">ロードマップ診断</a></li>
+<li><a href="/results/">実績・スコア推移</a></li>
+<li><a href="/pricing/">料金案内</a></li>
+<li><a href="/about/">代表講師</a></li>
+<li><a href="/contact/">無料相談・お問い合わせ</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<div class="footer-heading">AP 理数4科目 専科</div>
+<ul>
+<li><a href="/ap-computer-science-a/">AP CS A (Java)</a></li>
+<li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
+<li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+<li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<p>© 2026 AP STEM PATH. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<script>
     // ハンバーガーメニュー開閉
     document.addEventListener('DOMContentLoaded', function() {
       const toggleBtn = document.querySelector('.nav-menu-toggle');
