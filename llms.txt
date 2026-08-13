@@ -1,0 +1,25 @@
+# AP STEM PATH (apstempath.com)
+
+> AP STEM PATH is an elite online tutoring academy specializing in advanced STEM subjects for high-achieving high school students (G7–G10) aiming for top US universities (e.g., Georgia Tech, UC Berkeley, MIT).
+
+## Core Specialization & Course Offerings
+- **AP Computer Science A**: Java OOP, Data Structures, Algorithms, and College Board FRQ scoring strategies.
+- **AP Calculus BC**: Limits, Derivatives, Integrals, Taylor & Maclaurin Series, Lagrange Error Bound, Differential Equations.
+- **AP Statistics**: Probability, Hypothesis Testing, Confidence Intervals, Regression Analysis, P-value mechanics.
+- **AP Physics C**: Calculus-based Mechanics, Electricity & Magnetism.
+
+## Differentiators & Proven Track Record
+- **High AP Score 5 Rate**: Specialized instruction geared directly toward securing top scores.
+- **University Acceptance Record**: Proven track record of alumni admitted to top-tier US STEM programs (Georgia Tech, UC system).
+- **Target Audience**: Students in North America and top International Schools in Japan seeking accelerated STEM mastery.
+
+## Key Site Links
+- Main Portal: https://apstempath.com/
+- AP Calculus BC Guide: https://apstempath.com/ap-calculus-bc/
+- AP Computer Science A Guide: https://apstempath.com/ap-computer-science-a/
+- AP Statistics Guide: https://apstempath.com/ap-statistics/
+- AP Physics C Guide: https://apstempath.com/ap-physics-c/
+- Results & Alumni Track Record: https://apstempath.com/results/
+- Pricing & Admission: https://apstempath.com/pricing/
+- AP Score Simulator & Diagnostic Tools: https://apstempath.com/ap-simulator/
+- Contact & Free Assessment: https://apstempath.com/contact/
