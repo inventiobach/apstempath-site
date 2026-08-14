@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recursion & Array Traversal Guide: AP AP Computer Science A Score 5 for University of California, San Diego | AP STEM PATH</title>
+  <meta name="description" content="Master Recursion & Array Traversal in AP AP Computer Science A. Deep dive with LaTeX/code examples and score 5 strategies tailored for University of California, San Diego applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Recursion & Array Traversal Guide: AP AP Computer Science A Score 5 for University of California, San Diego",
+    "description": "Master Recursion & Array Traversal in AP AP Computer Science A. Deep dive with LaTeX/code examples and score 5 strategies tailored for University of California, San Diego applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="/#results">実績・推移</a></li>
+        <li><a href="/#pricing">料金案内</a></li>
+        <li><a href="/#instructor">代表講師</a></li>
+        <li><a href="/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="/ap-csa/">AP CS A (Java)</a>
+            <a href="/ap-statistics/">AP Statistics (統計)</a>
+            <a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="/guides/">AP STEM Guides (学習ガイド)</a>
+            <a href="/calculator/">学費節約シミュレーター</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">AP Computer Science A • Score 5 Strategy</span>
+      <h1>Recursion & Array Traversal Guide: AP AP Computer Science A Score 5 for University of California, San Diego</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Computer Science A Mastery Guide: Recursion &amp; Array Traversal</h1>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>Recursion is explicitly tested in <strong>Unit 10: Recursion</strong> of the AP Computer Science A curriculum, accounting for <strong>5–7.5%</strong> of the multiple-choice section. However, its true weight on the exam is significantly higher when integrated with <strong>Unit 6 (Array)</strong>, <strong>Unit 7 (ArrayList)</strong>, and <strong>Unit 8 (2D Array)</strong>.</p>
+<pre><code>+--------------------------------------------------------------------+
+|                      AP CS A Exam Weighting                        |
+|                                                                    |
+|  [ Unit 10: Recursion (5 - 7.5%) ]                                 |
+|         │                                                          |
+|         └─── Embedded Integration ───┐                             |
+|                                      ▼                             |
+|  [ Unit 6: 1D Array ]   [ Unit 7: ArrayList ]   [ Unit 8: 2D Array ] |
+|  ───────────────────────────────────────────────────────────────── |
+|            Combined Systemic Impact: ~15% – 20% of Exam           |
++--------------------------------------------------------------------+
+</code></pre>
+<p>To secure a <strong>Score 5</strong> (typically requiring an aggregate score of $\ge 77-80\%$), you must move beyond simple recursive mathematical functions (like factorials or Fibonacci sequences). You must master <strong>recursive array and matrix traversals</strong>, understand call stack dynamics under time pressure, and trace complex state changes without error.</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>Mathematical &amp; Structural Foundations</h3>
+<p>A recursive method is mathematically defined by a <strong>recurrence relation</strong>. An algorithm processes an input of size $n$ by solving a smaller subproblem of size $k$ (where $k &lt; n$) and combining the results:</p>
+<p>$$T(n) = T(n - k) + f(n)$$</p>
+<p>Where:
+* $T(n)$ represents the runtime complexity for an array/dataset of size $n$.
+* $T(n - k)$ represents the recursive step operating on a reduced subset.
+* $f(n)$ represents the work done at the current call frame (e.g., element comparison, processing).</p>
+<p>For a standard linear recursive array traversal where $k = 1$ and $f(n) = O(1)$:</p>
+<p>$$T(n) = T(n - 1) + O(1) \implies T(n) \in O(n)$$</p>
+<p>The call stack depth determines the auxiliary space complexity $S(n)$:</p>
+<p>$$S(n) \in O(d)$$</p>
+<p>where $d$ is the maximum call depth (number of active stack frames).</p>
+<hr />
+<h3>The Call Stack &amp; Execution Phases</h3>
+<p>Every recursive function call creates an <strong>Activation Record (Stack Frame)</strong> on the call stack containing:
+1. Local variables.
+2. Parameter values.
+3. The return address (where execution resumes after the child call terminates).</p>
+<pre><code>   Call Stack Execution Dynamics
+   ============================
+
+   [ Frame 3: processArray(arr, 2) ]  ──&gt; Base Case Met / Unwinding Begins
+   [ Frame 2: processArray(arr, 1) ]  ──&gt; Suspended (Awaiting Frame 3)
+   [ Frame 1: processArray(arr, 0) ]  ──&gt; Suspended (Awaiting Frame 2)
+   └───────────────────────────────┘
+</code></pre>
+<p>A recursive execution consists of two distinct operational phases:
+1. <strong>Pre-call Phase (Forward Process):</strong> Code executed before the recursive call as the stack frames build.
+2. <strong>Post-call Phase (Unwinding Process):</strong> Code executed after the recursive call returns as stack frames are popped.</p>
+<hr />
+<h3>Implementation: Recursive 1D &amp; 2D Array Traversal</h3>
+<h4>1D Array Traversal</h4>
+<pre><code class="language-java">public class ArrayRecursion {
+
+    /**
+     * Recursively calculates the sum of elements in a 1D array from index to end.
+     * @param arr Target array of integers
+     * @param index Current processing index
+     * @return Accumulated sum of array elements from index to arr.length - 1
+     */
+    public static int recursiveSum(int[] arr, int index) {
+        // Base Case: Out of bounds check terminates recursion
+        if (index &gt;= arr.length) {
+            return 0;
+        }
+
+        // Reduction Step: Process current element + recursive reduction of remainder
+        return arr[index] + recursiveSum(arr, index + 1);
+    }
+
+    /**
+     * Recursively searches for a target value in a 1D array.
+     * @param arr Array to search
+     * @param target Target element
+     * @param index Current index pointer
+     * @return true if target exists; false otherwise
+     */
+    public static boolean recursiveSearch(int[] arr, int target, int index) {
+        // Base Case 1: Reached end of array without match
+        if (index &gt;= arr.length) {
+            return false;
+        }
+        // Base Case 2: Target found
+        if (arr[index] == target) {
+            return true;
+        }
+
+        // Recursive Step: Increment index pointer
+        return recursiveSearch(arr, target, index + 1);
+    }
+}
+</code></pre>
+<h4>2D Array Traversal (Grid Depth-First Search / Flood Fill Concept)</h4>
+<pre><code class="language-java">public class MatrixRecursion {
+
+    /**
+     * Recursively computes the sum of all elements in a 2D grid.
+     * Traverses row by row, column by column.
+     * @param grid 2D array of integers
+     * @param row Current row index
+     * @param col Current column index
+     * @return Total sum of grid elements from (row, col) onwards
+     */
+    public static int sumGrid(int[][] grid, int row, int col) {
+        // Base Case 1: Terminal boundary check for rows
+        if (row &gt;= grid.length) {
+            return 0;
+        }
+
+        // Base Case 2: Row boundary reached, transition to next row
+        if (col &gt;= grid[row].length) {
+            return sumGrid(grid, row + 1, 0);
+        }
+
+        // Recursive Step: Sum current cell + move right along current row
+        return grid[row][col] + sumGrid(grid, row, col + 1);
+    }
+}
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<h3>Pitfalls That Cost Points</h3>
+<h4>1. Off-by-One Bounds Errors (<code>ArrayIndexOutOfBoundsException</code>)</h4>
+<p>In recursive array processing, base cases must validate bounds <strong>before</strong> accessing the array.</p>
+<pre><code class="language-java">// INCORRECT: Triggers ArrayIndexOutOfBoundsException when index == arr.length
+public static int badSum(int[] arr, int index) {
+    if (arr[index] == 0) return 0; // Evaluates before checking if index is valid!
+    if (index &gt;= arr.length) return 0;
+    return arr[index] + badSum(arr, index + 1);
+}
+
+// CORRECT: Order of evaluation guards array access
+public static int goodSum(int[] arr, int index) {
+    if (index &gt;= arr.length) return 0; // Base condition evaluated FIRST
+    return arr[index] + goodSum(arr, index + 1);
+}
+</code></pre>
+<h4>2. Infinite Recursion (<code>StackOverflowError</code>) via Post-Increment Operators</h4>
+<p>Passing <code>index++</code> instead of <code>index + 1</code> passes the <strong>unmodified original value</strong> to the recursive call, causing infinite recursion.</p>
+<pre><code class="language-java">// CRITICAL BUG: Passes index, THEN increments locally. Stack overflows!
+return arr[index] + badSum(arr, index++); 
+
+// CORRECT: Passes incremented value immediately.
+return arr[index] + goodSum(arr, index + 1);
+</code></pre>
+<h4>3. Misinterpreting Pre-Call vs. Post-Call Output in Tracing Questions</h4>
+<p>Consider the following method:</p>
+<pre><code class="language-java">public static void printArray(int[] arr, int index) {
+    if (index &gt;= arr.length) return;
+
+    // Line A: Pre-call work
+    System.out.print(arr[index] + &quot; &quot;); 
+
+    printArray(arr, index + 1);
+
+    // Line B: Post-call work
+    System.out.print(arr[index] + &quot; &quot;); 
+}
+</code></pre>
+<ul>
+<li>If <code>arr = {1, 2, 3}</code>:</li>
+<li>Line A prints during stack frame generation: <code>1 2 3</code></li>
+<li>Line B prints during stack unwinding: <code>3 2 1</code></li>
+<li>Complete Output: <code>1 2 3 3 2 1</code></li>
+</ul>
+<hr />
+<h3>Score 4 vs. Score 5 Performance Differentiators</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Aspect</th>
+<th style="text-align: left;">Score 4 Student</th>
+<th style="text-align: left;">Score 5 Student</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Tracing Mechanics</strong></td>
+<td style="text-align: left;">Writes out full execution trees manually for simple calls; runs out of time on complex MCQs.</td>
+<td style="text-align: left;">Annotates state changes in a compact column trace table; recognizes structural recurrence patterns instantly.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Scope Sensitivity</strong></td>
+<td style="text-align: left;">Confuses local recursive scope variables with shared outer state.</td>
+<td style="text-align: left;">Traverses frames cleanly, tracking precise parameter state per frame without leakage.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>FRQ Precision</strong></td>
+<td style="text-align: left;">Misses base-case boundaries or forgets return types in conditional logic branches.</td>
+<td style="text-align: left;">Implements guard conditions correctly, handles empty/1-element edge cases, returns correct values along all execution paths.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. University of California, San Diego (UCSD) Credit Policy &amp; Placement Advantage</h2>
+<p>Securing a <strong>5 on AP Computer Science A</strong> carries significant academic and practical value at major research universities like <strong>UC San Diego</strong>.</p>
+<pre><code>  AP CS A Score: 5
+         │
+         ├── Credit Granted: 2–4 Quarter Units (Subject to College/Department)
+         │
+         ├── Course Exemption: CSE 8A (Intro to CS &amp; Object-Oriented Programming I)
+         │
+         └── Direct Placement Path:
+               └── Options:
+                     ├── Enroll directly into CSE 11 (Accelerated Intro to CS)
+                     └── Advance directly toward CSE 12 (Data Structures)
+</code></pre>
+<h3>Course Credit &amp; Placement Pathways</h3>
+<ol>
+<li><strong>CSE Department Exemption:</strong></li>
+<li>A score of <strong>5</strong> exempts computer science, data science, and engineering majors from <strong>CSE 8A</strong> (Intro to Computer Science &amp; Object-Oriented Programming I).</li>
+<li>
+<p>It allows high-achieving students to enter <strong>CSE 11</strong> (Accelerated Intro to Computer Science and Object-Oriented Programming) or move faster toward <strong>CSE 12</strong> ( Basic Data Structures and Object-Oriented Design).</p>
+</li>
+<li>
+<p><strong>Acceleration Advantage for Engineering Majors:</strong></p>
+</li>
+<li>
+<p>UCSD’s Jacob School of Engineering degree plans are prerequisites-heavy. Skipping intro programming modules saves <strong>1 full quarter</strong> of prerequisites, opening up early enrollment for:</p>
+<ul>
+<li><strong>CSE 12</strong>: Basic Data Structures and Object-Oriented Design.</li>
+<li><strong>CSE 20</strong>: Discrete Mathematics for Computer Science.</li>
+<li><strong>CSE 21</strong>: Mathematics for Algorithm and System Analysis.</li>
+</ul>
+</li>
+<li>
+<p><strong>Mastery Alignment:</strong></p>
+</li>
+<li>UCSD's <strong>CSE 12</strong> heavily relies on recursion for pointer manipulation, binary trees ($O(\log n)$ search/traversal), and runtime efficiency analysis ($O(n \log n)$ divide-and-conquer sorting like QuickSort and MergeSort). Mastering recursive array processing in AP CS A ensures a seamless transition into upper-division coursework.</li>
+</ol>
+<hr />
+<h2>5. Practice Problem / Strategy Summary</h2>
+<h3>AP-Style Practice Problem (Free-Response Format)</h3>
+<p><strong>Scenario:</strong> Complete the method <code>findLongestNonDecreasingSequence</code> inside the <code>ArrayAnalyzer</code> class. The method must recursively find the length of the longest contiguous sub-array of non-decreasing integers starting from <code>index</code>. </p>
+<p><strong>Constraints:</strong>
+* Must be implemented <strong>recursively</strong>.
+* You may <strong>not</strong> use <code>for</code>, <code>while</code>, or <code>for-each</code> loops.
+* Do <strong>not</strong> use class-level static state variables to track length.</p>
+<pre><code class="language-java">public class ArrayAnalyzer {
+
+    /**
+     * Recursively computes the length of the longest non-decreasing contiguous
+     * sequence starting at current index.
+     * 
+     * Preconditions: arr is non-null and arr.length &gt; 0.
+     *                0 &lt;= index &lt; arr.length.
+     * 
+     * @param arr Non-null array of integers
+     * @param index Current index being inspected
+     * @return Length of longest contiguous sequence starting at index
+     */
+    public static int getSequenceLength(int[] arr, int index) {
+        // Implementation required
+    }
+}
+</code></pre>
+<hr />
+<h3>Solution &amp; Call Stack Trace</h3>
+<h4>Java Implementation</h4>
+<pre><code class="language-java">public class ArrayAnalyzer {
+
+    public static int getSequenceLength(int[] arr, int index) {
+        // Base Case 1: If index is at the last element, max chain length starting here is 1
+        if (index == arr.length - 1) {
+            return 1;
+        }
+
+        // Check if non-decreasing relationship holds with adjacent right element
+        if (arr[index] &lt;= arr[index + 1]) {
+            // Recursive Step: Extend length by 1 and solve subproblem
+            return 1 + getSequenceLength(arr, index + 1);
+        } else {
+            // Sequence breaks; chain ending at this local region has length 1
+            return 1;
+        }
+    }
+}
+</code></pre>
+<hr />
+<h4>Call Stack Execution Trace</h4>
+<p>Given input: <code>arr = {3, 5, 5, 2}</code>, calling <code>getSequenceLength(arr, 0)</code>:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Step</th>
+<th style="text-align: left;">Call Frame</th>
+<th style="text-align: left;"><code>index</code></th>
+<th style="text-align: left;">Condition Evaluated</th>
+<th style="text-align: left;">Return Value Action</th>
+<th style="text-align: left;">Frame Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Frame 1</td>
+<td style="text-align: left;"><code>0</code></td>
+<td style="text-align: left;">$3 \le 5$ (True)</td>
+<td style="text-align: left;">Waits for Frame 2: $1 + \text{Frame 2}$</td>
+<td style="text-align: left;">Pushed to Stack</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Frame 2</td>
+<td style="text-align: left;"><code>1</code></td>
+<td style="text-align: left;">$5 \le 5$ (True)</td>
+<td style="text-align: left;">Waits for Frame 3: $1 + \text{Frame 3}$</td>
+<td style="text-align: left;">Pushed to Stack</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Frame 3</td>
+<td style="text-align: left;"><code>2</code></td>
+<td style="text-align: left;">$5 \le 2$ (False)</td>
+<td style="text-align: left;">Sequence breaks $\implies$ Returns <code>1</code></td>
+<td style="text-align: left;">Pops Frame 3</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">Frame 2 (Unwind)</td>
+<td style="text-align: left;"><code>1</code></td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">Receives <code>1</code> $\implies$ Returns $1 + 1 = 2$</td>
+<td style="text-align: left;">Pops Frame 2</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">Frame 1 (Unwind)</td>
+<td style="text-align: left;"><code>0</code></td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">Receives <code>2</code> $\implies$ Returns $1 + 2 = 3$</td>
+<td style="text-align: left;">Pops Frame 1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Final Return Output:</strong> <code>3</code> (Corresponding to contiguous non-decreasing sub-sequence <code>{3, 5, 5}</code>).</p>
+<hr />
+<h3>Strategic AP Exam Day Checklist</h3>
+<ol>
+<li><strong>Verify Base Cases First:</strong> Ensure every recursive path hits a terminating condition before making memory array accesses.</li>
+<li><strong>Track Off-by-One Boundaries:</strong> Remember that valid 1D index ranges are $0$ to $\text{length} - 1$, and 2D index ranges are row $0$ to $\text{length}-1$, col $0$ to $\text{row length}-1$.</li>
+<li><strong>Trace with a State Table:</strong> Avoid mentally tracing recursive calls. Draw a quick evaluation stack table listing local parameter values and post-call returns to guarantee <strong>Score 5</strong> accuracy under exam conditions.</li>
+</ol>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in AP Computer Science A?</h2>
+      <p>Secure admission and advanced standing at top institutions like University of California, San Diego with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="/">トップページ</a></li>
+          <li><a href="/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="/#results">実績・スコア推移</a></li>
+          <li><a href="/#pricing">料金案内</a></li>
+          <li><a href="/#instructor">代表講師</a></li>
+          <li><a href="/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="/guides/">AP STEM Guides (学習ガイド)</a></li>
+          <li><a href="/calculator/">学費節約シミュレーター</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

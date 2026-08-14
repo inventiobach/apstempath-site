@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hypothesis Testing & P-value Mechanics Guide: AP AP Statistics Score 5 for Georgia Institute of Technology | AP STEM PATH</title>
+  <meta name="description" content="Master Hypothesis Testing & P-value Mechanics in AP AP Statistics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Georgia Institute of Technology applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Hypothesis Testing & P-value Mechanics Guide: AP AP Statistics Score 5 for Georgia Institute of Technology",
+    "description": "Master Hypothesis Testing & P-value Mechanics in AP AP Statistics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Georgia Institute of Technology applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="/#results">実績・推移</a></li>
+        <li><a href="/#pricing">料金案内</a></li>
+        <li><a href="/#instructor">代表講師</a></li>
+        <li><a href="/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="/ap-csa/">AP CS A (Java)</a>
+            <a href="/ap-statistics/">AP Statistics (統計)</a>
+            <a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="/guides/">AP STEM Guides (学習ガイド)</a>
+            <a href="/calculator/">学費節約シミュレーター</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">AP Statistics • Score 5 Strategy</span>
+      <h1>Hypothesis Testing & P-value Mechanics Guide: AP AP Statistics Score 5 for Georgia Institute of Technology</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Statistics Mastery Guide: Hypothesis Testing &amp; $P$-Value Mechanics</h1>
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>In AP Statistics, Significance Testing and Inference form the backbone of the curriculum. Units 6 through 9—which encompass inference for categorical and quantitative data across proportions, means, slopes, and counts—account for <strong>30% to 40% of the Multiple-Choice Section</strong> and are featured in <strong>at least 3 out of the 6 Free-Response Questions (FRQs)</strong> on the AP Exam.</p>
+<p>To earn a <strong>Score 5</strong>, mastery over the mechanics of hypothesis testing is necessary, but not sufficient. You must possess absolute conceptual clarity regarding conditional probability, error analysis, and statistical power. The AP Reader does not merely evaluate computational accuracy; they grade your logical rigors, contextual precision, and adherence to formal communication standards.</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>The Formal Logic of Hypothesis Testing</h3>
+<p>A significance test evaluates two competing hypotheses regarding a population parameter $\theta$:</p>
+<ol>
+<li><strong>Null Hypothesis ($H_0$):</strong> The status quo model, assuming no effect, no difference, or no relationship.
+   $$H_0: \theta = \theta_0$$</li>
+<li><strong>Alternative Hypothesis ($H_a$):</strong> The claim seeking evidence, representing a directional or non-directional departure from $\theta_0$.
+   $$H_a: \theta &lt; \theta_0 \quad \text{or} \quad H_a: \theta &gt; \theta_0 \quad \text{or} \quad H_a: \theta \neq \theta_0$$</li>
+</ol>
+<h3>Test Statistic Mechanics</h3>
+<p>A test statistic measures how far the observed sample statistic ($\hat{\theta}$) deviates from the hypothesized parameter ($\theta_0$), quantified in units of standard error ($SE$).</p>
+<p>$$\text{Test Statistic} = \frac{\text{Statistic} - \text{Parameter}}{\text{Standard Error of Statistic}} = \frac{\hat{\theta} - \theta_0}{SE(\hat{\theta})}$$</p>
+<h4>Primary Single-Sample Test Statistics:</h4>
+<ul>
+<li>
+<p><strong>One-Sample $z$-test for Proportions:</strong>
+  $$z = \frac{\hat{p} - p_0}{\sqrt{\frac{p_0(1 - p_0)}{n}}}$$
+  <em>Note: The standard error uses $p_0$, the hypothesized proportion, NOT the sample proportion $\hat{p}$.</em></p>
+</li>
+<li>
+<p><strong>One-Sample $t$-test for Means:</strong>
+  $$t = \frac{\bar{x} - \mu_0}{\frac{s_x}{\sqrt{n}}}$$
+  <em>Follows a $t$-distribution with degrees of freedom $df = n - 1$.</em></p>
+</li>
+</ul>
+<hr />
+<h3>$P$-Value Mechanics: The Mathematical Definition</h3>
+<p>The $P$-value is a <strong>conditional probability</strong>. It is <strong>NOT</strong> the probability that the null hypothesis is true.</p>
+<p>$$\text{P-value} = P\left(\text{Obtaining a test statistic as extreme as, or more extreme than, the observed value} \mid H_0 \text{ is true}\right)$$</p>
+<p>Mathematically, for a right-tailed $z$-test where $z_{obs}$ is the computed test statistic:</p>
+<p>$$\text{P-value} = P(Z \ge z_{obs} \mid H_0 \text{ is true}) = 1 - \Phi(z_{obs})$$</p>
+<p>Where $\Phi(z)$ represents the cumulative distribution function (CDF) of the standard normal distribution $\mathcal{N}(0, 1)$.</p>
+<pre><code>           Null Distribution: Assumes H₀ is True
+                           |
+                       .---'---.
+                      /    |    \
+                     /     |     \
+                    /      |      \
+                   /       |       \
+  ----------------|--------|--------|----------------
+                         \mu_0    z_obs  ---&gt; (P-value Area)
+</code></pre>
+<hr />
+<h3>Decision Rules and Error Framework</h3>
+<p>We compare the $P$-value to a predetermined significance level, $\alpha$ (typically $\alpha = 0.05$):</p>
+<ul>
+<li>If $P\text{-value} \le \alpha \implies \text{Reject } H_0$. The evidence is statistically significant.</li>
+<li>If $P\text{-value} &gt; \alpha \implies \text{Fail to Reject } H_0$. There is insufficient evidence to support $H_a$.</li>
+</ul>
+<h4>The Truth Matrix &amp; Error Types</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Truth / Decision</th>
+<th style="text-align: left;">Reject $H_0$</th>
+<th style="text-align: left;">Fail to Reject $H_0$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>$H_0$ is True</strong></td>
+<td style="text-align: left;"><strong>Type I Error ($\alpha$)</strong></td>
+<td style="text-align: left;">Correct Decision ($1 - \alpha$)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>$H_0$ is False</strong></td>
+<td style="text-align: left;">Correct Decision (Power $= 1 - \beta$)</td>
+<td style="text-align: left;"><strong>Type II Error ($\beta$)</strong></td>
+</tr>
+</tbody>
+</table>
+<h4>Probability Derivations:</h4>
+<ol>
+<li>
+<p><strong>Type I Error Probability ($\alpha$):</strong>
+   $$\alpha = P(\text{Reject } H_0 \mid H_0 \text{ is true})$$</p>
+</li>
+<li>
+<p><strong>Type II Error Probability ($\beta$):</strong>
+   $$\beta = P(\text{Fail to Reject } H_0 \mid H_0 \text{ is false at } \theta = \theta_a)$$</p>
+</li>
+<li>
+<p><strong>Power ($1 - \beta$):</strong>
+   $$\text{Power} = P(\text{Reject } H_0 \mid H_0 \text{ is false at } \theta = \theta_a)$$</p>
+</li>
+</ol>
+<h4>Factors That Increase Statistical Power:</h4>
+<ul>
+<li><strong>Increase Sample Size ($n$):</strong> Reduces $SE(\hat{\theta})$, shrinking distribution spread and narrowing the overlap between $H_0$ and $H_a$.</li>
+<li><strong>Increase Significance Level ($\alpha$):</strong> Moves the critical value threshold closer to the center, making rejection easier (increases Type I error risk).</li>
+<li><strong>Increase Effect Size ($|\theta_a - \theta_0|$):</strong> Moves the true parameter farther from the hypothesized value.</li>
+<li><strong>Decrease Variability ($\sigma$):</strong> Reduces standard deviation of the population.</li>
+</ul>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Scoring Rubric Nuances</h2>
+<p>To secure a <strong>Score 5</strong>, your FRQ answers must consistently earn <strong>Essentially Correct (E)</strong> marks rather than <strong>Partially Correct (P)</strong> marks. The difference between a 4 and a 5 often hinges on precise mathematical vocabulary.</p>
+<pre><code>       [ Complete Mechanics ]
+                 +
+  [ Contextual Parameter Definition ]    ===&gt; Score 5 Performance (E)
+                 +
+  [ Explicit Link: P-value vs. Alpha ]
+</code></pre>
+<h3>Pitfall 1: Incorrect $P$-Value Interpretations</h3>
+<ul>
+<li><strong>Fatal Error:</strong> "The $P$-value of $0.032$ is the probability that the null hypothesis is true." <em>(Automatic zero on that component).</em></li>
+<li><strong>Fatal Error:</strong> "The $P$-value of $0.032$ is the probability that the results occurred by chance."</li>
+<li><strong>Score 5 Execution:</strong> "Assuming that the true mean assembly time is equal to $45$ minutes ($H_0$), there is a $0.032$ probability of obtaining a sample mean of $42.5$ minutes or less purely by random sampling variability."</li>
+</ul>
+<h3>Pitfall 2: Fatal Linguistic Mistakes in Conclusions</h3>
+<ul>
+<li><strong>Fatal Error:</strong> "Because $P &gt; 0.05$, we accept the null hypothesis." or "We have proved that $H_0$ is true."</li>
+<li><strong>Score 5 Execution:</strong> "Because the $P$-value ($0.12$) is greater than $\alpha = 0.05$, we fail to reject $H_0$. There is insufficient evidence to conclude that the true proportion of defective components has decreased."</li>
+</ul>
+<h3>Pitfall 3: Incomplete Condition Verification</h3>
+<p>On the "PLAN" step of an FRQ, simply writing "Normal, Random, 10%" will result in a <strong>P</strong> or <strong>I</strong>. You must <strong>check</strong> the conditions explicitly with given values.</p>
+<ol>
+<li><strong>Randomness:</strong> Must state that the sample was selected randomly (or treatments were randomly assigned) using words directly from the prompt.</li>
+<li><strong>10% Condition (Independence):</strong> Must demonstrate $n \le 0.10 N$ explicitly when sampling without replacement.</li>
+<li><strong>Normality / Large Sample Condition:</strong></li>
+<li><em>For Proportions:</em> Show calculations for $n p_0 \ge 10$ AND $n(1 - p_0) \ge 10$. (Do NOT use $\hat{p}$ during hypothesis testing calculations!).</li>
+<li><em>For Means:</em> State $n \ge 30$ (Central Limit Theorem) OR provide a graphical display (dotplot/histogram) showing no strong skewness or outliers if $n &lt; 30$.</li>
+</ol>
+<hr />
+<h2>4. Georgia Institute of Technology Credit Policy &amp; Placement Advantage</h2>
+<p>Earning a 5 on AP Statistics carries strategic advantages for students entering quantitative degree programs at top institutions like the <strong>Georgia Institute of Technology (Georgia Tech)</strong>.</p>
+<pre><code>AP Statistics Score: 5 
+  │
+  ├──&gt; GT Credit Granted: MATH 1XXX / General Quantitative Credit
+  │
+  └──&gt; Placement Advantage:
+        ├── Exemption from Introductory Data Requirements
+        └── Immediate Enrollment in Advanced Analytics / STEM Tracks:
+              ├── ISyE 2028: Basic Statistical Methods
+              ├── ISyE 3770: Statistics and Applications
+              └── CS 3600: Introduction to Artificial Intelligence
+</code></pre>
+<h3>Course Exemption &amp; Major Pathways</h3>
+<ul>
+<li><strong>GT Credit:</strong> Georgia Tech awards 3 credit hours for a score of <strong>5</strong> (granting placement out of introductory statistical coursework or awarding equivalent quantitative elective credit such as <strong>MATH 1XXX</strong> / <strong>ISYE 2028</strong> equivalency pathways depending on catalog year).</li>
+<li><strong>Industrial &amp; Systems Engineering (ISyE):</strong> Ranked #1 nationally. ISyE majors are required to build stochastic models, simulation frameworks, and optimization algorithms. Entering with mastery over conditional probability, hypothesis logic, and sampling distributions allows students to move directly into <strong>ISyE 2028</strong> (Basic Statistical Methods) or <strong>ISyE 3770</strong> without needing foundational remediation.</li>
+<li><strong>Computer Science (BSCS - Machine Learning / Data Science Threads):</strong> Understanding $P$-values, Type I/II errors, and statistical power is foundational for <strong>CS 3600 (Artificial Intelligence)</strong> and <strong>CS 4641 (Machine Learning)</strong>, where evaluating model performance via statistical significance (e.g., cross-validation metric comparisons, standard error bounds) is mandatory.</li>
+</ul>
+<hr />
+<h2>5. Practice Problem &amp; Strategy Summary</h2>
+<h3>Comprehensive AP-Style Free Response Question (FRQ)</h3>
+<p><strong>Scenario:</strong> An environmental engineering firm claims that a new filtration system reduces the concentration of lead in industrial wastewater below the EPA threshold of $15$ parts per billion (ppb). A municipal auditor takes a random sample of $n = 36$ water specimens from a plant using this system. The sample mean lead concentration is $\bar{x} = 14.1$ ppb with a sample standard deviation of $s = 2.4$ ppb.</p>
+<h4>Tasks:</h4>
+<ol>
+<li><strong>(a)</strong> Conduct an appropriate statistical test at the $\alpha = 0.05$ level to determine if the standard mean lead level is significantly lower than $15$ ppb.</li>
+<li><strong>(b)</strong> Interpret the $P$-value obtained in part (a) in the context of the study.</li>
+<li><strong>(c)</strong> Describe a Type I error in the context of this study and explain a real-world consequence of making this error.</li>
+</ol>
+<hr />
+<h3>Model Solution &amp; Scoring Mechanics</h3>
+<h4>Part (a): Four-Step Inference Process</h4>
+<h5>1. STATE:</h5>
+<p>We test the following hypotheses at $\alpha = 0.05$:
+$$H_0: \mu = 15 \text{ ppb}$$
+$$H_a: \mu &lt; 15 \text{ ppb}$$
+Where $\mu$ = the true population mean lead concentration (in ppb) in wastewater treated by the new filtration system.</p>
+<h5>2. PLAN:</h5>
+<ul>
+<li><strong>Name of Test:</strong> One-sample $t$-test for a population mean $\mu$.</li>
+<li><strong>Conditions Verification:</strong></li>
+<li><em>Random:</em> The prompt states that a "random sample of $n = 36$ water specimens" was selected.</li>
+<li><em>10% Condition:</em> It is reasonable to assume that $n = 36$ specimens is less than $10\%$ of all water specimens processed by this industrial plant ($N &gt; 360$).</li>
+<li><em>Normal/Large Sample:</em> The sample size is $n = 36 \ge 30$. By the <strong>Central Limit Theorem</strong>, the sampling distribution of $\bar{x}$ is approximately normal.</li>
+</ul>
+<h5>3. DO:</h5>
+<ul>
+<li>
+<p><strong>Mechanics:</strong>
+  $$\bar{x} = 14.1, \quad s = 2.4, \quad n = 36, \quad \mu_0 = 15$$
+  $$SE(\bar{x}) = \frac{s}{\sqrt{n}} = \frac{2.4}{\sqrt{36}} = \frac{2.4}{6} = 0.4$$
+  $$t = \frac{\bar{x} - \mu_0}{\frac{s}{\sqrt{n}}} = \frac{14.1 - 15}{0.4} = \frac{-0.9}{0.4} = -2.25$$
+  $$df = n - 1 = 36 - 1 = 35$$</p>
+</li>
+<li>
+<p><strong>$P$-Value Computation:</strong>
+  $$P\text{-value} = P(t_{35} \le -2.25)$$
+  Using $t$-distribution technology or tables:
+  $$\text{P-value} \approx 0.0154$$</p>
+</li>
+</ul>
+<h5>4. CONCLUDE:</h5>
+<p>Because the $P$-value ($\approx 0.0154$) is less than the significance level $\alpha = 0.05$, we <strong>reject $H_0$</strong>. There is convincing statistical evidence that the true mean lead concentration in wastewater treated by this system is significantly less than $15$ ppb.</p>
+<hr />
+<h4>Part (b): $P$-Value Interpretation</h4>
+<p><strong>Answer:</strong>
+Assuming that the true mean lead concentration in the treated wastewater is equal to $15$ ppb ($H_0$ is true), there is a $0.0154$ probability of obtaining a sample mean lead concentration of $14.1$ ppb or less purely due to random sampling variability.</p>
+<hr />
+<h4>Part (c): Type I Error and Consequence</h4>
+<p><strong>Answer:</strong>
+* <strong>Definition in Context:</strong> A Type I error occurs if the auditor concludes that the true mean lead concentration is less than $15$ ppb ($H_0$ is rejected), when in reality, the true mean lead concentration is still equal to $15$ ppb ($H_0$ is true).
+* <strong>Real-World Consequence:</strong> The municipal authority will approve the filtration system, believing it is safe, when it actually allows water with unsafe lead levels ($\ge 15$ ppb) to enter the local water supply, posing a public health danger to the community.</p>
+<hr />
+<h3>Scoring Rubric Key for the Model FRQ</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Component</th>
+<th style="text-align: left;">Earns "Essentially Correct" (E) If...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Part (a): Hypotheses &amp; Parameters</strong></td>
+<td style="text-align: left;">Both $H_0$ and $H_a$ are correctly stated using symbols AND the parameter $\mu$ is defined explicitly in context (including units).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Part (a): Conditions</strong></td>
+<td style="text-align: left;">Identifies the correct test name, references randomness, verifies $10\%$, and cites $n \ge 30$ CLT explicitly.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Part (a): Mechanics &amp; Conclusion</strong></td>
+<td style="text-align: left;">Correctly computes $t = -2.25$, $df = 35$, $P \approx 0.0154$, and makes a conclusion linked directly to $\alpha$ with context.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Part (b): $P$-Value Interpretation</strong></td>
+<td style="text-align: left;">Explicitly includes: (1) $H_0$ assumed true, (2) statistic value or more extreme, (3) random chance context.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Part (c): Type I Error</strong></td>
+<td style="text-align: left;">Correctly identifies decision vs. reality in context AND states a plausible non-statistical real-world consequence.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Strategy Checklist for Exam Day</h3>
+<ol>
+<li><strong>Always Define Your Parameter:</strong> Write out: <em>"Where $p$ = the true population proportion of..."</em> before listing hypotheses.</li>
+<li><strong>Never Accept the Null:</strong> Use the exact phrase: <em>"Fail to reject $H_0$"</em>.</li>
+<li><strong>Show Your Numbers in Conditions:</strong> Do not write $np \ge 10$; write $36(0.4) = 14.4 \ge 10$.</li>
+<li><strong>Link Conclusion to $P$-Value and Alpha:</strong> Always state: <em>"Because $P$-value $= X &lt; \alpha = Y$, I reject $H_0$..."</em></li>
+</ol>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in AP Statistics?</h2>
+      <p>Secure admission and advanced standing at top institutions like Georgia Institute of Technology with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="/">トップページ</a></li>
+          <li><a href="/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="/#results">実績・スコア推移</a></li>
+          <li><a href="/#pricing">料金案内</a></li>
+          <li><a href="/#instructor">代表講師</a></li>
+          <li><a href="/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="/guides/">AP STEM Guides (学習ガイド)</a></li>
+          <li><a href="/calculator/">学費節約シミュレーター</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

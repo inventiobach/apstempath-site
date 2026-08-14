@@ -41,11 +41,12 @@
       z-index: 1000;
     }
     .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: relative;
-      gap: 20px; /* ロゴとメニューの間に最低20pxの隙間を強制確保 */
+      padding: 16px 24px;
     }
     .site-logo {
       font-size: 1.3rem;
@@ -261,7 +262,7 @@
   "@graph": [
     {
       "@type": "EducationalOrganization",
-      "@id": "https://apstempath.com/#organization",
+      "@id": "/#organization",
       "name": "AP STEM PATH",
       "url": "https://apstempath.com/",
       "logo": "https://apstempath.com/assets/logo.png",
@@ -292,19 +293,19 @@
             "@type": "Course",
             "name": "AP Calculus BC Intensive",
             "courseCode": "CALC-BC-5",
-            "url": "https://apstempath.com/ap-calculus-bc/"
+            "url": "/ap-calculus-bc/"
           },
           {
             "@type": "Course",
             "name": "AP Statistics Mastery",
             "courseCode": "STATS-5",
-            "url": "https://apstempath.com/ap-statistics/"
+            "url": "/ap-statistics/"
           },
           {
             "@type": "Course",
             "name": "AP Physics C Intensive",
             "courseCode": "PHYS-C-5",
-            "url": "https://apstempath.com/ap-physics-c/"
+            "url": "/ap-physics-c/"
           }
         ]
       }
@@ -346,6 +347,8 @@
 <li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
 <li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
 <li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
+              <li><a href="/guides/">AP STEM Guides (学習ガイド)</a>
+            <a href="/calculator/">学費節約シミュレーター</a></li>
 </ul>
 </li>
 </ul>
@@ -419,11 +422,13 @@
 <li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
 <li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
 <li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
-</ul>
+              <li><a href="/guides/">AP STEM Guides (学習ガイド)</a></li>
+          <li><a href="/calculator/">学費節約シミュレーター</a></li>
+          </ul>
 </div>
 </div>
 <div class="footer-bottom">
-<p>© 2026 AP STEM PATH. All rights reserved.</p>
+<p>© 2026 AP STEM PATH  All rights reserved.</p>
 </div>
 </div>
 </footer>

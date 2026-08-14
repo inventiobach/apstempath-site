@@ -1,16 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- トップページ -->
+  <!-- Core Static Pages -->
   <url>
     <loc>https://apstempath.com/</loc>
-    <lastmod>2026-08-12</lastmod>
+    <lastmod>2026-08-14</lastmod>
     <priority>1.0</priority>
   </url>
-  
-  <!-- お問い合わせページ -->
   <url>
     <loc>https://apstempath.com/contact/</loc>
-    <lastmod>2026-08-12</lastmod>
+    <lastmod>2026-08-14</lastmod>
     <priority>0.8</priority>
+  </url>
+
+  <!-- Guides Portal Hub -->
+  <url>
+    <loc>https://apstempath.com/guides/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://apstempath.com/guides/ap-calculus-bc-lagrange-error-bound-georgia-tech/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://apstempath.com/guides/ap-computer-science-a-recursion-arrays-ucsd/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://apstempath.com/guides/ap-statistics-hypothesis-testing-p-value/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://apstempath.com/calculator/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <priority>0.9</priority>
   </url>
 </urlset>
