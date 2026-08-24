@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Improper Integrals & Advanced Series Convergence Tests Guide: AP Calculus BC Score 5 for Georgia Tech | AP STEM PATH</title>
+  <meta name="description" content="Master Improper Integrals & Advanced Series Convergence Tests in AP Calculus BC. Deep dive with LaTeX/code examples and score 5 strategies tailored for Georgia Tech applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Improper Integrals & Advanced Series Convergence Tests Guide: AP Calculus BC Score 5 for Georgia Tech",
+    "description": "Master Improper Integrals & Advanced Series Convergence Tests in AP Calculus BC. Deep dive with LaTeX/code examples and score 5 strategies tailored for Georgia Tech applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Calculus BC • Score 5 Strategy</span>
+      <h1>Improper Integrals & Advanced Series Convergence Tests Guide: AP Calculus BC Score 5 for Georgia Tech</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Calculus BC Mastery Guide: Improper Integrals &amp; Advanced Series Convergence Tests</h1>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>On the AP Calculus BC Exam, <strong>Topic 10: Infinite Sequences and Series</strong> represents <strong>17–20% of the total exam weight</strong>—the single largest non-overlapping content domain between Calculus AB and Calculus BC. Combined with <strong>Topic 6: Integration Techniques and Improper Integrals</strong> (approx. 10–12%), these topics account for up to <strong>30% of your total score</strong>.</p>
+<h3>Conceptual Scope</h3>
+<ul>
+<li><strong>Improper Integrals</strong>: Convergence/divergence over unbounded intervals (Type I) and integrands with infinite discontinuities within or at the boundaries of integration (Type II).</li>
+<li><strong>Advanced Series Convergence Tests</strong>: Precise application of the Integral Test, Direct Comparison Test (DCT), Limit Comparison Test (LCT), Ratio Test, Root Test, and Alternating Series Test (AST).</li>
+<li><strong>Error Bounds</strong>: Quantification of truncation errors using the Alternating Series Error Bound and the Lagrange Error Bound.</li>
+</ul>
+<p>To secure a <strong>Score 5</strong>, mastery of mechanical computation is insufficient. The College Board’s AP Calculus Development Committee mandates absolute logical rigor: explicit verification of test hypotheses, correct usage of limit notation for infinite bounds, and rigorous absolute vs. conditional convergence proofs.</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>A. Formal Rigor of Improper Integrals</h3>
+<p>An improper integral cannot be evaluated via standard Fundamental Theorem of Calculus (FTC) formulations without transitioning through formal limit definitions.</p>
+<h4>Type I: Unbounded Intervals</h4>
+<p>If $f(x)$ is continuous on $[a, \infty)$, then:
+$$\int_{a}^{\infty} f(x) \, dx = \lim_{b \to \infty} \int_{a}^{b} f(x) \, dx$$</p>
+<h4>Type II: Infinite Discontinuities</h4>
+<p>If $f(x)$ is continuous on $[a, b)$ and has an infinite discontinuity at $x = b$ ($\lim_{x \to b^-} f(x) = \pm\infty$):
+$$\int_{a}^{b} f(x) \, dx = \lim_{t \to b^-} \int_{a}^{t} f(x) \, dx$$</p>
+<p>If a discontinuity occurs at an interior point $c \in (a, b)$, the integral <strong>must</strong> be split into two separate limits:
+$$\int_{a}^{b} f(x) \, dx = \lim_{t \to c^-} \int_{a}^{t} f(x) \, dx + \lim_{s \to c^+} \int_{s}^{b} f(x) \, dx$$
+<em>Crucial Rule</em>: Both limits must exist independently for the improper integral to converge. If either limit diverges, the entire integral diverges.</p>
+<hr />
+<h4>Rigorous Proof: Convergence Criteria for $p$-Integrals</h4>
+<p>We prove that $\int_{1}^{\infty} \frac{1}{x^p} \, dx$ converges if and only if $p &gt; 1$.</p>
+<p>$$\int_{1}^{\infty} \frac{1}{x^p} \, dx = \lim_{b \to \infty} \int_{1}^{b} x^{-p} \, dx$$</p>
+<p><strong>Case 1: $p \neq 1$</strong>
+$$\lim_{b \to \infty} \left[ \frac{x^{1-p}}{1-p} \right]<em>{1}^{b} = \lim</em>{b \to \infty} \left( \frac{b^{1-p}}{1-p} - \frac{1^{1-p}}{1-p} \right) = \frac{1}{1-p} \lim_{b \to \infty} \left( b^{1-p} - 1 \right)$$</p>
+<ul>
+<li>If $p &gt; 1$, then $1 - p &lt; 0$. As $b \to \infty$, $b^{1-p} \to 0$. Thus:
+  $$\int_{1}^{\infty} \frac{1}{x^p} \, dx = \frac{1}{1-p} (0 - 1) = \frac{1}{p-1} \quad (\text{Converges})$$</li>
+<li>If $p &lt; 1$, then $1 - p &gt; 0$. As $b \to \infty$, $b^{1-p} \to \infty$. Thus:
+  $$\int_{1}^{\infty} \frac{1}{x^p} \, dx \to \infty \quad (\text{Diverges})$$</li>
+</ul>
+<p><strong>Case 2: $p = 1$</strong>
+$$\lim_{b \to \infty} \int_{1}^{b} \frac{1}{x} \, dx = \lim_{b \to \infty} \left[ \ln|x| \right]<em>{1}^{b} = \lim</em>{b \to \infty} (\ln b - 0) = \infty \quad (\text{Diverges})$$</p>
+<p>$\blacksquare$</p>
+<hr />
+<h3>B. Advanced Convergence Tests &amp; Conditions</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Test</th>
+<th style="text-align: left;">Series Form</th>
+<th style="text-align: left;">Hypotheses / Conditions</th>
+<th style="text-align: left;">Mathematical Conclusion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Integral Test</strong></td>
+<td style="text-align: left;">$\sum_{n=1}^{\infty} a_n$</td>
+<td style="text-align: left;">$a_n = f(n)$, $f(x)$ is <strong>continuous</strong>, <strong>positive</strong>, and <strong>decreasing</strong> on $[1, \infty)$.</td>
+<td style="text-align: left;">$\sum a_n$ and $\int_1^\infty f(x)dx$ both converge or both diverge.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Limit Comparison Test (LCT)</strong></td>
+<td style="text-align: left;">$\sum a_n, \sum b_n$</td>
+<td style="text-align: left;">$a_n &gt; 0$, $b_n &gt; 0$ for all $n$.</td>
+<td style="text-align: left;">If $\lim_{n \to \infty} \frac{a_n}{b_n} = L$ where $0 &lt; L &lt; \infty$, both series share the same status.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Ratio Test</strong></td>
+<td style="text-align: left;">$\sum a_n$</td>
+<td style="text-align: left;">$\lim_{n \to \infty} \left| \frac{a_{n+1}}{a_n} \right| = L$</td>
+<td style="text-align: left;">Absolute convergence if $L &lt; 1$; Divergence if $L &gt; 1$ or $L = \infty$; Inconclusive if $L = 1$.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alternating Series Test (AST)</strong></td>
+<td style="text-align: left;">$\sum (-1)^n b_n$</td>
+<td style="text-align: left;">$b_n &gt; 0$, $b_{n+1} \le b_n$ for all $n \ge N$, and $\lim_{n \to \infty} b_n = 0$.</td>
+<td style="text-align: left;">The series converges.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>C. Error Bounds: Alternating Series vs. Lagrange</h3>
+<h4>1. Alternating Series Error Bound</h4>
+<p>For a convergent alternating series $\sum_{n=1}^{\infty} (-1)^{n+1} b_n$ satisfying AST criteria:
+$$|R_N| = |S - S_N| \le b_{N+1}$$
+The absolute error of the $N$-th partial sum is strictly bounded above by the magnitude of the <strong>first omitted term</strong>.</p>
+<h4>2. Lagrange Error Bound</h4>
+<p>For a Taylor polynomial $P_N(x)$ centered at $x = c$ approximating $f(x)$:
+$$|R_N(x)| = |f(x) - P_N(x)| \le \frac{M}{(N+1)!} |x - c|^{N+1}$$
+where $M = \max_{z \in [c, x]} |f^{(N+1)}(z)|$.</p>
+<hr />
+<h3>D. Algorithmic Verification via Python</h3>
+<p>The following Python script computes the partial sums of a series, calculates the analytical truncation error bound, and confirms convergence using numerical limits:</p>
+<pre><code class="language-python">import numpy as np
+
+def analyze_series_convergence(N_terms: int = 1000) -&gt; dict:
+    &quot;&quot;&quot;
+    Analyzes the convergence of Sum_{n=1}^Inf 1 / (n^2 + n)
+    Exact sum via telescoping series = 1.0
+    &quot;&quot;&quot;
+    n = np.arange(1, N_terms + 1, dtype=np.float64)
+    a_n = 1.0 / (n**2 + n)
+
+    partial_sums = np.cumsum(a_n)
+    exact_sum = 1.0
+
+    # Error for N terms
+    actual_error = abs(exact_sum - partial_sums[-1])
+
+    # Integral Test Error Bound: Integral_{N}^\Inf f(x) dx
+    # Integral_{N}^\Inf 1/x^2 dx = 1 / N
+    N = float(N_terms)
+    integral_error_bound = 1.0 / N
+
+    return {
+        &quot;N_terms&quot;: N_terms,
+        &quot;Partial_Sum&quot;: partial_sums[-1],
+        &quot;Actual_Error&quot;: actual_error,
+        &quot;Integral_Error_Bound&quot;: integral_error_bound,
+        &quot;Bound_Holds&quot;: actual_error &lt;= integral_error_bound
+    }
+
+if __name__ == &quot;__main__&quot;:
+    result = analyze_series_convergence(N_terms=500)
+    print(f&quot;Calculated Sum (N=500): {result['Partial_Sum']:.7f}&quot;)
+    print(f&quot;Actual Error:            {result['Actual_Error']:.8f}&quot;)
+    print(f&quot;Integral Error Bound:    {result['Integral_Error_Bound']:.8f}&quot;)
+    print(f&quot;Mathematical Validity:   {result['Bound_Holds']}&quot;)
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<p>On the AP Calculus BC Exam, <strong>up to 40% of points on FRQs targeting series and improper integrals are lost due to missing preconditions or non-rigorous notation</strong>, even when the final numerical answer is correct.</p>
+<pre><code>       [ Score 4 Approach ]                      [ Score 5 Approach ]
+  ------------------------------            ------------------------------
+   \int_1^\infty x^{-2} dx                   \lim_{b \to \infty} \int_1^b x^{-2} dx
+               |                                         |
+   EVALUATES AT INFINITY DIRECTLY             EVALUATES FORMAL LIMIT
+   [-1/x]_1^\infty = 0 - (-1) = 1             \lim_{b \to \infty} [-1/x]_1^b = 1
+               |                                         |
+   ❌ Fails College Board Rigor               ✅ Full Points Awarded
+</code></pre>
+<h3>Pitfall 1: Treating $\infty$ as a Real Number in Integration</h3>
+<ul>
+<li><strong>Score 4 Trait</strong>: Writing $\left[ -\frac{1}{x} \right]_1^{\infty} = -\frac{1}{\infty} - (-1) = 1$.</li>
+<li><strong>Score 5 Requirement</strong>: Writing $\lim_{b \to \infty} \left[ -\frac{1}{x} \right]<em>1^b = \lim</em>{b \to \infty} \left( -\frac{1}{b} + 1 \right) = 0 + 1 = 1$.</li>
+<li><em>AP Reader Rule</em>: Using $\infty$ as an endpoint in a fundamental theorem substitution directly invalidates the FRQ point for "evaluation."</li>
+</ul>
+<h3>Pitfall 2: Omission of Hypotheses in Convergence Tests</h3>
+<p>To earn credit for applying a convergence test, you <strong>must explicitly state that the preconditions are met</strong>:
+* <strong>Integral Test</strong>: You must explicitly write that $f(x)$ is <em>continuous, positive, and decreasing</em> on the interval.
+* <strong>Limit Comparison Test</strong>: You must state that $a_n &gt; 0$ and $b_n &gt; 0$.
+* <strong>Ratio Test</strong>: You must write the limit symbol $\lim_{n \to \infty}$; omitting $\lim_{n \to \infty}$ or leaving off absolute value bars when terms can be negative results in immediate point deduction.</p>
+<h3>Pitfall 3: Conflating Sequence Limits with Series Convergence</h3>
+<p>Confusing $\lim_{n \to \infty} a_n = 0$ as proof that $\sum a_n$ converges.
+* <em>Correction</em>: $\lim_{n \to \infty} a_n = 0$ is a <em>necessary</em>, but <em>insufficient</em>, condition for convergence. If $\lim_{n \to \infty} a_n \neq 0$, the series diverges by the $n$-th Term Test for Divergence. If it equals 0, the test is inconclusive.</p>
+<hr />
+<h2>4. Georgia Tech Placement Pathway</h2>
+<h3>Georgia Institute of Technology Credit Structure</h3>
+<p>For incoming STEM majors (particularly within the College of Engineering and College of Computing), AP Calculus BC performance grants direct placement advantages:</p>
+<pre><code> AP Calculus BC: Score 5
+       │
+       ├──&gt; Math 1551: Differential Calculus (2 Credit Hours) — EXEMPTED
+       ├──&gt; Math 1552: Integral Calculus     (4 Credit Hours) — EXEMPTED
+       │
+       └──&gt; IMMEDIATE ENROLLMENT IN FIRST SEMESTER:
+            Math 1554: Linear Algebra (4 Credit Hours) 
+            OR Math 2551: Multivariable Calculus (4 Credit Hours)
+</code></pre>
+<h3>Strategic Acceleration Advantages</h3>
+<ol>
+<li><strong>Bypassing the Math 1552 Filter Course</strong>: At Georgia Tech, Math 1552 (Integral Calculus) is a rigorous 4-credit-hour requirement. Excelling in Improper Integrals and Infinite Series allows you to earn a 5, skipping Math 1552 entirely.</li>
+<li><strong>Accelerated Prerequisites</strong>: Scoring a 5 places you directly into <strong>Math 1554 (Linear Algebra)</strong> during your first semester. Linear Algebra is a core prerequisite for advanced engineering coursework, including:</li>
+<li><strong>Computer Science</strong>: CS 1332 (Data Structures &amp; Algorithms), Machine Learning, and Graphics pathways.</li>
+<li><strong>Electrical &amp; Computer Engineering</strong>: ECE 2026 (Signal Processing).</li>
+<li><strong>Mechanical/Aerospace Engineering</strong>: Advanced Dynamics and Fluid Mechanics.</li>
+<li><strong>Degree Timeline Flexibility</strong>: Exemption from 6 core math credits opens up schedule space for co-op programs, undergraduate research at GTRI (Georgia Tech Research Institute), or completing a dual BS/MS degree in 4 years.</li>
+</ol>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution Checklist</h2>
+<h3>Free Response Question (BC-Level)</h3>
+<p>Consider the function $f(x)$ continuous, positive, and decreasing for $x \ge 1$.</p>
+<p><strong>(a)</strong> Evaluate the improper integral:
+$$\int_{1}^{\infty} x e^{-2x} \, dx$$</p>
+<p><strong>(b)</strong> Determine whether the infinite series $\sum_{n=1}^{\infty} \frac{n}{n^3 + 4}$ converges or diverges. Justify your answer.</p>
+<p><strong>(c)</strong> Consider the alternating series $\sum_{n=1}^{\infty} (-1)^{n+1} \frac{\sqrt{n}}{n + 3}$. Determine whether this series converges absolutely, converges conditionally, or diverges. Justify your answer.</p>
+<p><strong>(d)</strong> Calculate an upper bound for the error when approximating the sum of the series $\sum_{n=1}^{\infty} (-1)^{n+1} \frac{1}{n^4}$ using the first 4 terms.</p>
+<hr />
+<h3>Complete Solution &amp; Scoring Rubric</h3>
+<h4>Part (a) Solution</h4>
+<p>Rewrite as a formal limit:
+$$\int_{1}^{\infty} x e^{-2x} \, dx = \lim_{b \to \infty} \int_{1}^{b} x e^{-2x} \, dx$$</p>
+<p>Apply Integration by Parts:
+Let $u = x \implies du = dx$
+Let $dv = e^{-2x} dx \implies v = -\frac{1}{2}e^{-2x}$</p>
+<p>$$\int x e^{-2x} \, dx = -\frac{1}{2}x e^{-2x} - \int -\frac{1}{2}e^{-2x} \, dx = -\frac{1}{2}x e^{-2x} - \frac{1}{4}e^{-2x}$$</p>
+<p>Evaluate the definite limit:
+$$\lim_{b \to \infty} \left[ -\frac{1}{2}x e^{-2x} - \frac{1}{4}e^{-2x} \right]<em>{1}^{b} = \lim</em>{b \to \infty} \left( \left( -\frac{b}{2e^{2b}} - \frac{1}{4e^{2b}} \right) - \left( -\frac{1}{2e^2} - \frac{1}{4e^2} \right) \right)$$</p>
+<p>Using L'Hôpital's Rule on $\lim_{b \to \infty} \frac{b}{2e^{2b}}$:
+$$\lim_{b \to \infty} \frac{1}{4e^{2b}} = 0$$</p>
+<p>Thus:
+$$0 - 0 - \left( -\frac{3}{4e^2} \right) = \frac{3}{4e^2}$$</p>
+<ul>
+<li><strong>Part (a) Checklist (3 Points)</strong>:</li>
+<li>[ ] 1 pt: Sets up improper integral as a limit $\lim_{b \to \infty} \int_1^b \dots$</li>
+<li>[ ] 1 pt: Correctly executes integration by parts.</li>
+<li>[ ] 1 pt: Evaluates limit correctly to yield $\frac{3}{4e^2}$.</li>
+</ul>
+<hr />
+<h4>Part (b) Solution</h4>
+<p>Use the <strong>Limit Comparison Test (LCT)</strong> with the benchmark $p$-series $b_n = \frac{n}{n^3} = \frac{1}{n^2}$.</p>
+<ol>
+<li><strong>State Hypotheses</strong>: $a_n = \frac{n}{n^3 + 4} &gt; 0$ and $b_n = \frac{1}{n^2} &gt; 0$ for all $n \ge 1$.</li>
+<li><strong>Evaluate Limit</strong>:
+   $$L = \lim_{n \to \infty} \frac{a_n}{b_n} = \lim_{n \to \infty} \frac{\frac{n}{n^3 + 4}}{\frac{1}{n^2}} = \lim_{n \to \infty} \frac{n^3}{n^3 + 4} = 1$$</li>
+<li>
+<p><strong>Conclusion</strong>: Since $L = 1$ ($0 &lt; L &lt; \infty$) and the series $\sum_{n=1}^{\infty} \frac{1}{n^2}$ converges as a $p$-series with $p = 2 &gt; 1$, the series $\sum_{n=1}^{\infty} \frac{n}{n^3 + 4}$ <strong>converges</strong> by the Limit Comparison Test.</p>
+</li>
+<li>
+<p><strong>Part (b) Checklist (2 Points)</strong>:</p>
+</li>
+<li>[ ] 1 pt: Compares to $\sum \frac{1}{n^2}$ and evaluates $\lim_{n \to \infty} \frac{a_n}{b_n} = 1$.</li>
+<li>[ ] 1 pt: Explains that $p=2 &gt; 1$ converges, confirming convergence via LCT.</li>
+</ol>
+<hr />
+<h4>Part (c) Solution</h4>
+<p><strong>Step 1: Test for Absolute Convergence</strong>
+Examine the series of absolute values: $\sum_{n=1}^{\infty} \frac{\sqrt{n}}{n + 3}$.
+Use LCT with $b_n = \frac{\sqrt{n}}{n} = \frac{1}{n^{1/2}}$:
+$$\lim_{n \to \infty} \frac{\frac{\sqrt{n}}{n+3}}{\frac{\sqrt{n}}{n}} = \lim_{n \to \infty} \frac{n}{n+3} = 1$$
+Since $0 &lt; L &lt; \infty$ and $\sum_{n=1}^{\infty} \frac{1}{n^{1/2}}$ diverges ($p$-series with $p = \frac{1}{2} \le 1$), the series of absolute values <strong>diverges</strong>. Thus, the series does <strong>not</strong> converge absolutely.</p>
+<p><strong>Step 2: Test for Conditional Convergence via AST</strong>
+Examine $\sum_{n=1}^{\infty} (-1)^{n+1} b_n$ where $b_n = \frac{\sqrt{n}}{n+3}$:
+1. $b_n &gt; 0$ for all $n \ge 1$.
+2. Check if $b_n$ is decreasing. Let $g(x) = \frac{x^{1/2}}{x+3}$:
+   $$g'(x) = \frac{\frac{1}{2}x^{-1/2}(x+3) - x^{1/2}(1)}{(x+3)^2} = \frac{\frac{x+3}{2\sqrt{x}} - \frac{2x}{2\sqrt{x}}}{(x+3)^2} = \frac{3 - x}{2\sqrt{x}(x+3)^2}$$
+   For $x &gt; 3$, $g'(x) &lt; 0$, so $b_{n+1} \le b_n$ for all $n \ge 3$.
+3. Check limit:
+   $$\lim_{n \to \infty} \frac{\sqrt{n}}{n+3} = \lim_{n \to \infty} \frac{\frac{1}{\sqrt{n}}}{1 + \frac{3}{n}} = 0$$</p>
+<p>All conditions of the AST are met. The series <strong>converges conditionally</strong>.</p>
+<ul>
+<li><strong>Part (c) Checklist (3 Points)</strong>:</li>
+<li>[ ] 1 pt: Demonstrates divergence of absolute terms using LCT or DCT with $\sum n^{-1/2}$.</li>
+<li>[ ] 1 pt: Verifies AST conditions ($\lim_{n \to \infty} b_n = 0$ and terms are decreasing).</li>
+<li>[ ] 1 pt: States correct conclusion: <strong>Converges conditionally</strong>.</li>
+</ul>
+<hr />
+<h4>Part (d) Solution</h4>
+<p>The series $\sum_{n=1}^{\infty} (-1)^{n+1} \frac{1}{n^4}$ satisfies the criteria of the Alternating Series Test. Therefore, the error in approximating the sum with $S_4$ is bounded by $b_5$:</p>
+<p>$$|R_4| = |S - S_4| \le b_5$$
+$$b_5 = \frac{1}{5^4} = \frac{1}{625} = 0.0016$$</p>
+<ul>
+<li><strong>Part (d) Checklist (1 Point)</strong>:</li>
+<li>[ ] 1 pt: Identifies $b_5 = \frac{1}{5^4}$ as the error bound and calculates $\frac{1}{625}$ or $0.0016$.</li>
+</ul>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Calculus BC?</h2>
+      <p>Secure admission and advanced standing at top institutions like Georgia Tech with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

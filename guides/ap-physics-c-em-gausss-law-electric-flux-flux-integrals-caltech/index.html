@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gauss's Law & Surface Flux Integration for Continuous Charge Guide: AP Physics C: Electricity & Magnetism Score 5 for Caltech | AP STEM PATH</title>
+  <meta name="description" content="Master Gauss's Law & Surface Flux Integration for Continuous Charge in AP Physics C: Electricity & Magnetism. Deep dive with LaTeX/code examples and score 5 strategies tailored for Caltech applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Gauss's Law & Surface Flux Integration for Continuous Charge Guide: AP Physics C: Electricity & Magnetism Score 5 for Caltech",
+    "description": "Master Gauss's Law & Surface Flux Integration for Continuous Charge in AP Physics C: Electricity & Magnetism. Deep dive with LaTeX/code examples and score 5 strategies tailored for Caltech applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Physics C: Electricity & Magnetism • Score 5 Strategy</span>
+      <h1>Gauss's Law & Surface Flux Integration for Continuous Charge Guide: AP Physics C: Electricity & Magnetism Score 5 for Caltech</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Physics C: Electricity &amp; Magnetism Mastery Guide</h1>
+<h2>Topic: Gauss's Law &amp; Surface Flux Integration for Continuous Charge Distributions</h2>
+<p><strong>Target Institution:</strong> California Institute of Technology (Caltech)<br />
+<strong>Goal:</strong> AP Exam Score 5 | Waiver of Ph 1b Diagnostic / Acceleration into Advanced Physics Sequences</p>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>Gauss's Law lies at the structural heart of Classical Electrodynamics and serves as the foundational pillar for Maxwell's Equations. On the AP Physics C: Electricity &amp; Magnetism Exam, <strong>Electrostatics accounts for 26–34% of the total score</strong>, with Gauss's Law and Continuous Charge Integrations appearing consistently across both Multiple-Choice Questions (MCQs) and Free-Response Questions (FRQs).</p>
+<pre><code>   +-----------------------------------------------------------+
+   |             AP Physics C: E&amp;M Content Weight             |
+   +-----------------------------------------------------------+
+   | Electrostatics (inc. Gauss's Law):     26% - 34%          |
+   | Conductors, Capacitors, Dielectrics:    14% - 17%          |
+   | Electric Circuits:                      14% - 17%          |
+   | Magnetic Fields &amp; Electromagnetism:     17% - 23%          |
+   | Maxwell's Equations &amp; Induction:        14% - 20%          |
+   +-----------------------------------------------------------+
+</code></pre>
+<p>While achieving a raw score of ~65-70% generally yields a standard Score 5 on the AP Exam, <strong>Caltech-bound scholars must aim for near-total accuracy (&gt;90%)</strong>. The AP exam tests your ability to exploit spatial symmetry to calculate electric fields ($\vec{E}$) and electric flux ($\Phi_E$). Caltech's entry requirements demand that you transition seamlessly from elementary high-symmetry problems to full vector-calculus formulations involving coordinate-dependent, non-uniform charge densities $\rho(\vec{r})$.</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>2.1 Integral Formulation of Gauss's Law</h3>
+<p>Gauss's Law states that the net electric flux $\Phi_E$ through any closed orientable surface $\partial V$ (a "Gaussian Surface") enclosing a volume $V$ is directly proportional to the total enclosed free charge $Q_{\text{enc}}$:</p>
+<p>$$\Phi_E = \oint_{\partial V} \vec{E} \cdot d\vec{A} = \frac{Q_{\text{enc}}}{\varepsilon_0}$$</p>
+<p>Where:
+*   $\vec{E}$ is the macroscopic electric field vector evaluated on the surface $d\vec{A}$.
+*   $d\vec{A} = \hat{n} \, dA$ is the differential vector area element pointing outward, normal to the surface.
+*   $\varepsilon_0 \approx 8.854 \times 10^{-12} \text{ F/m}$ is the vacuum permittivity.</p>
+<h3>2.2 Differential Area Elements in Curvilinear Coordinates</h3>
+<p>To compute $\oint \vec{E} \cdot d\vec{A}$ and $Q_{\text{enc}} = \int_V \rho(\vec{r}) \, dV$ across arbitrary non-uniform continuous charge distributions, you must select the appropriate coordinate system:</p>
+<h4>Spherical Coordinates $(r, \theta, \phi)$</h4>
+<ul>
+<li>Volume element: $dV = r^2 \sin\theta \, dr \, d\theta \, d\phi$</li>
+<li>Radial differential surface area element: $d\vec{A}_r = r^2 \sin\theta \, d\theta \, d\phi \, \hat{r}$</li>
+</ul>
+<h4>Cylindrical Coordinates $(r, \theta, z)$</h4>
+<ul>
+<li>Volume element: $dV = r \, dr \, d\theta \, dz$</li>
+<li>Radial differential surface area element: $d\vec{A}_r = r \, d\theta \, dz \, \hat{r}$</li>
+</ul>
+<h3>2.3 Local Formalism: Divergence Theorem &amp; Differential Form</h3>
+<p>Applying the Gauss-Ostrogradsky Divergence Theorem to the surface integral converts the flux into a volume integral over $V$:</p>
+<p>$$\oint_{\partial V} \vec{E} \cdot d\vec{A} = \int_V (\nabla \cdot \vec{E}) \, dV$$</p>
+<p>Equating this to $Q_{\text{enc}} / \varepsilon_0$:</p>
+<p>$$\int_V (\nabla \cdot \vec{E}) \, dV = \frac{1}{\varepsilon_0} \int_V \rho(\vec{r}) \, dV$$</p>
+<p>Since this relationship holds for any arbitrary volume $V$, the integrands must be identical everywhere. This yields Maxwell's First Equation in differential form:</p>
+<p>$$\nabla \cdot \vec{E} = \frac{\rho(\vec{r})}{\varepsilon_0}$$</p>
+<hr />
+<h3>2.4 Derivation: Non-Uniform Spherically Symmetric Distribution</h3>
+<p>Consider a solid dielectric sphere of radius $R$ containing a non-uniform, radial volume charge density given by:</p>
+<p>$$\rho(r) = \rho_0 \left(1 - \frac{r}{R}\right) \quad \text{for } r \le R$$</p>
+<p>where $\rho_0$ is a positive constant. Find $\vec{E}(\vec{r})$ for all space ($r &lt; R$ and $r \ge R$).</p>
+<pre><code>        Gaussian Surface (r &lt; R)
+             . - - - .              
+         . '           ' .          
+       .                   .        
+      .     +  +  +  +      .       
+     .    +  +  r +  +       .      
+    |    +  + (o---&gt;  +       |     ---&gt; Electric Field E(r)
+     .    +  +    R  +       .      
+      .     +  +  +  +      .       
+       .                   .        
+         . '           ' .          
+             ' - - - '              
+        Physical Sphere (R)
+</code></pre>
+<h4>Case 1: Interior Field ($r \le R$)</h4>
+<p>Construct a concentric Gaussian sphere of radius $r \le R$. By radial symmetry, $\vec{E}(\vec{r}) = E(r)\hat{r}$, rendering $E(r)$ uniform over the surface and aligned with $d\vec{A} = dA \, \hat{r}$:</p>
+<p>$$\oint_{\partial V} \vec{E} \cdot d\vec{A} = E(r) \oint_{\partial V} dA = E(r) (4\pi r^2)$$</p>
+<p>Calculate the enclosed charge $Q_{\text{enc}}(r)$:</p>
+<p>$$Q_{\text{enc}}(r) = \int_0^r \rho(r') \, dV' = \int_0^r \rho_0 \left(1 - \frac{r'}{R}\right) \left(4\pi {r'}^2 \, dr'\right)$$</p>
+<p>$$Q_{\text{enc}}(r) = 4\pi \rho_0 \int_0^r \left( {r'}^2 - \frac{{r'}^3}{R} \right) dr' = 4\pi \rho_0 \left[ \frac{r^3}{3} - \frac{r^4}{4R} \right]$$</p>
+<p>Apply Gauss's Law:</p>
+<p>$$E(r) (4\pi r^2) = \frac{4\pi \rho_0}{\varepsilon_0} \left[ \frac{r^3}{3} - \frac{r^4}{4R} \right]$$</p>
+<p>$$\vec{E}(r) = \frac{\rho_0 r}{\varepsilon_0} \left( \frac{1}{3} - \frac{r}{4R} \right) \hat{r} \quad (r \le R)$$</p>
+<h4>Case 2: Exterior Field ($r &gt; R$)</h4>
+<p>The total enclosed charge $Q_{\text{tot}}$ is evaluated at $r = R$:</p>
+<p>$$Q_{\text{tot}} = Q_{\text{enc}}(R) = 4\pi \rho_0 \left[ \frac{R^3}{3} - \frac{R^4}{4R} \right] = 4\pi \rho_0 R^3 \left( \frac{1}{12} \right) = \frac{\pi \rho_0 R^3}{3}$$</p>
+<p>Applying Gauss's Law for a Gaussian sphere of radius $r &gt; R$:</p>
+<p>$$E(r) (4\pi r^2) = \frac{Q_{\text{tot}}}{\varepsilon_0} = \frac{\pi \rho_0 R^3}{3\varepsilon_0}$$</p>
+<p>$$\vec{E}(r) = \frac{\rho_0 R^3}{12 \varepsilon_0 r^2} \hat{r} \quad (r &gt; R)$$</p>
+<h4>Continuity Verification at Boundary $r = R$:</h4>
+<p>$$\lim_{r \to R^-} E(r) = \frac{\rho_0 R}{\varepsilon_0} \left( \frac{1}{3} - \frac{1}{4} \right) = \frac{\rho_0 R}{12 \varepsilon_0}$$</p>
+<p>$$\lim_{r \to R^+} E(r) = \frac{\rho_0 R^3}{12 \varepsilon_0 R^2} = \frac{\rho_0 R}{12 \varepsilon_0}$$</p>
+<p>The electric field is continuous across the surface of the charge distribution, as required for a volume charge distribution without surface charge singularities ($\sigma = 0$).</p>
+<hr />
+<h3>2.5 Computational Verification Script (Python / SymPy)</h3>
+<p>To verify the symbolic derivations and visualize the continuous internal-to-external electric field transition, use the following execution code:</p>
+<pre><code class="language-python">import sympy as sp
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Define Symbolic Variables
+r, R, rho_0, eps_0 = sp.symbols('r R rho_0 eps_0', positive=True, real=True)
+r_prime = sp.symbols('r_prime', positive=True, real=True)
+
+# 1. Define Internal Volume Charge Density
+rho_r = rho_0 * (1 - r_prime / R)
+
+# 2. Compute Q_enc for internal region r &lt;= R
+dV = 4 * sp.pi * r_prime**2
+Q_enc_int = sp.integrate(rho_r * dV, (r_prime, 0, r))
+
+# 3. Derive E_field internal via Gauss's Law: E * (4*pi*r^2) = Q_enc / eps_0
+E_int = sp.simplify(Q_enc_int / (4 * sp.pi * r**2 * eps_0))
+
+# 4. Compute Total Charge Q_tot (r = R)
+Q_tot = Q_enc_int.subs(r, R)
+
+# 5. Derive E_field external (r &gt; R)
+E_ext = sp.simplify(Q_tot / (4 * sp.pi * r**2 * eps_0))
+
+print(f&quot;Internal Field E(r &lt;= R): {E_int}&quot;)
+print(f&quot;External Field E(r &gt; R):  {E_ext}&quot;)
+
+# Boundary Continuity Check
+diff_at_boundary = sp.simplify(E_int.subs(r, R) - E_ext.subs(r, R))
+print(f&quot;Boundary Difference [E_int(R) - E_ext(R)]: {diff_at_boundary}&quot;)
+assert diff_at_boundary == 0, &quot;Continuity failed at boundary!&quot;
+
+# Numeric Plotting Setup
+R_val = 1.0
+rho_0_val = 1.0
+eps_0_val = 1.0
+
+r_int_vals = np.linspace(0, R_val, 100)
+r_ext_vals = np.linspace(R_val, 3 * R_val, 200)
+
+# Convert SymPy expressions to numeric functions
+f_E_int = sp.lambdify(r, E_int.subs({R: R_val, rho_0: rho_0_val, eps_0: eps_0_val}))
+f_E_ext = sp.lambdify(r, E_ext.subs({R: R_val, rho_0: rho_0_val, eps_0: eps_0_val}))
+
+plt.figure(figsize=(8, 5))
+plt.plot(r_int_vals, f_E_int(r_int_vals), label=r'$E_{int}(r) \quad (r \le R)$', color='blue', lw=2)
+plt.plot(r_ext_vals, f_E_ext(r_ext_vals), label=r'$E_{ext}(r) \quad (r &gt; R)$', color='red', lw=2)
+plt.axvline(x=R_val, linestyle='--', color='gray', label='Boundary $r=R$')
+plt.title(&quot;Electric Field Spectrum of Non-Uniform Charge Distribution&quot;)
+plt.xlabel(&quot;Radius $r/R$&quot;)
+plt.ylabel(f&quot;Electric Field Magnitude $E(r)$&quot;)
+plt.grid(True, linestyle=':')
+plt.legend()
+plt.savefig(&quot;electric_field_profile.png&quot;, dpi=300)
+plt.show()
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<h3>Critical Exam Pitfalls</h3>
+<ol>
+<li><strong>Confusing the Radius Variable $r$ with Shell Limit $R$</strong>:</li>
+<li><em>Pitfall</em>: Integrating the density using $R$ in the upper bound: $Q_{\text{enc}} = \int_0^R \rho(r) \, dV$ when calculating the field <em>inside</em> the distribution ($r &lt; R$).</li>
+<li>
+<p><em>Correction</em>: Use a dummy variable $r'$ for integration limits $0 \to r$: $Q_{\text{enc}}(r) = \int_0^r \rho(r') 4\pi {r'}^2 \, dr'$.</p>
+</li>
+<li>
+<p><strong>Treating $\vec{E}$ as Uniform Across Asymmetric Gaussian Surfaces</strong>:</p>
+</li>
+<li><em>Pitfall</em>: Factorizing $\oint \vec{E} \cdot d\vec{A} \implies E \oint dA$ for asymmetric distributions (e.g., finite line charges, planar shapes near edges).</li>
+<li>
+<p><em>Correction</em>: Gauss's Law is always <em>true</em>, but only <em>useful</em> for calculating fields when $\vec{E} \cdot \hat{n}$ is constant across the chosen Gaussian surface.</p>
+</li>
+<li>
+<p><strong>Neglecting Scalar Products in Differential Areas</strong>:</p>
+</li>
+<li>
+<p><em>Pitfall</em>: Ignoring $\vec{E} \cdot d\vec{A} = E \, dA \cos\theta$. For cylindrical endcaps, $\vec{E} \perp d\vec{A} \implies \vec{E} \cdot d\vec{A} = 0$. Students frequently add flux through non-contributing cap surfaces.</p>
+</li>
+<li>
+<p><strong>Surface Charge Discontinuities</strong>:</p>
+</li>
+<li><em>Pitfall</em>: Assuming $E(r)$ is continuous across a surface carrying an explicit surface charge density $\sigma$.</li>
+<li><em>Correction</em>: Boundary conditions dictate $E_{\perp,\text{above}} - E_{\perp,\text{below}} = \frac{\sigma}{\varepsilon_0}$.</li>
+</ol>
+<hr />
+<h3>Score 4 vs. Score 5 Solution Analysis</h3>
+<h4>Problem Statement:</h4>
+<p><em>An infinitely long non-conducting cylinder of radius $R$ carries a non-uniform volume charge density $\rho(r) = C r$, where $C$ is a constant with units $\text{C/m}^4$. Derive an expression for the magnitude of the electric field $\vec{E}$ at a radial position $r &lt; R$.</em></p>
+<pre><code>+-------------------------------------------------------------------------------------------------------+
+| SCORE 4 RESPONSE                                     | SCORE 5 RESPONSE (CALTECH LEVEL)              |
++------------------------------------------------------+------------------------------------------------+
+| Gauss Law:                                           | Apply Gauss's Law to a concentric Gaussian     |
+| integral(E * dA) = Q / eps_0                         | cylinder of radius $r &lt; R$ and length $L$.     |
+|                                                      |                                                |
+| E * (2 * pi * r * L) = Q / eps_0                     | Symmetry Arguments:                            |
+|                                                      | Due to infinite axial symmetry, radial field   |
+| Q = integral(rho * dV)                               | vector $\vec{E} = E_r(r)\hat{r}$.              |
+|   = integral(C * r * 2 * pi * r * L * dr)            |                                                |
+|   = 2 * pi * C * L * integral(r^2 * dr)              | Flux Evaluation:                               |
+|   = 2 * pi * C * L * (r^3 / 3)                       | $\Phi_E = \oint \vec{E} \cdot d\vec{A}$        |
+|                                                      | $\Phi_E = \int_{\text{sides}} E_r dA_r +       |
+| E * (2 * pi * r * L) = (2 * pi * C * L * r^3) /      |            \int_{\text{caps}} \vec{E} \cdot d\vec{A} |
+|                        (3 * eps_0)                   |                                                |
+|                                                      | Since $\vec{E} \perp d\vec{A}$ on end caps,    |
+| E = (C * r^2) / (3 * eps_0)                          | cap flux vanishes:                             |
+|                                                      | $\Phi_E = E_r(r) (2\pi r L) + 0 = E_r(r)(2\pi r L)$|
+| AP Examiner Evaluation:                              |                                                |
+| Arrives at correct numerical magnitude, but fails to | Charge Integration:                            |
+| state vector direction, omits symmetry arguments     | $Q_{\text{enc}} = \int_V \rho(r') dV'$         |
+| regarding endcap flux cancellation, and uses $r$     | $Q_{\text{enc}} = \int_0^L dz' \int_0^{2\pi}   |
+| simultaneously as an integration dummy variable and  |                    d\theta' \int_0^r (C r')    |
+| upper limit. Earns 3/4 points on AP Rubric.          |                    (r' dr')$                   |
+|                                                      | $Q_{\text{enc}} = (L)(2\pi) C \int_0^r {r'}^2  |
+|                                                      |                    dr' = \frac{2\pi C L r^3}{3}$|
+|                                                      |                                                |
+|                                                      | Equating flux and enclosed charge:             |
+|                                                      | $E_r(r) (2\pi r L) = \frac{2\pi C L r^3}{3     |
+|                                                      |                        \varepsilon_0}$         |
+|                                                      |                                                |
+|                                                      | Vector Result:                                 |
+|                                                      | $\vec{E}(r) = \frac{C r^2}{3\varepsilon_0}     |
+|                                                      |              \hat{r} \quad \text{for } r &lt; R$  |
+|                                                      |                                                |
+|                                                      | AP Examiner Evaluation:                        |
+|                                                      | Full 4/4 points. Demonstrates rigorous calculus |
+|                                                      | notation, explicit vector symmetry breakdown,   |
+|                                                      | and complete integration variable discipline.  |
++-------------------------------------------------------------------------------------------------------+
+</code></pre>
+<hr />
+<h2>4. Caltech Placement Pathway</h2>
+<h3>Course Exemptions &amp; Strategic Placement</h3>
+<p>Achieving a Score 5 on AP Physics C: E&amp;M is a prerequisite to sit for Caltech's <strong>Ph 1b Placement Diagnostic Examination</strong>.</p>
+<pre><code>[AP Physics C: E&amp;M Score 5] 
+       │
+       ▼
+[Caltech Ph 1b Placement Diagnostic Exam] 
+       │
+       ├─► (Pass Diagnostic) ──► Waive Classical Physics Track (Ph 1b)
+       │                         │
+       │                         ▼
+       │                         Accelerate Directly To:
+       │                         • Ph 1b/c Advanced Track: Electrodynamics &amp; Quantum Dynamics
+       │                         • Ph 2a/b: Analytical Mechanics / Statistical Physics
+       │
+       └─► (Standard Track)  ──► Enrolled in Ph 1b (Freshman Electromagnetism)
+</code></pre>
+<h3>Academic Nuance: The Caltech Standard</h3>
+<p>Standard AP Physics courses restrict continuous distributions to high-symmetry cases (spheres, cylinders, infinite planes). Caltech's core physics curriculum (originally instituted by Richard Feynman) demands instant mastery of:</p>
+<ol>
+<li><strong>Non-symmetric surface integrations</strong>: Evaluating $\Phi_E = \int \vec{E} \cdot d\vec{A}$ across arbitrary parameterized surfaces $z = f(x,y)$ where $\vec{E}$ is spatially non-uniform.</li>
+<li><strong>Poisson and Laplace Equations</strong>: Transitioning from integral Gauss's Law to second-order partial differential equations:
+   $$\nabla^2 V = -\frac{\rho}{\varepsilon_0}$$</li>
+<li><strong>Multipole Expansions</strong>: Approximating localized charge distributions at large distances using monopole, dipole, and quadrupole moments:
+   $$V(\vec{r}) = \frac{1}{4\pi\varepsilon_0} \left[ \frac{Q}{r} + \frac{\vec{p} \cdot \hat{r}}{r^2} + \sum_{i,j} \frac{3 Q_{ij} \hat{r}<em>i \hat{r}_j - Q</em>{ij}\delta_{ij}}{2r^3} + \dots \right]$$</li>
+</ol>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution Checklist</h2>
+<h3>Problem Statement</h3>
+<p>A thick, non-conducting spherical shell has an inner radius $a$ and outer radius $b$. The volume charge density within the shell ($a \le r \le b$) is non-uniform and given by:</p>
+<p>$$\rho(r) = \frac{\rho_0 a}{r} \cos\left(\frac{\pi r}{2b}\right)$$</p>
+<p>where $\rho_0$ is a known positive constant. The region $r &lt; a$ is hollow ($\rho = 0$), and the region $r &gt; b$ is empty space ($\rho = 0$).</p>
+<pre><code>                      \\\\\\\\\\\\\\\\\\\
+                   \\\\\\\\\\\\\\\\\\\\\\\\\\\
+                 \\\\\\                   \\\\\\
+               \\\\                           \\\\
+             \\\\       / - - - - - \           \\\\
+            \\\\       /             \           \\\\
+           \\\\       |     r &lt; a     |           \\\\
+           \\\\       |    (Hollow)   |           \\\\
+           \\\\        \             /            \\\\
+            \\\\        \ - - - - - /            \\\\
+             \\\\                                \\\\
+               \\\\         a         b       \\\\
+                 \\\\&lt;-------------&gt;&lt;-------&gt;\\\\
+                   \\\\\\\\\\\\\\\\\\\\\\\\\\\
+                      \\\\\\\\\\\\\\\\\\\
+</code></pre>
+<p><em>(a)</em> Write an expression for the total charge $Q_{\text{tot}}$ contained within the shell.<br />
+<em>(b)</em> Calculate the magnitude of the electric field $\vec{E}(r)$ in the hollow core ($r &lt; a$).<br />
+<em>(c)</em> Derive an expression for the electric field magnitude $E(r)$ inside the shell material ($a \le r \le b$).<br />
+<em>(d)</em> Determine the electric field magnitude $E(r)$ in the exterior region ($r &gt; b$).<br />
+<em>(e)</em> Calculate the surface charge density $\sigma_a$ that would need to be deposited on the inner boundary at $r = a$ such that the electric field in the shell material ($a \le r \le b$) becomes identically zero.</p>
+<hr />
+<h3>Step-by-Step Solution Checklist</h3>
+<h4>Part (a): Total Charge $Q_{\text{tot}}$ Integration</h4>
+<ol>
+<li>Express the differential volume element in spherical coordinates: $dV = 4\pi r'^2 dr'$.</li>
+<li>Set up the definite integral over the shell region $[a, b]$:
+   $$Q_{\text{tot}} = \int_a^b \rho(r') \, dV' = \int_a^b \left( \frac{\rho_0 a}{r'} \cos\left(\frac{\pi r'}{2b}\right) \right) \left( 4\pi {r'}^2 \, dr' \right)$$</li>
+<li>Simplify the integrand:
+   $$Q_{\text{tot}} = 4\pi \rho_0 a \int_a^b r' \cos\left(\frac{\pi r'}{2b}\right) dr'$$</li>
+<li>Integrate by parts using $u = r' \implies du = dr'$ and $dv = \cos\left(\frac{\pi r'}{2b}\right) dr' \implies v = \frac{2b}{\pi} \sin\left(\frac{\pi r'}{2b}\right)$:
+   $$\int r' \cos\left(\frac{\pi r'}{2b}\right) dr' = \frac{2b r'}{\pi} \sin\left(\frac{\pi r'}{2b}\right) - \frac{2b}{\pi} \int \sin\left(\frac{\pi r'}{2b}\right) dr'$$
+   $$= \frac{2b r'}{\pi} \sin\left(\frac{\pi r'}{2b}\right) + \left(\frac{2b}{\pi}\right)^2 \cos\left(\frac{\pi r'}{2b}\right)$$</li>
+<li>Evaluate from boundary $r' = a$ to $r' = b$:
+   $$Q_{\text{tot}} = 4\pi \rho_0 a \left[ \left( \frac{2b^2}{\pi} \sin\left(\frac{\pi}{2}\right) + \frac{4b^2}{\pi^2} \cos\left(\frac{\pi}{2}\right) \right) - \left( \frac{2ab}{\pi} \sin\left(\frac{\pi a}{2b}\right) + \frac{4b^2}{\pi^2} \cos\left(\frac{\pi a}{2b}\right) \right) \right]$$</li>
+</ol>
+<p>Since $\sin(\pi/2) = 1$ and $\cos(\pi/2) = 0$:</p>
+<p>$$Q_{\text{tot}} = 4\pi \rho_0 a \left[ \frac{2b^2}{\pi} - \frac{2ab}{\pi} \sin\left(\frac{\pi a}{2b}\right) - \frac{4b^2}{\pi^2} \cos\left(\frac{\pi a}{2b}\right) \right]$$</p>
+<p>$$Q_{\text{tot}} = 8\rho_0 a b \left[ b - a \sin\left(\frac{\pi a}{2b}\right) - \frac{2b}{\pi} \cos\left(\frac{\pi a}{2b}\right) \right]$$</p>
+<hr />
+<h4>Part (b): Electric Field in Hollow Core ($r &lt; a$)</h4>
+<ol>
+<li>Construct a concentric Gaussian sphere of radius $r &lt; a$.</li>
+<li>Compute enclosed charge: $Q_{\text{enc}} = 0$ (since $\rho = 0$ for $r &lt; a$).</li>
+<li>Apply Gauss's Law:
+   $$\oint \vec{E} \cdot d\vec{A} = E(r) (4\pi r^2) = \frac{0}{\varepsilon_0} \implies E(r) = 0 \quad (r &lt; a)$$</li>
+</ol>
+<hr />
+<h4>Part (c): Electric Field Inside Shell Material ($a \le r \le b$)</h4>
+<ol>
+<li>Construct Gaussian sphere of radius $r$ where $a \le r \le b$.</li>
+<li>Calculate $Q_{\text{enc}}(r)$ by integrating from $r' = a$ to upper bound $r' = r$:
+   $$Q_{\text{enc}}(r) = 8\rho_0 a b \left[ r \sin\left(\frac{\pi r}{2b}\right) + \frac{2b}{\pi} \cos\left(\frac{\pi r}{2b}\right) - a \sin\left(\frac{\pi a}{2b}\right) - \frac{2b}{\pi} \cos\left(\frac{\pi a}{2b}\right) \right]$$</li>
+<li>Apply Gauss's Law:
+   $$E(r) (4\pi r^2) = \frac{Q_{\text{enc}}(r)}{\varepsilon_0}$$
+   $$E(r) = \frac{2\rho_0 a b}{\pi \varepsilon_0 r^2} \left[ r \sin\left(\frac{\pi r}{2b}\right) + \frac{2b}{\pi} \cos\left(\frac{\pi r}{2b}\right) - a \sin\left(\frac{\pi a}{2b}\right) - \frac{2b}{\pi} \cos\left(\frac{\pi a}{2b}\right) \right]$$</li>
+</ol>
+<hr />
+<h4>Part (d): Electric Field Outside Exterior Region ($r &gt; b$)</h4>
+<ol>
+<li>Construct Gaussian sphere of radius $r &gt; b$.</li>
+<li>Enclosed charge is $Q_{\text{tot}}$ from Part (a).</li>
+<li>Apply Gauss's Law:
+   $$E(r) (4\pi r^2) = \frac{Q_{\text{tot}}}{\varepsilon_0}$$
+   $$E(r) = \frac{2\rho_0 a b}{\pi \varepsilon_0 r^2} \left[ b - a \sin\left(\frac{\pi a}{2b}\right) - \frac{2b}{\pi} \cos\left(\frac{\pi a}{2b}\right) \right] \quad (r &gt; b)$$</li>
+</ol>
+<hr />
+<h4>Part (e): Required Surface Charge Density $\sigma_a$ for Zero Internal Field</h4>
+<ol>
+<li>For $\vec{E}(r) = 0$ inside the region $a \le r \le b$, the total enclosed charge $Q_{\text{enc,\text{net}}}(r)$ within any Gaussian surface of radius $r \in [a,b]$ must vanish:
+   $$Q_{\text{enc,\text{net}}}(r) = Q_{\text{surface}} + Q_{\text{volume}}(r) = 0$$</li>
+<li>Since this must hold for <em>all</em> $r \in [a,b]$, and $Q_{\text{volume}}(r)$ varies continuously from $r = a$, the net charge enclosed inside $r \to a^+$ must be zero.</li>
+<li>Total surface charge on the inner boundary $r = a$:
+   $$Q_{\text{surface}} = \sigma_a (4\pi a^2)$$</li>
+<li>To cancel the volume charge distribution <em>everywhere</em> inside $a \le r \le b$, the electric field inside the material can only be zero if the boundary condition enforces zero field at $r = a^+$.</li>
+<li>Setting total enclosed charge at $r \to a^+$:
+   $$Q_{\text{enc}}(a^+) = \sigma_a (4\pi a^2) + 0 = 0 \implies \sigma_a = 0$$
+   <em>(Note: Overridden condition: If the question requires shielding against volume charge growth, electrostatic equilibrium requires a conductor. Within a dielectric with fixed $\rho(r)$, no static $\sigma_a$ can cancel a spatially varying volume charge $Q_{\text{vol}}(r)$ across all $r$ simultaneously unless the material itself is replaced by a conductor, in which case charge relocates to eliminate internal fields).</em></li>
+</ol>
+<hr />
+<h3>Scoring Rubric &amp; Breakdown (15 Point AP FRQ Equivalent)</h3>
+<pre><code>+---------------------------------------------------------------------------------------------------+
+| Section | Point Allocation Criteria                                                  | Points     |
++---------+----------------------------------------------------------------------------+------------+
+| (a)     | Sets up volume integral with explicit $r'^2$ dependence                     | 1 Point    |
+|         | Correct application of Integration by Parts                                | 1 Point    |
+|         | Accurate limits $[a, b]$ and algebraic simplification                      | 1 Point    |
++---------+----------------------------------------------------------------------------+------------+
+| (b)     | Correctly asserts $Q_{\text{enc}} = 0$ for inner cavity                    | 1 Point    |
+|         | Concludes $E(r) = 0$ with proper symmetry justification                    | 1 Point    |
++---------+----------------------------------------------------------------------------+------------+
+| (c)     | Sets up integration limits $[a, r]$ for enclosed charge                    | 1 Point    |
+|         | Explicit flux application: $\oint \vec{E} \cdot d\vec{A} = E(4\pi r^2)$     | 1 Point    |
+|         | Correct algebraic expression for $E(r)$ inside shell                       | 2 Points   |
++---------+----------------------------------------------------------------------------+------------+
+| (d)     | Identifies that $Q_{\text{enc}} = Q_{\text{tot}}$ for $r &gt; b$               | 1 Point    |
+|         | Expresses $E(r)$ with $1/r^2$ spatial drop-off                             | 1 Point    |
++---------+----------------------------------------------------------------------------+------------+
+| (e)     | Sets up surface charge relation $Q_{\text{surface}} = \sigma_a (4\pi a^2)$ | 1 Point    |
+|         | Evaluates flux cancellation requirements correctly                         | 1 Point    |
+|         | Correctly identifies spatial field implications for dielectrics             | 2 Points   |
++---------+----------------------------------------------------------------------------+------------+
+| TOTAL   |                                                                            | 15 Points  |
++---------------------------------------------------------------------------------------------------+
+</code></pre>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Physics C: Electricity & Magnetism?</h2>
+      <p>Secure admission and advanced standing at top institutions like Caltech with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

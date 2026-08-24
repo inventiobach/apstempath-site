@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Binomial vs. Geometric Probability Models & Expected Values Guide: AP Statistics Score 5 for Georgia Tech | AP STEM PATH</title>
+  <meta name="description" content="Master Binomial vs. Geometric Probability Models & Expected Values in AP Statistics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Georgia Tech applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Binomial vs. Geometric Probability Models & Expected Values Guide: AP Statistics Score 5 for Georgia Tech",
+    "description": "Master Binomial vs. Geometric Probability Models & Expected Values in AP Statistics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Georgia Tech applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Statistics • Score 5 Strategy</span>
+      <h1>Binomial vs. Geometric Probability Models & Expected Values Guide: AP Statistics Score 5 for Georgia Tech</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Statistics Mastery Guide: Binomial vs. Geometric Probability Models &amp; Expected Values</h1>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>Discrete probability distributions form the rigorous mathematical backbone of AP Statistics Topic 4 (Random Variables, Sets, and Probability Distributions), which constitutes <strong>10%–20%</strong> of the multiple-choice and free-response sections on the AP Statistics Exam. </p>
+<p>Within this domain, distinguishing between <strong>Binomial</strong> and <strong>Geometric</strong> probability models—and correctly deriving their expected values and variances—is a primary differentiator between candidates who earn a Score 4 and those who achieve a Score 5. </p>
+<pre><code>                                  +---------------------------------------+
+                                  |     Discrete Probability Models       |
+                                  +---------------------------------------+
+                                                      |
+                    +---------------------------------+---------------------------------+
+                    |                                                                   |
+                    v                                                                   v
+     +-----------------------------+                                     +-----------------------------+
+     |     Binomial Distribution   |                                     |    Geometric Distribution   |
+     |   X ~ Binom(n, p)           |                                     |    Y ~ Geom(p)              |
+     +-----------------------------+                                     +-----------------------------+
+     | - Fixed trials: n           |                                     | - Trials until 1st success  |
+     | - Variable: Successes (k)   |                                     | - Variable: Trial number (k)|
+     | - E[X] = np                 |                                     | - E[Y] = 1/p                |
+     | - Var(X) = np(1-p)          |                                     | - Var(Y) = (1-p)/p^2        |
+     +-----------------------------+                                     +-----------------------------+
+</code></pre>
+<p>For students targeting <strong>Georgia Institute of Technology</strong>—specifically those entering the H. Milton Stewart School of Industrial and Systems Engineering (ranked #1 nationally)—mastering these discrete models is not merely an AP milestone. A Score 5 provides course credit for <strong>ISYE 3770 (Statistics and Applications)</strong>, waiving 3 credit hours upon matriculation and immediately unlocking advanced stochastic optimization and quality engineering sequences.</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<p>To earn full credit on AP Free Response Questions (FRQs), you must rigorously check distribution conditions before applying formulas.</p>
+<h3>2.1 Model Conditions: BINS vs. BITS</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Condition</th>
+<th style="text-align: left;">Binomial Model ($X \sim \text{Binom}(n, p)$)</th>
+<th style="text-align: left;">Geometric Model ($Y \sim \text{Geom}(p)$)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>B</strong>inary</td>
+<td style="text-align: left;">Outcomes are strictly split into Success ($S$) or Failure ($F$).</td>
+<td style="text-align: left;">Outcomes are strictly split into Success ($S$) or Failure ($F$).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>I</strong>ndependency</td>
+<td style="text-align: left;">Individual trials are independent.*</td>
+<td style="text-align: left;">Individual trials are independent.*</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>N / T</strong></td>
+<td style="text-align: left;"><strong>N</strong>umber of trials ($n$) is fixed in advance.</td>
+<td style="text-align: left;"><strong>T</strong>rials continue until the <strong>first</strong> success occurs.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>S</strong>ame $p$</td>
+<td style="text-align: left;">Probability of success $p$ is constant per trial.</td>
+<td style="text-align: left;">Probability of success $p$ is constant per trial.</td>
+</tr>
+</tbody>
+</table>
+<p><em>*Sampling without replacement requires the $10\%$ Condition: The sample size $n$ must not exceed $10\%$ of the population size $N$ ($n \le 0.10 N$).</em></p>
+<hr />
+<h3>2.2 Mathematical Expressions and Formulas</h3>
+<h4>Binomial Model</h4>
+<p>Let $X$ be the number of successes in $n$ independent Bernoulli trials with success probability $p$.</p>
+<ul>
+<li>
+<p><strong>Probability Mass Function (PMF):</strong>
+    $$P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}, \quad k \in {0, 1, 2, \dots, n}$$
+    where $\binom{n}{k} = \frac{n!}{k!(n-k)!}$.</p>
+</li>
+<li>
+<p><strong>Cumulative Distribution Function (CDF):</strong>
+    $$P(X \le k) = \sum_{j=0}^{k} \binom{n}{j} p^j (1-p)^{n-j}$$</p>
+</li>
+</ul>
+<h4>Geometric Model</h4>
+<p>Let $Y$ be the number of trials required to obtain the <strong>first</strong> success, with success probability $p$.</p>
+<ul>
+<li>
+<p><strong>Probability Mass Function (PMF):</strong>
+    $$P(Y = k) = (1-p)^{k-1} p, \quad k \in {1, 2, 3, \dots}$$</p>
+</li>
+<li>
+<p><strong>Cumulative Distribution Function (CDF) &amp; Survival Function:</strong>
+    $$P(Y \le k) = 1 - (1-p)^k$$
+    $$P(Y &gt; k) = (1-p)^k$$</p>
+</li>
+</ul>
+<hr />
+<h3>2.3 Mathematical Derivations of Expected Values</h3>
+<h4>Derivation 1: Expected Value of a Binomial Random Variable</h4>
+<p>Let $X \sim \text{Binom}(n, p)$. By definition of expected value:</p>
+<p>$$E[X] = \sum_{k=0}^{n} k \cdot P(X = k) = \sum_{k=0}^{n} k \binom{n}{k} p^k (1-p)^{n-k}$$</p>
+<p>Since the $k=0$ term equals zero, we evaluate from $k=1$:</p>
+<p>$$E[X] = \sum_{k=1}^{n} k \frac{n!}{k!(n-k)!} p^k (1-p)^{n-k}$$</p>
+<p>Cancel $k$ in the denominator using $k! = k(k-1)!$:</p>
+<p>$$E[X] = \sum_{k=1}^{n} \frac{n!}{(k-1)!(n-k)!} p^k (1-p)^{n-k}$$</p>
+<p>Factor out $n$ and $p$:</p>
+<p>$$E[X] = n p \sum_{k=1}^{n} \frac{(n-1)!}{(k-1)!((n-1)-(k-1))!} p^{k-1} (1-p)^{(n-1)-(k-1)}$$</p>
+<p>Let $j = k - 1$ and $m = n - 1$. As $k$ runs from $1$ to $n$, $j$ runs from $0$ to $m$:</p>
+<p>$$E[X] = n p \sum_{j=0}^{m} \binom{m}{j} p^j (1-p)^{m-j}$$</p>
+<p>By the Binomial Theorem, $\sum_{j=0}^{m} \binom{m}{j} p^j (1-p)^{m-j} = (p + (1-p))^m = 1^m = 1$.</p>
+<p>$$\therefore E[X] = n p$$</p>
+<hr />
+<h4>Derivation 2: Expected Value of a Geometric Random Variable</h4>
+<p>Let $Y \sim \text{Geom}(p)$ and $q = 1 - p$.</p>
+<p>$$E[Y] = \sum_{k=1}^{\infty} k \cdot P(Y = k) = \sum_{k=1}^{\infty} k q^{k-1} p = p \sum_{k=1}^{\infty} k q^{k-1}$$</p>
+<p>Recall that $\frac{d}{dq}\left(q^k\right) = k q^{k-1}$. Interchanging the derivative and infinite sum:</p>
+<p>$$E[Y] = p \cdot \frac{d}{dq} \left( \sum_{k=0}^{\infty} q^k \right)$$</p>
+<p>Using the infinite geometric series sum formula $\sum_{k=0}^{\infty} q^k = \frac{1}{1-q}$ (valid for $|q| &lt; 1$):</p>
+<p>$$E[Y] = p \cdot \frac{d}{dq} \left( \frac{1}{1-q} \right) = p \cdot \left( \frac{1}{(1-q)^2} \right)$$</p>
+<p>Since $1 - q = p$:</p>
+<p>$$E[Y] = p \cdot \left( \frac{1}{p^2} \right) = \frac{1}{p}$$</p>
+<p>$$\therefore E[Y] = \frac{1}{p}$$</p>
+<hr />
+<h3>2.4 Empirical Validation via Simulation (Python)</h3>
+<p>To visualize these convergence properties, run this Python simulation comparing theoretical values against $100,000$ simulated trials.</p>
+<pre><code class="language-python">import numpy as np
+import scipy.stats as stats
+
+# Parameters
+n_binom, p_binom = 20, 0.35
+p_geom = 0.15
+num_simulations = 100_000
+
+# Binomial Simulation
+binom_samples = np.random.binomial(n=n_binom, p=p_binom, size=num_simulations)
+sim_binom_mean = np.mean(binom_samples)
+sim_binom_var = np.var(binom_samples, ddof=1)
+
+theo_binom_mean = n_binom * p_binom
+theo_binom_var = n_binom * p_binom * (1 - p_binom)
+
+# Geometric Simulation (numpy.random.geometric counts trials until first success)
+geom_samples = np.random.geometric(p=p_geom, size=num_simulations)
+sim_geom_mean = np.mean(geom_samples)
+sim_geom_var = np.var(geom_samples, ddof=1)
+
+theo_geom_mean = 1 / p_geom
+theo_geom_var = (1 - p_geom) / (p_geom**2)
+
+# Display Results
+print(&quot;--- BINOMIAL DISTRIBUTION VALIDATION ---&quot;)
+print(f&quot;Theoretical Mean: {theo_binom_mean:.4f} | Empirical Mean: {sim_binom_mean:.4f}&quot;)
+print(f&quot;Theoretical Var:  {theo_binom_var:.4f} | Empirical Var:  {sim_binom_var:.4f}\n&quot;)
+
+print(&quot;--- GEOMETRIC DISTRIBUTION VALIDATION ---&quot;)
+print(f&quot;Theoretical Mean: {theo_geom_mean:.4f} | Empirical Mean: {sim_geom_mean:.4f}&quot;)
+print(f&quot;Theoretical Var:  {theo_geom_var:.4f} | Empirical Var:  {sim_geom_var:.4f}&quot;)
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<h3>3.1 Score 4 vs. Score 5 Performance Contrast</h3>
+<p>On AP Statistics FRQs, numerical accuracy alone rarely secures full credit ("Essentially Correct" - E). Readers use strict holistically defined rubrics.</p>
+<pre><code>       SCORE 4 SOLUTION                                SCORE 5 SOLUTION
++-------------------------------+               +-------------------------------+
+| - Writes calculator command   |               | - Explicitly defines variable |
+|   e.g., binomcdf(10, 0.2, 3)  |               | - States distribution &amp; params|
+| - Missing condition check     |               |   X ~ Binomial(n=10, p=0.2)   |
+| - States bare numerical value |  VS           | - Shows formula/summation     |
+| - Generic mean explanation    |               | - Verifies BINS &amp; 10% rule    |
+|                               |               | - Contextual long-run mean    |
++-------------------------------+               +-------------------------------+
+</code></pre>
+<h4>Example Scenario</h4>
+<p><em>A batch contains $15\%$ defective items. A sample of $12$ items is randomly selected. Find the probability that at most $2$ items are defective.</em></p>
+<ul>
+<li>
+<p><strong>Score 4 Response (Incomplete / Partially Correct):</strong>
+    &gt; $P(\text{at most } 2) = \text{binomcdf}(12, 0.15, 2) = 0.7358$. 
+    &gt; <em>AP Reader Feedback:</em> Naked calculator notation is <strong>penalized</strong>. Parameters are not explicitly identified, and random variables are undefined. Score: <strong>Partially Correct (P)</strong>.</p>
+</li>
+<li>
+<p><strong>Score 5 Response (Essentially Correct):</strong>
+    &gt; Let $X$ equal the number of defective items in the sample of $n = 12$ items.
+    &gt; 1. <strong>Binary:</strong> Item is defective or non-defective.
+    &gt; 2. <strong>Independent:</strong> Assuming the batch is large ($N &gt; 120$, satisfying the $10\%$ condition), selections are independent.
+    &gt; 3. <strong>Number:</strong> $n = 12$ fixed trials.
+    &gt; 4. <strong>Success Probability:</strong> $p = 0.15$ remains constant.
+    &gt; 
+    &gt; Thus, $X \sim \text{Binomial}(n = 12, p = 0.15)$.
+    &gt; $$P(X \le 2) = \sum_{k=0}^{2} \binom{12}{k} (0.15)^k (0.85)^{12-k}$$
+    &gt; $$P(X \le 2) = \binom{12}{0}(0.15)^0(0.85)^{12} + \binom{12}{1}(0.15)^1(0.85)^{11} + \binom{12}{2}(0.15)^2(0.85)^{10}$$
+    &gt; $$P(X \le 2) = 0.1422 + 0.3012 + 0.2924 = 0.7358$$
+    &gt; <em>AP Reader Feedback:</em> Full communication, variable defined, parameters stated, mathematical representation shown, correct answer. Score: <strong>Essentially Correct (E)</strong>.</p>
+</li>
+</ul>
+<hr />
+<h3>3.2 AP Scoring Rubric Pitfall Matrix</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Error Type</th>
+<th style="text-align: left;">Common Mistake</th>
+<th style="text-align: left;">AP Reader Rubric Penalty</th>
+<th style="text-align: left;">Score 5 Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Calculator Syntax Dump</strong></td>
+<td style="text-align: left;">Writing <code>geometpdf(0.2, 5)</code> as primary work.</td>
+<td style="text-align: left;">Automated score drop to <strong>P</strong> or <strong>I</strong> (Incomplete).</td>
+<td style="text-align: left;">Always state probability expression with distribution parameters: $P(Y = 5) = (0.8)^4(0.2)$.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Variable Misidentification</strong></td>
+<td style="text-align: left;">Treating geometric trials as binomial trials.</td>
+<td style="text-align: left;">Incorrect distribution logic (Score: <strong>I</strong>).</td>
+<td style="text-align: left;">Check if $n$ is fixed (Binomial) or if trials stop at first success (Geometric).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Expected Value Context</strong></td>
+<td style="text-align: left;">Stating "The expected value is 6.67 chips."</td>
+<td style="text-align: left;">Lacks long-run interpretation (Score: <strong>P</strong>).</td>
+<td style="text-align: left;">Write: "Over <strong>many repeated samples</strong>, the <strong>average</strong> number of chips inspected until finding a defect is <strong>approximately</strong> 6.67."</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Strict Inequalities</strong></td>
+<td style="text-align: left;">Confusing $P(Y &gt; 4)$ with $P(Y \ge 4)$ for discrete models.</td>
+<td style="text-align: left;">Off-by-one errors in indices (Score: <strong>P</strong>).</td>
+<td style="text-align: left;">Recognize that $P(Y &gt; 4) = P(Y \ge 5) = (1-p)^4$ for Geometric models.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. Georgia Tech Placement Pathway</h2>
+<h3>4.1 Academic Exemption Mechanics</h3>
+<p>Achieving a Score 5 on the AP Statistics exam unlocks direct academic progression at Georgia Tech:</p>
+<pre><code>[ AP Statistics Score 5 ] 
+          │
+          ▼
+[ Exempts ISYE 3770 ] ──► (3 Credit Hours Granted)
+          │
+          ├────────────────────────────────────────┐
+          ▼                                        ▼
+[ Accelerated Sequence 1 ]               [ Accelerated Sequence 2 ]
+  ISYE 3030: Basic Quality Control         ISYE 3232: Stochastic Manufacturing
+  - Uses Binomial p-charts                 - Uses Geometric distribution for
+  - Var(p-hat) = p(1-p)/n                    mean time to failure (MTTF)
+</code></pre>
+<ul>
+<li><strong>Exempted Course:</strong> <strong>ISYE 3770 (Statistics and Applications)</strong> — 3 Credit Hours.</li>
+<li><strong>Immediate Course Acceleration:</strong> Direct enrollment into <strong>ISYE 3030 (Basic Quality Control)</strong> or <strong>ISYE 3232 (Stochastic Manufacturing &amp; Service Systems)</strong> during your freshman/sophomore year.</li>
+</ul>
+<hr />
+<h3>4.2 Direct Application in Georgia Tech ISyE Core Curriculum</h3>
+<h4>1. ISYE 3030: Control Chart Mechanics (Binomial Application)</h4>
+<p>In statistical process control, fraction non-conforming control charts ($p$-charts) utilize binomial parameters:</p>
+<p>$$\text{Center Line (CL)} = p, \quad \text{Upper Control Limit (UCL)} = p + 3\sqrt{\frac{p(1-p)}{n}}$$</p>
+<p>A student who intuitively understands $Var\left(\frac{X}{n}\right) = \frac{1}{n^2} Var(X) = \frac{np(1-p)}{n^2} = \frac{p(1-p)}{n}$ seamlessly transitions into manufacturing quality monitoring.</p>
+<h4>2. ISYE 3232: Continuous &amp; Discrete Stochastic Chains (Geometric Application)</h4>
+<p>Geometric distributions represent the discrete-time memoryless property:</p>
+<p>$$P(Y = k + m \mid Y &gt; m) = P(Y = k)$$</p>
+<p>This foundational concept is essential for modeling component lifetimes, queuing systems, and Markov chain transition matrices in GT's flagship Industrial Engineering coursework.</p>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution Checklist</h2>
+<h3>Problem Statement</h3>
+<p>An advanced semiconductor fabrication facility in Atlanta produces high-density microprocessors. Historically, $8\%$ of manufactured processors fail a rigorous thermal stress test. Microprocessors are tested sequentially and independently.</p>
+<ul>
+<li><strong>(a)</strong> A quality assurance engineer selects a random sample of $15$ microprocessors from a production run containing over $5,000$ units. Calculate the probability that at least $2$ microprocessors fail the thermal stress test.</li>
+<li><strong>(b)</strong> Calculate and interpret the mean and standard deviation of the number of failed microprocessors in samples of size $15$.</li>
+<li><strong>(c)</strong> A technician tests microprocessors individually until a failed unit is identified. Calculate the probability that the first failure occurs on or after the 5th microprocessor tested.</li>
+<li><strong>(d)</strong> Testing each microprocessor costs $\$25$. If a failure is detected, an auxiliary diagnostic procedure costing $\$150$ must be performed immediately. Calculate the expected total cost incurred during the search for the first defective microprocessor.</li>
+</ul>
+<hr />
+<h3>Comprehensive Model Solution</h3>
+<h4>Part (a)</h4>
+<ol>
+<li><strong>Define Random Variable &amp; Check Conditions:</strong>
+   Let $X$ = number of failed microprocessors in the sample of $n = 15$.</li>
+<li><strong>Binary:</strong> Microprocessor fails or passes test.</li>
+<li><strong>Independent:</strong> $n = 15 \le 0.10(5000) = 500$, so the $10\%$ condition holds.</li>
+<li><strong>Number:</strong> Fixed $n = 15$ trials.</li>
+<li><strong>Same $p$:</strong> Probability of failure $p = 0.08$ is constant.</li>
+</ol>
+<p>Therefore, $X \sim \text{Binomial}(n = 15, p = 0.08)$.</p>
+<ol>
+<li><strong>Calculate $P(X \ge 2)$:</strong>
+   $$P(X \ge 2) = 1 - P(X \le 1) = 1 - [P(X = 0) + P(X = 1)]$$
+   $$P(X = 0) = \binom{15}{0}(0.08)^0(0.92)^{15} = (0.92)^{15} \approx 0.2863$$
+   $$P(X = 1) = \binom{15}{1}(0.08)^1(0.92)^{14} = 15(0.08)(0.3112) \approx 0.3734$$
+   $$P(X \ge 2) = 1 - (0.2863 + 0.3734) = 1 - 0.6597 = 0.3403$$</li>
+</ol>
+<hr />
+<h4>Part (b)</h4>
+<ol>
+<li>
+<p><strong>Expected Value $E[X]$:</strong>
+   $$\mu_X = E[X] = np = 15 \times 0.08 = 1.2 \text{ microprocessors}$$
+   <em>Interpretation:</em> If many samples of size $15$ are repeatedly drawn from this production line, the average number of failed microprocessors per sample will be approximately $1.2$.</p>
+</li>
+<li>
+<p><strong>Standard Deviation $\sigma_X$:</strong>
+   $$\sigma_X = \sqrt{np(1-p)} = \sqrt{15 \times 0.08 \times 0.92} = \sqrt{1.104} \approx 1.0507 \text{ microprocessors}$$</p>
+</li>
+</ol>
+<hr />
+<h4>Part (c)</h4>
+<ol>
+<li>
+<p><strong>Define Random Variable:</strong>
+   Let $Y$ = number of microprocessors tested up to and including the first failure.
+   Since trials continue until the first success (failure detected) with constant $p = 0.08$, $Y \sim \text{Geometric}(p = 0.08)$.</p>
+</li>
+<li>
+<p><strong>Calculate $P(Y \ge 5)$:</strong>
+   "First failure occurs on or after the 5th microprocessor" implies the first 4 microprocessors passed the test.
+   $$P(Y \ge 5) = P(Y &gt; 4) = (1 - p)^4$$
+   $$P(Y \ge 5) = (0.92)^4 \approx 0.7164$$</p>
+</li>
+</ol>
+<hr />
+<h4>Part (d)</h4>
+<ol>
+<li>
+<p><strong>Formulate Cost Variable $C$:</strong>
+   The total cost $C$ is a linear transformation of the geometric random variable $Y$:
+   $$C = 25 \cdot Y + 150$$</p>
+</li>
+<li>
+<p><strong>Apply Expectation Properties:</strong>
+   $$E[C] = E[25 Y + 150] = 25 \cdot E[Y] + 150$$</p>
+</li>
+<li>
+<p><strong>Compute $E[Y]$:</strong>
+   $$E[Y] = \frac{1}{p} = \frac{1}{0.08} = 12.5 \text{ tests}$$</p>
+</li>
+<li>
+<p><strong>Calculate Final Expected Cost:</strong>
+   $$E[C] = 25(12.5) + 150 = 312.5 + 150 = \$462.50$$
+   <em>The expected total cost to find the first defective microprocessor (including diagnostic costs) is $\$462.50$.</em></p>
+</li>
+</ol>
+<hr />
+<h3>Step-by-Step AP Exam Grading Checklist</h3>
+<pre><code>[ ] Step 1: Explicitly define random variables (e.g., &quot;Let X = ...&quot;).
+[ ] Step 2: Formally state the distribution name and parameters:
+            - Binomial(n, p)
+            - Geometric(p)
+[ ] Step 3: Explicitly verify model conditions (BINS or BITS) + 10% Condition.
+[ ] Step 4: Write algebraic probability formulas prior to plug-and-chug computation.
+[ ] Step 5: Express expected value interpretations with:
+            - &quot;Long-run average&quot; or &quot;Over many repeated samples&quot;
+            - Precise contextual units.
+[ ] Step 6: Use linear transformation properties E[aX + b] = aE[X] + b for cost models.
+</code></pre>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Statistics?</h2>
+      <p>Secure admission and advanced standing at top institutions like Georgia Tech with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inheritance, Abstract Classes & Dynamic Method Dispatch Guide: AP Computer Science A Score 5 for Caltech | AP STEM PATH</title>
+  <meta name="description" content="Master Inheritance, Abstract Classes & Dynamic Method Dispatch in AP Computer Science A. Deep dive with LaTeX/code examples and score 5 strategies tailored for Caltech applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Inheritance, Abstract Classes & Dynamic Method Dispatch Guide: AP Computer Science A Score 5 for Caltech",
+    "description": "Master Inheritance, Abstract Classes & Dynamic Method Dispatch in AP Computer Science A. Deep dive with LaTeX/code examples and score 5 strategies tailored for Caltech applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Computer Science A • Score 5 Strategy</span>
+      <h1>Inheritance, Abstract Classes & Dynamic Method Dispatch Guide: AP Computer Science A Score 5 for Caltech</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Computer Science A: Inheritance, Abstract Classes &amp; Dynamic Method Dispatch</h1>
+<p><strong>Target Institution:</strong> California Institute of Technology (Caltech)<br />
+<strong>Goal:</strong> AP Exam Score 5 + CS 1 Placement Bypass  </p>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>In the AP Computer Science A framework, <strong>Unit 9: Inheritance</strong> officially accounts for <strong>5–10%</strong> of the multiple-choice section. However, its true weight is far greater: polymorphic design and class hierarchy traversal form the structural backbone of Free-Response Questions (FRQs)—specifically <strong>FRQ 2 (Control Structures / Class Design)</strong> and <strong>FRQ 4 (2D Array / Polymorphic Collections)</strong>.</p>
+<p>To earn a 5 on the AP Exam and secure a placement waiver for <strong>CS 1</strong> at Caltech, you must demonstrate a rigorous understanding of dynamic type binding and object-oriented memory modeling. At Caltech, computer science is integrated into high-performance computational modeling (such as N-body gravitational simulations or genomic pipeline abstractions). Understanding how runtime environments resolve method calls via virtual method tables (VTables) transforms object-oriented programming from a mere syntax exercise into a tool for scalable software architecture.</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>Formal Type Theory &amp; Binding Mechanics</h3>
+<p>Let an object reference be declared with a <strong>static type</strong> $T_{\text{static}}$ and instantiated with a <strong>dynamic type</strong> $T_{\text{dynamic}}$.</p>
+<p>$$\text{Declaration: } T_{\text{static}} \text{ obj} = \text{new } T_{\text{dynamic}}();$$</p>
+<p>The fundamental subtyping rule guarantees type safety through subtyping relation $\le$:</p>
+<p>$$T_{\text{dynamic}} \le T_{\text{static}}$$</p>
+<p>This implies $T_{\text{dynamic}}$ is either identical to $T_{\text{static}}$ or a direct/indirect subclass of $T_{\text{static}}$.</p>
+<pre><code>             +---------------------+
+             |  T_static (Parent)  |  &lt;-- Checked at Compile Time
+             +---------------------+
+                        ^
+                        | (extends / subtyping relation: T_dynamic &lt;= T_static)
+                        |
+             +---------------------+
+             | T_dynamic (Child)   |  &lt;-- Dispatched at Runtime
+             +---------------------+
+</code></pre>
+<h4>Compile-Time vs. Runtime Binding Rules</h4>
+<ol>
+<li>
+<p><strong>Compile-Time (Static Type Check):</strong>
+   The compiler inspects $T_{\text{static}}$. A method invocation $\text{obj.method}(p_1, p_2, \dots)$ is valid <strong>if and only if</strong> the method signature exists in $T_{\text{static}}$ or one of $T_{\text{static}}$'s superclasses. If the signature is absent in $T_{\text{static}}$, compilation fails with a symbol resolution error, regardless of $T_{\text{dynamic}}$.</p>
+</li>
+<li>
+<p><strong>Runtime (Dynamic Method Dispatch):</strong>
+   At execution time, the Java Virtual Machine (JVM) inspects $T_{\text{dynamic}}$. The JVM traverses the class hierarchy starting at $T_{\text{dynamic}}$ and moves upward until it locates the most specific implementation of the method.</p>
+</li>
+</ol>
+<p>$$\text{Resolved Method} = \Psi(T_{\text{dynamic}}, \text{signature})$$</p>
+<blockquote>
+<p><strong>Key Distinction:</strong> Instance variables (fields) do <strong>not</strong> undergo dynamic method dispatch. Variable access is resolved statically based on $T_{\text{static}}$.</p>
+</blockquote>
+<p>$$\text{obj.field} \implies \text{Field accessed from } T_{\text{static}}$$</p>
+<hr />
+<h3>Java Memory Model &amp; Virtual Method Table (VTable) Simulation</h3>
+<p>When a class is loaded, the JVM constructs a <strong>Virtual Method Table (VTable)</strong> containing pointers to the class's executable bytecode methods.</p>
+<pre><code>  Static Reference (Stack)           Heap Allocation
++--------------------------+      +--------------------+
+| obj: T_static            | ---&gt; | Header / Mark Word |
++--------------------------+      +--------------------+
+                                  | VTable Pointer     | ---&gt; [ VTable for T_dynamic ]
+                                  +--------------------+      | 0x00: super.equals()   |
+                                  | Field: T_static    |      | 0x04: child.compute()  |
+                                  | Field: T_dynamic   |      +------------------------+
+                                  +--------------------+
+</code></pre>
+<hr />
+<h3>Implementation: Computational Physics Abstraction Hierarchy</h3>
+<p>The following code illustrates an abstract base class, constructor chaining via <code>super</code>, dynamic method dispatch, and field-shadowing behavior.</p>
+<pre><code class="language-java">/**
+ * Abstract class representing a physical particle in a force field.
+ * Establishes an explicit contract for downstream scientific computations.
+ */
+public abstract class Particle {
+    private String particleId;
+    protected double mass; // In kilograms
+
+    // Static field to demonstrate compile-time field resolution
+    public String typeLabel = &quot;GENERIC_PARTICLE&quot;;
+
+    /**
+     * Constructs a Particle instance.
+     * @param particleId Unique identifier for tracking
+     * @param mass Mass of the particle (must be &gt; 0)
+     */
+    public Particle(String particleId, double mass) {
+        if (mass &lt;= 0) {
+            throw new IllegalArgumentException(&quot;Mass must be positive.&quot;);
+        }
+        this.particleId = particleId;
+        this.mass = mass;
+    }
+
+    public String getParticleId() {
+        return this.particleId;
+    }
+
+    public double getMass() {
+        return this.mass;
+    }
+
+    /**
+     * Abstract method defining the force vector magnitude.
+     * Must be overridden by concrete implementations.
+     * @return Force in Newtons
+     */
+    public abstract double calculateFieldForce();
+
+    /**
+     * Common interface method utilizing dynamic dispatch internally.
+     */
+    public String getKineticState() {
+        // Dynamic dispatch occurs when calculateFieldForce() is executed
+        return String.format(&quot;ID: %s | Mass: %.2f kg | Force: %.2e N&quot;, 
+                particleId, mass, calculateFieldForce());
+    }
+}
+
+/**
+ * Concrete implementation representing a charged particle in an electrostatic field.
+ */
+public class ChargedParticle extends Particle {
+    private double charge; // In Coulombs
+    private double electricFieldStrength; // In N/C
+
+    // Shadows the superclass field (Used to demonstrate AP variable pitfalls)
+    public String typeLabel = &quot;CHARGED_PARTICLE&quot;;
+
+    /**
+     * Constructs a ChargedParticle, invoking superclass constructor explicitly.
+     */
+    public ChargedParticle(String particleId, double mass, double charge, double electricFieldStrength) {
+        super(particleId, mass); // Must be the first statement
+        this.charge = charge;
+        this.electricFieldStrength = electricFieldStrength;
+    }
+
+    /**
+     * Overrides calculateFieldForce to implement Coulombic force: F = |q * E|
+     */
+    @Override
+    public double calculateFieldForce() {
+        return Math.abs(this.charge * this.electricFieldStrength);
+    }
+
+    public double getCharge() {
+        return this.charge;
+    }
+
+    /**
+     * Overrides superclass representation to provide particle specifics.
+     */
+    @Override
+    public String getKineticState() {
+        // Explicitly invokes superclass method to build contextual state
+        return super.getKineticState() + String.format(&quot; | Charge: %.2e C&quot;, this.charge);
+    }
+}
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<h3>Score 4 vs. Score 5 Performance Profile</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Conceptual Context</th>
+<th style="text-align: left;">Score 4 Student Approach</th>
+<th style="text-align: left;">Score 5 Student Approach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Method Resolution</strong></td>
+<td style="text-align: left;">Confuses method availability with instance type, leading to invalid downcasts on polymorphic references.</td>
+<td style="text-align: left;">Distinguishes between $T_{\text{static}}$ validation at compile-time and $T_{\text{dynamic}}$ resolution at runtime.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Field Shadowing</strong></td>
+<td style="text-align: left;">Assumes instance variables are overridden dynamically when accessed through superclass references.</td>
+<td style="text-align: left;">Knows variable access resolves statically based on $T_{\text{static}}$, avoiding reliance on variable shadowing.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Constructor Chaining</strong></td>
+<td style="text-align: left;">Forgets <code>super()</code> calls or places them after subclass field initialization statements.</td>
+<td style="text-align: left;">Ensures <code>super(...)</code> is the first statement in child constructors to maintain reference validity.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Interface/Abstract Contracts</strong></td>
+<td style="text-align: left;">Fails to implement abstract methods with matching signatures, causing compilation failures.</td>
+<td style="text-align: left;">Writes signatures matching superclass abstract declarations, maintaining immutability contracts.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Critical Pitfall Analyses</h3>
+<h4>Pitfall 1: Dynamic Binding Delusion on Fields (Variable Shadowing)</h4>
+<pre><code class="language-java">Particle p = new ChargedParticle(&quot;P-101&quot;, 1.67e-27, 1.60e-19, 1000.0);
+System.out.println(p.typeLabel); // OUTPUT: &quot;GENERIC_PARTICLE&quot;
+</code></pre>
+<p><em>Why this occurs:</em> $T_{\text{static}}$ is <code>Particle</code>. Field references are resolved at <strong>compile-time</strong> using the declared type of the reference, ignoring $T_{\text{dynamic}}$.</p>
+<h4>Pitfall 2: The Missing Method Compilation Error</h4>
+<pre><code class="language-java">Particle p = new ChargedParticle(&quot;P-102&quot;, 9.11e-31, -1.60e-19, 500.0);
+double charge = p.getCharge(); // COMPILE ERROR!
+</code></pre>
+<p><em>Why this occurs:</em> The method <code>getCharge()</code> is not declared in <code>Particle</code> ($T_{\text{static}}$). The compiler enforces safety by rejecting method calls unknown to $T_{\text{static}}$, even if $T_{\text{dynamic}}$ contains the method definition.</p>
+<p><strong>Correct Fix:</strong> Use an explicit cast after verifying instance compatibility:</p>
+<pre><code class="language-java">if (p instanceof ChargedParticle) {
+    double charge = ((ChargedParticle) p).getCharge(); // Explicit cast resolves static check
+}
+</code></pre>
+<hr />
+<h2>4. Caltech Placement Pathway: Waiver of CS 1 to Advanced Acceleration</h2>
+<h3>Waiving CS 1 Bypass via AP Mastery</h3>
+<p>Caltech’s introductory curriculum assumes students can reason abstractly about system structures. Demonstrating mastery in polymorphism and dynamic dispatch enables placement out of <strong>CS 1 (Introduction to Programming Concepts)</strong> and directly into advanced computational tracks:</p>
+<pre><code>                          [ AP CS A Mastery (Score 5) ]
+                                       |
+                                       v
+                           [ Placement Exam / Waiver ]
+                                       |
+                   +-------------------+-------------------+
+                   |                                       |
+                   v                                       v
+     [ CS 2: Data Structures &amp; Systems ]   [ CS 3: Software Engineering ]
+                   |                                       |
+                   v                                       v
+  [ Quantum / Computational Physics ]    [ High-Performance Genomic Analysis ]
+</code></pre>
+<ul>
+<li><strong>CS 2 (Data Structures and Relational Systems):</strong> Requires building polymorphic data structures (e.g., heterogeneous abstract syntax trees, dynamic graphs).</li>
+<li><strong>CS 3 (Software Engineering Principles):</strong> Focuses on design patterns (Factory, Strategy, Visitor) that rely heavily on dynamic method dispatch and runtime dynamic binding.</li>
+</ul>
+<h3>Applied Context: Caltech Scientific Simulation Architectures</h3>
+<p>In computational biology and particle physics pipelines, polymorphic architecture avoids hardcoding specific logic for individual scientific entities:</p>
+<p>$$\text{System Force Calculation: } F_{\text{total}} = \sum_{i=1}^{N} \Psi(\text{Particle}_i, \text{Context})$$</p>
+<pre><code class="language-java">public class SimulationEngine {
+    private List&lt;Particle&gt; systemParticles;
+
+    public SimulationEngine(List&lt;Particle&gt; particles) {
+        this.systemParticles = particles;
+    }
+
+    public double computeTotalSystemForce() {
+        double netForce = 0.0;
+        for (Particle p : systemParticles) {
+            // Polymorphic invocation: Dispatches dynamically to
+            // ChargedParticle, GravitationalParticle, or QuantumParticle
+            netForce += p.calculateFieldForce(); 
+        }
+        return netForce;
+    }
+}
+</code></pre>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution Checklist</h2>
+<h3>Free-Response Question Scenario</h3>
+<p>Design a software architecture for managing scientific sensors deployed in an environmental data collection network.</p>
+<ol>
+<li>Create an abstract superclass <code>Sensor</code>:</li>
+<li>Private attributes: <code>String sensorId</code>, <code>double powerConsumption</code> (Watts).</li>
+<li>Constructor initializing both attributes.</li>
+<li>Standard getters.</li>
+<li>Abstract method: <code>public abstract double readValue()</code>.</li>
+<li>
+<p>Non-abstract method: <code>public boolean isCritical()</code>, returning <code>true</code> if <code>readValue() &gt; 100.0</code>, otherwise <code>false</code>.</p>
+</li>
+<li>
+<p>Create a subclass <code>RadiationSensor</code>:</p>
+</li>
+<li>Extends <code>Sensor</code>.</li>
+<li>Private attribute: <code>double radiationLevel</code> (mSv/h), <code>double calibrationFactor</code>.</li>
+<li>Constructor initializing all fields using <code>super</code>.</li>
+<li>Overrides <code>readValue()</code> to return <code>radiationLevel * calibrationFactor</code>.</li>
+<li>Overrides <code>isCritical()</code> to return <code>true</code> if <code>super.isCritical()</code> is <code>true</code> <strong>OR</strong> if <code>radiationLevel &gt; 50.0</code>.</li>
+</ol>
+<hr />
+<h3>Canonical AP/Caltech Level Solution</h3>
+<pre><code class="language-java">// Item 1: Abstract Base Class Design
+public abstract class Sensor {
+    private String sensorId;
+    private double powerConsumption;
+
+    public Sensor(String sensorId, double powerConsumption) {
+        this.sensorId = sensorId;
+        this.powerConsumption = powerConsumption;
+    }
+
+    public String getSensorId() {
+        return this.sensorId;
+    }
+
+    public double getPowerConsumption() {
+        return this.powerConsumption;
+    }
+
+    // Abstract contract method
+    public abstract double readValue();
+
+    // Template method relying on dynamic method dispatch
+    public boolean isCritical() {
+        return this.readValue() &gt; 100.0;
+    }
+}
+
+// Item 2: Subclass Implementation
+public class RadiationSensor extends Sensor {
+    private double radiationLevel;
+    private double calibrationFactor;
+
+    public RadiationSensor(String sensorId, double powerConsumption, 
+                           double radiationLevel, double calibrationFactor) {
+        super(sensorId, powerConsumption); // Correct constructor chaining
+        this.radiationLevel = radiationLevel;
+        this.calibrationFactor = calibrationFactor;
+    }
+
+    @Override
+    public double readValue() {
+        return this.radiationLevel * this.calibrationFactor;
+    }
+
+    @Override
+    public boolean isCritical() {
+        // Leverages superclass method logic alongside custom criteria
+        return super.isCritical() || this.radiationLevel &gt; 50.0;
+    }
+}
+</code></pre>
+<hr />
+<h3>Scoring Rubric &amp; Grading Checklist</h3>
+<pre><code>+-----------------------------------------------------------------------------------+
+| AP Scoring Rubric Checklist                                                       |
++-----------------------------------------------------------------------------------+
+[  ] +1 Point: Header &amp; Hierarchy
+       - Correct 'public abstract class Sensor' and 'public class RadiationSensor 
+         extends Sensor' class declarations.
+
+[  ] +1 Point: Private Variable Encapsulation
+       - All declared instance fields are marked 'private'.
+
+[  ] +1 Point: Constructor Implementation &amp; Super Chaining
+       - Subclass constructor properly calls 'super(sensorId, powerConsumption)' 
+         as its first execution line.
+
+[  ] +1 Point: Abstract Method Declaration &amp; Override Signature
+       - Abstract method 'readValue()' declared without body in superclass.
+       - Subclass correctly overrides 'public double readValue()' with identical signature.
+
+[  ] +1 Point: Dynamic Dispatch &amp; Super Keyword Call
+       - Subclass 'isCritical()' correctly invokes 'super.isCritical()' and combines 
+         it with local conditions using valid boolean logic.
++-----------------------------------------------------------------------------------+
+</code></pre>
+<hr />
+<h3>Verifying Dynamic Dispatch</h3>
+<p>Consider this execution scenario:</p>
+<pre><code class="language-java">Sensor s = new RadiationSensor(&quot;RAD-99&quot;, 12.5, 60.0, 0.8);
+System.out.println(s.isCritical());
+</code></pre>
+<ol>
+<li>Static check validates that <code>isCritical()</code> exists in <code>Sensor</code> ($T_{\text{static}}$).</li>
+<li>Runtime resolution navigates to <code>RadiationSensor</code> ($T_{\text{dynamic}}$) and executes its <code>isCritical()</code> method.</li>
+<li><code>super.isCritical()</code> evaluates <code>this.readValue()</code>. Dynamic dispatch routes <code>readValue()</code> to <code>RadiationSensor.readValue()</code>.</li>
+<li>Result: <code>60.0 * 0.8 = 48.0</code>. <code>48.0 &gt; 100.0</code> is <code>false</code>.</li>
+<li>Subclass checks second condition: <code>radiationLevel &gt; 50.0</code> (<code>60.0 &gt; 50.0</code>), which is <code>true</code>.</li>
+<li>Output: <code>true</code>.</li>
+</ol>
+<p>By understanding this dispatch pipeline, you demonstrate the level of core computer science mastery required for a 5 on the AP exam and immediate success in advanced coursework at Caltech.</p>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Computer Science A?</h2>
+      <p>Secure admission and advanced standing at top institutions like Caltech with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

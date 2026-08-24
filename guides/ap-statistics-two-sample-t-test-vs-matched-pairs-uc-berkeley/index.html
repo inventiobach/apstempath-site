@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Two-Sample t-Test vs. Matched Pairs Inference & Verification Guide: AP Statistics Score 5 for UC Berkeley | AP STEM PATH</title>
+  <meta name="description" content="Master Two-Sample t-Test vs. Matched Pairs Inference & Verification in AP Statistics. Deep dive with LaTeX/code examples and score 5 strategies tailored for UC Berkeley applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Two-Sample t-Test vs. Matched Pairs Inference & Verification Guide: AP Statistics Score 5 for UC Berkeley",
+    "description": "Master Two-Sample t-Test vs. Matched Pairs Inference & Verification in AP Statistics. Deep dive with LaTeX/code examples and score 5 strategies tailored for UC Berkeley applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Statistics • Score 5 Strategy</span>
+      <h1>Two-Sample t-Test vs. Matched Pairs Inference & Verification Guide: AP Statistics Score 5 for UC Berkeley</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Statistics Mastery Guide: Two-Sample $t$-Inference vs. Matched Pairs</h1>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>In AP Statistics, few distinctions separate a Score 4 student from a Score 5 student as decisively as the structural differentiation between <strong>Two-Independent-Sample $t$-Inference</strong> and <strong>Matched Pairs $t$-Inference</strong>. Featured heavily across <strong>Unit 6 (Inference for Categorical Data/Means)</strong> and <strong>Unit 7 (Inference for Quantitative Data: Means)</strong>, inference for quantitative data accounts for <strong>10%–15%</strong> of the multiple-choice section and frequently anchors <strong>Question 4 or 5</strong> on the Free-Response Section (FRQ).</p>
+<p>The primary conceptual hurdle is recognizing <strong>experimental design and sampling architecture</strong>:
+*   A <strong>Two-Sample $t$-test</strong> compares the central tendencies of two completely independent populations or treatments.
+*   A <strong>Matched Pairs $t$-test</strong> reduces extraneous variability (nuisance variables) by pairing observational units or applying two treatments to the same unit, thereby transforming a two-variable problem into a <strong>single-sample inference on difference scores ($d$)</strong>.</p>
+<p>Misidentifying a matched pairs design as a two-sample design—or vice-versa—results in an incorrect standard error structure, incorrect degrees of freedom, and an automatic downgrade on the FRQ scoring rubric from Essentially Correct (E) to Partially Correct (P) or Incomplete (I).</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>A. Mathematical Foundations &amp; Variance Derivation</h3>
+<p>To understand why misclassifying these tests breaks inference, we examine the variance of linear combinations of random variables.</p>
+<h4>1. Two-Independent-Sample Model</h4>
+<p>Let $X_1$ and $X_2$ be independent random variables representing populations 1 and 2, with means $\mu_1, \mu_2$ and variances $\sigma_1^2, \sigma_2^2$. For independent random samples of sizes $n_1$ and $n_2$:</p>
+<p>$$\text{E}(\bar{X}_1 - \bar{X}_2) = \mu_1 - \mu_2$$</p>
+<p>Because $X_1$ and $X_2$ are independent, $\text{Cov}(X_1, X_2) = 0$. Therefore, the variance of the difference between the sample means is purely additive:</p>
+<p>$$\text{Var}(\bar{X}_1 - \bar{X}_2) = \text{Var}(\bar{X}_1) + \text{Var}(\bar{X}_2) = \frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}$$</p>
+<p>The standard error ($SE$) is estimated using sample standard deviations $s_1$ and $s_2$:</p>
+<p>$$SE_{(\bar{x}_1 - \bar{x}_2)} = \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}$$</p>
+<p><em>Degrees of Freedom ($df$):</em> Calculated via the Welch–Satterthwaite equation:</p>
+<p>$$df = \frac{\left(\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}\right)^2}{\frac{1}{n_1-1}\left(\frac{s_1^2}{n_1}\right)^2 + \frac{1}{n_2-1}\left(\frac{s_2^2}{n_2}\right)^2}$$</p>
+<p><em>(Note: On the AP Exam, using $\min(n_1-1, n_2-1)$ as a conservative bound is acceptable if stated explicitly, though technology-generated Welch $df$ is preferred).</em></p>
+<hr />
+<h4>2. Matched Pairs Model (Dependent Samples)</h4>
+<p>Let $(X_{1,i}, X_{2,i})$ represent paired observations on the $i$-th subject or matched pair. We define the difference variable:</p>
+<p>$$D_i = X_{1,i} - X_{2,i}$$</p>
+<p>If $X_1$ and $X_2$ are dependent, $\text{Cov}(X_1, X_2) \neq 0$:</p>
+<p>$$\text{Var}(D) = \text{Var}(X_1 - X_2) = \text{Var}(X_1) + \text{Var}(X_2) - 2\text{Cov}(X_1, X_2)$$</p>
+<p>When positive correlation exists within pairs ($\text{Cov}(X_1, X_2) &gt; 0$), pairing <strong>reduces overall variance</strong> compared to the independent model.</p>
+<p>We compress the data into a single sample of differences ${d_1, d_2, \dots, d_n}$ with sample mean $\bar{x}_d$ and sample standard deviation $s_d$.</p>
+<p>The standard error of the mean difference $\mu_d$ is:</p>
+<p>$$SE_{\bar{x}_d} = \frac{s_d}{\sqrt{n}}$$</p>
+<p><em>Degrees of Freedom ($df$):</em> Simply $df = n - 1$, where $n$ is the <strong>number of pairs</strong> (not total observations).</p>
+<hr />
+<h3>B. Condition Verification Matrix</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Condition</th>
+<th style="text-align: left;">Two-Sample $t$-Test ($\mu_1 - \mu_2$)</th>
+<th style="text-align: left;">Matched Pairs $t$-Test ($\mu_d$)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Randomness</strong></td>
+<td style="text-align: left;">Two independent Random Samples OR Random Assignment to 2 treatments.</td>
+<td style="text-align: left;">Random Sample of <strong>paired units</strong> OR Random Assignment of <strong>treatment order</strong> within units.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Independence</strong></td>
+<td style="text-align: left;"><strong>10% Condition:</strong> $n_1 \le 0.10 N_1$ AND $n_2 \le 0.10 N_2$ (if sampling without replacement). Samples must be mutually independent.</td>
+<td style="text-align: left;"><strong>10% Condition:</strong> $n_{\text{pairs}} \le 0.10 N_{\text{pairs}}$ (if sampling without replacement). Differences must be independent.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Normal / Large Sample</strong></td>
+<td style="text-align: left;">Both populations normal OR $n_1 \ge 30$ AND $n_2 \ge 30$ (CLT). If $n_1, n_2 &lt; 30$, check <strong>both</strong> sample distributions for strong skewness or outliers.</td>
+<td style="text-align: left;">Population of differences normal OR $n_{\text{pairs}} \ge 30$ (CLT). If $n_{\text{pairs}} &lt; 30$, plot the <strong>differences</strong> ($d_i$) to verify no strong skewness or outliers.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>C. Computational Implementation: Identifying Misclassification Errors</h3>
+<p>The Python script below illustrates how misclassifying paired data as two independent samples drastically understates statistical power by ignoring intra-subject correlation ($\text{Cov}(X_1, X_2)$).</p>
+<pre><code class="language-python">import numpy as np
+from scipy import stats
+
+# Seed for reproducibility
+np.random.seed(42)
+
+# Generate synthetic paired data: Pre-test vs Post-test score on the same 15 subjects
+# Strong baseline subject variability (latent variable)
+subject_baseline = np.random.normal(loc=100, scale=15, size=15)
+pre_scores = subject_baseline + np.random.normal(loc=0, scale=3, size=15)
+post_scores = subject_baseline + 5 + np.random.normal(loc=0, scale=3, size=15) # True effect = +5
+
+# Calculate differences
+differences = post_scores - pre_scores
+
+print(&quot;=== CORRECT ANALYSIS: Matched Pairs t-Test ===&quot;)
+t_stat_paired, p_val_paired = stats.ttest_rel(post_scores, pre_scores)
+df_paired = len(differences) - 1
+print(f&quot;Mean Diff (x_bar_d): {np.mean(differences):.3f}&quot;)
+print(f&quot;Std Dev of Diff (s_d): {np.std(differences, ddof=1):.3f}&quot;)
+print(f&quot;t-statistic: {t_stat_paired:.4f} | df: {df_paired} | p-value: {p_val_paired:.5f}\n&quot;)
+
+print(&quot;=== INCORRECT ANALYSIS: Independent Two-Sample t-Test ===&quot;)
+t_stat_ind, p_val_ind = stats.ttest_ind(post_scores, pre_scores, equal_var=False)
+print(f&quot;t-statistic: {t_stat_ind:.4f} | p-value: {p_val_ind:.5f}&quot;)
+print(&quot;Notice how misidentifying the test inflates the p-value across the critical threshold (0.05)!&quot;)
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<p>To secure a <strong>Score 5</strong>, your Free-Response responses must satisfy the rigorous rubric guidelines used by AP Readers.</p>
+<pre><code>+-----------------------------------------------------------------------------------+
+|                                  SCORE LEVEL BREAKDOWN                            |
++-----------------------------------------------------------------------------------+
+| SCORE 4 SOLUTION:                                                                 |
+| - Identifies tests correctly but uses ambiguous notation (e.g., defines μ1, μ2     |
+|   instead of μ_d for paired data).                                                |
+| - Verifies conditions globally without plotting sample difference data when n &lt; 30.|
+| - Arrives at correct p-value via calculator command without showing formula.     |
++-----------------------------------------------------------------------------------+
+| SCORE 5 SOLUTION:                                                                 |
+| - Explicitly defines parameters in context (e.g., &quot;μ_d = population mean          |
+|   difference in reaction time (After - Before)&quot;).                                 |
+| - Explicitly states the order of subtraction (d = X1 - X2).                       |
+| - Draws a dotplot/boxplot of differences when n_pairs &lt; 30 to verify normality.  |
+| - States named test, displays test statistic formula with plugged-in values,      |
+|   provides precise df, p-value, and frames conclusion in strict context.          |
++-----------------------------------------------------------------------------------+
+</code></pre>
+<h3>Critical AP Rubric Pitfalls</h3>
+<ol>
+<li><strong>Parameter Mislabeling Trap</strong>:</li>
+<li><em>Incorrect:</em> $H_0: \mu_1 = \mu_2$ vs $H_a: \mu_1 \neq \mu_2$ for paired data.</li>
+<li>
+<p><em>Correct:</em> $H_0: \mu_d = 0$ vs $H_a: \mu_d \neq 0$, where $\mu_d$ is defined as the true mean difference in [Variable] between [Condition A] and [Condition B].</p>
+</li>
+<li>
+<p><strong>Graphing Condition Verification</strong>:</p>
+</li>
+<li>
+<p>When checking the Normal/Large Sample condition for a matched pairs test with $n &lt; 30$, you <strong>cannot</strong> draw two separate graphs for Sample 1 and Sample 2. You <strong>must</strong> compute the vector of differences $d_i$ and sketch a dotplot, boxplot, or stem-and-leaf plot of the <em>differences</em>.</p>
+</li>
+<li>
+<p><strong>Failure to Link $p$-value to Conclusion</strong>:</p>
+</li>
+<li>Simply writing "Reject $H_0$" loses credit. You must write:
+     &gt; "Because $p\text{-value} = 0.023 &lt; \alpha = 0.05$, we reject $H_0$. There is convincing statistical evidence that the true mean difference in [Variable] is [greater than/less than/different from] zero."</li>
+</ol>
+<hr />
+<h2>4. UC Berkeley Placement Pathway</h2>
+<p>Mastering AP Statistics to earn a <strong>Score 5</strong> delivers tangible academic acceleration at <strong>UC Berkeley</strong>, particularly within the <strong>College of Computing, Data Science, and Society (CDSS)</strong> and the <strong>Haas School of Business</strong>.</p>
+<pre><code>                           [ AP Statistics Score 5 ]
+                                       │
+                                       ▼
+                  [ Waive STAT 2 / STAT 20 (4 Semester Units) ]
+                                       │
+                                       ▼
+                  [ Fulfills CDSS Core Statistics Prerequisite ]
+                                       │
+                      ┌────────────────┴────────────────┐
+                      ▼                                 ▼
+         [ DATA 8: Foundations of ]          [ CS 61A: Structure &amp; Interp. ]
+               Data Science                          of Computer Programs
+                      │                                 │
+                      └────────────────┬────────────────┘
+                                       ▼
+                       [ DATA 100: Principles &amp; Techniques ]
+                                of Data Science
+</code></pre>
+<h3>Academic &amp; Curriculum Impact</h3>
+<ul>
+<li><strong>Exempted Courses</strong>: Score 5 exempts students from <strong>STAT 2</strong> (<em>Introduction to Statistics</em>) or <strong>STAT 20</strong> (<em>Introduction to Probability and Statistics</em>), instantly clearing <strong>4 lower-division semester units</strong>.</li>
+<li><strong>Prerequisite Fulfillment</strong>: Satisfies the quantitative/statistics core requirement for CDSS, Economics, and Environmental Economics &amp; Policy majors.</li>
+<li><strong>Accelerated Pathway</strong>:</li>
+<li>Bypassing Stat 20 allows immediate enrollment in <strong>DATA 8</strong> (<em>Foundations of Data Science</em>).</li>
+<li>Completing Data 8 along with CS 61A or CS 88 unlocks <strong>DATA 100</strong> (<em>Principles and Techniques of Data Science</em>) by the second semester of freshman year.</li>
+<li><strong>Upper-Division Edge</strong>: Understanding the theoretical mechanics of paired block designs vs independent sampling prepares students for experimental design in <strong>STAT 135</strong> (<em>Concepts of Statistics</em>) and causal inference methodologies in <strong>DATA 102</strong> (<em>Data Inference via Inference and Decision Making</em>).</li>
+</ul>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution Checklist</h2>
+<h3>The Problem (AP-Style Free Response)</h3>
+<p>An agricultural research station is evaluating whether a new biological leaf-coating spray reduces the population of a specific crop pest. Ten plots of land are selected. Each plot is divided into two equal sub-plots. One sub-plot is randomly assigned to receive the Control (no spray), and the other sub-plot receives the Biological Spray. </p>
+<p>After three weeks, the pest counts per square meter are measured on both sub-plots:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Plot</th>
+<th style="text-align: left;">1</th>
+<th style="text-align: left;">2</th>
+<th style="text-align: left;">3</th>
+<th style="text-align: left;">4</th>
+<th style="text-align: left;">5</th>
+<th style="text-align: left;">6</th>
+<th style="text-align: left;">7</th>
+<th style="text-align: left;">8</th>
+<th style="text-align: left;">9</th>
+<th style="text-align: left;">10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Control ($X_C$)</strong></td>
+<td style="text-align: left;">45</td>
+<td style="text-align: left;">52</td>
+<td style="text-align: left;">38</td>
+<td style="text-align: left;">67</td>
+<td style="text-align: left;">41</td>
+<td style="text-align: left;">59</td>
+<td style="text-align: left;">48</td>
+<td style="text-align: left;">55</td>
+<td style="text-align: left;">62</td>
+<td style="text-align: left;">50</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Spray ($X_S$)</strong></td>
+<td style="text-align: left;">39</td>
+<td style="text-align: left;">48</td>
+<td style="text-align: left;">39</td>
+<td style="text-align: left;">58</td>
+<td style="text-align: left;">35</td>
+<td style="text-align: left;">53</td>
+<td style="text-align: left;">47</td>
+<td style="text-align: left;">49</td>
+<td style="text-align: left;">54</td>
+<td style="text-align: left;">42</td>
+</tr>
+</tbody>
+</table>
+<p>Is there convincing statistical evidence at the $\alpha = 0.05$ significance level that the Biological Spray reduces the mean pest count per square meter?</p>
+<hr />
+<h3>Step-by-Step Solution Checklist (4-Step AP Framework)</h3>
+<h4>Step 1: STATE</h4>
+<ul>
+<li><strong>Hypotheses</strong>:
+  $$H_0: \mu_d = 0$$
+  $$H_a: \mu_d &gt; 0$$
+  Where $d = \text{Control} - \text{Spray} = X_C - X_S$.</li>
+<li><strong>Parameter Definition</strong>:
+  Let $\mu_d$ be the true mean difference in pest count per square meter (Control minus Spray) across all potential sub-plots.</li>
+<li><strong>Significance Level</strong>: $\alpha = 0.05$.</li>
+</ul>
+<hr />
+<h4>Step 2: PLAN</h4>
+<ul>
+<li><strong>Identify Test</strong>: Paired $t$-test for a population mean difference $\mu_d$.</li>
+<li><strong>Check Conditions</strong>:</li>
+<li><strong>Randomness</strong>: Treatments (Control vs. Spray) were randomly assigned to sub-plots within each plot (Matched Pairs Design).</li>
+<li><strong>10% Condition</strong>: The sample of 10 plots is less than 10% of all potential plots (assuming a large theoretical population of farmland plots).</li>
+<li>
+<p><strong>Normal / Large Sample Condition</strong>:
+     Since $n = 10 &lt; 30$, we must construct the sample differences $d_i = X_C - X_S$:
+     $$\mathbf{d} = {+6, +4, -1, +9, +6, +6, +1, +6, +8, +8}$$</p>
+<p><em>Sketch of Difference Distribution (Dotplot):</em>
+ <code>text
+ Difference (Control - Spray):
+        •     •        •  •     
+ ───┼───┼───┼───┼───┼───┼───┼───┼───
+   -2   0   2   4   6   8  10</code>
+ <em>Verification Text:</em> The dotplot of the differences shows no extreme outliers and no strong skewness. The Normal condition is reasonably met.</p>
+</li>
+</ul>
+<hr />
+<h4>Step 3: DO</h4>
+<ul>
+<li><strong>Sample Summary Statistics</strong>:</li>
+<li>$n = 10$</li>
+<li>$\bar{x}_d = \frac{6 + 4 + (-1) + 9 + 6 + 6 + 1 + 6 + 8 + 8}{10} = \frac{53}{10} = 5.30$</li>
+<li>
+<p>$s_d = \sqrt{\frac{\sum (d_i - \bar{x}_d)^2}{n-1}} \approx 2.983$</p>
+</li>
+<li>
+<p><strong>Test Statistic Computation</strong>:</p>
+</li>
+</ul>
+<p>$$t = \frac{\bar{x}_d - \mu_0}{\frac{s_d}{\sqrt{n}}} = \frac{5.30 - 0}{\frac{2.983}{\sqrt{10}}} = \frac{5.30}{0.9433} \approx 5.619$$</p>
+<ul>
+<li>
+<p><strong>Degrees of Freedom</strong>:
+  $$df = n - 1 = 10 - 1 = 9$$</p>
+</li>
+<li>
+<p><strong>$p$-value Calculation</strong>:</p>
+</li>
+</ul>
+<p>$$p\text{-value} = P(t_{9} \ge 5.619) \approx 0.00016$$</p>
+<hr />
+<h4>Step 4: CONCLUDE</h4>
+<ul>
+<li><strong>Decision</strong>: Because $p\text{-value} \approx 0.00016 &lt; \alpha = 0.05$, we reject $H_0$.</li>
+<li><strong>Contextual Statement</strong>: There is convincing statistical evidence that the true mean difference in pest counts per square meter (Control minus Spray) is greater than zero. This indicates that the Biological Spray significantly reduces the average crop pest count per square meter.</li>
+</ul>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Statistics?</h2>
+      <p>Secure admission and advanced standing at top institutions like UC Berkeley with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArrayList Traversals, Mutation Pitfalls & 2D Matrix Algorithms Guide: AP Computer Science A Score 5 for Harvard University | AP STEM PATH</title>
+  <meta name="description" content="Master ArrayList Traversals, Mutation Pitfalls & 2D Matrix Algorithms in AP Computer Science A. Deep dive with LaTeX/code examples and score 5 strategies tailored for Harvard University applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "ArrayList Traversals, Mutation Pitfalls & 2D Matrix Algorithms Guide: AP Computer Science A Score 5 for Harvard University",
+    "description": "Master ArrayList Traversals, Mutation Pitfalls & 2D Matrix Algorithms in AP Computer Science A. Deep dive with LaTeX/code examples and score 5 strategies tailored for Harvard University applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Computer Science A • Score 5 Strategy</span>
+      <h1>ArrayList Traversals, Mutation Pitfalls & 2D Matrix Algorithms Guide: AP Computer Science A Score 5 for Harvard University</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Computer Science A Mastery Guide: ArrayList Traversals, Mutation Pitfalls &amp; 2D Matrix Algorithms</h1>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>In the AP Computer Science A curriculum, linear dynamically-sized collections (<code>ArrayList&lt;E&gt;</code>, Unit 7) and multidimensional rectangular structures (<code>2D Arrays</code>, Unit 8) constitute the core algorithmic backbone of the exam. Together, these topics represent <strong>17–25% of the Multiple-Choice Section</strong> and systematically account for <strong>50% of the Free-Response Section</strong> (specifically FRQ 3: Array/ArrayList and FRQ 4: 2D Array).</p>
+<pre><code>   +-----------------------------------------------------------------------+
+   |                       AP CS A FRQ LANDSCAPE                           |
+   +---------------------------------------+-------------------------------+
+   | FRQ 1: Methods &amp; Control Structures   | FRQ 3: Array / ArrayList      |
+   | FRQ 2: Class Design                   | FRQ 4: 2D Array               |
+   +---------------------------------------+-------------------------------+
+                                           |---&gt; ~50% of Total FRQ Points  |
+                                                 Require Flawless Indexing |
+</code></pre>
+<p>Mastery over these units requires moving beyond basic iteration. High-scoring candidates must demonstrate absolute control over memory reference behavior, structural mutation kinetics during traversal, concurrent modification hazards, and spatial boundary algorithms within 2D grids.</p>
+<p>For students targeting <strong>Harvard University</strong> and top-tier engineering programs, precision in these foundational constructs is non-negotiable. Demonstrating execution mechanics without logical edge-case vulnerabilities proves the computational maturity expected in elite university placement frameworks.</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>Part A: Dynamic Array Mechanics &amp; Mutation Pitfalls</h3>
+<p>An <code>ArrayList&lt;E&gt;</code> in Java is an array-backed contiguous memory structure that dynamically resizes when capacity is exceeded. </p>
+<h4>Structural Time &amp; Space Complexity</h4>
+<ul>
+<li><strong>Access / Modification by Index (<code>get(i)</code>, <code>set(i, val)</code>):</strong> $\mathcal{O}(1)$ time complexity.</li>
+<li><strong>Insertion / Removal at Index $i$ (<code>add(i, val)</code>, <code>remove(i)</code>):</strong> $\mathcal{O}(n - i)$ time complexity due to contiguous element memory shifts.</li>
+<li><strong>Amortized Append (<code>add(val)</code>):</strong> $\mathcal{O}(1)$ time; worst-case $\mathcal{O}(n)$ during dynamic backing-array reallocation.</li>
+</ul>
+<pre><code>Removing index i=2 in ArrayList of size n=6:
+Index:    0      1      2      3      4      5
+Value:  [ 10 ] [ 20 ] [ 30 ] [ 40 ] [ 50 ] [ 60 ]
+                         ^
+                         |-- Remove 30
+Shift Left:               &lt;----  &lt;----  &lt;----
+Index:    0      1      2      3      4
+Value:  [ 10 ] [ 20 ] [ 40 ] [ 50 ] [ 60 ]
+</code></pre>
+<h4>Mutation Traversal Mechanics</h4>
+<p>Modifying the size of an <code>ArrayList</code> while iterating over it introduces critical index-shifting bugs. Consider removing elements matching a target criteria:</p>
+<h5>Bug Pattern 1: Forward Traversal Removal Skip</h5>
+<pre><code class="language-java">// FAULTY CODE: Index Skipping Bug
+ArrayList&lt;Integer&gt; nums = new ArrayList&lt;&gt;(List.of(5, 8, 8, 3));
+for (int i = 0; i &lt; nums.size(); i++) {
+    if (nums.get(i) == 8) {
+        nums.remove(i); // Structural mutation shifts elements left!
+    }
+}
+// Resulting list: [5, 8, 3] -- The second '8' at index 1 is SKIPPED!
+</code></pre>
+<p><em>Mathematical Analysis of Bug Pattern 1:</em>
+Let $A = [a_0, a_1, \dots, a_{n-1}]$. When an element at index $k$ is removed via <code>remove(k)</code>, all subsequent elements $a_j$ for $j &gt; k$ shift to index $j - 1$. The loop control variable then increments to $k + 1$, completely evaluating the element originally located at index $k + 2$ and bypassing $a_{k+1}$ entirely.</p>
+<h5>Bug Pattern 2: Enhanced For-Each Structural Mutation</h5>
+<pre><code class="language-java">// FAULTY CODE: ConcurrentModificationException
+ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;(List.of(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;));
+for (String item : list) {
+    if (item.equals(&quot;B&quot;)) {
+        list.remove(item); // CRASH: Modifying structure via list reference
+    }                      // while Iterator reads modCount
+}
+</code></pre>
+<h5>Canonically Correct Mutation Patterns</h5>
+<h6>Pattern 1: Reverse Traversal Iteration (Preferred for Removal)</h6>
+<p>When iterating backward, elements shifting left occupy indices $j \le i$, which have already been evaluated.</p>
+<pre><code class="language-java">public static void removeTargetReverse(ArrayList&lt;Integer&gt; list, int target) {
+    for (int i = list.size() - 1; i &gt;= 0; i--) {
+        if (list.get(i) == target) {
+            list.remove(i); // Safe: shifts affect indices &gt; current i
+        }
+    }
+}
+</code></pre>
+<h6>Pattern 2: Forward Traversal with Conditional Decrement</h6>
+<pre><code class="language-java">public static void removeTargetForward(ArrayList&lt;Integer&gt; list, int target) {
+    for (int i = 0; i &lt; list.size(); i++) {
+        if (list.get(i) == target) {
+            list.remove(i);
+            i--; // Offset loop increment to re-evaluate the shifted element at index i
+        }
+    }
+}
+</code></pre>
+<h6>Pattern 3: Dynamic Element Duplication (Forward Traversal)</h6>
+<p>When inserting elements during traversal, forward iteration without index adjustment causes infinite execution loops.</p>
+<pre><code class="language-java">public static void duplicateTarget(ArrayList&lt;String&gt; list, String target) {
+    for (int i = 0; i &lt; list.size(); i++) {
+        if (list.get(i).equals(target)) {
+            list.add(i + 1, target);
+            i++; // Advance past the newly inserted duplicate element
+        }
+    }
+}
+</code></pre>
+<hr />
+<h3>Part B: 2D Matrix Manipulation Mechanics</h3>
+<p>A 2D array in Java (<code>type[][]</code>) is fundamentally an array of 1D array references ("array of arrays"). </p>
+<pre><code>int[][] grid = new int[3][4];
+
+grid ----&gt; [ Row 0 Reference ] ----&gt; [ 0 , 0 , 0 , 0 ]
+           [ Row 1 Reference ] ----&gt; [ 0 , 0 , 0 , 0 ]
+           [ Row 2 Reference ] ----&gt; [ 0 , 0 , 0 , 0 ]
+</code></pre>
+<ul>
+<li><strong>Row Count:</strong> <code>grid.length</code></li>
+<li><strong>Column Count:</strong> <code>grid[0].length</code> (Assumes rectangular $R \times C$ matrix, standard for AP CSA).</li>
+<li><strong>Element Access:</strong> <code>grid[row][col]</code> where $0 \le \text{row} &lt; \text{grid.length}$ and $0 \le \text{col} &lt; \text{grid[0].length}$.</li>
+</ul>
+<h4>Traversal Order Paradigms</h4>
+<h5>Row-Major Order (Standard AP Traversal)</h5>
+<p>Processes matrix row-by-row. Maximizes spatial locality in memory.
+$$\text{Order: } (0,0), (0,1), \dots, (0, C-1), (1,0), (1,1), \dots, (R-1, C-1)$$</p>
+<pre><code class="language-java">for (int r = 0; r &lt; grid.length; r++) {
+    for (int c = 0; c &lt; grid[r].length; c++) {
+        // Access: grid[r][c]
+    }
+}
+</code></pre>
+<h5>Column-Major Order</h5>
+<p>Processes matrix column-by-column.
+$$\text{Order: } (0,0), (1,0), \dots, (R-1, 0), (0,1), (1,1), \dots, (R-1, C-1)$$</p>
+<pre><code class="language-java">for (int c = 0; c &lt; grid[0].length; c++) {
+    for (int r = 0; r &lt; grid.length; r++) {
+        // Access: grid[r][c]
+    }
+}
+</code></pre>
+<h4>Linearizing Index Transformations</h4>
+<p>To convert between a $1\text{D}$ index $k$ and a $2\text{D}$ matrix coordinate $(r, c)$ for a matrix with $C$ columns:</p>
+<p>$$\text{1D to 2D Transformation:} \quad r = \lfloor k / C \rfloor, \quad c = k \bmod C$$
+$$\text{2D to 1D Transformation:} \quad k = r \cdot C + c$$</p>
+<h4>Boundary Guard Checks in Spatial Searches</h4>
+<p>When checking orthogonal or diagonal neighbors of a cell $(r, c)$, evaluating out-of-bounds array indices causes an <code>ArrayIndexOutOfBoundsException</code>. Boundary checks <strong>must short-circuit</strong> evaluation using the conditional logical AND (<code>&amp;&amp;</code>) operator.</p>
+<p>$$\text{Valid Cell Condition: } \Big(0 \le r &lt; \text{grid.length}\Big) \land \Big(0 \le c &lt; \text{grid}[0].length\Big)$$</p>
+<pre><code class="language-java">public static boolean isValidCell(int r, int c, int[][] grid) {
+    return r &gt;= 0 &amp;&amp; r &lt; grid.length &amp;&amp; c &gt;= 0 &amp;&amp; c &lt; grid[0].length;
+}
+
+// Canonical safe neighbor processing pattern:
+int[] dRow = {-1, 1, 0, 0}; // Up, Down, Left, Right
+int[] dCol = {0, 0, -1, 1};
+
+for (int i = 0; i &lt; 4; i++) {
+    int newR = r + dRow[i];
+    int newC = c + dCol[i];
+    // Mandatory Guard Condition: Check bounds BEFORE array access!
+    if (newR &gt;= 0 &amp;&amp; newR &lt; grid.length &amp;&amp; newC &gt;= 0 &amp;&amp; newC &lt; grid[0].length) {
+        processCell(grid[newR][newC]);
+    }
+}
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<p>To secure a 5 on the AP CSA Exam, code must execute with total logical correctness, respecting subtle boundary and variable constraints.</p>
+<pre><code>       SCORE 4 IMPLEMENTATION                     SCORE 5 IMPLEMENTATION
++----------------------------------+       +----------------------------------+
+| - Misses edge case mutations    |       | - Handles size-change invariants |
+| - Index out of bounds risks      |  vs   | - Explicit guard condition order |
+| - Sloppy bounds checks           |       | - Perfect boundary preservation  |
+| - Incomplete loop limits         |       | - Algorithmic space efficiency   |
++----------------------------------+       +----------------------------------+
+</code></pre>
+<h3>Critical Pitfall Matrix</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Pitfall Category</th>
+<th style="text-align: left;">Score 4 Vulnerability</th>
+<th style="text-align: left;">Score 5 Solution Standard</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>ArrayList Element Removal</strong></td>
+<td style="text-align: left;">Iterating forward without <code>i--</code>, skipping consecutive duplicate target elements.</td>
+<td style="text-align: left;">Iterating backward (<code>i = size - 1</code> to <code>0</code>) or using <code>i--</code> conditionally inside forward iteration.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Grid Boundary Guard</strong></td>
+<td style="text-align: left;">Evaluating <code>grid[r][c] == target</code> <em>before</em> verifying <code>r</code> and <code>c</code> are within bounds.</td>
+<td style="text-align: left;">Utilizing Java short-circuiting: <code>r &gt;= 0 &amp;&amp; r &lt; grid.length &amp;&amp; grid[r][c] == target</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Enhanced For-Each Mutation</strong></td>
+<td style="text-align: left;">Attempting <code>list.remove(x)</code> or reassignment of primitive elements inside enhanced loop.</td>
+<td style="text-align: left;">Using indexed <code>for</code> loops for structure mutation or reference modification.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Matrix Dimension Swapping</strong></td>
+<td style="text-align: left;">Using <code>grid.length</code> for column iterations, causing bounds errors on non-square matrices ($R \neq C$).</td>
+<td style="text-align: left;">Explicitly identifying <code>grid.length</code> for rows and <code>grid[0].length</code> for columns.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alias / Shallow Copy Errors</strong></td>
+<td style="text-align: left;">Writing <code>int[][] copy = grid;</code> when asked to create an independent matrix copy.</td>
+<td style="text-align: left;">Allocating a new matrix <code>new int[R][C]</code> and copying elements deeply via nested loops.</td>
+</tr>
+</tbody>
+</table>
+<h3>AP CSA FRQ Canonical Point Allocation Nuances</h3>
+<p>Review how College Board readers evaluate Free Response Questions involving Array/ArrayList and 2D Arrays:</p>
+<pre><code>[+1 Point] INITIALIZATION:
+    - Correctly creates and constructs new ArrayList or 2D Array object with correct dimensions.
+[+1 Point] TRAVERSAL ACCESS:
+    - Traverses all required elements without ArrayIndexOutOfBoundsException or IndexOutOfBoundsException.
+    - Loops terminate at size() or length/length[0] precisely.
+[+1 Point] LOGIC &amp; BOUNDARY GUARDS:
+    - Short-circuits boundary checks BEFORE attempting element access.
+    - Preserves array mutation invariant (handles dynamic index shifts cleanly).
+[+1 Point] ALGORITHMIC ACCUMULATION / UPDATE:
+    - Accurately updates, replaces, or removes expected target values without collateral data corruption.
+[+1 Point] RETURN VALUE / POST-CONDITIONS:
+    - Returns constructed structure or modifies parameter reference per spec requirements.
+</code></pre>
+<hr />
+<h2>4. Harvard University Placement Pathway</h2>
+<h3>Course Exemptions &amp; Strategic Acceleration</h3>
+<p>Earning a score of <strong>5</strong> on the AP Computer Science A exam provides candidates aiming for the <strong>Harvard School of Engineering and Applied Sciences (SEAS)</strong> or the <strong>Department of Computer Science</strong> a distinct structural advantage.</p>
+<pre><code>                  HARVARD CS ACCELERATION PATHWAY
+
+ [ AP Computer Science A: Score 5 ]
+                 |
+                 v
+ [ Harvard SEAS CS Prerequisite Waiver ]
+                 |
+                 +-----------------------------------+
+                 |                                   |
+                 v                                   v
+   [ CS 50 / CS 51 Track ]                 [ CS 121 Track ]
+Abstraction &amp; Design in Computation     Intro to Theoretical CS
+ (OCaml, C++, Functional Paradigm)    (Automata, Complexity Theory)
+                 |                                   |
+                 +-----------------+-----------------+
+                                   |
+                                   v
+               [ Advanced SEAS Project Tracks ]
+         (Systems, AI/ML, Joint Concentration Degree)
+</code></pre>
+<ol>
+<li><strong>SEAS Introductory CS Prerequisite Waiver:</strong> Demonstrating mastery in AP CS A satisfies fundamental algorithmic and procedural programming prerequisites within the Harvard SEAS curriculum map.</li>
+<li><strong>Immediate Acceleration Options:</strong><ul>
+<li><strong>CS 51 (<em>Abstraction and Design in Computation</em>):</strong> Bypasses introductory procedural syntax to focus on functional programming paradigms (OCaml), formal software design patterns, abstraction barriers, and memory layout semantics.</li>
+<li><strong>CS 121 (<em>Introduction to Theoretical Computer Science</em>):</strong> Directly positions mathematically-inclined students to pursue computation theory, formal language mechanics, finite automata, and complexity classes ($\mathcal{P}$ vs $\mathcal{NP}$).</li>
+</ul>
+</li>
+<li><strong>Admissions &amp; Program Advantage:</strong>
+    Top-tier performance in high school computer science demonstrates high technical aptitude. Waiving introductory logic courses opens academic capacity for joint concentrations (e.g., Mathematics &amp; Computer Science, CS &amp; Physics) and early involvement in advanced research laboratories (e.g., Harvard WebLab, Harvard Quantum Initiative).</li>
+</ol>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution Checklist</h2>
+<h3>Problem Statement: Dynamic Grid Filtering &amp; Matrix Compression Algorithm</h3>
+<p>Write a complete class <code>MatrixFilter</code> containing a static utility method named <code>compressAndCleanGrid</code>.</p>
+<p>The method accepts a non-null, rectangular 2D array of non-negative integers <code>grid</code> and an integer <code>threshold</code>. The method must perform two tasks:</p>
+<ol>
+<li><strong>Local Neighborhood Filtering:</strong> Analyze every element in <code>grid</code>. An element is defined as <strong>unstable</strong> if its value is strictly less than <code>threshold</code> AND it has <strong>at least two orthogonal neighbors</strong> (Up, Down, Left, Right) whose values are strictly greater than <code>threshold</code>.</li>
+<li><strong>Row Compression &amp; Extraction:</strong> Create and return an <code>ArrayList&lt;ArrayList&lt;Integer&gt;&gt;</code> where:<ul>
+<li>Each outer element corresponds to a row in <code>grid</code>.</li>
+<li>Each inner <code>ArrayList&lt;Integer&gt;</code> contains <strong>only the stable elements</strong> from that corresponding row, maintaining their original horizontal sequence order (all <strong>unstable</strong> elements are omitted from the row list).</li>
+<li>If an entire row consists of unstable elements, its inner list will be empty (size 0).</li>
+</ul>
+</li>
+</ol>
+<pre><code>Example Input Matrix (threshold = 10):
+[
+  [ 5,  15,   2 ],
+  [ 12,  4,  14 ],
+  [ 1,   8,   3 ]
+]
+
+Evaluation of cell (1, 1) = 4:
+- Cell value is 4 (&lt; 10).
+- Neighbor values: Up=15 (&gt;10), Down=8 (&lt;=10), Left=12 (&gt;10), Right=14 (&gt;10).
+- Number of neighbors &gt; 10 is 3 (&gt;= 2).
+- Cell (1, 1) is UNSTABLE and omitted from output row 1.
+
+Expected Output Return Structure:
+Row 0: [5, 15, 2]
+Row 1: [12, 14]   &lt;-- 4 removed
+Row 2: [1, 8, 3]
+</code></pre>
+<hr />
+<h3>Canonical Score 5 Solution (Java)</h3>
+<pre><code class="language-java">import java.util.ArrayList;
+
+public class MatrixFilter {
+
+    /**
+     * Filters grid based on localized neighbor thresholds and compresses rows.
+     * 
+     * @param grid      A non-null, rectangular 2D array of non-negative integers.
+     * @param threshold The integer boundary condition for stability.
+     * @return An ArrayList of ArrayLists containing only stable elements per row.
+     */
+    public static ArrayList&lt;ArrayList&lt;Integer&gt;&gt; compressAndCleanGrid(int[][] grid, int threshold) {
+        ArrayList&lt;ArrayList&lt;Integer&gt;&gt; compressedGrid = new ArrayList&lt;ArrayList&lt;Integer&gt;&gt;();
+
+        int numRows = grid.length;
+        int numCols = grid[0].length;
+
+        // Direction vectors for orthogonal neighbors: Up, Down, Left, Right
+        int[] dRow = {-1, 1, 0, 0};
+        int[] dCol = {0, 0, -1, 1};
+
+        for (int r = 0; r &lt; numRows; r++) {
+            ArrayList&lt;Integer&gt; rowList = new ArrayList&lt;Integer&gt;();
+
+            for (int c = 0; c &lt; numCols; c++) {
+                int currentValue = grid[r][c];
+
+                if (currentValue &lt; threshold) {
+                    int highNeighborCount = 0;
+
+                    // Inspect all 4 orthogonal directions
+                    for (int i = 0; i &lt; 4; i++) {
+                        int neighborRow = r + dRow[i];
+                        int neighborCol = c + dCol[i];
+
+                        // Strict Boundary Verification using Short-Circuit Evaluation
+                        if (neighborRow &gt;= 0 &amp;&amp; neighborRow &lt; numRows &amp;&amp;
+                            neighborCol &gt;= 0 &amp;&amp; neighborCol &lt; numCols) {
+
+                            if (grid[neighborRow][neighborCol] &gt; threshold) {
+                                highNeighborCount++;
+                            }
+                        }
+                    }
+
+                    // If stable (does not meet instability criteria), retain element
+                    if (highNeighborCount &lt; 2) {
+                        rowList.add(currentValue);
+                    }
+                } else {
+                    // Values &gt;= threshold are automatically stable
+                    rowList.add(currentValue);
+                }
+            }
+
+            // Append the processed inner row list to the master outer list
+            compressedGrid.add(rowList);
+        }
+
+        return compressedGrid;
+    }
+}
+</code></pre>
+<hr />
+<h3>Step-by-Step Scoring Rubric Verification Checklist</h3>
+<p>Use this self-audit checklist to verify that your FRQ solutions meet AP CSA Score 5 standards:</p>
+<pre><code>[x] CHECK 1: Dynamic Data Structure Initialization
+    - Correct generic syntax: ArrayList&lt;ArrayList&lt;Integer&gt;&gt; list = new ArrayList&lt;...&gt;();
+    - Inner rows re-instantiated inside outer row loop to prevent aliasing references.
+
+[x] CHECK 2: Array Boundary Verification &amp; Short-Circuit Execution
+    - Validates neighborRow &gt;= 0 AND neighborRow &lt; grid.length BEFORE reading index.
+    - Prevents ArrayIndexOutOfBoundsException on edge or corner cells.
+
+[x] CHECK 3: Matrix Coordinate Mapping Accuracy
+    - Evaluates rows via grid.length and columns via grid[0].length.
+    - Accesses values with consistent row-major indexing: grid[r][c].
+
+[x] CHECK 4: Loop Logic &amp; Accumulation Invariants
+    - Neighbor count resets to 0 for every evaluated cell.
+    - Preserves input grid state (no destructive overwrites unless requested).
+    - Returns exact requested nested object structure without null elements.
+</code></pre>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Computer Science A?</h2>
+      <p>Secure admission and advanced standing at top institutions like Harvard University with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

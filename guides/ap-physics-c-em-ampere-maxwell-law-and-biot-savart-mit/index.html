@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ampère's Law, Biot-Savart Integrals & Displacement Current Guide: AP Physics C: Electricity & Magnetism Score 5 for MIT | AP STEM PATH</title>
+  <meta name="description" content="Master Ampère's Law, Biot-Savart Integrals & Displacement Current in AP Physics C: Electricity & Magnetism. Deep dive with LaTeX/code examples and score 5 strategies tailored for MIT applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Ampère's Law, Biot-Savart Integrals & Displacement Current Guide: AP Physics C: Electricity & Magnetism Score 5 for MIT",
+    "description": "Master Ampère's Law, Biot-Savart Integrals & Displacement Current in AP Physics C: Electricity & Magnetism. Deep dive with LaTeX/code examples and score 5 strategies tailored for MIT applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Physics C: Electricity & Magnetism • Score 5 Strategy</span>
+      <h1>Ampère's Law, Biot-Savart Integrals & Displacement Current Guide: AP Physics C: Electricity & Magnetism Score 5 for MIT</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Physics C: Electricity &amp; Magnetism Mastery Guide</h1>
+<h2>Unit 4 &amp; 5 Focus: Ampère’s Law, Biot-Savart Integrals, and Displacement Current</h2>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>In the AP Physics C: Electricity &amp; Magnetism curriculum, Magnetostatics, Electromagnetism, and Maxwell’s Equations represent approximately <strong>18%–25%</strong> of the total exam weight. Master-level proficiency in this domain requires moving past superficial formula memorization to master vector calculus integration, continuous field topology, and non-stationary dynamic fields.</p>
+<p>This guide focuses on three core pillars:
+1. <strong>The Biot-Savart Law</strong>: Exact line integration over continuous geometric current distributions.
+2. <strong>Ampère’s Law</strong>: Exploiting spatial symmetries ($\oint \vec{B} \cdot d\vec{\ell} = \mu_0 I_{\text{enc}}$) in non-uniform current density regimes.
+3. <strong>The Maxwell-Ampère Law &amp; Displacement Current</strong>: Resolving the continuity paradox in time-varying electric fields ($\oint \vec{B} \cdot d\vec{\ell} = \mu_0 I_{\text{enc}} + \mu_0 \epsilon_0 \frac{d\Phi_E}{dt}$).</p>
+<p>Targeting a <strong>Score 5</strong> on the AP Exam—and preparing for advanced standing at top-tier institutions like MIT—requires rigorous multi-variable setup, precise integration limits, explicit boundary conditions, and geometric vector projections.</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>Part A: The Biot-Savart Law</h3>
+<p>The Biot-Savart law determines the magnetic field generated by an arbitrary localized current distribution:</p>
+<p>$$d\vec{B} = \frac{\mu_0 I}{4\pi} \frac{d\vec{\ell} \times \hat{r}}{r^2} = \frac{\mu_0 I}{4\pi} \frac{d\vec{\ell} \times \vec{r}}{r^3}$$</p>
+<h4>Derivation: On-Axis Magnetic Field of a Circular Current Loop</h4>
+<p>Consider a circular wire loop of radius $R$ lying in the $xy$-plane, centered at the origin, carrying a steady current $I$. We evaluate the magnetic field at a point $P = (0,0,z)$ along the $z$-axis.</p>
+<pre><code>                  z-axis
+                    |
+                    | * P (0, 0, z)
+                   /|\
+                  / | \
+             r   /  |  \  r
+                /   |   \
+               /    |    \
+              /     |     \
+  -----------+------O------+----------- y-axis
+            /   R   |   R   \
+           /        |        \
+      [Loop in xy-plane, radius R]
+</code></pre>
+<ol>
+<li>
+<p><strong>Differential Element Setup</strong>: 
+   A differential path element on the loop is given in cylindrical coordinates by $d\vec{\ell} = R\, d\phi\, \hat{\phi}$.
+   The position vector from the source element to the point $P$ is $\vec{r} = z\hat{k} - R\hat{r}_{\text{cyl}}$.
+   The distance is $r = |\vec{r}| = \sqrt{R^2 + z^2}$.</p>
+</li>
+<li>
+<p><strong>Cross Product</strong>:
+   $$d\vec{\ell} \times \vec{r} = (R\, d\phi\, \hat{\phi}) \times (z\hat{k} - R\hat{r}<em>{\text{cyl}}) = R z \, d\phi \, \hat{r}</em>{\text{cyl}} + R^2 \, d\phi \, \hat{k}$$</p>
+</li>
+<li>
+<p><strong>Symmetry Analysis</strong>:
+   By rotational symmetry about the $z$-axis, the radial components $\hat{r}_{\text{cyl}}$ cancel when integrated over $\phi \in [0, 2\pi]$. Only the axial component $z$ survives:</p>
+</li>
+</ol>
+<p>$$dB_z = \frac{\mu_0 I}{4\pi} \frac{R^2 \, d\phi}{(R^2 + z^2)^{3/2}}$$</p>
+<ol>
+<li><strong>Integration</strong>:
+   $$B_z = \int_0^{2\pi} \frac{\mu_0 I R^2}{4\pi (R^2 + z^2)^{3/2}} \, d\phi = \frac{\mu_0 I R^2}{4\pi (R^2 + z^2)^{3/2}} (2\pi)$$</li>
+</ol>
+<p>$$\vec{B}(z) = \frac{\mu_0 I R^2}{2(R^2 + z^2)^{3/2}} \, \hat{k}$$</p>
+<hr />
+<h3>Part B: Ampère’s Law and Non-Uniform Current Density</h3>
+<p>Ampère’s Law states that the line integral of $\vec{B}$ around any closed Amperian loop equals $\mu_0$ times the total enclosed current $I_{\text{enc}}$:</p>
+<p>$$\oint \vec{B} \cdot d\vec{\ell} = \mu_0 I_{\text{enc}}$$</p>
+<p>When current density $\vec{J}(r)$ is non-uniform, the enclosed current must be calculated via surface integration over the area bounded by the Amperian loop:</p>
+<p>$$I_{\text{enc}} = \iint \vec{J} \cdot d\vec{A}$$</p>
+<h4>Derivation: Thick Cylindrical Wire with Non-Uniform Current Density</h4>
+<p>Consider an infinitely long conductor of radius $R$ carrying a total current $I_{\text{total}}$ with a non-uniform current density along its cross-section:</p>
+<p>$$J(r) = C r^2 \quad \text{for } r \le R$$</p>
+<pre><code>       Cross-section of conductor (radius R)
+              . - - - - - - .
+          . '                 ' .
+        '       Amperian        '
+       '        Loop (r)         '
+      '        . - - - .          '
+      |       '         '         |  &lt;--- J(r) = C r²
+      |      |    o     |         |
+      '       '         '         '
+       '        ' - - - '        '
+        '                       '
+          . '                 ' .
+              ' - - - - - - '
+</code></pre>
+<ol>
+<li>
+<p><strong>Calculate Constant $C$</strong>:
+   $$I_{\text{total}} = \int_0^R J(r) (2\pi r \, dr) = 2\pi C \int_0^R r^3 \, dr = 2\pi C \left[ \frac{R^4}{4} \right] = \frac{\pi C R^4}{2} \implies C = \frac{2 I_{\text{total}}}{\pi R^4}$$</p>
+</li>
+<li>
+<p><strong>Internal Field Region ($r &lt; R$)</strong>:
+   Choose a concentric circular Amperian loop of radius $r$:
+   $$\oint \vec{B} \cdot d\vec{\ell} = B(r) \cdot (2\pi r)$$
+   $$I_{\text{enc}}(r) = \int_0^r J(r') (2\pi r' \, dr') = 2\pi C \int_0^r (r')^3 \, dr' = \frac{\pi C r^4}{2} = I_{\text{total}} \left( \frac{r}{R} \right)^4$$
+   Equating both sides via Ampère's Law:
+   $$B(r) \cdot 2\pi r = \mu_0 I_{\text{total}} \frac{r^4}{R^4} \implies B(r) = \frac{\mu_0 I_{\text{total}} r^3}{2\pi R^4}$$</p>
+</li>
+<li>
+<p><strong>External Field Region ($r \ge R$)</strong>:
+   $$I_{\text{enc}} = I_{\text{total}}$$
+   $$B(r) \cdot 2\pi r = \mu_0 I_{\text{total}} \implies B(r) = \frac{\mu_0 I_{\text{total}}}{2\pi r}$$</p>
+</li>
+</ol>
+<hr />
+<h3>Part C: The Maxwell-Ampère Law &amp; Displacement Current</h3>
+<p>Standard Ampère’s Law fails for time-dependent circuits (e.g., a charging capacitor), violating the continuity equation for charge conservation ($\nabla \cdot \vec{J} + \frac{\partial \rho}{\partial t} = 0$). Maxwell added the <strong>Displacement Current</strong> term ($I_d$):</p>
+<p>$$I_d = \epsilon_0 \frac{d\Phi_E}{dt}$$</p>
+<p>$$\oint \vec{B} \cdot d\vec{\ell} = \mu_0 \left( I_{\text{conduction}} + \epsilon_0 \frac{d\Phi_E}{dt} \right)$$</p>
+<h4>Derivation: Induced Magnetic Field Inside a Charging Circular Capacitor</h4>
+<p>Consider a parallel-plate capacitor with circular plates of radius $a$, being charged by a steady current $I_0$.</p>
+<pre><code>     Plate 1 (+Q)               Plate 2 (-Q)
+    +------------+             +------------+
+    |            |   E-field   |            |
+  =================&gt;  =====&gt;  =================&gt;
+    |   o------&gt; |   =====&gt;    |            |   Current I_0
+  =================&gt;  =====&gt;  =================&gt;
+    |  Amperian  |             |            |
+    +--loop (r)--+             +------------+
+        &lt;---&gt;
+          r
+</code></pre>
+<ol>
+<li>
+<p><strong>Electric Field between Plates</strong>:
+   $$E(t) = \frac{\sigma(t)}{\epsilon_0} = \frac{Q(t)}{\pi a^2 \epsilon_0}$$</p>
+</li>
+<li>
+<p><strong>Electric Flux through an Amperian Surface of radius $r &lt; a$</strong>:
+   $$\Phi_E(r, t) = E(t) \cdot (\pi r^2) = \frac{Q(t) \pi r^2}{\pi a^2 \epsilon_0} = \frac{Q(t) r^2}{\epsilon_0 a^2}$$</p>
+</li>
+<li>
+<p><strong>Displacement Current Enclosed</strong>:
+   $$I_{d,\text{enc}} = \epsilon_0 \frac{d\Phi_E(r,t)}{dt} = \epsilon_0 \left( \frac{r^2}{\epsilon_0 a^2} \frac{dQ}{dt} \right) = I_0 \frac{r^2}{a^2}$$</p>
+</li>
+<li>
+<p><strong>Induced Magnetic Field $B(r)$</strong>:
+   There is no conduction current between the plates ($I_{\text{conduction}} = 0$). Applying the Generalized Ampère's Law:
+   $$\oint \vec{B} \cdot d\vec{\ell} = \mu_0 I_{d,\text{enc}}$$
+   $$B(r) \cdot (2\pi r) = \mu_0 I_0 \frac{r^2}{a^2} \implies B(r) = \frac{\mu_0 I_0 r}{2\pi a^2} \quad (r &lt; a)$$</p>
+</li>
+</ol>
+<p>For $r \ge a$, all electric flux is enclosed ($I_{d,\text{total}} = I_0$):
+   $$B(r) = \frac{\mu_0 I_0}{2\pi r} \quad (r \ge a)$$</p>
+<hr />
+<h3>Python Verification: Field Profiles for Non-Uniform Currents &amp; Displacement Current</h3>
+<p>This computational script models and visualizes magnetic fields inside/outside dynamic current distributions for both a non-uniform conductor and a charging capacitor.</p>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+def generate_field_profiles():
+    # Physical Constants
+    mu_0 = 4 * np.pi * 1e-7
+    I_0 = 5.0  # Amperes
+    a = 0.05   # Radius: 5 cm
+
+    # Spatial Grid
+    r_inside = np.linspace(0, a, 200)
+    r_outside = np.linspace(a, 2*a, 200)
+    r_total = np.concatenate((r_inside, r_outside))
+
+    # 1. Non-Uniform Wire J(r) = C * r^2
+    B_wire_in = (mu_0 * I_0 * r_inside**3) / (2 * np.pi * a**4)
+    B_wire_out = (mu_0 * I_0) / (2 * np.pi * r_outside)
+    B_wire = np.concatenate((B_wire_in, B_wire_out))
+
+    # 2. Charging Circular Capacitor (Displacement Current)
+    B_cap_in = (mu_0 * I_0 * r_inside) / (2 * np.pi * a**2)
+    B_cap_out = (mu_0 * I_0) / (2 * np.pi * r_outside)
+    B_cap = np.concatenate((B_cap_in, B_cap_out))
+
+    # Visualization
+    plt.figure(figsize=(10, 6))
+    plt.plot(r_total * 100, B_wire * 1e6, label=r'Thick Wire ($J \propto r^2$)', color='crimson', lw=2)
+    plt.plot(r_total * 100, B_cap * 1e6, label=r'Capacitor ($I_d$ Induced Field)', color='navy', linestyle='--', lw=2)
+
+    plt.axvline(x=a*100, color='gray', linestyle=':', label='Boundary Radius ($a$)')
+    plt.title('Magnetic Field Profile Comparison: Conduction vs. Displacement Current', fontsize=12)
+    plt.xlabel('Radial Distance $r$ (cm)', fontsize=11)
+    plt.ylabel('Magnetic Field Magnitude $B(r)$ ($\mu T$)', fontsize=11)
+    plt.grid(True, alpha=0.3)
+    plt.legend(fontsize=10)
+    plt.savefig('magnetic_field_profiles.png', dpi=300)
+    plt.show()
+
+if __name__ == '__main__':
+    generate_field_profiles()
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<h3>Score 4 vs. Score 5 Performance Metrics</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">AP Exam Focus Area</th>
+<th style="text-align: left;">Score 4 Response Pattern</th>
+<th style="text-align: left;">Score 5 Solution Standard</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Biot-Savart Setup</strong></td>
+<td style="text-align: left;">Mentions formula $d\vec{B} = \frac{\mu_0 I d\vec{\ell} \times \hat{r}}{4\pi r^2}$ but makes integration limit or coordinate transformation errors.</td>
+<td style="text-align: left;">Correctly parameterizes $d\vec{\ell}$, resolves vector components, isolates surviving integral terms via symmetry, and evaluates exact definite limits.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Ampère’s Law Integration</strong></td>
+<td style="text-align: left;">Treats non-uniform $J(r)$ as uniform ($I_{\text{enc}} = J \cdot \pi r^2$), assuming $B(r) \propto r$ everywhere inside.</td>
+<td style="text-align: left;">Integrates current density correctly ($I_{\text{enc}} = \int_0^r J(r') 2\pi r' dr'$) and handles piecewise boundary definitions accurately.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Displacement Current</strong></td>
+<td style="text-align: left;">Confuses displacement current with physical charge movement or forgets the $\epsilon_0$ factor.</td>
+<td style="text-align: left;">Identifies time-varying electric flux ($\epsilon_0 \frac{d\Phi_E}{dt}$), links $I_d$ to charging rate $\frac{dQ}{dt}$, and solves the Maxwell-Ampère equation.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Vector Geometry</strong></td>
+<td style="text-align: left;">Incorrectly identifies angles in cross products ($d\vec{\ell} \times \hat{r}$), losing track of vector directions.</td>
+<td style="text-align: left;">Employs explicit vector cross products or directional unit vectors ($\hat{i}, \hat{j}, \hat{k}$), ensuring sign consistency throughout.</td>
+</tr>
+</tbody>
+</table>
+<h3>High-Frequency Scoring Rubric Pitfalls</h3>
+<ol>
+<li><strong>Failure to Show Amperian Path Integration</strong>: Writing $B(2\pi r) = \mu_0 I_{\text{enc}}$ without explicitly writing the integral step $\oint \vec{B} \cdot d\vec{\ell}$ can cost the initial conceptual point on an FRQ.</li>
+<li><strong>Incorrect Limits on Boundary Integrals</strong>: When finding $I_{\text{enc}}$ inside a conductor, integrating from $0$ to $R$ instead of $0$ to $r$ evaluated at an intermediate point loses points for both boundary identification and calculus implementation.</li>
+<li><strong>Omitting Scalar Vector Reductions</strong>: Dropping vector notation mid-derivation without invoking explicit symmetry arguments (e.g., stating "By rotational symmetry, $\vec{B}$ is parallel to $d\vec{\ell}$ and constant along the loop") will trigger a clarity deduction on AP rubrics.</li>
+</ol>
+<hr />
+<h2>4. MIT Placement Pathway</h2>
+<h3>Credit Framework &amp; Advanced Standing</h3>
+<p>Achieving a <strong>Score 5</strong> on the AP Physics C: Electricity &amp; Magnetism exam yields major placement benefits at top quantitative institutions like MIT:</p>
+<ul>
+<li><strong>Direct Exemption / Credit</strong>: Grants credit for <strong>8.01</strong> (Physics I: Mechanics, when paired with a 5 in AP Physics C: Mechanics) and eligibility to take the <strong>8.02 Advanced Standing Exam (ASE)</strong> during freshman orientation.</li>
+<li><strong>Accelerated Course Progression</strong>: Passing the 8.02 ASE satisfies MIT's General Institute Requirement (GIR) in Physics, unlocking immediate enrollment in <strong>8.03</strong> (<em>Physics III: Waves and Optics</em>) or <strong>8.022</strong> (<em>Electricity and Magnetism: Theoretical/Advanced Variant</em>) during the first semester.</li>
+</ul>
+<pre><code>       [AP Physics C: E&amp;M (Score 5)]
+                    |
+                    v
+       [8.02 ASE Eligibility (Fall)]
+                    |
+      +-------------+-------------+
+      |                           |
+      v                           v
+ [Pass ASE]                  [Enroll 8.022]
+      |                           |
+      v                           v
+ [Enroll 8.03 First Term]    [Advanced Vector Mechanics]
+      |                           |
+      +-------------+-------------+
+                    |
+                    v
+      [Accelerated Course 6 / Course 8 Track]
+</code></pre>
+<h3>Academic Impact for EECS (Course 6) &amp; Physics (Course 8) Majors</h3>
+<ul>
+<li><strong>Course 6 (Electrical Engineering &amp; Computer Science)</strong>: Skipping introductory 8.02 allows early enrollment in <strong>6.002</strong> (<em>Circuits and Electronics</em>) and <strong>6.013</strong> (<em>Electromagnetics and Applications</em>), freeing up schedule space for advanced coursework in hardware systems, signal processing, and quantum devices.</li>
+<li><strong>Course 8 (Physics)</strong>: Rapid completion of foundational E&amp;M opens early access to key upper-level sequences: <strong>8.04</strong> (<em>Quantum Mechanics I</em>), <strong>8.05</strong> (<em>Quantum Mechanics II</em>), and targeted <strong>UROP</strong> (Undergraduate Research Opportunities Program) positions in laboratories like the <em>Research Laboratory of Electronics (RLE)</em> or the <em>Plasma Science and Fusion Center (PSFC)</em>.</li>
+</ul>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution Checklist</h2>
+<h3>Problem</h3>
+<p>A long, solid cylindrical conductor of radius $a$ is mounted co-axially along the $z$-axis. It carries a non-uniform time-independent current density given by:</p>
+<p>$$\vec{J}(r) = J_0 \left( 1 - \frac{r}{a} \right) \hat{k} \quad \text{for } 0 \le r \le a$$</p>
+<p>where $J_0$ is a known positive constant, and $r$ is the radial distance from the central axis.</p>
+<p>Outside the inner conductor, separated by a vacuum gap, lies a thin coaxial cylindrical conducting shell of radius $b$ ($b &gt; a$) carrying an equal total current $I_{\text{total}}$ in the opposite direction ($-\hat{k}$).</p>
+<pre><code>                Cross-Section of Coaxial System
+                     . - - - - - - - - .
+                 . '     Outer Shell     ' .
+               '         (radius b)        '
+              '         . - - - - .         '
+             '        . '  Inner  ' .        '
+             |       '   Conductor   '       |
+             |       |  (radius a)   |       |   J(r) = J_0 (1 - r/a) z^
+             |       '               '       |
+             '        . '         ' .        '
+              '         ' - - - - '         '
+               '                           '
+                 . '                     ' .
+                     ' - - - - - - - - '
+</code></pre>
+<p><strong>(a)</strong> Derive an expression for the total current $I_{\text{total}}$ passing through the inner conductor in terms of $J_0$ and $a$.<br />
+<strong>(b)</strong> Derive an expression for the magnetic field vector $\vec{B}(r)$ in the region inside the inner conductor ($0 \le r \le a$).<br />
+<strong>(c)</strong> Derive an expression for the magnetic field vector $\vec{B}(r)$ in the coaxial gap region ($a &lt; r &lt; b$).<br />
+<strong>(d)</strong> A parallel-plate circular capacitor with radius $a$ is now connected in series with this system, drawing current $I(t) = I_{\text{total}} e^{-t/\tau}$. Express the magnitude of the displacement current density $J_d(r, t)$ inside the capacitor plates at $r = \frac{a}{2}$ as a function of time.</p>
+<hr />
+<h3>Complete Solution &amp; Scoring Checklist</h3>
+<h4>Part (a): Integration of Total Current</h4>
+<p>Calculate total current through the surface integral of current density:</p>
+<p>$$I_{\text{total}} = \iint \vec{J} \cdot d\vec{A} = \int_0^a J(r) (2\pi r \, dr)$$
+$$I_{\text{total}} = 2\pi J_0 \int_0^a \left( r - \frac{r^2}{a} \right) dr$$
+$$I_{\text{total}} = 2\pi J_0 \left[ \frac{r^2}{2} - \frac{r^3}{3a} \right]_0^a = 2\pi J_0 \left( \frac{a^2}{2} - \frac{a^2}{3} \right) = 2\pi J_0 \left( \frac{a^2}{6} \right) = \frac{\pi J_0 a^2}{3}$$</p>
+<ul>
+<li><strong>AP Rubric Check [2 Points Total]</strong>:</li>
+<li><strong>[1 pt]</strong> Sets up correct area element integral $d A = 2\pi r \, dr$.</li>
+<li><strong>[1 pt]</strong> Evaluates limits $0 \to a$ to arrive at $I_{\text{total}} = \frac{\pi J_0 a^2}{3}$.</li>
+</ul>
+<hr />
+<h4>Part (b): Magnetic Field Inside Inner Conductor ($0 \le r \le a$)</h4>
+<ol>
+<li>
+<p>Apply Ampère's Law along a circular path of radius $r \le a$:
+   $$\oint \vec{B} \cdot d\vec{\ell} = B_{\phi}(r) \cdot (2\pi r)$$</p>
+</li>
+<li>
+<p>Compute enclosed current $I_{\text{enc}}(r)$:
+   $$I_{\text{enc}}(r) = 2\pi J_0 \int_0^r \left( r' - \frac{(r')^2}{a} \right) dr' = 2\pi J_0 \left( \frac{r^2}{2} - \frac{r^3}{3a} \right)$$</p>
+</li>
+<li>
+<p>Solve for $B_{\phi}(r)$:
+   $$B_{\phi}(r) \cdot (2\pi r) = \mu_0 \cdot 2\pi J_0 \left( \frac{r^2}{2} - \frac{r^3}{3a} \right)$$
+   $$B_{\phi}(r) = \mu_0 J_0 \left( \frac{r}{2} - \frac{r^2}{3a} \right)$$</p>
+</li>
+<li>
+<p>Express as a vector using right-hand rule ($\hat{\phi}$ direction):
+   $$\vec{B}(r) = \mu_0 J_0 r \left( \frac{1}{2} - \frac{r}{3a} \right) \hat{\phi}$$</p>
+</li>
+<li>
+<p><strong>AP Rubric Check [3 Points Total]</strong>:</p>
+</li>
+<li><strong>[1 pt]</strong> Applies Ampère's Law LHS correctly: $\oint \vec{B} \cdot d\vec{\ell} = B(2\pi r)$.</li>
+<li><strong>[1 pt]</strong> Integrates $I_{\text{enc}}(r)$ using variable upper bound $r$.</li>
+<li><strong>[1 pt]</strong> Correct final algebraic simplification with unit vector $\hat{\phi}$.</li>
+</ol>
+<hr />
+<h4>Part (c): Magnetic Field in Gap Region ($a &lt; r &lt; b$)</h4>
+<p>In the region $a &lt; r &lt; b$, the enclosed current is the full current carried by the inner cylinder ($I_{\text{enc}} = I_{\text{total}}$):</p>
+<p>$$\oint \vec{B} \cdot d\vec{\ell} = B_{\phi}(r) \cdot (2\pi r) = \mu_0 I_{\text{total}}$$
+$$B_{\phi}(r) = \frac{\mu_0 I_{\text{total}}}{2\pi r}$$</p>
+<p>Substituting $I_{\text{total}} = \frac{\pi J_0 a^2}{3}$ from Part (a):</p>
+<p>$$\vec{B}(r) = \frac{\mu_0 \left( \frac{\pi J_0 a^2}{3} \right)}{2\pi r} \hat{\phi} = \frac{\mu_0 J_0 a^2}{6r} \hat{\phi}$$</p>
+<ul>
+<li><strong>AP Rubric Check [2 Points Total]</strong>:</li>
+<li><strong>[1 pt]</strong> Recognizes $I_{\text{enc}} = I_{\text{total}}$ constant in the gap region.</li>
+<li><strong>[1 pt]</strong> Correct final vector field expression in terms of initial parameters ($J_0, a, r$).</li>
+</ul>
+<hr />
+<h4>Part (d): Dynamic Displacement Current Density</h4>
+<ol>
+<li>
+<p>Definition of displacement current density $J_d$:
+   $$\vec{J}_d = \epsilon_0 \frac{\partial \vec{E}}{\partial t}$$</p>
+</li>
+<li>
+<p>Uniform Electric Field inside circular parallel plate capacitor of radius $a$:
+   $$E(t) = \frac{Q(t)}{\pi a^2 \epsilon_0}$$
+   $$\frac{\partial E}{\partial t} = \frac{1}{\pi a^2 \epsilon_0} \frac{dQ}{dt} = \frac{I(t)}{\pi a^2 \epsilon_0}$$</p>
+</li>
+<li>
+<p>Substitute field rate into displacement current density:
+   $$J_d(t) = \epsilon_0 \left( \frac{I(t)}{\pi a^2 \epsilon_0} \right) = \frac{I(t)}{\pi a^2}$$</p>
+</li>
+<li>
+<p>Notice that $J_d(t)$ is spatially uniform across the capacitor cross-section ($0 \le r \le a$). Therefore, evaluating at $r = \frac{a}{2}$:
+   $$J_d\left(r = \frac{a}{2}, t\right) = \frac{I_{\text{total}} e^{-t/\tau}}{\pi a^2}$$</p>
+</li>
+<li>
+<p>Substitute $I_{\text{total}} = \frac{\pi J_0 a^2}{3}$:
+   $$J_d\left(r = \frac{a}{2}, t\right) = \frac{\frac{\pi J_0 a^2}{3} e^{-t/\tau}}{\pi a^2} = \frac{J_0}{3} e^{-t/\tau}$$</p>
+</li>
+<li>
+<p><strong>AP Rubric Check [3 Points Total]</strong>:</p>
+</li>
+<li><strong>[1 pt]</strong> Relates $\vec{J}_d$ to rate of change of electric field ($\epsilon_0 \frac{\partial E}{\partial t}$).</li>
+<li><strong>[1 pt]</strong> Demonstrates spatial uniformity of $E$ and $J_d$ across the plate cross-section.</li>
+<li><strong>[1 pt]</strong> Correct final substitution yielding $J_d = \frac{J_0}{3} e^{-t/\tau}$.</li>
+</ol>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Physics C: Electricity & Magnetism?</h2>
+      <p>Secure admission and advanced standing at top institutions like MIT with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

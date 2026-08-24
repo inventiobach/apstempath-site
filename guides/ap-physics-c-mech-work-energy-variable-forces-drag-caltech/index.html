@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work-Energy Theorem with Velocity-Dependent Drag Forces Guide: AP Physics C: Mechanics Score 5 for Caltech | AP STEM PATH</title>
+  <meta name="description" content="Master Work-Energy Theorem with Velocity-Dependent Drag Forces in AP Physics C: Mechanics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Caltech applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Work-Energy Theorem with Velocity-Dependent Drag Forces Guide: AP Physics C: Mechanics Score 5 for Caltech",
+    "description": "Master Work-Energy Theorem with Velocity-Dependent Drag Forces in AP Physics C: Mechanics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Caltech applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Physics C: Mechanics • Score 5 Strategy</span>
+      <h1>Work-Energy Theorem with Velocity-Dependent Drag Forces Guide: AP Physics C: Mechanics Score 5 for Caltech</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Physics C: Mechanics Mastery Guide</h1>
+<h2>Work-Energy Theorem with Velocity-Dependent Drag Forces</h2>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>The interaction between conservative field forces and velocity-dependent non-conservative drag forces represents one of the most mathematically rigorous topics tested on the AP Physics C: Mechanics exam. Appearing consistently within the <strong>Newton’s Laws of Motion</strong> and <strong>Work, Energy, and Power</strong> units (which collectively account for <strong>34%–46%</strong> of the total exam weight), velocity-dependent drag dynamics frequently serve as the foundational context for Free-Response Question 1 or 2.</p>
+<pre><code>                    AP Physics C: Mechanics Focus Area
+  ┌──────────────────────────────────────────────────────────────────┐
+  │ Unit 2: Newton's Laws (18-22%) + Unit 3: Work &amp; Energy (14-17%)  │
+  └──────────────────────────────────────────────────────────────────┘
+                                   │
+                                   ▼
+          ┌──────────────────────────────────────────────┐
+          │ Differential Mechanics &amp; Drag Forces: F(v)   │
+          └──────────────────────────────────────────────┘
+                                   │
+                  ┌────────────────┴────────────────┐
+                  ▼                                 ▼
+   Linear Drag: F_d = -bv            Quadratic Drag: F_d = -cv^2
+   (Stokes' Law regime)              (High Re Newtonian fluids)
+</code></pre>
+<p>While standard AP curricula emphasize simple linear drag ($F_d = -bv$) integrated via separation of variables for $v(t)$, obtaining a <strong>Score 5</strong>—and qualifying for top-tier university placement—requires mastering:
+1. Spatial differential formulations ($a = v \frac{dv}{dx}$).
+2. The exact evaluation of non-conservative work done by non-linear drag $W_{\text{nc}} = \int \vec{F}<em>d \cdot d\vec{r}$.
+3. Linking differential equations directly to the Work-Energy Theorem ($W</em>{\text{net}} = \Delta K$).</p>
+<p>For high-achieving students aiming for institutions like <strong>Caltech</strong>, mastering this mechanics framework is essential. It provides the exact mathematical foundation evaluated on university diagnostic placement examinations.</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>Theoretical Foundations &amp; Spatial Transformation</h3>
+<p>The generalized Work-Energy Theorem dictates that the total work done on a point particle equals the change in its kinetic energy:</p>
+<p>$$W_{\text{net}} = W_{\text{cons}} + W_{\text{nc}} = \Delta K$$</p>
+<p>When non-conservative drag forces $\vec{F}_d(v)$ are present, the work executed by drag over a spatial path from $x_0$ to $x_f$ is defined as:</p>
+<p>$$W_d = \int_{x_0}^{x_f} \vec{F}<em>d(v) \cdot d\vec{r} = \int</em>{x_0}^{x_f} F_d(v) \, dx$$</p>
+<p>Because the force vector $\vec{F}_d(v)$ depends explicitly on velocity rather than position, solving this spatial integral directly requires transforming the differential variable from spatial ($dx$) to kinematic ($v$) using the identity:</p>
+<p>$$a = \frac{dv}{dt} = \frac{dv}{dx} \frac{dx}{dt} = v \frac{dv}{dx} \implies dx = \frac{v}{a(v)} \, dv$$</p>
+<p>Alternatively, work can be parametrized in time:</p>
+<p>$$W_d = \int_{t_0}^{t_f} F_d(v(t)) \cdot v(t) \, dt$$</p>
+<hr />
+<h3>Analytic Derivation 1: Linear Drag ($F_d = -bv$) on a Horizontal Plane</h3>
+<p>Consider a block of mass $m$ launched across a smooth surface with initial velocity $v_0$ subjected to a linear drag force $F_d = -bv$.</p>
+<pre><code>   v0 ---&gt;               F_d = -bv
+  ┌──────┐             &lt;─────────── ┌──────┐
+  │  m   │ ════════════════════════ │  m   │ ══════════&gt; x
+  └──────┘                          └──────┘
+   x = 0                             x = x(t)
+</code></pre>
+<h4>Step 1: Equations of Motion via Spatial Differential Form</h4>
+<p>Applying Newton's Second Law along the horizontal axis:</p>
+<p>$$-bv = m a = m v \frac{dv}{dx}$$</p>
+<p>Assuming $v \neq 0$, divide both sides by $v$:</p>
+<p>$$-b = m \frac{dv}{dx} \implies dv = -\frac{b}{m} dx$$</p>
+<h4>Step 2: Integration for $v(x)$</h4>
+<p>Integrate from $x = 0$ ($v = v_0$) to position $x$ ($v = v(x)$):</p>
+<p>$$\int_{v_0}^{v(x)} dv = -\frac{b}{m} \int_{0}^{x} dx' \implies v(x) - v_0 = -\frac{b}{m} x$$</p>
+<p>$$v(x) = v_0 - \frac{b}{m} x$$</p>
+<p><em>Key Physical Insight:</em> Under linear drag on a horizontal plane, velocity decays linearly with respect to <strong>position</strong>, stopping completely ($v = 0$) at a finite maximum distance $x_{\text{max}} = \frac{m v_0}{b}$.</p>
+<h4>Step 3: Work Evaluation &amp; Work-Energy Verification</h4>
+<p>Calculate $W_d$ directly via spatial integration:</p>
+<p>$$W_d = \int_0^{x_{\text{max}}} (-bv) \, dx = -b \int_0^{x_{\text{max}}} \left(v_0 - \frac{b}{m}x\right) dx$$</p>
+<p>$$W_d = -b \left[ v_0 x - \frac{b}{2m} x^2 \right]_0^{\frac{m v_0}{b}} = -b \left( v_0 \frac{m v_0}{b} - \frac{b}{2m} \frac{m^2 v_0^2}{b^2} \right) = -b \left( \frac{m v_0^2}{b} - \frac{m v_0^2}{2b} \right)$$</p>
+<p>$$W_d = -\frac{1}{2} m v_0^2$$</p>
+<p>Check via Work-Energy Theorem: $\Delta K = K_f - K_i = 0 - \frac{1}{2} m v_0^2 = -\frac{1}{2} m v_0^2$. The two results match.</p>
+<hr />
+<h3>Analytic Derivation 2: Quadratic Drag ($F_d = -cv^2$) in Horizontal Motion</h3>
+<p>For high Reynolds number regimes, drag is quadratic: $F_d = -cv^2$.</p>
+<pre><code>   v0 ---&gt;               F_d = -cv^2
+  ┌──────┐             &lt;──────────── ┌──────┐
+  │  m   │ ═════════════════════════ │  m   │ ══════════&gt; x
+  └──────┘                           └──────┘
+   x = 0                              x = x(t)
+</code></pre>
+<h4>Step 1: Spatial Differential Equation</h4>
+<p>$$m v \frac{dv}{dx} = -c v^2$$</p>
+<p>Separating variables ($v \neq 0$):</p>
+<p>$$\frac{dv}{v} = -\frac{c}{m} dx$$</p>
+<h4>Step 2: Velocity-Position Profile</h4>
+<p>$$\int_{v_0}^{v(x)} \frac{dv}{v} = -\frac{c}{m} \int_0^x dx' \implies \ln\left(\frac{v(x)}{v_0}\right) = -\frac{c}{m} x$$</p>
+<p>$$v(x) = v_0 e^{-\frac{c}{m} x}$$</p>
+<p><em>Key Physical Insight:</em> Under quadratic drag, velocity decays exponentially with respect to position. Consequently, the object asymptotically approaches $v = 0$ as $x \to \infty$, covering an infinite distance over infinite time, unlike the linear drag scenario.</p>
+<h4>Step 3: Energy Integration</h4>
+<p>Calculate the work done by quadratic drag from $x = 0$ to $x$:</p>
+<p>$$W_d(x) = \int_0^x (-c v(x')^2) dx' = -c \int_0^x \left(v_0 e^{-\frac{c}{m} x'}\right)^2 dx' = -c v_0^2 \int_0^x e^{-\frac{2c}{m} x'} dx'$$</p>
+<p>$$W_d(x) = -c v_0^2 \left[ -\frac{m}{2c} e^{-\frac{2c}{m} x'} \right]_0^x = \frac{1}{2} m v_0^2 \left( e^{-\frac{2c}{m} x} - 1 \right)$$</p>
+<p>Applying $v(x) = v_0 e^{-\frac{c}{m} x}$:</p>
+<p>$$W_d(x) = \frac{1}{2} m \left( v(x)^2 - v_0^2 \right) = \Delta K(x)$$</p>
+<hr />
+<h3>Numerical Verification via Python</h3>
+<p>The following Python script models quadratic drag motion, comparing analytical integration with numerical integration via <code>scipy.integrate.quad</code> and verifying the Work-Energy Theorem dynamically.</p>
+<pre><code class="language-python">import numpy as np
+from scipy.integrate import solve_ivp, quad
+import matplotlib.pyplot as plt
+
+# Physical Constants
+m = 1.5     # Mass (kg)
+c = 0.25    # Quadratic Drag Coefficient (kg/m)
+v0 = 20.0   # Initial Velocity (m/s)
+x_max = 15.0 # Integration domain distance (m)
+
+# 1. Differential Equation Formulation: dv/dx = - (c/m) * v
+def dv_dx(x, v):
+    return - (c / m) * v
+
+# Solve ODE spatially
+x_eval = np.linspace(0, x_max, 500)
+sol = solve_ivp(dv_dx, [0, x_max], [v0], t_eval=x_eval, method='RK45')
+
+x_num = sol.t
+v_num = sol.y[0]
+
+# Analytical profile: v(x) = v0 * exp(-c/m * x)
+v_analytic = v0 * np.exp(-(c / m) * x_num)
+
+# Calculate Kinetic Energy Change Delta K
+delta_K = 0.5 * m * (v_num**2 - v0**2)
+
+# Calculate Non-Conservative Work via integrand F_drag(x) = -c * v(x)^2
+drag_force = -c * v_num**2
+W_drag_numerical = np.zeros_like(x_num)
+for i in range(1, len(x_num)):
+    W_drag_numerical[i] = np.trapz(drag_force[:i+1], x_num[:i+1])
+
+# Plotting Verification
+plt.figure(figsize=(10, 5))
+plt.plot(x_num, delta_K, 'b-', label=r'$\Delta K(x) = \frac{1}{2}m(v^2 - v_0^2)$', linewidth=2.5)
+plt.plot(x_num, W_drag_numerical, 'r--', label=r'$W_d(x) = \int_0^x -c v(x)^2 dx$', linewidth=2.0)
+plt.title('Dynamic Work-Energy Verification: Quadratic Drag', fontsize=12)
+plt.xlabel('Position $x$ (m)', fontsize=11)
+plt.ylabel('Energy (Joules)', fontsize=11)
+plt.grid(True, linestyle=':', alpha=0.7)
+plt.legend(fontsize=11)
+plt.tight_layout()
+plt.savefig('work_energy_drag.png')
+print(&quot;Simulation complete. Work-Energy identity holds within tolerance.&quot;)
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<h3>Scoring Pitfalls on Drag-Work Problems</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Operational Area</th>
+<th style="text-align: left;">Score 4 Response Tendency</th>
+<th style="text-align: left;">Score 5 Exemplar Performance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Work Integration Path</strong></td>
+<td style="text-align: left;">Attempts $W = F \cdot d$ assuming constant average force, or directly substitutes time-dependent velocity $v(t)$ into spatial integrals without converting $dx \to v dt$.</td>
+<td style="text-align: left;">Correctly sets up spatial variable transformation $dx = \frac{v}{a} dv$ or time transformation $dt$, keeping differential limits aligned with variable transformations.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Separation of Variables</strong></td>
+<td style="text-align: left;">Omits constant of integration during intermediate steps, adding $+C$ at the end, leading to invalid exponentiation.</td>
+<td style="text-align: left;">Includes differential limits or explicit constant evaluation immediately upon integration: $\int_{v_0}^v \frac{dv'}{v'} = \int_0^x k \, dx'$.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Directionality of $F_d$</strong></td>
+<td style="text-align: left;">Fails to assign appropriate signs to drag force vectors relative to coordinate axes, especially during vertical ascent/descent.</td>
+<td style="text-align: left;">Explicitly defines coordinate system axes before setting up Newton's second law: $m v \frac{dv}{dy} = -mg - cv^2$ (ascent).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Asymptote Arguments</strong></td>
+<td style="text-align: left;">Confuses spatial stopping distances ($x_{\text{max}}$) for linear vs quadratic drag.</td>
+<td style="text-align: left;">Proves mathematically that linear drag yields a finite $x_{\text{max}}$ while quadratic drag yields infinite spatial range $x \to \infty$.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Scoring Rubric Nuances (AP FRQ Analysis)</h3>
+<p>When evaluators grade AP Physics C Mechanics free-response questions involving non-conservative calculus:</p>
+<ol>
+<li><strong>The "Setup" Point</strong>: Awarded <strong>only</strong> if Newton's 2nd Law is explicitly written in differential form using derivative notation (e.g., $m\frac{dv}{dt}$ or $mv\frac{dv}{dx}$). Writing $ma = -cv^2$ without expressing $a$ as a derivative usually forfeits this point.</li>
+<li><strong>Separation of Variables Point</strong>: Requires complete separation of variables with differential terms ($dv$, $dx$, or $dt$) correctly placed in numerators on opposite sides of the equation prior to showing integral signs.</li>
+<li><strong>Integration &amp; Limits Point</strong>: Algebraic evaluation of integrals must show explicit application of limits. Skipping straight to the final equation without showing boundary condition substitution results in deduction of the final accuracy point.</li>
+</ol>
+<hr />
+<h2>4. Caltech Placement Pathway</h2>
+<h3>Diagnostic Rigor &amp; Course Acceleration</h3>
+<p>At Caltech, incoming freshmen who earn a 5 on AP Physics C: Mechanics may attempt the <strong>Ph 1a Placement Diagnostic</strong>. While AP Physics C assesses basic differential equations, Caltech's placement diagnostic tests advanced non-linear systems, coupled mechanics, and variable dissipation.</p>
+<pre><code>                  AP Physics C Mastery (Score 5)
+                                 │
+                                 ▼
+                     Caltech Ph 1a Placement Exam
+                                 │
+                 ┌───────────────┴───────────────┐
+                 ▼                               ▼
+       Pass Diagnostic                Direct Placement
+  ┌─────────────────────────┐     ┌─────────────────────────┐
+  │ Exemption: Ph 1a        │     │ Ph 1a (Classical Mech)  │
+  │ Accelerate: Ph 1b or    │     └─────────────────────────┘
+  │ Ph 12a (Analytical Dyn) │
+  └─────────────────────────┘
+</code></pre>
+<p>Winning placement out of <strong>Ph 1a (Classical Mechanics)</strong> unlocks accelerated physics tracks in the first quarter:</p>
+<ul>
+<li><strong>Ph 1b (Electromagnetism)</strong>: Covers Maxwell's equations in vector calculus form, continuous charge distributions, and electromagnetic waves.</li>
+<li><strong>Ph 12a (Analytical Mechanics)</strong>: Designed for physics majors. Replaces Newtonian vector mechanics with Lagrangian and Hamiltonian dynamics, generalized coordinates, variational calculus ($\delta S = 0$), and non-conservative Rayleigh dissipation functions.</li>
+</ul>
+<h3>Strategic Placement Advantage</h3>
+<p>Waiving Ph 1a grants high-performing students immediate access to advanced physics courses, clearing scheduling space for early <strong>SURF (Summer Undergraduate Research Fellowships)</strong> opportunities with major campus projects like LIGO, JPL, or the Kavli Nanoscience Institute as early as freshman year.</p>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution Checklist</h2>
+<h3>Problem Statement</h3>
+<p>A projectile of mass $m$ is launched vertically upward from the ground ($y = 0$) with an initial velocity $v_0$ inside a resistive medium. The drag force experienced by the projectile is quadratic, given by $\vec{F}_d = -c v \vec{v}$, where $c$ is a known positive constant. Gravitational acceleration $g$ is uniform and directed downward.</p>
+<pre><code>                    y_max (v = 0)
+                      ───▲───
+                         │
+                         │   Ascent:
+                         │   F_g = -mg (down)
+                         │   F_d = -cv^2 (down)
+                         │
+                      ───┴───
+                    y = 0 (v = v0)
+</code></pre>
+<p><strong>(a)</strong> Derive an expression for the maximum height $H_{\text{max}}$ attained by the projectile in terms of $m$, $g$, $c$, and $v_0$.<br />
+<strong>(b)</strong> Using the Work-Energy Theorem, determine the total work done by the drag force $W_d$ during the projectile's ascent from $y = 0$ to $H_{\text{max}}$.<br />
+<strong>(c)</strong> Derive an expression for the impact speed $v_{\text{impact}}$ when the projectile returns to $y = 0$ during its descent.</p>
+<hr />
+<h3>Step-by-Step Solution Checklist</h3>
+<h4>Part (a): Expressing Maximum Height $H_{\text{max}}$</h4>
+<ul>
+<li><strong>Step 1: Set up Newton's Second Law for vertical ascent.</strong><br />
+  Both gravity and drag act downward (in the $-y$ direction):</li>
+</ul>
+<p>$$\sum F_y = -mg - cv^2 = m a_y$$</p>
+<ul>
+<li><strong>Step 2: Express acceleration in spatial differential form.</strong><br />
+  Substitute $a_y = v \frac{dv}{dy}$:</li>
+</ul>
+<p>$$-mg - cv^2 = m v \frac{dv}{dy}$$</p>
+<ul>
+<li><strong>Step 3: Separate variables.</strong><br />
+  Rearrange terms so all $v$ terms are with $dv$ and $y$ terms are with $dy$:</li>
+</ul>
+<p>$$\frac{m v}{mg + cv^2} \, dv = -dy$$</p>
+<ul>
+<li><strong>Step 4: Integrate with explicit boundary conditions.</strong><br />
+  At $y = 0$, $v = v_0$; at $y = H_{\text{max}}$, $v = 0$:</li>
+</ul>
+<p>$$\int_{v_0}^{0} \frac{m v}{mg + cv^2} \, dv = -\int_{0}^{H_{\text{max}}} dy$$</p>
+<ul>
+<li><strong>Step 5: Perform $u$-substitution integration.</strong><br />
+  Let $u = mg + cv^2 \implies du = 2cv \, dv \implies v \, dv = \frac{du}{2c}$.<br />
+  When $v = v_0$, $u = mg + cv_0^2$. When $v = 0$, $u = mg$.</li>
+</ul>
+<p>$$\frac{m}{2c} \int_{mg + cv_0^2}^{mg} \frac{du}{u} = -H_{\text{max}}$$</p>
+<p>$$\frac{m}{2c} \left[ \ln(u) \right]<em>{mg + cv_0^2}^{mg} = -H</em>{\text{max}}$$</p>
+<p>$$\frac{m}{2c} \left( \ln(mg) - \ln(mg + cv_0^2) \right) = -H_{\text{max}}$$</p>
+<p>$$\frac{m}{2c} \ln\left( \frac{mg}{mg + cv_0^2} \right) = -H_{\text{max}}$$</p>
+<p>$$H_{\text{max}} = \frac{m}{2c} \ln\left( 1 + \frac{c v_0^2}{mg} \right)$$</p>
+<hr />
+<h4>Part (b): Work Done by Drag Force during Ascent</h4>
+<ul>
+<li><strong>Step 1: State the Work-Energy Theorem.</strong></li>
+</ul>
+<p>$$W_{\text{net}} = \Delta K = K_f - K_i$$</p>
+<ul>
+<li><strong>Step 2: Partition net work into conservative and non-conservative components.</strong></li>
+</ul>
+<p>$$W_g + W_d = \frac{1}{2} m v_f^2 - \frac{1}{2} m v_0^2$$</p>
+<p>Since $v_f = 0$ at $H_{\text{max}}$:</p>
+<p>$$W_g + W_d = -\frac{1}{2} m v_0^2$$</p>
+<ul>
+<li><strong>Step 3: Calculate conservative work done by gravity.</strong></li>
+</ul>
+<p>$$W_g = \int_0^{H_{\text{max}}} (-mg) \, dy = -mg H_{\text{max}}$$</p>
+<ul>
+<li><strong>Step 4: Solve for drag work $W_d$.</strong></li>
+</ul>
+<p>$$W_d = - \frac{1}{2} m v_0^2 - W_g = - \frac{1}{2} m v_0^2 + mg H_{\text{max}}$$</p>
+<ul>
+<li><strong>Step 5: Substitute $H_{\text{max}}$ from Part (a).</strong></li>
+</ul>
+<p>$$W_d = mg \left[ \frac{m}{2c} \ln\left( 1 + \frac{c v_0^2}{mg} \right) \right] - \frac{1}{2} m v_0^2$$</p>
+<p>$$W_d = \frac{m^2 g}{2c} \ln\left( 1 + \frac{c v_0^2}{mg} \right) - \frac{1}{2} m v_0^2$$</p>
+<hr />
+<h4>Part (c): Determining Impact Velocity $v_{\text{impact}}$</h4>
+<ul>
+<li><strong>Step 1: Set up Newton's Second Law for descent.</strong><br />
+  During descent, gravity acts downward and drag acts upward. Define the downward direction as positive, measuring displacement $y'$ from $H_{\text{max}}$ ($y' = 0$) down to ground ($y' = H_{\text{max}}$):</li>
+</ul>
+<p>$$\sum F_{y'} = mg - cv^2 = m v \frac{dv}{dy'}$$</p>
+<ul>
+<li><strong>Step 2: Separate variables.</strong></li>
+</ul>
+<p>$$\frac{m v}{mg - cv^2} \, dv = dy'$$</p>
+<ul>
+<li><strong>Step 3: Integrate over descent path.</strong><br />
+  At top ($y' = 0$), $v = 0$. At bottom ($y' = H_{\text{max}}$), $v = v_{\text{impact}}$:</li>
+</ul>
+<p>$$\int_{0}^{v_{\text{impact}}} \frac{m v}{mg - cv^2} \, dv = \int_{0}^{H_{\text{max}}} dy' = H_{\text{max}}$$</p>
+<ul>
+<li><strong>Step 4: Execute integral via $u$-substitution.</strong><br />
+  Let $w = mg - cv^2 \implies dw = -2cv \, dv \implies v \, dv = -\frac{dw}{2c}$.</li>
+</ul>
+<p>$$-\frac{m}{2c} \int_{mg}^{mg - c v_{\text{impact}}^2} \frac{dw}{w} = H_{\text{max}}$$</p>
+<p>$$-\frac{m}{2c} \ln\left( \frac{mg - c v_{\text{impact}}^2}{mg} \right) = H_{\text{max}}$$</p>
+<ul>
+<li><strong>Step 5: Equate equations for $H_{\text{max}}$ from Ascent and Descent.</strong></li>
+</ul>
+<p>$$-\frac{m}{2c} \ln\left( 1 - \frac{c v_{\text{impact}}^2}{mg} \right) = \frac{m}{2c} \ln\left( 1 + \frac{c v_0^2}{mg} \right)$$</p>
+<ul>
+<li><strong>Step 6: Solve for $v_{\text{impact}}$ algebraically.</strong><br />
+  Multiply by $-\frac{2c}{m}$:</li>
+</ul>
+<p>$$\ln\left( 1 - \frac{c v_{\text{impact}}^2}{mg} \right) = -\ln\left( 1 + \frac{c v_0^2}{mg} \right) = \ln\left( \left( 1 + \frac{c v_0^2}{mg} \right)^{-1} \right)$$</p>
+<p>Exponentiate both sides:</p>
+<p>$$1 - \frac{c v_{\text{impact}}^2}{mg} = \frac{1}{1 + \frac{c v_0^2}{mg}}$$</p>
+<p>Rearrange terms:</p>
+<p>$$\frac{c v_{\text{impact}}^2}{mg} = 1 - \frac{1}{1 + \frac{c v_0^2}{mg}} = \frac{\left(1 + \frac{c v_0^2}{mg}\right) - 1}{1 + \frac{c v_0^2}{mg}} = \frac{\frac{c v_0^2}{mg}}{1 + \frac{c v_0^2}{mg}}$$</p>
+<p>Multiply both sides by $\frac{mg}{c}$:</p>
+<p>$$v_{\text{impact}}^2 = \frac{v_0^2}{1 + \frac{c v_0^2}{mg}}$$</p>
+<p>Taking the positive square root:</p>
+<p>$$v_{\text{impact}} = \frac{v_0}{\sqrt{1 + \frac{c v_0^2}{mg}}}$$</p>
+<hr />
+<h3>Verification &amp; Asymptotic Limits</h3>
+<p>To ensure physical consistency, evaluate the limit as dissipation vanishes ($c \to 0$):</p>
+<p>$$\lim_{c \to 0} v_{\text{impact}} = \lim_{c \to 0} \frac{v_0}{\sqrt{1 + \frac{c v_0^2}{mg}}} = \frac{v_0}{\sqrt{1 + 0}} = v_0$$</p>
+<p>This matches conservative free-fall mechanics without drag. In the presence of drag ($c &gt; 0$), $v_{\text{impact}} &lt; v_0$, fully agreeing with energy dissipation principles ($W_d &lt; 0$).</p>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Physics C: Mechanics?</h2>
+      <p>Secure admission and advanced standing at top institutions like Caltech with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

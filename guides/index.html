@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AP STEM Study Guides & University Placement Insights | AP STEM PATH</title>
+    <meta name="description" content="Comprehensive, data-driven AP Calculus BC, Computer Science A, Statistics, and Physics C study guides tailored for high school students aiming for MIT, Stanford, and Ivy Plus STEM universities.">
+    <style>
+        :root {
+            --bg-dark: #070d1e;
+            --bg-card: #111b33;
+            --accent-blue: #38bdf8;
+            --accent-indigo: #818cf8;
+            --btn-cyan: #38bdf8;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #1e293b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.75;
+        }
+
+        .site-header {
+            background: rgba(7, 13, 30, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+        }
+        .nav-brand {
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 0.02em;
+        }
+        .nav-brand span { color: var(--accent-blue); }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            list-style: none;
+        }
+        .nav-menu a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            white-space: nowrap;
+        }
+        .nav-menu a:hover { color: var(--accent-blue); }
+        .nav-menu a.active { color: var(--accent-blue); }
+
+        .dropdown { position: relative; }
+        .dropdown-btn {
+            color: #cbd5e1;
+            background: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.92rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 10px;
+            border-radius: 6px;
+        }
+        .dropdown-btn:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: #0f172a;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            min-width: 220px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            padding: 8px 0;
+            z-index: 1001;
+        }
+        .dropdown:hover .dropdown-content { display: block; }
+        .dropdown-content a {
+            display: block;
+            padding: 10px 18px;
+            color: #cbd5e1;
+            font-size: 0.88rem;
+            text-decoration: none;
+        }
+        .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue); }
+
+        .btn-cta-nav {
+            background: var(--btn-cyan);
+            color: #070d1e !important;
+            font-weight: 700 !important;
+            padding: 8px 18px;
+            border-radius: 6px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 50px auto;
+            padding: 0 24px;
+        }
+        .hero {
+            margin-bottom: 50px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.6rem;
+            line-height: 1.25;
+            margin-bottom: 16px;
+            color: #ffffff;
+        }
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .guides-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+        .guide-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 28px;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .guide-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(56, 189, 248, 0.4);
+            box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            border-radius: 9999px;
+            margin-bottom: 14px;
+        }
+        .guide-card h2 {
+            font-size: 1.45rem;
+            margin-bottom: 10px;
+            line-height: 1.35;
+        }
+        .guide-card h2 a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+        .guide-card h2 a:hover { color: var(--accent-blue); }
+        .guide-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 18px;
+        }
+        .card-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 14px;
+        }
+        .read-more {
+            color: var(--accent-blue);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+        }
+        .read-more:hover { text-decoration: underline; }
+
+        .site-footer {
+            background: #040711;
+            border-top: 1px solid var(--border-color);
+            margin-top: 100px;
+            padding: 60px 24px 30px 24px;
+        }
+        .footer-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1.2fr 1.2fr;
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+        .footer-col h3 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+        .footer-col h3 span { color: var(--accent-blue); }
+        .footer-col p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.7;
+        }
+        .footer-col h4 {
+            font-size: 1rem;
+            color: #ffffff;
+            margin-bottom: 18px;
+            font-weight: 700;
+        }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 12px; }
+        .footer-col a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.92rem;
+            transition: color 0.2s ease;
+        }
+        .footer-col a:hover { color: var(--accent-blue); }
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 24px;
+            font-size: 0.88rem;
+            color: #64748b;
+        }
+
+        @media (max-width: 900px) {
+            .nav-menu { display: none; }
+            .footer-container { grid-template-columns: 1fr; gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="hero">
+      <h1>AP STEM Study Guides & University Placement Insights</h1>
+      <p>Master complex Calculus BC, Computer Science A, Statistics, and Physics C concepts with score 5 scoring nuances tailored for top STEM applicants.</p>
+    </header>
+
+    <section class="guides-grid">
+      
+        <article class="guide-card">
+            <div class="badge">AP Calculus BC • Score 5</div>
+            <h2><a href="/guides/ap-calculus-bc-lagrange-error-bound-taylor-series-mit/">Lagrange Error Bound & Taylor Series Remainder</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for MIT applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-calculus-bc-lagrange-error-bound-taylor-series-mit/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Calculus BC • Score 5</div>
+            <h2><a href="/guides/ap-calculus-bc-lagrange-error-bound-taylor-series-stanford/">Lagrange Error Bound & Taylor Series Remainder</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Stanford University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-calculus-bc-lagrange-error-bound-taylor-series-stanford/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Calculus BC • Score 5</div>
+            <h2><a href="/guides/ap-calculus-bc-lagrange-error-bound-taylor-series-harvard/">Lagrange Error Bound & Taylor Series Remainder</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Harvard University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-calculus-bc-lagrange-error-bound-taylor-series-harvard/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Calculus BC • Score 5</div>
+            <h2><a href="/guides/ap-calculus-bc-lagrange-error-bound-taylor-series-caltech/">Lagrange Error Bound & Taylor Series Remainder</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Caltech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-calculus-bc-lagrange-error-bound-taylor-series-caltech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Calculus BC • Score 5</div>
+            <h2><a href="/guides/ap-calculus-bc-lagrange-error-bound-taylor-series-cmu/">Lagrange Error Bound & Taylor Series Remainder</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Carnegie Mellon University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-calculus-bc-lagrange-error-bound-taylor-series-cmu/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Calculus BC • Score 5</div>
+            <h2><a href="/guides/ap-calculus-bc-lagrange-error-bound-taylor-series-uc-berkeley/">Lagrange Error Bound & Taylor Series Remainder</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for UC Berkeley applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-calculus-bc-lagrange-error-bound-taylor-series-uc-berkeley/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Calculus BC • Score 5</div>
+            <h2><a href="/guides/ap-calculus-bc-lagrange-error-bound-taylor-series-georgia-tech/">Lagrange Error Bound & Taylor Series Remainder</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Georgia Tech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-calculus-bc-lagrange-error-bound-taylor-series-georgia-tech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Calculus BC • Score 5</div>
+            <h2><a href="/guides/ap-calculus-bc-polar-parametric-vector-calculus-mit/">Parametric Motion & Polar Area Integrals</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for MIT applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-calculus-bc-polar-parametric-vector-calculus-mit/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Calculus BC • Score 5</div>
+            <h2><a href="/guides/ap-calculus-bc-polar-parametric-vector-calculus-stanford/">Parametric Motion & Polar Area Integrals</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Stanford University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-calculus-bc-polar-parametric-vector-calculus-stanford/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Calculus BC • Score 5</div>
+            <h2><a href="/guides/ap-calculus-bc-polar-parametric-vector-calculus-harvard/">Parametric Motion & Polar Area Integrals</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Harvard University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-calculus-bc-polar-parametric-vector-calculus-harvard/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Calculus BC • Score 5</div>
+            <h2><a href="/guides/ap-calculus-bc-polar-parametric-vector-calculus-caltech/">Parametric Motion & Polar Area Integrals</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Caltech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-calculus-bc-polar-parametric-vector-calculus-caltech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Calculus BC • Score 5</div>
+            <h2><a href="/guides/ap-calculus-bc-polar-parametric-vector-calculus-cmu/">Parametric Motion & Polar Area Integrals</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Carnegie Mellon University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-calculus-bc-polar-parametric-vector-calculus-cmu/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Calculus BC • Score 5</div>
+            <h2><a href="/guides/ap-calculus-bc-polar-parametric-vector-calculus-uc-berkeley/">Parametric Motion & Polar Area Integrals</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for UC Berkeley applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-calculus-bc-polar-parametric-vector-calculus-uc-berkeley/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Calculus BC • Score 5</div>
+            <h2><a href="/guides/ap-calculus-bc-polar-parametric-vector-calculus-georgia-tech/">Parametric Motion & Polar Area Integrals</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Georgia Tech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-calculus-bc-polar-parametric-vector-calculus-georgia-tech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Calculus BC • Score 5</div>
+            <h2><a href="/guides/ap-calculus-bc-improper-integrals-series-convergence-mit/">Improper Integrals & Advanced Series Convergence Tests</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for MIT applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-calculus-bc-improper-integrals-series-convergence-mit/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Calculus BC • Score 5</div>
+            <h2><a href="/guides/ap-calculus-bc-improper-integrals-series-convergence-stanford/">Improper Integrals & Advanced Series Convergence Tests</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Stanford University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-calculus-bc-improper-integrals-series-convergence-stanford/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Calculus BC • Score 5</div>
+            <h2><a href="/guides/ap-calculus-bc-improper-integrals-series-convergence-harvard/">Improper Integrals & Advanced Series Convergence Tests</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Harvard University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-calculus-bc-improper-integrals-series-convergence-harvard/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Calculus BC • Score 5</div>
+            <h2><a href="/guides/ap-calculus-bc-improper-integrals-series-convergence-caltech/">Improper Integrals & Advanced Series Convergence Tests</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Caltech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-calculus-bc-improper-integrals-series-convergence-caltech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Calculus BC • Score 5</div>
+            <h2><a href="/guides/ap-calculus-bc-improper-integrals-series-convergence-cmu/">Improper Integrals & Advanced Series Convergence Tests</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Carnegie Mellon University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-calculus-bc-improper-integrals-series-convergence-cmu/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Calculus BC • Score 5</div>
+            <h2><a href="/guides/ap-calculus-bc-improper-integrals-series-convergence-uc-berkeley/">Improper Integrals & Advanced Series Convergence Tests</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for UC Berkeley applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-calculus-bc-improper-integrals-series-convergence-uc-berkeley/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Calculus BC • Score 5</div>
+            <h2><a href="/guides/ap-calculus-bc-improper-integrals-series-convergence-georgia-tech/">Improper Integrals & Advanced Series Convergence Tests</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Georgia Tech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-calculus-bc-improper-integrals-series-convergence-georgia-tech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Mechanics • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-mech-rotational-dynamics-torque-moment-of-inertia-mit/">Rotational Dynamics, Torque & Variable Inertia Integrals</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for MIT applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-mech-rotational-dynamics-torque-moment-of-inertia-mit/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Mechanics • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-mech-rotational-dynamics-torque-moment-of-inertia-stanford/">Rotational Dynamics, Torque & Variable Inertia Integrals</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Stanford University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-mech-rotational-dynamics-torque-moment-of-inertia-stanford/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Mechanics • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-mech-rotational-dynamics-torque-moment-of-inertia-harvard/">Rotational Dynamics, Torque & Variable Inertia Integrals</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Harvard University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-mech-rotational-dynamics-torque-moment-of-inertia-harvard/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Mechanics • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-mech-rotational-dynamics-torque-moment-of-inertia-caltech/">Rotational Dynamics, Torque & Variable Inertia Integrals</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Caltech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-mech-rotational-dynamics-torque-moment-of-inertia-caltech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Mechanics • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-mech-rotational-dynamics-torque-moment-of-inertia-cmu/">Rotational Dynamics, Torque & Variable Inertia Integrals</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Carnegie Mellon University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-mech-rotational-dynamics-torque-moment-of-inertia-cmu/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Mechanics • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-mech-rotational-dynamics-torque-moment-of-inertia-uc-berkeley/">Rotational Dynamics, Torque & Variable Inertia Integrals</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for UC Berkeley applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-mech-rotational-dynamics-torque-moment-of-inertia-uc-berkeley/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Mechanics • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-mech-rotational-dynamics-torque-moment-of-inertia-georgia-tech/">Rotational Dynamics, Torque & Variable Inertia Integrals</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Georgia Tech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-mech-rotational-dynamics-torque-moment-of-inertia-georgia-tech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Mechanics • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-mech-simple-harmonic-motion-differential-equations-mit/">Simple Harmonic Motion & Calculus-Driven Oscillations</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for MIT applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-mech-simple-harmonic-motion-differential-equations-mit/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Mechanics • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-mech-simple-harmonic-motion-differential-equations-stanford/">Simple Harmonic Motion & Calculus-Driven Oscillations</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Stanford University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-mech-simple-harmonic-motion-differential-equations-stanford/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Mechanics • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-mech-simple-harmonic-motion-differential-equations-harvard/">Simple Harmonic Motion & Calculus-Driven Oscillations</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Harvard University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-mech-simple-harmonic-motion-differential-equations-harvard/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Mechanics • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-mech-simple-harmonic-motion-differential-equations-caltech/">Simple Harmonic Motion & Calculus-Driven Oscillations</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Caltech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-mech-simple-harmonic-motion-differential-equations-caltech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Mechanics • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-mech-simple-harmonic-motion-differential-equations-cmu/">Simple Harmonic Motion & Calculus-Driven Oscillations</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Carnegie Mellon University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-mech-simple-harmonic-motion-differential-equations-cmu/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Mechanics • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-mech-simple-harmonic-motion-differential-equations-uc-berkeley/">Simple Harmonic Motion & Calculus-Driven Oscillations</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for UC Berkeley applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-mech-simple-harmonic-motion-differential-equations-uc-berkeley/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Mechanics • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-mech-simple-harmonic-motion-differential-equations-georgia-tech/">Simple Harmonic Motion & Calculus-Driven Oscillations</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Georgia Tech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-mech-simple-harmonic-motion-differential-equations-georgia-tech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Mechanics • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-mech-work-energy-variable-forces-drag-mit/">Work-Energy Theorem with Velocity-Dependent Drag Forces</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for MIT applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-mech-work-energy-variable-forces-drag-mit/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Mechanics • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-mech-work-energy-variable-forces-drag-stanford/">Work-Energy Theorem with Velocity-Dependent Drag Forces</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Stanford University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-mech-work-energy-variable-forces-drag-stanford/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Mechanics • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-mech-work-energy-variable-forces-drag-harvard/">Work-Energy Theorem with Velocity-Dependent Drag Forces</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Harvard University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-mech-work-energy-variable-forces-drag-harvard/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Mechanics • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-mech-work-energy-variable-forces-drag-caltech/">Work-Energy Theorem with Velocity-Dependent Drag Forces</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Caltech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-mech-work-energy-variable-forces-drag-caltech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Mechanics • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-mech-work-energy-variable-forces-drag-cmu/">Work-Energy Theorem with Velocity-Dependent Drag Forces</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Carnegie Mellon University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-mech-work-energy-variable-forces-drag-cmu/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Mechanics • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-mech-work-energy-variable-forces-drag-uc-berkeley/">Work-Energy Theorem with Velocity-Dependent Drag Forces</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for UC Berkeley applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-mech-work-energy-variable-forces-drag-uc-berkeley/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Mechanics • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-mech-work-energy-variable-forces-drag-georgia-tech/">Work-Energy Theorem with Velocity-Dependent Drag Forces</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Georgia Tech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-mech-work-energy-variable-forces-drag-georgia-tech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Electricity & Magnetism • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-em-gausss-law-electric-flux-flux-integrals-mit/">Gauss's Law & Surface Flux Integration for Continuous Charge</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for MIT applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-em-gausss-law-electric-flux-flux-integrals-mit/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Electricity & Magnetism • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-em-gausss-law-electric-flux-flux-integrals-stanford/">Gauss's Law & Surface Flux Integration for Continuous Charge</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Stanford University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-em-gausss-law-electric-flux-flux-integrals-stanford/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Electricity & Magnetism • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-em-gausss-law-electric-flux-flux-integrals-harvard/">Gauss's Law & Surface Flux Integration for Continuous Charge</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Harvard University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-em-gausss-law-electric-flux-flux-integrals-harvard/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Electricity & Magnetism • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-em-gausss-law-electric-flux-flux-integrals-caltech/">Gauss's Law & Surface Flux Integration for Continuous Charge</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Caltech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-em-gausss-law-electric-flux-flux-integrals-caltech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Electricity & Magnetism • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-em-gausss-law-electric-flux-flux-integrals-cmu/">Gauss's Law & Surface Flux Integration for Continuous Charge</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Carnegie Mellon University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-em-gausss-law-electric-flux-flux-integrals-cmu/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Electricity & Magnetism • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-em-gausss-law-electric-flux-flux-integrals-uc-berkeley/">Gauss's Law & Surface Flux Integration for Continuous Charge</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for UC Berkeley applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-em-gausss-law-electric-flux-flux-integrals-uc-berkeley/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Electricity & Magnetism • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-em-gausss-law-electric-flux-flux-integrals-georgia-tech/">Gauss's Law & Surface Flux Integration for Continuous Charge</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Georgia Tech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-em-gausss-law-electric-flux-flux-integrals-georgia-tech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Electricity & Magnetism • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-em-ampere-maxwell-law-and-biot-savart-mit/">Ampère's Law, Biot-Savart Integrals & Displacement Current</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for MIT applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-em-ampere-maxwell-law-and-biot-savart-mit/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Electricity & Magnetism • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-em-ampere-maxwell-law-and-biot-savart-stanford/">Ampère's Law, Biot-Savart Integrals & Displacement Current</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Stanford University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-em-ampere-maxwell-law-and-biot-savart-stanford/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Electricity & Magnetism • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-em-ampere-maxwell-law-and-biot-savart-harvard/">Ampère's Law, Biot-Savart Integrals & Displacement Current</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Harvard University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-em-ampere-maxwell-law-and-biot-savart-harvard/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Electricity & Magnetism • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-em-ampere-maxwell-law-and-biot-savart-caltech/">Ampère's Law, Biot-Savart Integrals & Displacement Current</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Caltech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-em-ampere-maxwell-law-and-biot-savart-caltech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Electricity & Magnetism • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-em-ampere-maxwell-law-and-biot-savart-cmu/">Ampère's Law, Biot-Savart Integrals & Displacement Current</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Carnegie Mellon University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-em-ampere-maxwell-law-and-biot-savart-cmu/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Electricity & Magnetism • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-em-ampere-maxwell-law-and-biot-savart-uc-berkeley/">Ampère's Law, Biot-Savart Integrals & Displacement Current</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for UC Berkeley applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-em-ampere-maxwell-law-and-biot-savart-uc-berkeley/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Electricity & Magnetism • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-em-ampere-maxwell-law-and-biot-savart-georgia-tech/">Ampère's Law, Biot-Savart Integrals & Displacement Current</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Georgia Tech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-em-ampere-maxwell-law-and-biot-savart-georgia-tech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Electricity & Magnetism • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-em-faradays-law-inductance-and-rlc-circuits-mit/">Faraday's Law of Induction & Differential RLC Circuits</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for MIT applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-em-faradays-law-inductance-and-rlc-circuits-mit/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Electricity & Magnetism • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-em-faradays-law-inductance-and-rlc-circuits-stanford/">Faraday's Law of Induction & Differential RLC Circuits</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Stanford University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-em-faradays-law-inductance-and-rlc-circuits-stanford/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Electricity & Magnetism • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-em-faradays-law-inductance-and-rlc-circuits-harvard/">Faraday's Law of Induction & Differential RLC Circuits</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Harvard University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-em-faradays-law-inductance-and-rlc-circuits-harvard/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Electricity & Magnetism • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-em-faradays-law-inductance-and-rlc-circuits-caltech/">Faraday's Law of Induction & Differential RLC Circuits</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Caltech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-em-faradays-law-inductance-and-rlc-circuits-caltech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Electricity & Magnetism • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-em-faradays-law-inductance-and-rlc-circuits-cmu/">Faraday's Law of Induction & Differential RLC Circuits</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Carnegie Mellon University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-em-faradays-law-inductance-and-rlc-circuits-cmu/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Electricity & Magnetism • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-em-faradays-law-inductance-and-rlc-circuits-uc-berkeley/">Faraday's Law of Induction & Differential RLC Circuits</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for UC Berkeley applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-em-faradays-law-inductance-and-rlc-circuits-uc-berkeley/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Physics C: Electricity & Magnetism • Score 5</div>
+            <h2><a href="/guides/ap-physics-c-em-faradays-law-inductance-and-rlc-circuits-georgia-tech/">Faraday's Law of Induction & Differential RLC Circuits</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Georgia Tech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-physics-c-em-faradays-law-inductance-and-rlc-circuits-georgia-tech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Computer Science A • Score 5</div>
+            <h2><a href="/guides/ap-computer-science-a-arraylist-dynamic-memory-frq-strategy-mit/">ArrayList Traversals, Mutation Pitfalls & 2D Matrix Algorithms</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for MIT applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-computer-science-a-arraylist-dynamic-memory-frq-strategy-mit/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Computer Science A • Score 5</div>
+            <h2><a href="/guides/ap-computer-science-a-arraylist-dynamic-memory-frq-strategy-stanford/">ArrayList Traversals, Mutation Pitfalls & 2D Matrix Algorithms</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Stanford University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-computer-science-a-arraylist-dynamic-memory-frq-strategy-stanford/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Computer Science A • Score 5</div>
+            <h2><a href="/guides/ap-computer-science-a-arraylist-dynamic-memory-frq-strategy-harvard/">ArrayList Traversals, Mutation Pitfalls & 2D Matrix Algorithms</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Harvard University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-computer-science-a-arraylist-dynamic-memory-frq-strategy-harvard/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Computer Science A • Score 5</div>
+            <h2><a href="/guides/ap-computer-science-a-arraylist-dynamic-memory-frq-strategy-caltech/">ArrayList Traversals, Mutation Pitfalls & 2D Matrix Algorithms</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Caltech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-computer-science-a-arraylist-dynamic-memory-frq-strategy-caltech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Computer Science A • Score 5</div>
+            <h2><a href="/guides/ap-computer-science-a-arraylist-dynamic-memory-frq-strategy-cmu/">ArrayList Traversals, Mutation Pitfalls & 2D Matrix Algorithms</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Carnegie Mellon University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-computer-science-a-arraylist-dynamic-memory-frq-strategy-cmu/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Computer Science A • Score 5</div>
+            <h2><a href="/guides/ap-computer-science-a-arraylist-dynamic-memory-frq-strategy-uc-berkeley/">ArrayList Traversals, Mutation Pitfalls & 2D Matrix Algorithms</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for UC Berkeley applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-computer-science-a-arraylist-dynamic-memory-frq-strategy-uc-berkeley/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Computer Science A • Score 5</div>
+            <h2><a href="/guides/ap-computer-science-a-arraylist-dynamic-memory-frq-strategy-georgia-tech/">ArrayList Traversals, Mutation Pitfalls & 2D Matrix Algorithms</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Georgia Tech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-computer-science-a-arraylist-dynamic-memory-frq-strategy-georgia-tech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Computer Science A • Score 5</div>
+            <h2><a href="/guides/ap-computer-science-a-inheritance-polymorphism-interface-design-mit/">Inheritance, Abstract Classes & Dynamic Method Dispatch</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for MIT applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-computer-science-a-inheritance-polymorphism-interface-design-mit/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Computer Science A • Score 5</div>
+            <h2><a href="/guides/ap-computer-science-a-inheritance-polymorphism-interface-design-stanford/">Inheritance, Abstract Classes & Dynamic Method Dispatch</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Stanford University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-computer-science-a-inheritance-polymorphism-interface-design-stanford/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Computer Science A • Score 5</div>
+            <h2><a href="/guides/ap-computer-science-a-inheritance-polymorphism-interface-design-harvard/">Inheritance, Abstract Classes & Dynamic Method Dispatch</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Harvard University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-computer-science-a-inheritance-polymorphism-interface-design-harvard/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Computer Science A • Score 5</div>
+            <h2><a href="/guides/ap-computer-science-a-inheritance-polymorphism-interface-design-caltech/">Inheritance, Abstract Classes & Dynamic Method Dispatch</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Caltech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-computer-science-a-inheritance-polymorphism-interface-design-caltech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Computer Science A • Score 5</div>
+            <h2><a href="/guides/ap-computer-science-a-inheritance-polymorphism-interface-design-cmu/">Inheritance, Abstract Classes & Dynamic Method Dispatch</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Carnegie Mellon University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-computer-science-a-inheritance-polymorphism-interface-design-cmu/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Computer Science A • Score 5</div>
+            <h2><a href="/guides/ap-computer-science-a-inheritance-polymorphism-interface-design-uc-berkeley/">Inheritance, Abstract Classes & Dynamic Method Dispatch</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for UC Berkeley applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-computer-science-a-inheritance-polymorphism-interface-design-uc-berkeley/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Computer Science A • Score 5</div>
+            <h2><a href="/guides/ap-computer-science-a-inheritance-polymorphism-interface-design-georgia-tech/">Inheritance, Abstract Classes & Dynamic Method Dispatch</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Georgia Tech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-computer-science-a-inheritance-polymorphism-interface-design-georgia-tech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Computer Science A • Score 5</div>
+            <h2><a href="/guides/ap-computer-science-a-recursion-and-searching-sorting-analysis-mit/">Recursive Call Stack Visualization & Sorting Complexities</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for MIT applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-computer-science-a-recursion-and-searching-sorting-analysis-mit/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Computer Science A • Score 5</div>
+            <h2><a href="/guides/ap-computer-science-a-recursion-and-searching-sorting-analysis-stanford/">Recursive Call Stack Visualization & Sorting Complexities</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Stanford University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-computer-science-a-recursion-and-searching-sorting-analysis-stanford/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Computer Science A • Score 5</div>
+            <h2><a href="/guides/ap-computer-science-a-recursion-and-searching-sorting-analysis-harvard/">Recursive Call Stack Visualization & Sorting Complexities</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Harvard University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-computer-science-a-recursion-and-searching-sorting-analysis-harvard/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Computer Science A • Score 5</div>
+            <h2><a href="/guides/ap-computer-science-a-recursion-and-searching-sorting-analysis-caltech/">Recursive Call Stack Visualization & Sorting Complexities</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Caltech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-computer-science-a-recursion-and-searching-sorting-analysis-caltech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Computer Science A • Score 5</div>
+            <h2><a href="/guides/ap-computer-science-a-recursion-and-searching-sorting-analysis-cmu/">Recursive Call Stack Visualization & Sorting Complexities</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Carnegie Mellon University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-computer-science-a-recursion-and-searching-sorting-analysis-cmu/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Computer Science A • Score 5</div>
+            <h2><a href="/guides/ap-computer-science-a-recursion-and-searching-sorting-analysis-uc-berkeley/">Recursive Call Stack Visualization & Sorting Complexities</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for UC Berkeley applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-computer-science-a-recursion-and-searching-sorting-analysis-uc-berkeley/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Computer Science A • Score 5</div>
+            <h2><a href="/guides/ap-computer-science-a-recursion-and-searching-sorting-analysis-georgia-tech/">Recursive Call Stack Visualization & Sorting Complexities</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Georgia Tech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-computer-science-a-recursion-and-searching-sorting-analysis-georgia-tech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Statistics • Score 5</div>
+            <h2><a href="/guides/ap-statistics-two-sample-t-test-vs-matched-pairs-mit/">Two-Sample t-Test vs. Matched Pairs Inference & Verification</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for MIT applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-statistics-two-sample-t-test-vs-matched-pairs-mit/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Statistics • Score 5</div>
+            <h2><a href="/guides/ap-statistics-two-sample-t-test-vs-matched-pairs-stanford/">Two-Sample t-Test vs. Matched Pairs Inference & Verification</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Stanford University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-statistics-two-sample-t-test-vs-matched-pairs-stanford/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Statistics • Score 5</div>
+            <h2><a href="/guides/ap-statistics-two-sample-t-test-vs-matched-pairs-harvard/">Two-Sample t-Test vs. Matched Pairs Inference & Verification</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Harvard University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-statistics-two-sample-t-test-vs-matched-pairs-harvard/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Statistics • Score 5</div>
+            <h2><a href="/guides/ap-statistics-two-sample-t-test-vs-matched-pairs-caltech/">Two-Sample t-Test vs. Matched Pairs Inference & Verification</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Caltech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-statistics-two-sample-t-test-vs-matched-pairs-caltech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Statistics • Score 5</div>
+            <h2><a href="/guides/ap-statistics-two-sample-t-test-vs-matched-pairs-cmu/">Two-Sample t-Test vs. Matched Pairs Inference & Verification</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Carnegie Mellon University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-statistics-two-sample-t-test-vs-matched-pairs-cmu/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Statistics • Score 5</div>
+            <h2><a href="/guides/ap-statistics-two-sample-t-test-vs-matched-pairs-uc-berkeley/">Two-Sample t-Test vs. Matched Pairs Inference & Verification</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for UC Berkeley applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-statistics-two-sample-t-test-vs-matched-pairs-uc-berkeley/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Statistics • Score 5</div>
+            <h2><a href="/guides/ap-statistics-two-sample-t-test-vs-matched-pairs-georgia-tech/">Two-Sample t-Test vs. Matched Pairs Inference & Verification</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Georgia Tech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-statistics-two-sample-t-test-vs-matched-pairs-georgia-tech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Statistics • Score 5</div>
+            <h2><a href="/guides/ap-statistics-binomial-vs-geometric-probability-models-mit/">Binomial vs. Geometric Probability Models & Expected Values</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for MIT applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-statistics-binomial-vs-geometric-probability-models-mit/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Statistics • Score 5</div>
+            <h2><a href="/guides/ap-statistics-binomial-vs-geometric-probability-models-stanford/">Binomial vs. Geometric Probability Models & Expected Values</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Stanford University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-statistics-binomial-vs-geometric-probability-models-stanford/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Statistics • Score 5</div>
+            <h2><a href="/guides/ap-statistics-binomial-vs-geometric-probability-models-harvard/">Binomial vs. Geometric Probability Models & Expected Values</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Harvard University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-statistics-binomial-vs-geometric-probability-models-harvard/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Statistics • Score 5</div>
+            <h2><a href="/guides/ap-statistics-binomial-vs-geometric-probability-models-caltech/">Binomial vs. Geometric Probability Models & Expected Values</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Caltech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-statistics-binomial-vs-geometric-probability-models-caltech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Statistics • Score 5</div>
+            <h2><a href="/guides/ap-statistics-binomial-vs-geometric-probability-models-cmu/">Binomial vs. Geometric Probability Models & Expected Values</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Carnegie Mellon University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-statistics-binomial-vs-geometric-probability-models-cmu/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Statistics • Score 5</div>
+            <h2><a href="/guides/ap-statistics-binomial-vs-geometric-probability-models-uc-berkeley/">Binomial vs. Geometric Probability Models & Expected Values</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for UC Berkeley applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-statistics-binomial-vs-geometric-probability-models-uc-berkeley/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Statistics • Score 5</div>
+            <h2><a href="/guides/ap-statistics-binomial-vs-geometric-probability-models-georgia-tech/">Binomial vs. Geometric Probability Models & Expected Values</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Georgia Tech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-statistics-binomial-vs-geometric-probability-models-georgia-tech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Statistics • Score 5</div>
+            <h2><a href="/guides/ap-statistics-chi-square-goodness-of-fit-vs-homogeneity-independence-mit/">Chi-Square Tests: Goodness-of-Fit, Homogeneity & Independence</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for MIT applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-statistics-chi-square-goodness-of-fit-vs-homogeneity-independence-mit/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Statistics • Score 5</div>
+            <h2><a href="/guides/ap-statistics-chi-square-goodness-of-fit-vs-homogeneity-independence-stanford/">Chi-Square Tests: Goodness-of-Fit, Homogeneity & Independence</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Stanford University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-statistics-chi-square-goodness-of-fit-vs-homogeneity-independence-stanford/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Statistics • Score 5</div>
+            <h2><a href="/guides/ap-statistics-chi-square-goodness-of-fit-vs-homogeneity-independence-harvard/">Chi-Square Tests: Goodness-of-Fit, Homogeneity & Independence</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Harvard University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-statistics-chi-square-goodness-of-fit-vs-homogeneity-independence-harvard/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Statistics • Score 5</div>
+            <h2><a href="/guides/ap-statistics-chi-square-goodness-of-fit-vs-homogeneity-independence-caltech/">Chi-Square Tests: Goodness-of-Fit, Homogeneity & Independence</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Caltech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-statistics-chi-square-goodness-of-fit-vs-homogeneity-independence-caltech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Statistics • Score 5</div>
+            <h2><a href="/guides/ap-statistics-chi-square-goodness-of-fit-vs-homogeneity-independence-cmu/">Chi-Square Tests: Goodness-of-Fit, Homogeneity & Independence</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Carnegie Mellon University applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-statistics-chi-square-goodness-of-fit-vs-homogeneity-independence-cmu/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Statistics • Score 5</div>
+            <h2><a href="/guides/ap-statistics-chi-square-goodness-of-fit-vs-homogeneity-independence-uc-berkeley/">Chi-Square Tests: Goodness-of-Fit, Homogeneity & Independence</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for UC Berkeley applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-statistics-chi-square-goodness-of-fit-vs-homogeneity-independence-uc-berkeley/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+        <article class="guide-card">
+            <div class="badge">AP Statistics • Score 5</div>
+            <h2><a href="/guides/ap-statistics-chi-square-goodness-of-fit-vs-homogeneity-independence-georgia-tech/">Chi-Square Tests: Goodness-of-Fit, Homogeneity & Independence</a></h2>
+            <p>Targeted Score 5 mastery & placement strategy guide tailored for Georgia Tech applicants.</p>
+            <div class="card-footer">
+                <a href="/guides/ap-statistics-chi-square-goodness-of-fit-vs-homogeneity-independence-georgia-tech/" class="read-more">Read Full Guide &rarr;</a>
+            </div>
+        </article>
+        
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

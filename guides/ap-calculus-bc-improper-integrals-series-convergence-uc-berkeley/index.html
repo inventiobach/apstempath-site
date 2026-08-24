@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Improper Integrals & Advanced Series Convergence Tests Guide: AP Calculus BC Score 5 for UC Berkeley | AP STEM PATH</title>
+  <meta name="description" content="Master Improper Integrals & Advanced Series Convergence Tests in AP Calculus BC. Deep dive with LaTeX/code examples and score 5 strategies tailored for UC Berkeley applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Improper Integrals & Advanced Series Convergence Tests Guide: AP Calculus BC Score 5 for UC Berkeley",
+    "description": "Master Improper Integrals & Advanced Series Convergence Tests in AP Calculus BC. Deep dive with LaTeX/code examples and score 5 strategies tailored for UC Berkeley applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Calculus BC • Score 5 Strategy</span>
+      <h1>Improper Integrals & Advanced Series Convergence Tests Guide: AP Calculus BC Score 5 for UC Berkeley</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Calculus BC Mastery Guide: Improper Integrals &amp; Advanced Series Convergence Tests</h1>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>In the AP Calculus BC curriculum, <strong>Topic 6.13 (Improper Integrals)</strong> and <strong>Unit 10 (Infinite Sequences and Series)</strong> form the definitive quantitative threshold that separates Score 4 candidates from Score 5 masters. Unit 10 alone constitutes <strong>17–22% of the total AP Calculus BC exam weight</strong>, making it the single largest domain tested.</p>
+<pre><code>       [ Calculus BC Domain Weight Distribution ]
+┌─────────────────────────────────────────────────────────┐
+│ Unit 10: Infinite Sequences &amp; Series        [17–22%]   │ ██████████
+│ Units 6–8: Integration &amp; Applications       [17–23%]   │ ██████████
+│ Units 1–5: Limits &amp; Derivatives             [28–35%]   │ ██████████████
+│ Unit 9: Parametric, Vector, Polar           [11–12%]   │ █████
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+<p>Mastery of this material requires transitioning from procedural computation to rigorous analysis. You are not merely calculating values; you are formally establishing asymptotic behavior, domain boundary convergence, and remainder bounds.</p>
+<h3>UC Berkeley Placement Impact</h3>
+<p>A score of <strong>5</strong> on the AP Calculus BC exam grants full exemption from <strong>Math 1A (Calculus)</strong> and <strong>Math 1B (Calculus)</strong> at UC Berkeley, awarding <strong>8 semester units</strong>. This allows immediate matriculation into upper-level requirements:
+*   <strong>Math 53:</strong> Multivariable Calculus
+*   <strong>Math 54:</strong> Linear Algebra and Differential Equations</p>
+<p>Math 1B is historically designated as one of UC Berkeley's most rigorous lower-division requirement courses. Waiving Math 1B clears a key bottleneck for College of Engineering (CoE) and EECS majors, allowing early enrollment in <strong>EECS 16A/16B</strong> or <strong>CS 61A/61B</strong>.</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>Part A: Improper Integrals (Type I and Type II)</h3>
+<p>An integral is <em>improper</em> if either the interval of integration is infinite or the integrand approaches infinity within the interval of integration.</p>
+<h4>1. Type I: Infinite Intervals</h4>
+<p>If $f(x)$ is continuous on $[a, \infty)$, the improper integral is defined strictly as a limit:</p>
+<p>$$\int_{a}^{\infty} f(x) \, dx = \lim_{b \to \infty} \int_{a}^{b} f(x) \, dx$$</p>
+<p>If the limit exists and is finite, the integral <strong>converges</strong>. Otherwise, it <strong>diverges</strong>.</p>
+<h5>Structural Proof: The $p$-Series Integral Test Component</h5>
+<p>Prove that $\int_{1}^{\infty} \frac{1}{x^p} \, dx$ converges if and only if $p &gt; 1$.</p>
+<p><em>Proof:</em>
+For $p \neq 1$:</p>
+<p>$$\int_{1}^{\infty} x^{-p} \, dx = \lim_{b \to \infty} \left[ \frac{x^{1-p}}{1-p} \right]<em>{1}^{b} = \lim</em>{b \to \infty} \left( \frac{b^{1-p}}{1-p} - \frac{1}{1-p} \right)$$</p>
+<ul>
+<li>If $p &gt; 1$, then $1 - p &lt; 0$, so $\lim_{b \to \infty} b^{1-p} = 0$. Thus:
+    $$\int_{1}^{\infty} \frac{1}{x^p} \, dx = \frac{1}{p-1} \quad \text{(Converges)}$$</li>
+<li>If $p &lt; 1$, then $1 - p &gt; 0$, so $\lim_{b \to \infty} b^{1-p} = \infty \quad \text{(Diverges)}$.</li>
+<li>For $p = 1$:
+    $$\int_{1}^{\infty} \frac{1}{x} \, dx = \lim_{b \to \infty} \left[ \ln|x| \right]<em>{1}^{b} = \lim</em>{b \to \infty} \ln(b) = \infty \quad \text{(Diverges)}$$</li>
+</ul>
+<p>$$\therefore \int_{1}^{\infty} \frac{1}{x^p} \, dx \text{ converges } \iff p &gt; 1. \quad \blacksquare$$</p>
+<h4>2. Type II: Unbounded Integrands (Discontinuities)</h4>
+<p>If $f(x)$ is continuous on $[a, b)$ and has an infinite discontinuity at $x = b$:</p>
+<p>$$\int_{a}^{b} f(x) \, dx = \lim_{c \to b^-} \int_{a}^{c} f(x) \, dx$$</p>
+<blockquote>
+<p><strong>Critical Trap:</strong> If $f(x)$ has an interior discontinuity at $c \in (a, b)$, you <strong>must</strong> split the integral:
+$$\int_{a}^{b} f(x) \, dx = \int_{a}^{c} f(x) \, dx + \int_{c}^{b} f(x) \, dx = \lim_{r \to c^-} \int_{a}^{r} f(x) \, dx + \lim_{s \to c^+} \int_{s}^{b} f(x) \, dx$$
+Both individual limits must converge independently for the original integral to converge.</p>
+</blockquote>
+<hr />
+<h3>Part B: Advanced Series Convergence Tests</h3>
+<p>To prove whether an infinite series $\sum_{n=1}^{\infty} a_n$ converges, you must select and apply the appropriate test while proving its prerequisites.</p>
+<pre><code>                  [ Convergence Test Decision Tree ]
+                                  │
+                       Is lim(a_n) ≠ 0? ──(Yes)──► Diverges (nth-Term Test)
+                                  │
+                                (No)
+                                  │
+        ┌─────────────────────────┼─────────────────────────┐
+    Has (-1)^n?               Is a_n &gt; 0?              Is a_n continuous,
+        │                         │                    positive, decreasing?
+     (Yes)                      (Yes)                       │
+        │                         │                       (Yes)
+        ▼                         ▼                         ▼
+   Alternating             Ratio Test / LCT           Integral Test
+   Series Test             Direct Comparison          \int_1^∞ f(x) dx
+</code></pre>
+<h4>1. The Integral Test</h4>
+<p>Let $f(x)$ be a continuous, positive, and decreasing function on $[1, \infty)$ such that $f(n) = a_n$.</p>
+<p>$$\sum_{n=1}^{\infty} a_n \text{ and } \int_{1}^{\infty} f(x) \, dx \text{ either both converge or both diverge.}$$</p>
+<ul>
+<li><strong>Error Bound (Remainder Theorem):</strong>
+    If $\sum a_n$ converges to $S$, the remainder $R_N = S - S_N$ is bounded by:
+    $$\int_{N+1}^{\infty} f(x) \, dx \le R_N \le \int_{N}^{\infty} f(x) \, dx$$</li>
+</ul>
+<h4>2. Limit Comparison Test (LCT)</h4>
+<p>Suppose $a_n &gt; 0$ and $b_n &gt; 0$ for all $n \ge N$. If</p>
+<p>$$\lim_{n \to \infty} \frac{a_n}{b_n} = L$$</p>
+<p>where $0 &lt; L &lt; \infty$, then both series $\sum a_n$ and $\sum b_n$ either both converge or both diverge.</p>
+<ul>
+<li><strong>Boundary Cases:</strong><ul>
+<li>If $L = 0$ and $\sum b_n$ converges $\implies \sum a_n$ converges.</li>
+<li>If $L = \infty$ and $\sum b_n$ diverges $\implies \sum a_n$ diverges.</li>
+</ul>
+</li>
+</ul>
+<h4>3. Ratio &amp; Root Tests</h4>
+<p>For $\sum a_n$, evaluate:</p>
+<p>$$\rho = \lim_{n \to \infty} \left| \frac{a_{n+1}}{a_n} \right| \quad \text{or} \quad L = \lim_{n \to \infty} \sqrt[n]{|a_n|}$$</p>
+<ul>
+<li>$\rho &lt; 1 \implies$ <strong>Absolute Convergence</strong></li>
+<li>$\rho &gt; 1 \implies$ <strong>Divergence</strong></li>
+<li>$\rho = 1 \implies$ <strong>Inconclusive</strong> (Must use a different test)</li>
+</ul>
+<h4>4. Alternating Series Test (AST) &amp; Remainder Estimation</h4>
+<p>The series $\sum_{n=1}^{\infty} (-1)^{n+1} b_n$ (with $b_n &gt; 0$) converges if:
+1.  $b_{n+1} \le b_n$ for all $n$ (Monotonically non-increasing)
+2.  $\lim_{n \to \infty} b_n = 0$</p>
+<ul>
+<li><strong>Alternating Series Error Bound:</strong>
+    $$|R_N| = |S - S_N| \le b_{N+1}$$</li>
+</ul>
+<hr />
+<h3>Computational Algorithmic Verification</h3>
+<p>The following Python script simulates partial sum convergence and compares it against the theoretical improper integral bounds for $f(x) = \frac{1}{x^2}$:</p>
+<pre><code class="language-python">import numpy as np
+from scipy.integrate import quad
+
+def analyze_convergence(p: float, N_terms: int = 100000):
+    &quot;&quot;&quot;
+    Analyzes p-series sum vs Improper Integral evaluation.
+    &quot;&quot;&quot;
+    # Infinite Series Partial Sum
+    n = np.arange(1, N_terms + 1, dtype=np.float64)
+    partial_sum = np.sum(1.0 / (n**p))
+
+    # Improper Integral Evaluation \int_1^\infty x^{-p} dx
+    integral_val, abs_err = quad(lambda x: 1.0 / (x**p), 1, np.inf)
+
+    print(f&quot;--- Analysis for p = {p} ---&quot;)
+    print(f&quot;Partial Sum (N={N_terms}): {partial_sum:.6f}&quot;)
+    print(f&quot;Improper Integral Exact Value : {integral_val:.6f}&quot;)
+    print(f&quot;Remainder Upper Bound (N^-p): {1.0 / ((p-1) * (N_terms**(p-1))):.8f}&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    analyze_convergence(p=2.0)
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Rubric Nuances</h2>
+<p>To earn a 5, your mathematical writing must strictly align with the AP Calculus BC Free-Response Question (FRQ) scoring guidelines. Below are the primary failure points seen in Score 4 student responses.</p>
+<pre><code>       [ Point Losses on AP Calculus BC FRQs ]
+┌─────────────────────────────────────────────────────────────┐
+│ Missing Explicit Limit Notations on Improper Integrals      │ ──► -1 Point
+│ Failure to Verify Hypotheses (e.g., Continuous/Decreasing)  │ ──► -1 Point
+│ Missing Absolute Value Signs on Ratio Test Setup            │ ──► -1 Point
+│ Evaluating Interior Discontinuities Without Splitting Limit │ ──► -2 Points
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3>Critical Pitfalls</h3>
+<ol>
+<li>
+<p><strong>Dropping Limit Notation in Improper Integrals:</strong></p>
+<ul>
+<li><em>Incorrect:</em> $\int_{1}^{\infty} \frac{1}{x^2} \, dx = \left[ -\frac{1}{x} \right]_1^\infty = 0 - (-1) = 1$</li>
+<li><em>Correct:</em> $\int_{1}^{\infty} \frac{1}{x^2} \, dx = \lim_{b \to \infty} \int_{1}^{b} \frac{1}{x^2} \, dx = \lim_{b \to \infty} \left( -\frac{1}{b} + 1 \right) = 1$</li>
+<li><em>Rubric Penalty:</em> Automatic loss of the communication/setup point.</li>
+</ul>
+</li>
+<li>
+<p><strong>Evaluating Type II Integrals Without Limit Splits:</strong></p>
+<ul>
+<li>Evaluating $\int_{-1}^{1} \frac{1}{x^2} \, dx = \left[ -\frac{1}{x} \right]_{-1}^1 = -1 - (1) = -2$.</li>
+<li><em>Fatal Conceptual Flaw:</em> $f(x) = \frac{1}{x^2} &gt; 0$ over its domain, so its integral cannot be negative. The interior discontinuity at $x = 0$ requires:
+    $$\lim_{r \to 0^-} \int_{-1}^{r} \frac{1}{x^2} \, dx + \lim_{s \to 0^+} \int_{s}^{1} \frac{1}{x^2} \, dx = \infty \quad \text{(Diverges)}$$</li>
+</ul>
+</li>
+<li>
+<p><strong>Omitting Prerequisites for Tests:</strong></p>
+<ul>
+<li>Applying the <strong>Integral Test</strong> without explicitly stating that $f(x)$ is <em>positive, continuous, and decreasing</em>.</li>
+<li>Applying <strong>LCT</strong> without confirming that terms $a_n, b_n &gt; 0$.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3>Solution Contrast: Score 4 vs Score 5</h3>
+<h4>FRQ Prompt</h4>
+<p>Determine whether the series $\sum_{n=2}^{\infty} \frac{1}{n \sqrt{\ln n}}$ converges or diverges.</p>
+<hr />
+<h4>Score 4 Candidate Response (Lacks Formal Rigor)</h4>
+<blockquote>
+<p>Use integral test:
+$\int \frac{1}{x \sqrt{\ln x}} dx$. Let $u = \ln x, du = \frac{1}{x} dx$.
+$\int u^{-1/2} du = 2\sqrt{u} = 2\sqrt{\ln x}$.
+Plug in limits: $2\sqrt{\ln(\infty)} - 2\sqrt{\ln(2)} = \infty$.
+So it diverges by integral test.</p>
+</blockquote>
+<p><em>AP Reader Assessment:</em> <strong>1 out of 3 Points.</strong>
+*   Lost setup point for lack of limit notation ($\infty$ used as a number).
+*   Lost hypothesis point for failing to verify $f(x)$ conditions on $[2, \infty)$.</p>
+<hr />
+<h4>Score 5 Exemplary Response (Full Credit)</h4>
+<blockquote>
+<p>Consider the function $f(x) = \frac{1}{x \sqrt{\ln x}}$ for $x \ge 2$.
+1. $f(x) &gt; 0$ for all $x \ge 2$.
+2. $f(x)$ is continuous on $[2, \infty)$ since $x \neq 0$ and $\ln x &gt; 0$ for $x \ge 2$.
+3. $f(x)$ is decreasing because $x$ and $\sqrt{\ln x}$ are strictly increasing functions, making their product strictly increasing and its reciprocal strictly decreasing.</p>
+<p>Since the conditions for the Integral Test are satisfied, evaluate the improper integral:</p>
+<p>$$\int_{2}^{\infty} \frac{1}{x \sqrt{\ln x}} \, dx = \lim_{b \to \infty} \int_{2}^{b} \frac{1}{x \sqrt{\ln x}} \, dx$$</p>
+<p>Let $u = \ln x \implies du = \frac{1}{x} \, dx$.
+When $x = 2, u = \ln 2$; as $x = b, u = \ln b$.</p>
+<p>$$= \lim_{b \to \infty} \int_{\ln 2}^{\ln b} u^{-1/2} \, du = \lim_{b \to \infty} \left[ 2 u^{1/2} \right]<em>{\ln 2}^{\ln b}$$
+$$= \lim</em>{b \to \infty} \left( 2\sqrt{\ln b} - 2\sqrt{\ln 2} \right) = \infty$$</p>
+<p>Since the improper integral diverges to $\infty$, the series $\sum_{n=2}^{\infty} \frac{1}{n \sqrt{\ln n}}$ <strong>diverges</strong> by the Integral Test.</p>
+</blockquote>
+<hr />
+<h2>4. UC Berkeley Placement Pathway</h2>
+<pre><code>                        [ UC Berkeley Course Progression ]
+┌───────────────────────────┐      ┌───────────────────────────┐
+│     AP Calculus BC = 5    │ ───► │  Clear 8 Semester Units   │
+│  (Fulfills Math 1A &amp; 1B)  │      │  (Math 1A &amp; Math 1B waived)│
+└───────────────────────────┘      └───────────────────────────┘
+                                                 │
+                                                 ▼
+                                   ┌───────────────────────────┐
+                                   │ Accelerated Term 1 Target │
+                                   │ Math 53 OR Math 54 Direct │
+                                   └───────────────────────────┘
+</code></pre>
+<h3>Academic Advantage Breakdown</h3>
+<h4>1. Waiving Math 1B</h4>
+<p>At UC Berkeley, <strong>Math 1B</strong> covers second-semester single-variable calculus with an emphasis on rigorous proof techniques, complex improper integrals, infinite series, and introductory differential equations. Scoring a 5 on the AP Calculus BC exam demonstrates equivalent proficiency, allowing you to fulfill this requirement before setting foot on campus.</p>
+<h4>2. Advanced Course Alignment</h4>
+<ul>
+<li><strong>Math 53 (Multivariable Calculus):</strong> Requires immediate spatial fluency with parameterized curves $\vec{r}(t)$, vector fields, multi-dimensional Taylor expansions, and improper multiple integrals over unbounded domains $\iint_{\mathbb{R}^2} e^{-(x^2+y^2)} \, dA$.</li>
+<li><strong>Math 54 (Linear Algebra &amp; Differential Equations):</strong> The spectral theory of differential operators, power series solutions to ordinary differential equations (ODEs) around regular singular points (Frobenius method), and Fourier Series decomposition:
+    $$f(x) = \frac{a_0}{2} + \sum_{n=1}^{\infty} \left( a_n \cos\frac{n\pi x}{L} + b_n \sin\frac{n\pi x}{L} \right)$$
+    This relies directly on the convergence mechanisms tested in BC Unit 10.</li>
+</ul>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution Checklist</h2>
+<h3>AP-Style Free Response Question (BC Analytical Focus)</h3>
+<p>Consider the function $f(x) = \frac{1}{x(\ln x)^2}$ for $x \ge 2$.</p>
+<ul>
+<li><strong>(a)</strong> Evaluate the improper integral $\int_{2}^{\infty} f(x) \, dx$ or show that it diverges.</li>
+<li><strong>(b)</strong> Determine whether the infinite series $\sum_{n=2}^{\infty} \frac{1}{n(\ln n)^2}$ converges or diverges. Justify your answer.</li>
+<li><strong>(c)</strong> Determine whether the alternating series $\sum_{n=2}^{\infty} \frac{(-1)^n}{n \ln n}$ converges absolutely, converges conditionally, or diverges. State the tests used.</li>
+<li><strong>(d)</strong> Write an upper bound for the error when using the first 4 terms of $\sum_{n=2}^{\infty} \frac{(-1)^n}{n \ln n}$ to approximate the total sum $S$.</li>
+</ul>
+<hr />
+<h3>Step-by-Step Solution &amp; Rubric Checklist</h3>
+<h4>Part (a)</h4>
+<p>$$\int_{2}^{\infty} \frac{1}{x(\ln x)^2} \, dx = \lim_{b \to \infty} \int_{2}^{b} \frac{1}{x(\ln x)^2} \, dx$$</p>
+<p>Let $u = \ln x \implies du = \frac{1}{x} dx$.
+Limits: $x = 2 \implies u = \ln 2$; $x = b \implies u = \ln b$.</p>
+<p>$$= \lim_{b \to \infty} \int_{\ln 2}^{\ln b} u^{-2} \, du = \lim_{b \to \infty} \left[ -\frac{1}{u} \right]<em>{\ln 2}^{\ln b}$$
+$$= \lim</em>{b \to \infty} \left( -\frac{1}{\ln b} - \left( -\frac{1}{\ln 2} \right) \right) = 0 + \frac{1}{\ln 2} = \frac{1}{\ln 2}$$</p>
+<p>The improper integral <strong>converges</strong> to $\frac{1}{\ln 2}$.</p>
+<ul>
+<li><strong>Checklist:</strong><ul>
+<li>[ ] Formal limit definition $\lim_{b \to \infty}$ included.</li>
+<li>[ ] Correct antiderivative $-\frac{1}{\ln x}$ or $-\frac{1}{u}$.</li>
+<li>[ ] Final exact evaluation $\frac{1}{\ln 2}$.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h4>Part (b)</h4>
+<ol>
+<li>$f(x) = \frac{1}{x(\ln x)^2}$ is continuous for $x \ge 2$ because $x \neq 0$ and $\ln x \neq 0$.</li>
+<li>$f(x) &gt; 0$ for $x \ge 2$.</li>
+<li>$f(x)$ is decreasing because $x(\ln x)^2$ is strictly increasing for $x \ge 2$.</li>
+</ol>
+<p>By the <strong>Integral Test</strong>, since $\int_{2}^{\infty} f(x) \, dx$ converges to $\frac{1}{\ln 2}$, the infinite series</p>
+<p>$$\sum_{n=2}^{\infty} \frac{1}{n(\ln n)^2} \quad \text{\textbf{converges}.}$$</p>
+<ul>
+<li><strong>Checklist:</strong><ul>
+<li>[ ] Explicit verification of hypotheses: positive, continuous, decreasing.</li>
+<li>[ ] Direct reference to the finite result from Part (a).</li>
+<li>[ ] Explicitly states "converges by Integral Test."</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h4>Part (c)</h4>
+<p>First, test for <strong>Absolute Convergence</strong> by analyzing $\sum_{n=2}^{\infty} \left| \frac{(-1)^n}{n \ln n} \right| = \sum_{n=2}^{\infty} \frac{1}{n \ln n}$.
+Apply the Integral Test on $g(x) = \frac{1}{x \ln x}$:</p>
+<p>$$\int_{2}^{\infty} \frac{1}{x \ln x} \, dx = \lim_{b \to \infty} \left[ \ln(\ln x) \right]<em>{2}^{b} = \lim</em>{b \to \infty} (\ln(\ln b) - \ln(\ln 2)) = \infty$$</p>
+<p>Since the absolute series diverges, the series <strong>does not converge absolutely</strong>.</p>
+<p>Next, test for <strong>Conditional Convergence</strong> using the Alternating Series Test on $\sum_{n=2}^{\infty} (-1)^n b_n$, where $b_n = \frac{1}{n \ln n}$:
+1.  $b_n &gt; 0$ for $n \ge 2$.
+2.  $b_{n+1} = \frac{1}{(n+1)\ln(n+1)} &lt; \frac{1}{n\ln n} = b_n$ (Monotonically decreasing).
+3.  $\lim_{n \to \infty} \frac{1}{n \ln n} = 0$.</p>
+<p>The series converges by AST. Therefore, $\sum_{n=2}^{\infty} \frac{(-1)^n}{n \ln n}$ <strong>converges conditionally</strong>.</p>
+<ul>
+<li><strong>Checklist:</strong><ul>
+<li>[ ] Tested absolute convergence first via Integral Test or LCT.</li>
+<li>[ ] Proved absolute series diverges.</li>
+<li>[ ] Verified both AST conditions ($\lim b_n = 0$ and $b_{n+1} \le b_n$).</li>
+<li>[ ] Stated explicit conclusion: "Converges conditionally."</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h4>Part (d)</h4>
+<p>The series $\sum_{n=2}^{\infty} \frac{(-1)^n}{n \ln n}$ meets the criteria of the Alternating Series Test.
+The error $|R_4| = |S - S_4|$ using the first 4 terms (corresponding to $n = 2, 3, 4, 5$) is bounded by the magnitude of the first omitted term ($n = 6$, which is the $5^{\text{th}}$ term of the expansion):</p>
+<p>$$\text{Error} = |R_4| \le b_6 = \frac{1}{6 \ln 6}$$</p>
+<ul>
+<li><strong>Checklist:</strong><ul>
+<li>[ ] Referenced Alternating Series Error Bound theorem.</li>
+<li>[ ] Identified the first omitted term as $n = 6$.</li>
+<li>[ ] Computed the precise bound value $\frac{1}{6 \ln 6}$.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2>6. Summary Checklist for AP Exam Day</h2>
+<p>To ensure a 5 on the AP Calculus BC exam:</p>
+<ul>
+<li>[ ] <strong>Never write $\infty$ in the bounds</strong> of an integral during evaluation. Always use $\lim_{b \to \infty} \int_a^b$.</li>
+<li>[ ] <strong>Identify interior discontinuities</strong> ($x=c$) on bounded integrals and split them into two limits.</li>
+<li>[ ] <strong>State the hypotheses</strong> (e.g., continuous, positive, decreasing) before invoking the Integral Test, Direct Comparison Test, or Limit Comparison Test.</li>
+<li>[ ] <strong>Check for conditional vs. absolute convergence</strong> by taking the absolute value of the sequence first.</li>
+<li>[ ] <strong>Use $b_{N+1}$ for Alternating Series Error Bounds</strong> and ensure the series satisfies all AST conditions.</li>
+</ul>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Calculus BC?</h2>
+      <p>Secure admission and advanced standing at top institutions like UC Berkeley with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

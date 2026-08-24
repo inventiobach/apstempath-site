@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recursive Call Stack Visualization & Sorting Complexities Guide: AP Computer Science A Score 5 for Carnegie Mellon University | AP STEM PATH</title>
+  <meta name="description" content="Master Recursive Call Stack Visualization & Sorting Complexities in AP Computer Science A. Deep dive with LaTeX/code examples and score 5 strategies tailored for Carnegie Mellon University applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Recursive Call Stack Visualization & Sorting Complexities Guide: AP Computer Science A Score 5 for Carnegie Mellon University",
+    "description": "Master Recursive Call Stack Visualization & Sorting Complexities in AP Computer Science A. Deep dive with LaTeX/code examples and score 5 strategies tailored for Carnegie Mellon University applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Computer Science A • Score 5 Strategy</span>
+      <h1>Recursive Call Stack Visualization & Sorting Complexities Guide: AP Computer Science A Score 5 for Carnegie Mellon University</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Computer Science A Master Guide: Recursive Call Stack Visualization &amp; Sorting Complexities</h1>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>Recursion and asymptotic sorting analysis represent the threshold between introductory procedural programming and theoretical computer science. On the AP Computer Science A Exam, <strong>Topic 10 (Recursion)</strong> explicitly accounts for <strong>5–7.5%</strong> of the Multiple-Choice Section (3–6 questions). However, its functional footprint is vastly larger: recursive tracing, divide-and-conquer paradigm logic, and recursive array manipulation intersect directly with <strong>Topic 7 (ArrayList)</strong>, <strong>Topic 9 (Inheritance/Polymorphism)</strong>, and <strong>Topic 10 (Searching and Sorting)</strong>. Combined, these topics govern over <strong>15–20%</strong> of the total exam weight across both the Multiple-Choice (MCQ) and Free-Response Question (FRQ) sections.</p>
+<p>To earn a <strong>Score 5</strong>, conceptual familiarity with recursion is insufficient. You must maintain an internal, high-fidelity state machine capable of tracking stack frames, dynamic heap allocations, local variable states, and return execution contexts across nested activation records without written code execution.</p>
+<pre><code>       AP CSA Exam Weight Distribution: Recursion &amp; Sorting
++-------------------------------------------------------------------+
+|  Topic 10: Explicit Recursion (5 - 7.5%)                           |
+|  Topic 10: Searching &amp; Sorting Algorithms (7.5 - 10%)              |
+|  Implicit FRQ Traversal &amp; Execution Tracing (~5%)                 |
++-------------------------------------------------------------------+
+  0%       5%       10%      15%      20%      25%      30%
+</code></pre>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>Part A: The Call Stack Memory Execution Model</h3>
+<p>When a Java method is invoked, the Java Virtual Machine (JVM) allocates an <strong>Activation Record</strong> (or Stack Frame) on the thread's execution stack. This frame encapsulates:
+1. <strong>Local Variables</strong>: Primitive values and reference variables (pointers to heap memory).
+2. <strong>Parameters</strong>: Arguments passed by value.
+3. <strong>Return Address</strong>: The instruction pointer indicating where to resume execution upon frame termination.</p>
+<pre><code>+-------------------------------------------------------------+
+| Activation Record: recursiveMethod(n = 1)                   |
+|   - Return Address: Line 12                                 |
+|   - Local Variables: result = [uninitialized]               |
++-------------------------------------------------------------+
+| Activation Record: recursiveMethod(n = 2)                   |
+|   - Return Address: Line 12                                 |
+|   - Local Variables: result = [uninitialized]               |
++-------------------------------------------------------------+
+| Activation Record: recursiveMethod(n = 3)                   |
+|   - Return Address: main() Line 4                           |
+|   - Local Variables: result = [uninitialized]               |
++-------------------------------------------------------------+
+                        CALL STACK (LIFO)
+</code></pre>
+<p>In recursion, the stack grows linearly or logarithmically based on call depth. When the <strong>base case</strong> evaluates to <code>true</code>, no further stack frames are pushed. Frame unwind (popping) begins: values are returned down the stack in <strong>Last-In, First-Out (LIFO)</strong> order. </p>
+<h4>Trace Execution State Matrix</h4>
+<p>Consider the following canonical AP-style non-tail recursive implementation:</p>
+<pre><code class="language-java">public class ExecutionTrace {
+    public static int mystery(int n) {
+        if (n &lt;= 1) { // Base Case
+            return 1;
+        } else {
+            return n + mystery(n - 1) + mystery(n - 2);
+        }
+    }
+}
+</code></pre>
+<p>For an initial call of <code>mystery(4)</code>, the call tree branches binary-style, yielding the following call stack sequence and activation trace:</p>
+<pre><code>                            mystery(4)
+                          /     |     \
+                mystery(3)  +   |  +  mystery(2)
+               /    |    \      |     /   |    \
+      mystery(2) +  | + m(1)    |   m(1) +| + m(0)
+     /   |   \      |   [1]     |   [1]     | [1]
+  m(1) + | + m(0)   |           |           |
+  [1]    |   [1]    |           |           |
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Stack Depth</th>
+<th style="text-align: left;">Active Frame</th>
+<th style="text-align: left;">Evaluated Parameters</th>
+<th style="text-align: left;">Computed Return Value</th>
+<th style="text-align: left;">Stack Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><code>mystery(4)</code></td>
+<td style="text-align: left;"><code>n = 4</code></td>
+<td style="text-align: left;">$4 + 5 + 2 = 11$</td>
+<td style="text-align: left;">PUSH</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><code>mystery(3)</code></td>
+<td style="text-align: left;"><code>n = 3</code></td>
+<td style="text-align: left;">$3 + 2 + 1 = 6 \rightarrow \text{Wait: } 3 + 2 + 1$?</td>
+<td style="text-align: left;">PUSH</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><code>mystery(2)</code></td>
+<td style="text-align: left;"><code>n = 2</code></td>
+<td style="text-align: left;">$2 + 1 + 1 = 4$</td>
+<td style="text-align: left;">PUSH</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;"><code>mystery(1)</code></td>
+<td style="text-align: left;"><code>n = 1</code></td>
+<td style="text-align: left;">$1$ (Base Case)</td>
+<td style="text-align: left;">POP</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;"><code>mystery(0)</code></td>
+<td style="text-align: left;"><code>n = 0</code></td>
+<td style="text-align: left;">$1$ (Base Case)</td>
+<td style="text-align: left;">POP</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><code>mystery(1)</code></td>
+<td style="text-align: left;"><code>n = 1</code></td>
+<td style="text-align: left;">$1$ (Base Case)</td>
+<td style="text-align: left;">POP</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><code>mystery(2)</code></td>
+<td style="text-align: left;"><code>n = 2</code></td>
+<td style="text-align: left;">$2 + 1 + 1 = 4$</td>
+<td style="text-align: left;">PUSH</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><code>mystery(1)</code></td>
+<td style="text-align: left;"><code>n = 1</code></td>
+<td style="text-align: left;">$1$ (Base Case)</td>
+<td style="text-align: left;">POP</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><code>mystery(0)</code></td>
+<td style="text-align: left;"><code>n = 0</code></td>
+<td style="text-align: left;">$1$ (Base Case)</td>
+<td style="text-align: left;">POP</td>
+</tr>
+</tbody>
+</table>
+<p>Unwinding yields:
+* <code>mystery(2)</code> $= 2 + 1 + 1 = 4$
+* <code>mystery(3)</code> $= 3 + \text{mystery}(2) + \text{mystery}(1) = 3 + 4 + 1 = 8$
+* <code>mystery(4)</code> $= 4 + \text{mystery}(3) + \text{mystery}(2) = 4 + 8 + 4 = 16$</p>
+<hr />
+<h3>Part B: Divide-and-Conquer Sorting Algorithms &amp; Algorithmic Complexity</h3>
+<p>The AP Computer Science A curriculum tests three primary sorting algorithms: <strong>Selection Sort</strong>, <strong>Insertion Sort</strong>, and <strong>Merge Sort</strong>. </p>
+<pre><code>                                      SORTING ALGORITHMS
+                                              |
+                     +------------------------+------------------------+
+                     |                                                 |
+             Iterative O(N²)                                 Divide-and-Conquer O(N log N)
+             +---------------+                               +---------------------------+
+             | Selection Sort|                               | Merge Sort                |
+             | Insertion Sort|                               |  - Recurrence: 2T(N/2)+N  |
+             +---------------+                               +---------------------------+
+</code></pre>
+<h4>Selection &amp; Insertion Sort ($\mathcal{O}(n^2)$)</h4>
+<ul>
+<li><strong>Selection Sort</strong>: Iteratively selects the minimum element from the unsorted sub-array and swaps it into the boundary position. Comparisons are static regardless of initial array ordering:
+  $$\text{Comparisons} = \sum_{i=1}^{n-1} i = \frac{n(n-1)}{2} = \mathcal{O}(n^2)$$</li>
+<li><strong>Insertion Sort</strong>: Shifts elements in the sorted partition to make space for the target element. Best-case dynamic performance is linear $\mathcal{O}(n)$ on almost-sorted data; worst-case comparisons require $\mathcal{O}(n^2)$.</li>
+</ul>
+<h4>Merge Sort Math Derivation ($\mathcal{O}(n \log n)$)</h4>
+<p>Merge Sort employs a strict divide-and-conquer strategy:
+1. <strong>Divide</strong>: Splitting the array of size $n$ into two equal sub-arrays of size $\frac{n}{2}$.
+2. <strong>Conquer</strong>: Recursively sorting the sub-arrays.
+3. <strong>Combine</strong>: Merging two sorted halves in $\mathcal{O}(n)$ linear work.</p>
+<p>The run-time recurrence relation is given by:
+$$T(n) = 2T\left(\frac{n}{2}\right) + c \cdot n$$
+where $T(1) = d$ (constant work for base case).</p>
+<h5>Formal Proof via Mathematical Induction / Recursion Tree Expansion</h5>
+<p>Expanding $T(n)$ across tree depth $k$:</p>
+<p>$$\begin{aligned}
+T(n) &amp;= 2\left[2T\left(\frac{n}{4}\right) + c\left(\frac{n}{2}\right)\right] + cn = 4T\left(\frac{n}{4}\right) + 2cn \
+&amp;= 4\left[2T\left(\frac{n}{8}\right) + c\left(\frac{n}{4}\right)\right] + 2cn = 8T\left(\frac{n}{8}\right) + 3cn \
+&amp;\;\;\vdots \
+&amp;= 2^k T\left(\frac{n}{2^k}\right) + k \cdot cn
+\end{aligned}$$</p>
+<p>The recursion terminates at tree height $k$ when the sub-array length drops to $1$:
+$$\frac{n}{2^k} = 1 \implies 2^k = n \implies k = \log_2 n$$</p>
+<p>Substituting $k = \log_2 n$ back into the expanded relation:
+$$\begin{aligned}
+T(n) &amp;= n \cdot T(1) + (\log_2 n) \cdot cn \
+&amp;= d \cdot n + c \cdot n \log_2 n \
+&amp;= \mathcal{O}(n \log n)
+\end{aligned}$$</p>
+<h4>Canonical AP Java Merge Sort Implementation</h4>
+<pre><code class="language-java">public class MergeSort {
+
+    public static void mergeSort(int[] elements, int low, int high) {
+        // Base case: Sub-array of length 0 or 1 is inherently sorted
+        if (low &lt; high) {
+            int mid = low + (high - low) / 2; // Prevents potential integer overflow
+
+            // Recursively process left and right halves
+            mergeSort(elements, low, mid);
+            mergeSort(elements, mid + 1, high);
+
+            // Combine step
+            merge(elements, low, mid, high);
+        }
+    }
+
+    private static void merge(int[] elements, int low, int mid, int high) {
+        int[] temp = new int[high - low + 1];
+        int i = low;      // Index marker for left sub-array
+        int j = mid + 1;  // Index marker for right sub-array
+        int k = 0;        // Index marker for temporary array
+
+        while (i &lt;= mid &amp;&amp; j &lt;= high) {
+            if (elements[i] &lt;= elements[j]) {
+                temp[k] = elements[i];
+                i++;
+            } else {
+                temp[k] = elements[j];
+                j++;
+            }
+            k++;
+        }
+
+        // Copy remaining elements from left side, if any
+        while (i &lt;= mid) {
+            temp[k] = elements[i];
+            i++;
+            k++;
+        }
+
+        // Copy remaining elements from right side, if any
+        while (j &lt;= high) {
+            temp[k] = elements[j];
+            j++;
+            k++;
+        }
+
+        // Copy sorted elements back into original array
+        for (k = 0; k &lt; temp.length; k++) {
+            elements[low + k] = temp[k];
+        }
+    }
+}
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<h3>Pitfall 1: Post-Recursive Processing vs. Pre-Recursive Processing Execution Order</h3>
+<p>A common Score 4 misstep is executing statements following a recursive call <em>before</em> the deep recursive frames unwind. </p>
+<pre><code class="language-java">public static void tracePrint(int n) {
+    if (n &gt; 0) {
+        System.out.print(n + &quot; &quot;); // Pre-recursive work (Executes top-down)
+        tracePrint(n - 1);
+        System.out.print(n + &quot; &quot;); // Post-recursive work (Executes bottom-up)
+    }
+}
+// tracePrint(3) outputs: &quot;3 2 1 1 2 3 &quot;, NOT &quot;3 2 1 3 2 1&quot;
+</code></pre>
+<h3>Pitfall 2: Memory Space Complexity vs. Call Stack Space</h3>
+<p>Students routinely conflate the auxiliary space complexity of Merge Sort with its stack frame memory:
+* <strong>Call Stack Memory (Depth)</strong>: Max frame allocation occurs along the binary tree path height $\mathcal{O}(\log n)$.
+* <strong>Auxiliary Heap Memory</strong>: Array allocation during the <code>merge</code> combine phase requires $\mathcal{O}(n)$ total auxiliary space.</p>
+<h3>Pitfall 3: Index Mutability Invariant Breaks in Divide-and-Conquer</h3>
+<p>In Merge Sort, writing <code>mergeSort(elements, low, mid - 1)</code> instead of <code>mergeSort(elements, low, mid)</code> induces an infinite recursion loop due to asymmetric partitioning truncation when $high - low = 1$.</p>
+<hr />
+<h3>Comparative Analysis: Score 4 vs. Score 5 Performance</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Evaluation Criteria</th>
+<th style="text-align: left;">Score 4 Performance Level</th>
+<th style="text-align: left;">Score 5 Exemplar Performance Level</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Recursive Call Stack Tracing</strong></td>
+<td style="text-align: left;">Traces linear recursive calls accurately; struggles with complex non-tail double recursive calls (<code>mystery(n-1) + mystery(n-2)</code>).</td>
+<td style="text-align: left;">Constructs complete call trees and state tables instantly; accounts for unwinding logic and post-order statements without error.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Asymptotic Complexity Analysis</strong></td>
+<td style="text-align: left;">Memorizes the final Big-O bounds ($\mathcal{O}(n^2)$ vs $\mathcal{O}(n \log n)$) without understanding why.</td>
+<td style="text-align: left;">Can derive $\mathcal{O}(n \log n)$ from recurrence relations, tree heights, and work-per-level arguments.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Array Sub-range Partitioning</strong></td>
+<td style="text-align: left;">Prone to off-by-one errors when computing indices like <code>mid = (low + high) / 2</code>.</td>
+<td style="text-align: left;">Uses safe boundary partitioning (<code>low + (high - low) / 2</code>) and validates termination conditions mathematically.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Auxiliary vs. Stack Space Distinction</strong></td>
+<td style="text-align: left;">Equates time complexity with total space complexity; misses the stack frame allocation footprint.</td>
+<td style="text-align: left;">Differentiates heap allocations ($\mathcal{O}(n)$ for Merge Sort) from active stack frame bounds ($\mathcal{O}(\log n)$ stack depth).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. Carnegie Mellon University Placement Pathway</h2>
+<p>At Carnegie Mellon University’s School of Computer Science (SCS), securing a 5 on AP Computer Science A opens direct placement advantages through the <strong>15-112 (Fundamentals of Programming and Computer Science) Exemption Process</strong>.</p>
+<pre><code>CMU SCS Acceleration Roadmap
++-------------------+      AP CSA (Score 5)      +-----------------------------------------+
+| Standard Entry    |  -----------------------&gt;  | Exemption: Waive 15-112 (12 Units)      |
+| Takes 15-112      |                            +-----------------------------------------+
++-------------------+                                                 |
+                                                                      v
+                                                 +-----------------------------------------+
+                                                 | Immediate Acceleration:                 |
+                                                 |   - 15-122: Imperative Computation      |
+                                                 |   - 15-150: Functional Programming      |
+                                                 +-----------------------------------------+
+                                                                      |
+                                                                      v
+                                                 +-----------------------------------------+
+                                                 | Advanced Sophomore Coursework (Year 1): |
+                                                 |   - 15-210: Parallel &amp; Seq Data Structs |
+                                                 |   - 15-213: Introduction to Computer Sys|
+                                                 +-----------------------------------------+
+</code></pre>
+<h3>Institutional Acceleration Mechanics</h3>
+<ol>
+<li><strong>Direct Unit Exemption</strong>: Earning an AP 5 allows students to take the 15-112 Exemption Exam. Passing this exam waives the <strong>12-unit 15-112 requirement</strong>, saving vital units in the freshman core schedule.</li>
+<li><strong>Immediate Entry to 15-122</strong>: Waiving 15-112 enables immediate enrollment in <strong>15-122: Principles of Imperative Computation</strong> in your first semester. 15-122 requires rigorous formal reasoning about imperative code, continuous evaluation of contracts (preconditions, postconditions, and loop invariants), and precise mental models of memory allocation and execution stacks.</li>
+<li><strong>Pipelining into 15-210</strong>: Early completion of 15-122 and 15-150 allows you to take <strong>15-210: Parallel and Sequential Data Structures and Algorithms</strong> as a second-semester freshman or early sophomore. 15-210 analyzes algorithms via explicit Work ($W$) and Span ($S$) recurrences—a direct extension of the recursion trees and Master Theorem foundations built in AP CS A.</li>
+</ol>
+<p>Skipping introductory coursework gives high-achieving students the schedule flexibility to pursue dual majors (e.g., Computer Science and Mathematical Sciences), early research at the Robotics Institute, or accelerated master's tracks (BS/MS in CS).</p>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution Checklist</h2>
+<h3>Problem Statement</h3>
+<p>Consider the following recursive sorting and array manipulation method:</p>
+<pre><code class="language-java">public class DivideAndTransform {
+
+    public static int transformAndCount(int[] arr, int low, int high) {
+        // Line 1
+        if (low &gt;= high) {
+            return 0;
+        }
+
+        int mid = low + (high - low) / 2;
+
+        // Recursive calls across split array boundaries
+        int leftCount = transformAndCount(arr, low, mid);
+        int rightCount = transformAndCount(arr, mid + 1, high);
+
+        // Intermediate processing step
+        int crossCount = combineAndMutate(arr, low, mid, high);
+
+        return leftCount + rightCount + crossCount;
+    }
+
+    private static int combineAndMutate(int[] arr, int low, int mid, int high) {
+        int swapCount = 0;
+        int j = mid + 1;
+
+        for (int i = low; i &lt;= mid; i++) {
+            while (j &lt;= high &amp;&amp; arr[i] &gt; 2 * arr[j]) {
+                j++;
+            }
+            swapCount += (j - (mid + 1));
+        }
+
+        // Note: Standard linear merge execution occurs below (omitted for brevity)
+        return swapCount;
+    }
+}
+</code></pre>
+<h4>Questions</h4>
+<ol>
+<li><strong>Trace the Execution Stack</strong>: Given the array input <code>arr = [8, 4, 2, 1]</code>, with initial call <code>transformAndCount(arr, 0, 3)</code>, construct the complete call tree. Calculate the final integer value returned by the initial caller.</li>
+<li><strong>Asymptotic Complexity &amp; Stack Frame Depth</strong>:</li>
+<li>Determine the tightest upper bound for worst-case execution time ($T(n)$) of <code>transformAndCount</code>.</li>
+<li>State the maximum stack depth (maximum active activation records simultaneously present in memory) for an array of size $n$.</li>
+<li><strong>Bug Diagnostics &amp; Invariant Fix</strong>: A student replaces <code>if (low &gt;= high)</code> with <code>if (low == high)</code> on Line 1. Identify the exact input condition that triggers a runtime exception, identify the exception type, and explain the mechanism that causes it.</li>
+</ol>
+<hr />
+<h3>Step-by-Step Solution Checklist</h3>
+<h4>Part 1: Recursive Execution Trace</h4>
+<p>We trace <code>transformAndCount(arr, 0, 3)</code> on <code>arr = [8, 4, 2, 1]</code>.</p>
+<pre><code>                    transformAndCount(0, 3)  [mid=1]
+                   /                       \
+        tAC(0, 1) [mid=0]             tAC(2, 3) [mid=2]
+       /        \                    /        \
+  tAC(0,0)    tAC(1,1)          tAC(2,2)    tAC(3,3)
+  (returns 0) (returns 0)       (returns 0) (returns 0)
+</code></pre>
+<ol>
+<li><strong>Base Leaves Evaluation</strong>:</li>
+<li><code>tAC(0, 0)</code> $\rightarrow$ Base case met (<code>low &gt;= high</code>), returns <code>0</code>.</li>
+<li>
+<p><code>tAC(1, 1)</code> $\rightarrow$ Base case met, returns <code>0</code>.</p>
+</li>
+<li>
+<p><strong>Frame <code>tAC(0, 1)</code> Execution</strong> (<code>low = 0, mid = 0, high = 1</code>):</p>
+</li>
+<li>Sub-array evaluated: <code>[8, 4]</code>. Left segment <code>[8]</code>, right segment <code>[4]</code>.</li>
+<li>Runs <code>combineAndMutate</code>:<ul>
+<li>$i = 0$ (<code>arr[0] = 8</code>): Check $8 &gt; 2 \cdot \text{arr}[1] \implies 8 &gt; 8$ (False). Loop ends. $j = 1$.</li>
+<li><code>swapCount += (1 - 1) = 0</code>.</li>
+</ul>
+</li>
+<li>
+<p>Returns $0 + 0 + 0 = 0$.</p>
+</li>
+<li>
+<p><strong>Frame <code>tAC(2, 3)</code> Execution</strong> (<code>low = 2, mid = 2, high = 3</code>):</p>
+</li>
+<li>Sub-array evaluated: <code>[2, 1]</code>. Left segment <code>[2]</code>, right segment <code>[1]</code>.</li>
+<li>Base children return <code>0</code>.</li>
+<li>Runs <code>combineAndMutate</code>:<ul>
+<li>$i = 2$ (<code>arr[2] = 2</code>): Check $2 &gt; 2 \cdot \text{arr}[3] \implies 2 &gt; 2$ (False). $j = 3$.</li>
+<li><code>swapCount += 0</code>.</li>
+</ul>
+</li>
+<li>
+<p>Returns $0$.</p>
+</li>
+<li>
+<p><strong>Root Frame <code>tAC(0, 3)</code> Execution</strong> (<code>low = 0, mid = 1, high = 3</code>):</p>
+</li>
+<li>Sub-array evaluated: Left <code>[8, 4]</code>, Right <code>[2, 1]</code>.</li>
+<li>Runs <code>combineAndMutate</code>:<ul>
+<li>$i = 0$ (<code>arr[0] = 8</code>):</li>
+<li>$j = 2$ (<code>arr[2] = 2</code>): $8 &gt; 2(2) = 4$ (True) $\rightarrow j \rightarrow 3$.</li>
+<li>$j = 3$ (<code>arr[3] = 1</code>): $8 &gt; 2(1) = 2$ (True) $\rightarrow j \rightarrow 4$.</li>
+<li>Loop ends ($j = 4$).</li>
+<li><code>swapCount += (4 - 2) = 2</code>.</li>
+<li>$i = 1$ (<code>arr[1] = 4</code>):</li>
+<li>$j$ starts at $4$ (since $j$ was not reset, matching pointer progression). Loop condition $j \le 3$ fails immediately.</li>
+<li><code>swapCount += (4 - 2) = 2</code>.</li>
+</ul>
+</li>
+<li>Total <code>crossCount</code> $= 2 + 2 = 4$.</li>
+<li><code>leftCount</code> $= 0$, <code>rightCount</code> $= 0$. Total return $= 0 + 0 + 4 = 4$.</li>
+</ol>
+<p><strong>Final Answer for Part 1</strong>: Returned Value = <code>4</code>.</p>
+<hr />
+<h4>Part 2: Algorithmic Bounds &amp; Stack Memory</h4>
+<ul>
+<li><strong>Time Complexity</strong>:</li>
+<li>Divide phase: Splitting into two sub-problems of size $\frac{n}{2}$ takes constant time $\mathcal{O}(1)$.</li>
+<li>Recursive work: $2T\left(\frac{n}{2}\right)$.</li>
+<li>Combine phase (<code>combineAndMutate</code> + linear merge): Two moving pointers $i$ and $j$ traverse their respective bounds at most once. The combine step runs in linear time $\mathcal{O}(n)$.</li>
+<li>Recurrence relation: $T(n) = 2T\left(\frac{n}{2}\right) + \mathcal{O}(n)$.</li>
+<li>
+<p>By the Master Theorem or expansion: $T(n) = \mathcal{O}(n \log n)$.</p>
+</li>
+<li>
+<p><strong>Maximum Stack Depth</strong>:</p>
+</li>
+<li>The height of a balanced binary call tree on an array of length $n$ is $\lfloor \log_2 n \rfloor + 1$.</li>
+<li>Max simultaneous activation records on the call stack $= \mathcal{O}(\log n)$.</li>
+</ul>
+<hr />
+<h4>Part 3: Bug Diagnostics &amp; Exception Mechanics</h4>
+<ul>
+<li><strong>Target Condition triggering bug</strong>: Passing an invalid range where $low &gt; high$, such as an empty array call <code>transformAndCount(arr, 0, -1)</code> or an inverted call parameter sequence.</li>
+<li><strong>Exception Triggered</strong>: <code>StackOverflowError</code>.</li>
+<li><strong>Underlying Engine Mechanism</strong>:
+  If $low &gt; high$ (e.g., $low = 3, high = 2$), the condition <code>low == high</code> evaluates to <code>false</code>. The method continues executing:</li>
+<li>Computes $mid = 3 + (2 - 3) / 2 = 3 + 0 = 3$.</li>
+<li>Invokes recursive call <code>transformAndCount(arr, low, mid)</code> $\rightarrow$ <code>transformAndCount(arr, 3, 3)</code>.</li>
+<li>Invokes second recursive call <code>transformAndCount(arr, mid + 1, high)</code> $\rightarrow$ <code>transformAndCount(arr, 4, 2)</code>.</li>
+<li>Parameter pair $(4, 2)$ maintains $low &gt; high$. The next stack frame yields <code>transformAndCount(arr, 5, 2)</code>, then <code>(6, 2)</code>, ad infinitum.</li>
+<li>Because the base case condition never evaluates to <code>true</code>, infinite recursive calls consume all allocated memory frames in the thread execution stack, causing a <strong><code>java.lang.StackOverflowError</code></strong>.</li>
+</ul>
+<hr />
+<h3>Verification Rubric Checklist (Score 5 Standards)</h3>
+<ul>
+<li>[x] <strong>Call Tree Visualized</strong>: Distinct stack frame levels drawn with explicitly shown parent-child returns.</li>
+<li>[x] <strong>State Logic Tracking</strong>: Array indexing arithmetic ($low$, $high$, $mid$) shown step-by-step.</li>
+<li>[x] <strong>Master Theorem / Recurrence Proof</strong>: Proof for $T(n) = 2T\left(\frac{n}{2}\right) + \mathcal{O}(n)$ explicitly derived step-by-step to arrive at $\mathcal{O}(n \log n)$.</li>
+<li>[x] <strong>Space Breakdown</strong>: Heap auxiliary array allocations distinguished from activation record stack memory.</li>
+<li>[x] <strong>Failure Mode Identification</strong>: Named the exact exception (<code>StackOverflowError</code>) and mapped the parameter progression causing infinite recursion.</li>
+</ul>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Computer Science A?</h2>
+      <p>Secure admission and advanced standing at top institutions like Carnegie Mellon University with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

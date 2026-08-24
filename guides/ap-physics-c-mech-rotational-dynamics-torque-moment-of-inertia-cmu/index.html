@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rotational Dynamics, Torque & Variable Inertia Integrals Guide: AP Physics C: Mechanics Score 5 for Carnegie Mellon University | AP STEM PATH</title>
+  <meta name="description" content="Master Rotational Dynamics, Torque & Variable Inertia Integrals in AP Physics C: Mechanics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Carnegie Mellon University applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Rotational Dynamics, Torque & Variable Inertia Integrals Guide: AP Physics C: Mechanics Score 5 for Carnegie Mellon University",
+    "description": "Master Rotational Dynamics, Torque & Variable Inertia Integrals in AP Physics C: Mechanics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Carnegie Mellon University applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Physics C: Mechanics • Score 5 Strategy</span>
+      <h1>Rotational Dynamics, Torque & Variable Inertia Integrals Guide: AP Physics C: Mechanics Score 5 for Carnegie Mellon University</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Physics C: Mechanics Master Class</h1>
+<h2>Rotational Dynamics, Torque &amp; Variable Inertia Integrals</h2>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>Rotational Dynamics, Torque, and Moments of Inertia represent the single most conceptually challenging and mathematically demanding domain on the <strong>AP Physics C: Mechanics</strong> exam. Accounting for <strong>14% to 20%</strong> of the multiple-choice section and appearing persistently in at least one full Free Response Question (FRQ), mastery of this topic is frequently the primary structural boundary separating a <strong>Score 4</strong> from a <strong>Score 5</strong>.</p>
+<h3>Conceptual Scope</h3>
+<p>Unlike introductory rotational kinematic models where moments of inertia ($I$) are given as scalar constants (e.g., $I = \frac{1}{2}MR^2$), the advanced AP Physics C syllabus requires students to:
+1. Treat mass distributions as continuous spatial density functions ($\lambda(x)$, $\sigma(r)$, $\rho(r)$).
+2. Formulate continuous calculus integrals ($I = \int r^2 dm$) using multivariable differential mass elements.
+3. Solve coupled translational-rotational differential equations under dynamic dynamic constraints (e.g., non-slip conditions, rolling resistance, line-of-action torque integration).</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>A. First-Principles Calculation of Moment of Inertia ($I = \int r^2 dm$)</h3>
+<p>The moment of inertia measures a rigid body's resistance to angular acceleration about a specified rotational axis. Formally, for a continuous system:</p>
+<p>$$I = \int r^2 dm$$</p>
+<p>Where $r$ represents the perpendicular distance from the rotational axis to the differential mass element $dm$.</p>
+<p>To evaluate this integral, the differential mass $dm$ must be mapped to differential spatial coordinates ($dx$, $dr$, $d\theta$, $dV$) via the appropriate density function:</p>
+<ul>
+<li>
+<p><strong>1D Mass Distribution (Linear Density $\lambda(x)$):</strong>
+    $$dm = \lambda(x) dx \implies I = \int x^2 \lambda(x) dx$$</p>
+</li>
+<li>
+<p><strong>2D Mass Distribution (Surface Density $\sigma(r)$):</strong>
+    $$dm = \sigma(r) dA = \sigma(r) (2\pi r dr) \implies I = 2\pi \int r^3 \sigma(r) dr$$</p>
+</li>
+<li>
+<p><strong>3D Mass Distribution (Volumetric Density $\rho(r)$):</strong>
+    $$dm = \rho(r) dV = \rho(r) (4\pi r^2 dr) \implies I = 4\pi \int r^4 \rho(r) dr \quad \text{(for spherical symmetry)}$$</p>
+</li>
+</ul>
+<hr />
+<h4>Derivation: Thin Rod with Non-Uniform Linear Density</h4>
+<p>Consider a rod of total length $L$ lying along the x-axis from $x = 0$ to $x = L$, with a non-uniform mass density given by:</p>
+<p>$$\lambda(x) = \lambda_0 \left( \frac{x}{L} \right)^k$$</p>
+<p>Where $k \ge 0$ is a dimensionless scaling constant and $\lambda_0$ is a density amplitude constant.</p>
+<pre><code>Axis of Rotation
+  |
+  v  x = 0                                       x = L
+  +==============================================+  ---&gt; x-axis
+  |&lt;- x -&gt;|-- dx --|
+          |  dm    |
+</code></pre>
+<h5>Step 1: Normalize total mass $M$ in terms of $\lambda_0$</h5>
+<p>$$M = \int dm = \int_0^L \lambda(x) dx = \int_0^L \lambda_0 \left( \frac{x}{L} \right)^k dx = \frac{\lambda_0}{L^k} \left[ \frac{x^{k+1}}{k+1} \right]_0^L = \frac{\lambda_0 L}{k+1}$$</p>
+<p>Solving for $\lambda_0$:</p>
+<p>$$\lambda_0 = \frac{M(k+1)}{L}$$</p>
+<h5>Step 2: Compute $I_{\text{pivot}}$ about an axis at $x = 0$</h5>
+<p>$$I_{\text{pivot}} = \int x^2 dm = \int_0^L x^2 \left( \lambda_0 \frac{x^k}{L^k} \right) dx = \frac{\lambda_0}{L^k} \int_0^L x^{k+2} dx$$</p>
+<p>$$I_{\text{pivot}} = \frac{\lambda_0}{L^k} \left[ \frac{x^{k+3}}{k+3} \right]_0^L = \frac{\lambda_0 L^3}{k+3}$$</p>
+<p>Substituting $\lambda_0 = \frac{M(k+1)}{L}$:</p>
+<p>$$I_{\text{pivot}} = \left( \frac{M(k+1)}{L} \right) \left( \frac{L^3}{k+3} \right) = \left( \frac{k+1}{k+3} \right) M L^2$$</p>
+<blockquote>
+<p><strong>Special Case Check:</strong> For uniform density ($k=0$), $I_{\text{pivot}} = \frac{0+1}{0+3} M L^2 = \frac{1}{3} M L^2$, recovering the standard textbook value.</p>
+</blockquote>
+<hr />
+<h3>B. Analytical Proof of the Parallel Axis Theorem</h3>
+<p>The Parallel Axis Theorem states that the moment of inertia $I$ about any arbitrary axis parallel to an axis passing through the center of mass (CM) is:</p>
+<p>$$I = I_{\text{cm}} + M d^2$$</p>
+<p>Where $d$ is the perpendicular distance between the two parallel axes and $M$ is the total mass.</p>
+<pre><code>       Pivot Axis                       CM Axis
+           |                               |
+           |           &lt;--- d ---&gt;         |
+           |                               |
+           o-------------------------------o  (CM)
+          / \                             / \
+         /   \  r                        /   \  r'
+        /     \                         /     \
+       +-------+                       +-------+
+          dm                              dm
+</code></pre>
+<h4>Mathematical Proof:</h4>
+<p>Define a coordinate system with the origin at the center of mass. The position of differential mass $dm$ relative to the CM is $\vec{r}' = (x', y')$. </p>
+<p>Let the new pivot axis pass through $(x_0, y_0) = (-d_x, -d_y)$, such that the vector displacement from the new axis to the CM origin is $\vec{d} = (d_x, d_y)$, where $d^2 = d_x^2 + d_y^2$.</p>
+<p>The position of $dm$ relative to the new pivot axis is:</p>
+<p>$$\vec{r} = \vec{r}' + \vec{d}$$</p>
+<p>The moment of inertia about the new axis is:</p>
+<p>$$I = \int |\vec{r}|^2 dm = \int (\vec{r}' + \vec{d}) \cdot (\vec{r}' + \vec{d}) dm$$</p>
+<p>Expanding the scalar dot product:</p>
+<p>$$I = \int \left( |\vec{r}'|^2 + 2\vec{r}' \cdot \vec{d} + |\vec{d}|^2 \right) dm$$</p>
+<p>Distributing the integral across terms:</p>
+<p>$$I = \int |\vec{r}'|^2 dm + 2 \vec{d} \cdot \left( \int \vec{r}' dm \right) + d^2 \int dm$$</p>
+<p>By definition of the center of mass frame:</p>
+<p>$$\vec{r}_{\text{cm}} = \frac{1}{M} \int \vec{r}' dm = \vec{0} \implies \int \vec{r}' dm = 0$$</p>
+<p>Furthermore, $\int |\vec{r}'|^2 dm = I_{\text{cm}}$ and $\int dm = M$. Substituting these values:</p>
+<p>$$I = I_{\text{cm}} + 2 \vec{d} \cdot (\vec{0}) + M d^2$$</p>
+<p>$$\therefore I = I_{\text{cm}} + M d^2 \quad \blacksquare$$</p>
+<hr />
+<h3>C. Generalized Rotational Dynamics Equation</h3>
+<p>The fundamental vector equation governing rotational systems is:</p>
+<p>$$\vec{\tau}_{\text{net}} = \frac{d\vec{L}}{dt}$$</p>
+<p>For a rigid body rotating about a fixed principal axis of symmetry, $\vec{L} = I \vec{\omega}$. Expanding the time derivative using the product rule:</p>
+<p>$$\vec{\tau}_{\text{net}} = \frac{d}{dt}(I \vec{\omega}) = I \frac{d\vec{\omega}}{dt} + \frac{dI}{dt} \vec{\omega} = I \vec{\alpha} + \frac{dI}{dt} \vec{\omega}$$</p>
+<p>In systems with invariant structural geometry ($\frac{dI}{dt} = 0$), this simplifies to Newton's Second Law for Rotation:</p>
+<p>$$\vec{\tau}_{\text{net}} = I \vec{\alpha}$$</p>
+<p>When rolling without slipping occurs along a surface of radius $R$:</p>
+<p>$$a_{\text{cm}} = \alpha R \quad \text{and} \quad v_{\text{cm}} = \omega R$$</p>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<pre><code>+-----------------------------------------------------------------------------------+
+| SCORE 4 AP VALIDATION                                                             |
+| - Memorizes standard formulas ($I = \frac{1}{3}ML^2$, $I = \frac{1}{2}MR^2$).     |
+| - Fails when variable mass distributions demand integral bounds transformations.  |
+| - Treats static friction force $f_s$ as maximal ($\mu_s N$) during rolling         |
+|   without slipping.                                                               |
++-----------------------------------------------------------------------------------+
+                                         |
+                                         v
++-----------------------------------------------------------------------------------+
+| SCORE 5 RIGOROUS EXECUTION                                                        |
+| - Sets up integral $dm$ from continuous functions $\lambda(x)$, $\sigma(r)$,      |
+|   or $\rho(r)$.                                                                  |
+| - Solves for normalization constant (e.g., $\lambda_0$) prior to calculating $I$. |
+| - Solves $f_s$ dynamically as an unknown via coupled linear/angular system equations.|
+| - Correctly assigns sign conventions to vector torque and angular acceleration.   |
++-----------------------------------------------------------------------------------+
+</code></pre>
+<h3>Critical Exam Pitfalls</h3>
+<ol>
+<li><strong>Failure to Determine the Mass Amplitude Constant ($\lambda_0$, $\sigma_0$, $\rho_0$):</strong></li>
+<li><em>Pitfall:</em> Students often plug $\lambda(x) = \lambda_0 x$ into $I = \int x^2 \lambda(x) dx$ and leave $\lambda_0$ in the final expression without relating it back to total mass $M$ and system bounds $L$.</li>
+<li>
+<p><em>Fix:</em> Always perform $M = \int dm$ first to eliminate $\lambda_0$ in favor of measurable macroscopic constants ($M, L, R$).</p>
+</li>
+<li>
+<p><strong>Misapplication of $f_s = \mu_s N$ in Rolling Without Slipping:</strong></p>
+</li>
+<li><em>Pitfall:</em> In rotational mechanics, static friction $f_s$ provides the torque required for rolling without slipping, but $f_s \le \mu_s N$. Setting $f_s = \mu_s N$ assumes the system is on the verge of slipping, which is generally untrue unless explicitly stated.</li>
+<li>
+<p><em>Fix:</em> Leave $f_s$ as an unknown variable in $F_{\text{net}} = m a_{\text{cm}}$ and $\tau_{\text{net}} = I \alpha$. Solve for $f_s$ algebraically, then apply $f_s \le \mu_s N$ only if calculating a critical angle or maximum torque threshold.</p>
+</li>
+<li>
+<p><strong>Inconsistent Directional Sign Conventions:</strong></p>
+</li>
+<li><em>Pitfall:</em> Mixing a clockwise rotational positive convention ($\tau &gt; 0$) with a downward translational positive convention ($a &gt; 0$) without applying the kinematic constraint $a = -\alpha R$.</li>
+<li><em>Fix:</em> Explicitly define coordinate orientation before setting up equations. If down is $+y$, then clockwise rotation must map consistently to down-axis translational motion ($a = +\alpha R$).</li>
+</ol>
+<hr />
+<h2>4. Carnegie Mellon University Placement Pathway</h2>
+<h3>Course Exemption &amp; Academic Acceleration</h3>
+<p>Achieving a <strong>Score 5</strong> on the AP Physics C: Mechanics exam unlocks significant academic placement benefits at <strong>Carnegie Mellon University (CMU)</strong>, particularly within the <strong>College of Engineering (CIT)</strong> and the <strong>School of Computer Science (SCS)</strong>.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Placement Parameter</th>
+<th style="text-align: left;">CMU Equivalent Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Exempted Course</strong></td>
+<td style="text-align: left;"><strong>33-141: Physics I for Engineering</strong> (12 Units)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Direct Placement Course</strong></td>
+<td style="text-align: left;"><strong>33-142: Physics II for Engineering &amp; Robotics</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Degree Advantage</strong></td>
+<td style="text-align: left;">Satisfies Core Natural Science Requirement; frees 12 tuition units</td>
+</tr>
+</tbody>
+</table>
+<pre><code>                       [ AP Physics C: Mechanics = Score 5 ]
+                                         |
+                                         v
+                      Bypasses: 33-141 Physics I (12 Units)
+                                         |
+                                         v
+                  Enrolls Direct: 33-142 Physics II (Spring Freshman)
+                                         |
+             +---------------------------+---------------------------+
+             |                                                       |
+             v                                                       v
+   [ MechE / Robotics Track ]                              [ ECE / CS Track ]
+ Accelerates 16-311: Intro to Robotics          Enables Early Enrollment in 18-213:
+   &amp; Advanced Kinematics/Dynamics                Computer Systems &amp; Hardware Control
+</code></pre>
+<h3>Institutional Impact for CMU Robotics &amp; Engineering</h3>
+<ul>
+<li><strong>16-311 (Introduction to Robotics) &amp; Robotics Institute Pathway:</strong> Rotational inertia integrals, non-uniform rigid body distributions, and torque differential equations form the foundational mathematics of forward/inverse dynamic modeling in mechanical manipulators, humanoid actuators, and quadruped balance control algorithms.</li>
+<li><strong>Degree Velocity:</strong> Waiving 33-141 allows CMU students to complete core physics prerequisites during their first semester, opening schedule bandwidth for high-demand courses like <strong>15-112</strong> (Fundamentals of Programming), <strong>21-259</strong> (Calculus in Three Dimensions), and upper-level engineering electives standardly restricted to sophomores.</li>
+</ul>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution Checklist</h2>
+<h3>Problem Statement</h3>
+<p>A non-uniform, thin rigid rod of total mass $M$ and length $L$ is pivoted smoothly about a horizontal axis passing through its left end ($x = 0$). The rod's linear mass density varies quadratic-style according to:</p>
+<p>$$\lambda(x) = \lambda_0 \left( \frac{x}{L} \right)^2$$</p>
+<p>The rod is held horizontally at rest and released at time $t = 0$.</p>
+<pre><code>Pivot (x = 0)                                       (x = L)
+  O==================================================  (Released from Rest)
+  |                                                 |
+  +------------------- L ---------------------------+
+  |&lt;- x -&gt;|-- dx --|
+          |  dm    |
+</code></pre>
+<ol>
+<li><strong>Part A:</strong> Express the density constant $\lambda_0$ in terms of $M$ and $L$, and derive the moment of inertia $I_{\text{pivot}}$ of the rod about the pivot in terms of $M$ and $L$.</li>
+<li><strong>Part B:</strong> Determine the location of the center of mass $x_{\text{cm}}$ of the rod relative to the pivot.</li>
+<li><strong>Part C:</strong> Calculate the initial angular acceleration $\alpha_0$ of the rod immediately after release.</li>
+<li><strong>Part D:</strong> Derive a second-order differential equation describing the angular position $\theta(t)$ of the rod as a function of time, where $\theta$ is measured counterclockwise relative to the horizontal position.</li>
+</ol>
+<hr />
+<h3>Step-by-Step Solution Checklist</h3>
+<h4>Part A: Determination of $\lambda_0$ and $I_{\text{pivot}}$</h4>
+<ul>
+<li>
+<p><strong>Step 1: Set up the total mass integral.</strong>
+    $$M = \int_0^L \lambda(x) dx = \int_0^L \lambda_0 \frac{x^2}{L^2} dx$$</p>
+</li>
+<li>
+<p><strong>Step 2: Evaluate the integral for $M$.</strong>
+    $$M = \frac{\lambda_0}{L^2} \left[ \frac{x^3}{3} \right]_0^L = \frac{\lambda_0 L^3}{3 L^2} = \frac{\lambda_0 L}{3}$$
+    $$\implies \lambda_0 = \frac{3M}{L}$$</p>
+</li>
+<li>
+<p><strong>Step 3: Formulate and integrate $I_{\text{pivot}} = \int x^2 dm$.</strong>
+    $$I_{\text{pivot}} = \int_0^L x^2 \left( \lambda(x) dx \right) = \int_0^L x^2 \left( \frac{3M}{L^3} x^2 \right) dx = \frac{3M}{L^3} \int_0^L x^4 dx$$
+    $$I_{\text{pivot}} = \frac{3M}{L^3} \left[ \frac{x^5}{5} \right]<em>0^L = \frac{3M}{L^3} \left( \frac{L^5}{5} \right)$$
+    $$\bbox[10px,border:2px solid #000]{I</em>{\text{pivot}} = \frac{3}{5} M L^2}$$</p>
+</li>
+</ul>
+<hr />
+<h4>Part B: Center of Mass Location ($x_{\text{cm}}$)</h4>
+<ul>
+<li>
+<p><strong>Step 1: Apply the continuous CM definition.</strong>
+    $$x_{\text{cm}} = \frac{1}{M} \int_0^L x dm = \frac{1}{M} \int_0^L x \left( \frac{3M}{L^3} x^2 \right) dx$$</p>
+</li>
+<li>
+<p><strong>Step 2: Simplify and evaluate the polynomial integral.</strong>
+    $$x_{\text{cm}} = \frac{3}{L^3} \int_0^L x^3 dx = \frac{3}{L^3} \left[ \frac{x^4}{4} \right]<em>0^L = \frac{3}{L^3} \left( \frac{L^4}{4} \right)$$
+    $$\bbox[10px,border:2px solid #000]{x</em>{\text{cm}} = \frac{3}{4} L}$$</p>
+</li>
+</ul>
+<hr />
+<h4>Part C: Initial Angular Acceleration ($\alpha_0$)</h4>
+<ul>
+<li>
+<p><strong>Step 1: Calculate torque generated by gravity at $t = 0$ (Horizontal State).</strong>
+    The gravitational force acts effectively at the center of mass:
+    $$\tau_{\text{net}} = r_{\text{cm}} F_g \sin(90^\circ) = x_{\text{cm}} (Mg) = \left( \frac{3}{4} L \right) Mg$$</p>
+</li>
+<li>
+<p><strong>Step 2: Relate torque to moment of inertia via $\tau_{\text{net}} = I_{\text{pivot}} \alpha_0$.</strong>
+    $$\frac{3}{4} M g L = \left( \frac{3}{5} M L^2 \right) \alpha_0$$</p>
+</li>
+<li>
+<p><strong>Step 3: Solve for $\alpha_0$.</strong>
+    $$\alpha_0 = \frac{\frac{3}{4} M g L}{\frac{3}{5} M L^2} = \frac{3}{4} \cdot \frac{5}{3} \cdot \frac{g}{L}$$
+    $$\bbox[10px,border:2px solid #000]{\alpha_0 = \frac{5}{4} \frac{g}{L} \quad \text{(Clockwise / Downward)}}$$</p>
+</li>
+</ul>
+<hr />
+<h4>Part D: Differential Equation for $\theta(t)$</h4>
+<pre><code>Pivot (O)
+  +------------------------------&gt; Horizontal (\theta = 0)
+   \   \theta (angle below horizontal)
+    \
+     \ CM (3/4 L)
+      \ 
+       v F_g = Mg
+</code></pre>
+<ul>
+<li>
+<p><strong>Step 1: Express torque as a function of arbitrary angle $\theta$.</strong>
+    Let $\theta$ represent the angular position below the horizontal. The perpendicular lever arm to the line of action of gravity is $x_{\text{cm}} \cos\theta$:
+    $$\tau(\theta) = Mg x_{\text{cm}} \cos\theta = Mg \left( \frac{3}{4} L \right) \cos\theta$$</p>
+</li>
+<li>
+<p><strong>Step 2: Apply Newton's Second Law for Rotation and substitute $\alpha = \frac{d^2\theta}{dt^2}$.</strong>
+    $$I_{\text{pivot}} \frac{d^2\theta}{dt^2} = \tau(\theta)$$
+    $$\left( \frac{3}{5} M L^2 \right) \frac{d^2\theta}{dt^2} = \frac{3}{4} M g L \cos\theta$$</p>
+</li>
+<li>
+<p><strong>Step 3: Isolate the second-order derivative to state the canonical differential equation.</strong>
+    $$\frac{d^2\theta}{dt^2} = \frac{\frac{3}{4} M g L \cos\theta}{\frac{3}{5} M L^2}$$
+    $$\bbox[10px,border:2px solid #000]{\frac{d^2\theta}{dt^2} - \frac{5 g}{4 L} \cos\theta = 0}$$</p>
+</li>
+</ul>
+<hr />
+<h3>Comprehensive Scoring Rubric Breakdown (AP Free-Response Standards)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Part</th>
+<th style="text-align: left;">Rubric Points Allocation</th>
+<th style="text-align: left;">Target Point Criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>A</strong></td>
+<td style="text-align: left;"><strong>3 Points</strong></td>
+<td style="text-align: left;">• <strong>1 pt:</strong> Correct continuous setup for $M = \int \lambda(x) dx$ with proper integration bounds $[0, L]$.<br>• <strong>1 pt:</strong> Expressing $\lambda_0$ correctly as $3M/L$.<br>• <strong>1 pt:</strong> Correct execution of $I = \int x^2 dm$ yielding $\frac{3}{5}ML^2$.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>B</strong></td>
+<td style="text-align: left;"><strong>2 Points</strong></td>
+<td style="text-align: left;">• <strong>1 pt:</strong> Applying $x_{\text{cm}} = \frac{1}{M}\int x dm$ using the density expression from Part A.<br>• <strong>1 pt:</strong> Correct evaluation resulting in $x_{\text{cm}} = \frac{3}{4}L$.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>C</strong></td>
+<td style="text-align: left;"><strong>2 Points</strong></td>
+<td style="text-align: left;">• <strong>1 pt:</strong> Equating gravitational torque at CM to $I_{\text{pivot}} \alpha$.<br>• <strong>1 pt:</strong> Solving for initial angular acceleration $\alpha_0 = \frac{5g}{4L}$.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>D</strong></td>
+<td style="text-align: left;"><strong>2 Points</strong></td>
+<td style="text-align: left;">• <strong>1 pt:</strong> Writing a restored torque expression utilizing $\cos\theta$ or $\sin(\frac{\pi}{2} - \theta)$.<br>• <strong>1 pt:</strong> Correctly expressing $\alpha$ as $\frac{d^2\theta}{dt^2}$ in a fully simplified differential equation.</td>
+</tr>
+</tbody>
+</table>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Physics C: Mechanics?</h2>
+      <p>Secure admission and advanced standing at top institutions like Carnegie Mellon University with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

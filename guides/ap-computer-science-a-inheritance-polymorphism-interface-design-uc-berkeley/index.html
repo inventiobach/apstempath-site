@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inheritance, Abstract Classes & Dynamic Method Dispatch Guide: AP Computer Science A Score 5 for UC Berkeley | AP STEM PATH</title>
+  <meta name="description" content="Master Inheritance, Abstract Classes & Dynamic Method Dispatch in AP Computer Science A. Deep dive with LaTeX/code examples and score 5 strategies tailored for UC Berkeley applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Inheritance, Abstract Classes & Dynamic Method Dispatch Guide: AP Computer Science A Score 5 for UC Berkeley",
+    "description": "Master Inheritance, Abstract Classes & Dynamic Method Dispatch in AP Computer Science A. Deep dive with LaTeX/code examples and score 5 strategies tailored for UC Berkeley applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Computer Science A • Score 5 Strategy</span>
+      <h1>Inheritance, Abstract Classes & Dynamic Method Dispatch Guide: AP Computer Science A Score 5 for UC Berkeley</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Computer Science A Master Guide: Inheritance, Abstract Classes &amp; Dynamic Method Dispatch</h1>
+<p><strong>Target Institution:</strong> UC Berkeley (EECS / CS Major Pathway)<br />
+<strong>Goal:</strong> AP Exam Score 5 | Exemption from CS 10 (4 Units) | Preparation for CS 61B (Data Structures)</p>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>Inheritance and Polymorphism represent the core of Object-Oriented Programming (OOP) tested on the AP Computer Science A Exam. Governed primarily by <strong>Unit 9: Inheritance</strong> (comprising 5–10% of multiple-choice questions), these concepts also dictate performance on <strong>Free-Response Question 2 (Class Design)</strong> and heavily influence FRQ 1 and FRQ 3.</p>
+<pre><code>                  ┌───────────────────────────────┐
+                  │    AP CSA Unit 9 Weightings   │
+                  └──────────────┬────────────────┘
+                                 │
+         ┌───────────────────────┴───────────────────────┐
+         ▼                                               ▼
+┌─────────────────────────┐                     ┌─────────────────────────┐
+│ Multiple-Choice (5-10%) │                     │ Free-Response (Q2 &amp; Q3) │
+│ • Static vs Dynamic     │                     │ • Hierarchy Design      │
+│ • Compilation Errors    │                     │ • Polymorphic Calls     │
+│ • Inheritance Trees     │                     │ • `super` Constructors  │
+└─────────────────────────┘                     └─────────────────────────┘
+</code></pre>
+<h3>The Score 5 Difference</h3>
+<p>A Score 4 student understands basic class extension (<code>extends</code>) and simple method overriding. A Score 5 student possesses an absolute mental model of:
+1. <strong>Compile-Time Type Checking</strong> vs. <strong>Runtime Method Execution</strong>.
+2. <strong>Dynamic Method Dispatch</strong> and Virtual Method Table (VTable) lookup resolution.
+3. Class design principles that extend beyond the basic AP Java subset into <strong>Abstract Classes</strong> and <strong>Interfaces</strong>—skills non-negotiable for students aiming to transition directly into UC Berkeley's rigorous lower-division CS curriculum.</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>2.1 The Formal Type Subtyping Rule &amp; Mechanics</h3>
+<p>Let a reference variable $o$ be declared with type $T_{\text{static}}$ (the static/declared type) and instantiated with an object of type $T_{\text{dynamic}}$ (the dynamic/actual type).</p>
+<p>$$\text{Syntax: } \quad T_{\text{static}} \,\, o = \text{new} \,\, T_{\text{dynamic}}();$$</p>
+<p>For the Java compiler to accept this assignment without explicit casting, the dynamic type must be a subtype of the static type in the type hierarchy:</p>
+<p>$$T_{\text{dynamic}} \sqsubseteq T_{\text{static}}$$</p>
+<p>where $\sqsubseteq$ represents the reflexivity and transitivity of the inheritance relationship ($A \sqsubseteq A$, and if $A \sqsubseteq B$ and $B \sqsubseteq C$, then $A \sqsubseteq C$).</p>
+<h4>Compile-Time vs. Runtime Method Resolution Rule</h4>
+<p>Given the invocation $o.\text{method}(p_1, p_2, \dots, p_n)$:</p>
+<ol>
+<li><strong>Compile-Time Checking (Static Verification):</strong>
+   The compiler inspects $T_{\text{static}}$. It verifies whether $T_{\text{static}}$ (or one of its superclasses) declares a method with signature matching $\text{method}(p_1, p_2, \dots, p_n)$.</li>
+</ol>
+<p>$$\text{If } \text{method} \notin \text{Methods}(T_{\text{static}}), \quad \implies \text{\textbf{Compile-Time Error}}$$</p>
+<ol>
+<li><strong>Runtime Dispatching (Dynamic Method Dispatch):</strong>
+   If compilation succeeds, the Java Virtual Machine (JVM) inspects $T_{\text{dynamic}}$ at runtime. The JVM traverses up the class hierarchy starting at $T_{\text{dynamic}}$ until it finds the <em>first</em> concrete implementation of $\text{method}$.</li>
+</ol>
+<p>$$\text{Executed Method} = \text{Resolve}(T_{\text{dynamic}}, \text{signature})$$</p>
+<pre><code>Compile-Time (Static Check)               Runtime (Dynamic Dispatch)
+───────────────────────────               ──────────────────────────
+ Look at Declared Type: T_static           Look at Actual Instance: T_dynamic
+   │                                         │
+   ▼                                         ▼
+ Does T_static have method()?             Start at T_dynamic and walk UP 
+   ├── NO  ─► COMPILE ERROR                  class hierarchy to execute 
+   └── YES ─► PASSES COMPILE                 first overriden method() found.
+</code></pre>
+<hr />
+<h3>2.2 Comprehensive Java Concrete Example</h3>
+<p>The following code illustrates inheritance, method overriding, super calls, abstract classes, and polymorphic arrays.</p>
+<pre><code class="language-java">/**
+ * Abstract class representing a generic Computing Node at UC Berkeley.
+ * Note: While abstract classes are non-tested enrichment on AP CSA, 
+ * they are foundational to object-oriented taxonomy and CS 61B.
+ */
+public abstract class ComputeNode {
+    private String nodeId;
+    private double clockSpeedGHz;
+
+    public ComputeNode(String nodeId, double clockSpeedGHz) {
+        this.nodeId = nodeId;
+        this.clockSpeedGHz = clockSpeedGHz;
+    }
+
+    public String getNodeId() {
+        return nodeId;
+    }
+
+    public double getClockSpeedGHz() {
+        return clockSpeedGHz;
+    }
+
+    // Abstract method: MUST be overridden by concrete subclasses
+    public abstract double computeComputePower();
+
+    // Concrete method subject to dynamic dispatch overriding
+    public String getStatus() {
+        return &quot;Node &quot; + nodeId + &quot; running at &quot; + clockSpeedGHz + &quot; GHz&quot;;
+    }
+}
+
+/**
+ * Concrete Subclass 1: GPU Accelerator Node
+ */
+public class GPUNode extends ComputeNode {
+    private int cudaCores;
+
+    public GPUNode(String nodeId, double clockSpeedGHz, int cudaCores) {
+        super(nodeId, clockSpeedGHz); // Mandatory constructor chaining
+        this.cudaCores = cudaCores;
+    }
+
+    @Override
+    public double computeComputePower() {
+        // TFLOPS model formula calculation
+        return getClockSpeedGHz() * cudaCores * 0.002;
+    }
+
+    @Override
+    public String getStatus() {
+        // Explicit call to superclass method + subclass specialization
+        return super.getStatus() + &quot; [GPU Cores: &quot; + cudaCores + &quot;]&quot;;
+    }
+
+    // Subclass-specific method (Not visible via ComputeNode declared types)
+    public void executeCUDACernel() {
+        System.out.println(&quot;Executing CUDA kernel on &quot; + getNodeId());
+    }
+}
+
+/**
+ * Concrete Subclass 2: CPU Server Node
+ */
+public class CPUNode extends ComputeNode {
+    private int coreCount;
+
+    public CPUNode(String nodeId, double clockSpeedGHz, int coreCount) {
+        super(nodeId, clockSpeedGHz);
+        this.coreCount = coreCount;
+    }
+
+    @Override
+    public double computeComputePower() {
+        return getClockSpeedGHz() * coreCount;
+    }
+
+    // Does NOT override getStatus(); inherits ComputeNode implementation
+}
+
+/**
+ * Execution Engine demonstrating Dynamic Method Dispatch
+ */
+public class ClusterRunner {
+    public static void main(String[] args) {
+        // Polymorphic Array declaration
+        ComputeNode[] cluster = new ComputeNode[3];
+
+        cluster[0] = new GPUNode(&quot;gpu-node-01&quot;, 1.5, 5120);
+        cluster[1] = new CPUNode(&quot;cpu-node-01&quot;, 3.8, 64);
+        cluster[2] = new GPUNode(&quot;gpu-node-02&quot;, 1.8, 10752);
+
+        System.out.println(&quot;=== POLYMORPHIC DISPATCH EXECUTION ===&quot;);
+        for (ComputeNode node : cluster) {
+            // DYNAMIC DISPATCH IN ACTION:
+            // 1. Compiler checks: Does ComputeNode have getStatus() and computeComputePower()? YES.
+            // 2. JVM executes: Actual subclass implementations at runtime.
+            System.out.println(node.getStatus());
+            System.out.println(&quot;Power: &quot; + node.computeComputePower() + &quot; UNITS\n&quot;);
+        }
+
+        // COMPILE-TIME TYPE CHECKING TRAP:
+        // cluster[0].executeCUDACernel(); // COMPILE ERROR: ComputeNode doesn't have executeCUDACernel()
+
+        // DOWNCASTING FIX (Requires explicit type cast):
+        if (cluster[0] instanceof GPUNode) {
+            GPUNode directGpuRef = (GPUNode) cluster[0];
+            directGpuRef.executeCUDACernel(); // Compiles and executes correctly
+        }
+    }
+}
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<h3>3.1 The "Declared Type vs. Actual Type" Pitfall</h3>
+<p>The most common trap on the AP CSA exam tests whether a student can distinguish between what the compiler checks vs. what the JVM executes.</p>
+<pre><code class="language-java">SuperClass obj = new SubClass();
+obj.subclassOnlyMethod(); // COMPILE-TIME ERROR
+</code></pre>
+<ul>
+<li><strong>Why it fails:</strong> The compiler looks strictly at <code>SuperClass</code> (Declared Type). If <code>subclassOnlyMethod()</code> is not defined in <code>SuperClass</code>, the code <strong>will not compile</strong>, even though the actual underlying instance (<code>SubClass</code>) has the method!</li>
+<li><strong>AP Score 4 Mistake:</strong> Claiming this results in a "NullPointerException" or "ClassCastException" at runtime.</li>
+<li><strong>AP Score 5 Precision:</strong> Spotting that this is a <strong>static compilation failure</strong> before runtime ever occurs.</li>
+</ul>
+<hr />
+<h3>3.2 Constructor Chaining &amp; The <code>super()</code> Trap</h3>
+<ol>
+<li><strong>Rule:</strong> If a subclass constructor does not explicitly call <code>super(...)</code>, the compiler automatically inserts an implicit call to <code>super()</code> (the no-argument constructor of the parent class).</li>
+<li><strong>The Pitfall:</strong> If the superclass defines a custom constructor with arguments (e.g., <code>public Parent(int x)</code>), the compiler <em>removes</em> the default no-arg constructor. If the subclass constructor then omits <code>super(x)</code>, the implicit <code>super()</code> call fails to find a matching no-arg parent constructor, causing a <strong>compilation error</strong>.</li>
+</ol>
+<pre><code class="language-java">class Parent {
+    public Parent(int val) { System.out.println(&quot;Parent: &quot; + val); }
+}
+
+class Child extends Parent {
+    public Child() { 
+        // Implicit super(); inserted here!
+        // COMPILE ERROR: Parent class lacks a default Parent() constructor!
+    }
+}
+</code></pre>
+<hr />
+<h3>3.3 Score 4 vs. Score 5 Rubric Criteria (AP FRQ Analysis)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Criteria</th>
+<th style="text-align: left;">Score 4 Execution</th>
+<th style="text-align: left;">Score 5 Execution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Method Overriding</strong></td>
+<td style="text-align: left;">Duplicates instance variables from parent class inside the child class; breaks encapsulation.</td>
+<td style="text-align: left;">Leverages inheritance cleanly; uses <code>super</code> methods to inherit state and behaviors without duplication.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Subclass Constructors</strong></td>
+<td style="text-align: left;">Omits <code>super(...)</code> call or attempts to directly access <code>private</code> parent instance variables (<code>this.parentVar = val</code>).</td>
+<td style="text-align: left;">Correctly invokes <code>super(arg1, arg2)</code> as the <strong>very first line</strong> of the subclass constructor.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Polymorphic Arrays</strong></td>
+<td style="text-align: left;">Uses manual downcasting (<code>(ChildClass) list[i]</code>) excessively without checking inheritance capabilities.</td>
+<td style="text-align: left;">Employs dynamic dispatch natively. Invokes overridden interface/superclass methods directly, allowing runtime resolution.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Variable Shadowing</strong></td>
+<td style="text-align: left;">Confuses variable shadowing with method overriding (Variables in Java are <strong>not</strong> polymorphic; methods are).</td>
+<td style="text-align: left;">Recognizes that instance variables are resolved statically via the declared type, avoiding field-shadowing bugs.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. UC Berkeley Placement Pathway</h2>
+<pre><code>AP CS A (Score 5)
+       │
+       ▼
+Exempts CS 10 (4 Units)
+&quot;The Beauty and Joy of Computing&quot;
+       │
+       ▼
+Accelerates Directly into:
+┌────────────────────────────────────────────────────────┐
+│  CS 61B: Data Structures (Java)                        │
+│  • Primary Gatekeeper Course for CS/EECS               │
+│  • Intensely Object-Oriented &amp; Design-Heavy            │
+└────────────────────────────────────────────────────────┘
+</code></pre>
+<h3>Why Dynamic Dispatch is the Primary Skill for CS 61B</h3>
+<p>At UC Berkeley, skipping <strong>CS 10</strong> puts high-achieving students directly into <strong>CS 61B: Data Structures</strong> (taught in Java by professors such as Josh Hug or Paul Hilfinger). </p>
+<p>CS 61B assumes complete fluency in fundamental Java syntax from Day 1 and introduces complex software abstraction within the first three weeks:</p>
+<ol>
+<li><strong>Interface Inheritance &amp; Abstract Data Types (ADTs):</strong> Project 1 in CS 61B (e.g., <em>Deque</em>, <em>SLList</em>, <em>AList</em>) requires students to build custom data structures extending interfaces or abstract classes.</li>
+<li><strong>The <code>Comparable</code> &amp; <code>Comparator</code> Polymorphism Engine:</strong> Efficient sorting algorithms implemented in CS 61B rely entirely on dynamic dispatch through interface constraints:
+   $$\text{public <T extends Comparable\<T>> void sort(T[] items)}$$</li>
+<li><strong>Software Architecture Verification:</strong> CS 61B autograders evaluate design patterns. Code that relies on long <code>if-else</code> type-checking blocks instead of dynamic method dispatch is penalized for architectural deficiencies.</li>
+</ol>
+<p>Mastering dynamic dispatch at the AP level ensures you enter CS 61B with the object-oriented foundation required to earn an <strong>A grade</strong>, protecting your upper-division CS declaration status.</p>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution Checklist</h2>
+<h3>Problem Statement (AP CSA FRQ Style)</h3>
+<p>A local university management system processes academic roles. </p>
+<ol>
+<li>Write the <strong><code>GraduateTA</code></strong> class, which inherits from an existing <strong><code>UniversityMember</code></strong> class.</li>
+<li><code>UniversityMember</code> is defined as follows:</li>
+</ol>
+<pre><code class="language-java">public class UniversityMember {
+    private String name;
+    private double baseStipend;
+
+    public UniversityMember(String name, double baseStipend) {
+        this.name = name;
+        this.baseStipend = baseStipend;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getBaseStipend() {
+        return baseStipend;
+    }
+
+    public double calculateMonthlyPay() {
+        return baseStipend;
+    }
+}
+</code></pre>
+<ol>
+<li>The <strong><code>GraduateTA</code></strong> class must meet the following requirements:</li>
+<li>Maintains an integer instance variable for <code>hoursTaught</code>.</li>
+<li>Maintains a constant hourly rate bonus of <code>$35.00</code> per hour taught.</li>
+<li>Constructor accepts <code>name</code> (String), <code>baseStipend</code> (double), and <code>hoursTaught</code> (int).</li>
+<li>Overrides <code>calculateMonthlyPay()</code> to return the <code>baseStipend</code> plus the total hourly earnings (<code>hoursTaught * 35.0</code>).</li>
+<li>Overrides <code>toString()</code> to return: <code>"[Name] - TA Pay: $[Monthly Pay]"</code>.</li>
+</ol>
+<hr />
+<h3>Complete Java Implementation</h3>
+<pre><code class="language-java">public class GraduateTA extends UniversityMember {
+    // Instance variable unique to subclass
+    private int hoursTaught;
+
+    // Constant for hourly rate bonus
+    public static final double HOURLY_RATE = 35.0;
+
+    /**
+     * Constructor for GraduateTA.
+     * Initializes parent state using super and sets local hoursTaught.
+     */
+    public GraduateTA(String name, double baseStipend, int hoursTaught) {
+        super(name, baseStipend); // Call to superclass constructor MUST be first
+        this.hoursTaught = hoursTaught;
+    }
+
+    /**
+     * Calculates total monthly pay polimorphically.
+     * Uses super.calculateMonthlyPay() to obtain base stipend safely.
+     */
+    @Override
+    public double calculateMonthlyPay() {
+        return super.calculateMonthlyPay() + (hoursTaught * HOURLY_RATE);
+    }
+
+    /**
+     * Formats string representation using dynamic pay calculation.
+     */
+    @Override
+    public String toString() {
+        return getName() + &quot; - TA Pay: $&quot; + calculateMonthlyPay();
+    }
+}
+</code></pre>
+<hr />
+<h3>Step-by-Step Solution &amp; Execution Analysis</h3>
+<h4>Trace Analysis: Execution &amp; Dynamic Dispatch Verification</h4>
+<p>Suppose we execute the following snippet:</p>
+<pre><code class="language-java">UniversityMember member = new GraduateTA(&quot;Alex&quot;, 2000.0, 10);
+System.out.println(member.toString());
+</code></pre>
+<p>Let's trace how the JVM evaluates this execution path:</p>
+<pre><code>[Step 1: Declaration &amp; Instantiation]
+  Declared Type:  UniversityMember
+  Actual Instantiation: GraduateTA
+
+[Step 2: Method Call Resolution -&gt; member.toString()]
+  1. Static Check (Compiler):
+     Does UniversityMember have a toString() method?
+     Yes (inherited from java.lang.Object). Compiles successfully.
+
+  2. Dynamic Resolution (JVM at Runtime):
+     Inspect Actual Instance Type: GraduateTA
+     Does GraduateTA override toString()? YES. Execute GraduateTA.toString().
+
+[Step 3: Execution inside GraduateTA.toString()]
+  Calls getName()            ──► Found in UniversityMember -&gt; returns &quot;Alex&quot;
+  Calls calculateMonthlyPay() ──► DYNAMIC DISPATCH!
+                                 Invokes GraduateTA.calculateMonthlyPay()
+                                 = super.calculateMonthlyPay() + (10 * 35.0)
+                                 = 2000.0 + 350.0 = 2350.0
+
+[Step 4: Final Output String]
+  Returns: &quot;Alex - TA Pay: $2350.0&quot;
+</code></pre>
+<hr />
+<h3>Canonical AP FRQ Scoring Rubric (9-Point Breakdown)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Points</th>
+<th style="text-align: left;">Assessment Requirement</th>
+<th style="text-align: left;">Scoring Verification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>+1</strong></td>
+<td style="text-align: left;"><strong>Class Header</strong></td>
+<td style="text-align: left;">Declares <code>public class GraduateTA extends UniversityMember</code>.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>+1</strong></td>
+<td style="text-align: left;"><strong>Instance Variable</strong></td>
+<td style="text-align: left;">Declares <code>private int hoursTaught</code>.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>+1</strong></td>
+<td style="text-align: left;"><strong>Constructor Header</strong></td>
+<td style="text-align: left;">Declares <code>public GraduateTA(String name, double baseStipend, int hoursTaught)</code>.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>+1</strong></td>
+<td style="text-align: left;"><strong>Super Constructor Call</strong></td>
+<td style="text-align: left;">Calls <code>super(name, baseStipend)</code> as the <strong>first</strong> statement in the constructor.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>+1</strong></td>
+<td style="text-align: left;"><strong>Subclass Assignment</strong></td>
+<td style="text-align: left;">Correctly initializes <code>this.hoursTaught = hoursTaught</code>.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>+1</strong></td>
+<td style="text-align: left;"><strong>Method Header</strong></td>
+<td style="text-align: left;">Declares <code>public double calculateMonthlyPay()</code>.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>+1</strong></td>
+<td style="text-align: left;"><strong>Pay Computation</strong></td>
+<td style="text-align: left;">Computes base pay + (hours * rate) without accessing <code>private</code> fields directly. Uses <code>super.calculateMonthlyPay()</code> or <code>getBaseStipend()</code>.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>+1</strong></td>
+<td style="text-align: left;"><strong><code>toString</code> Header &amp; Body</strong></td>
+<td style="text-align: left;">Correctly overrides <code>toString()</code> and formats output string matching specifications.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>+1</strong></td>
+<td style="text-align: left;"><strong>Encapsulation &amp; Syntax</strong></td>
+<td style="text-align: left;">All instance variables are <code>private</code>; public accessors used; correct Java syntax throughout.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>6. Strategic Advice for Exam Day</h2>
+<ol>
+<li><strong>Watch Out for Abstract Class/Interface Misconceptions on Multiple-Choice Questions:</strong></li>
+<li>Abstract classes <strong>cannot</strong> be instantiated directly (<code>new AbstractClass()</code> causes a compiler error).</li>
+<li>Interfaces contain abstract public methods (prior to Java 8/9 default features) and <code>public static final</code> constants only.</li>
+<li><strong>Track the Reference Type for Method Access, Track the Object Type for Method Execution:</strong></li>
+<li>Remember the golden rule: <strong>"Declared type decides what you can call; Actual type decides what actually runs."</strong></li>
+<li><strong>Always Check Constructor Signatures:</strong></li>
+<li>If a subclass constructor doesn't explicitly call <code>super(...)</code>, make sure the parent class has a 0-argument constructor. If it doesn't, mark that option as a <strong>Compilation Error</strong>.</li>
+</ol>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Computer Science A?</h2>
+      <p>Secure admission and advanced standing at top institutions like UC Berkeley with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

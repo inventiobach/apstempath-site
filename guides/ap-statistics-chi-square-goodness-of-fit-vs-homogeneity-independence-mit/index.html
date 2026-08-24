@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi-Square Tests: Goodness-of-Fit, Homogeneity & Independence Guide: AP Statistics Score 5 for MIT | AP STEM PATH</title>
+  <meta name="description" content="Master Chi-Square Tests: Goodness-of-Fit, Homogeneity & Independence in AP Statistics. Deep dive with LaTeX/code examples and score 5 strategies tailored for MIT applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Chi-Square Tests: Goodness-of-Fit, Homogeneity & Independence Guide: AP Statistics Score 5 for MIT",
+    "description": "Master Chi-Square Tests: Goodness-of-Fit, Homogeneity & Independence in AP Statistics. Deep dive with LaTeX/code examples and score 5 strategies tailored for MIT applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Statistics • Score 5 Strategy</span>
+      <h1>Chi-Square Tests: Goodness-of-Fit, Homogeneity & Independence Guide: AP Statistics Score 5 for MIT</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Statistics Mastery Guide: Chi-Square Inference</h1>
+<p><strong>Target Exam Score:</strong> 5<br />
+<strong>Target Institution:</strong> Massachusetts Institute of Technology (MIT)<br />
+<strong>Academic Pathway:</strong> Quantitative Rigor Portfolio Satisfier $\rightarrow$ Acceleration into <strong>18.650 (Fundamentals of Statistics)</strong></p>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>Chi-Square ($\chi^2$) inference procedures constitute <strong>7% to 11%</strong> of the AP Statistics Exam (spanning Units 8 and 9). On the exam, these concepts appear in both Section I (Multiple-Choice) and Section II (Free-Response Questions). </p>
+<p>While standard high school curricula treat Chi-Square procedures as simple calculator routines, top-tier performance—and placement into MIT’s advanced quantitative tracks—requires an understanding of categorical data analysis. At MIT, categorical inference, contingency table analysis, and goodness-of-fit testing are foundational for empirical research in machine learning, computational biology (e.g., genomic sequence alignment), and microeconomics. Mastering this topic demonstrates the mathematical rigor needed to pass the Quantitative Rigor Portfolio review and enter <strong>18.650 (Fundamentals of Statistics)</strong>.</p>
+<pre><code>                      ┌─────────────────────────────────────────┐
+                      │    Categorical Inference Framework     │
+                      └────────────────────┬────────────────────┘
+                                           │
+        ┌──────────────────────────────────┼──────────────────────────────────┐
+        ▼                                  ▼                                  ▼
+┌──────────────┐                   ┌──────────────┐                   ┌──────────────┐
+│  Goodness-   │                   │ Test for     │                   │ Test for     │
+│  of-Fit      │                   │ Homogeneity  │                   │ Independence │
+└───────┬──────┘                   └───────┬──────┘                   └───────┬──────┘
+        │                                  │                                  │
+  1 Population                       2+ Populations                     1 Population
+  1 Categorical Variable             1 Categorical Variable             2 Categorical Variables
+  $df = k - 1$                       $df = (r-1)(c-1)$                  $df = (r-1)(c-1)$
+</code></pre>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>Mathematical Foundations of the Chi-Square Distribution</h3>
+<p>Let $X_1, X_2, \dots, X_k$ be independent standard normal random variables, where $X_i \sim N(0, 1)$. The sum of their squares follows a <strong>Chi-Square distribution</strong> with $k$ degrees of freedom:</p>
+<p>$$V = \sum_{i=1}^{k} X_i^2 \sim \chi^2_k$$</p>
+<p>The probability density function (PDF) of a $\chi^2$ distribution with $k$ degrees of freedom is:</p>
+<p>$$f(x; k) = \frac{x^{(k/2) - 1} e^{-x/2}}{2^{k/2} \Gamma\left(\frac{k}{2}\right)}, \quad x \ge 0$$</p>
+<p>where $\Gamma(z) = \int_0^\infty t^{z-1} e^{-t} dt$ is the Gamma function.</p>
+<h4>Derivation of the Pearson Chi-Square Test Statistic</h4>
+<p>For categorical counts $O_i$ (Observed) under a multinomial model with expected values $E_i = n p_i$, the sample counts converge asymptotically to a multivariate normal distribution via the Central Limit Theorem. Standardizing these counts yields:</p>
+<p>$$Z_i = \frac{O_i - E_i}{\sqrt{E_i(1 - p_i)}}$$</p>
+<p>Under the null hypothesis, summing the standardized squared deviations yields Pearson's test statistic:</p>
+<p>$$\chi^2 = \sum_{i=1}^{k} \frac{(O_i - E_i)^2}{E_i}$$</p>
+<p>As $n \to \infty$, this statistic converges in distribution to $\chi^2_{df}$.</p>
+<hr />
+<h3>Comparative Architecture of Chi-Square Tests</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Dimension</th>
+<th style="text-align: left;">Goodness-of-Fit (GOF)</th>
+<th style="text-align: left;">Test for Homogeneity</th>
+<th style="text-align: left;">Test for Independence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Number of Samples/Populations</strong></td>
+<td style="text-align: left;"><strong>1 Sample</strong> from <strong>1 Population</strong></td>
+<td style="text-align: left;"><strong>$2+$ Independent Samples</strong> from $2+$ Populations/Treatments</td>
+<td style="text-align: left;"><strong>1 Sample</strong> from <strong>1 Population</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Variables Evaluated</strong></td>
+<td style="text-align: left;"><strong>1 Categorical Variable</strong> (compared against a hypothesized distribution)</td>
+<td style="text-align: left;"><strong>1 Categorical Variable</strong> measured across different groups</td>
+<td style="text-align: left;"><strong>2 Categorical Variables</strong> measured simultaneously on each subject</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Degrees of Freedom ($df$)</strong></td>
+<td style="text-align: left;">$df = k - 1$<br><em>(where $k$ = number of categories)</em></td>
+<td style="text-align: left;">$df = (r - 1)(c - 1)$<br><em>(where $r$ = rows, $c$ = columns)</em></td>
+<td style="text-align: left;">$df = (r - 1)(c - 1)$<br><em>(where $r$ = rows, $c$ = columns)</em></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Expected Cell Count ($E$)</strong></td>
+<td style="text-align: left;">$E_i = n \cdot p_i$</td>
+<td style="text-align: left;">$E_{i,j} = \frac{\text{Row Total}_i \times \text{Column Total}_j}{\text{Grand Total}}$</td>
+<td style="text-align: left;">$E_{i,j} = \frac{\text{Row Total}_i \times \text{Column Total}_j}{\text{Grand Total}}$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Primary Research Question</strong></td>
+<td style="text-align: left;">Does the categorical distribution match a theoretical model?</td>
+<td style="text-align: left;">Do two or more populations have identical categorical proportions?</td>
+<td style="text-align: left;">Is there an association between two categorical variables in a single population?</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Verification of Technical Conditions</h3>
+<p>To earn full credit on the AP exam, conditions must be explicitly verified, not merely stated:</p>
+<ol>
+<li><strong>Random Sampling / Assignment</strong>: Data must originate from a simple random sample (SRS) or a randomized experiment.</li>
+<li><strong>10% Condition (Independence)</strong>: When sampling without replacement, the sample size must satisfy $n \le 0.10 N$ to preserve near-independence of Bernoulli trials. <em>(Note: This condition is not required for randomized experiments).</em></li>
+<li><strong>Large Counts Condition (Expected Counts)</strong>: <strong>All</strong> expected cell counts must satisfy $E \ge 5$. </li>
+<li><em>Critical Distinction</em>: This condition applies to <strong>expected</strong> counts ($E_i$), <strong>never</strong> to observed counts ($O_i$).</li>
+</ol>
+<hr />
+<h3>Python Computation &amp; Analysis Framework</h3>
+<p>The script below performs a complete Chi-Square analysis, including model identification, expected count generation, test-statistic computation, and standardized residual evaluation:</p>
+<pre><code class="language-python">import numpy as np
+from scipy import stats
+
+def analyze_contingency_table(observed_matrix, row_labels, col_labels):
+    &quot;&quot;&quot;
+    Performs full Chi-Square Test of Independence/Homogeneity with 
+    Expected Counts and Standardized Residuals analysis.
+    &quot;&quot;&quot;
+    obs = np.array(observed_matrix)
+    chi2_stat, p_val, dof, expected = stats.chi2_contingency(obs)
+
+    print(&quot;=&quot; * 60)
+    print(f&quot;Chi-Square Test Statistic (χ²): {chi2_stat:.4f}&quot;)
+    print(f&quot;Degrees of Freedom (df):       {dof}&quot;)
+    print(f&quot;p-value:                        {p_val:.4e}&quot;)
+    print(&quot;=&quot; * 60)
+
+    # Check Large Counts Condition
+    all_valid = np.all(expected &gt;= 5)
+    print(f&quot;Condition Check - All Expected Counts &gt;= 5: {all_valid}&quot;)
+    if not all_valid:
+        print(&quot; WARNING: Large Counts Condition violated. Chi-Square approximation may fail.&quot;)
+
+    print(&quot;\nExpected Cell Counts Matrix:&quot;)
+    print(np.round(expected, 2))
+
+    # Calculate Standardized Residuals: (O - E) / sqrt(E * (1 - row_prop) * (1 - col_prop))
+    # Adjusted Pearson Residuals:
+    row_sums = obs.sum(axis=1, keepdims=True)
+    col_sums = obs.sum(axis=0, keepdims=True)
+    total = obs.sum()
+
+    margin_adjust = (1 - row_sums / total) * (1 - col_sums / total)
+    std_residuals = (obs - expected) / np.sqrt(expected * margin_adjust)
+
+    print(&quot;\nAdjusted Standardized Residuals:&quot;)
+    print(np.round(std_residuals, 3))
+
+    return {
+        &quot;chi2&quot;: chi2_stat,
+        &quot;p_value&quot;: p_val,
+        &quot;df&quot;: dof,
+        &quot;expected&quot;: expected,
+        &quot;std_residuals&quot;: std_residuals
+    }
+
+# Example: AI Failure Modes across 3 Model Architectures
+# Rows: Transformer, CNN, Mamba
+# Cols: Out-of-Distribution, Adversarial, Latent Collapse
+data = [
+    [120, 85, 45],  # Transformer
+    [90, 110, 50],  # CNN
+    [60, 45, 95]    # Mamba
+]
+r_names = [&quot;Transformer&quot;, &quot;CNN&quot;, &quot;Mamba&quot;]
+c_names = [&quot;OOD&quot;, &quot;Adversarial&quot;, &quot;Latent Collapse&quot;]
+
+analyze_contingency_table(data, r_names, c_names)
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<h3>Score 4 vs. Score 5 Performance Matrix</h3>
+<pre><code>┌────────────────────────────────────────────────────────────────────────────────────────┐
+│                                   RESPONSE COMPARISON                                  │
+├──────────────────────────────┬──────────────────────────────┬──────────────────────────┤
+│ Section                      │ Score 4 Response (Competent) │ Score 5 Response (MIT)   │
+├──────────────────────────────┼──────────────────────────────┼──────────────────────────┤
+│ Hypotheses Identification    │ Uses vague, uncontextualized │ Defines non-association  │
+│                              │ parameter statements:        │ or structural identity   │
+│                              │ &quot;H0: Variables are           │ within the population    │
+│                              │ independent.&quot;                │ using clear context.     │
+├──────────────────────────────┼──────────────────────────────┼──────────────────────────┤
+│ Checking Conditions          │ Writes &quot;Expected counts &gt; 5  │ Explicitly displays the  │
+│                              │ check out&quot; without listing   │ matrix of all calculated │
+│                              │ calculated values.           │ expected values &gt;= 5.    │
+├──────────────────────────────┼──────────────────────────────┼──────────────────────────┤
+│ Mechanics &amp; Communication    │ Reports χ², df, p-value from │ Shows formula set up,    │
+│                              │ calculator without setup.    │ inputs, $df$, and exact  │
+│                              │                              │ tail-area expression.    │
+├──────────────────────────────┼──────────────────────────────┼──────────────────────────┤
+│ Decision &amp; Context           │ &quot;Reject H0. Variables are    │ Links $p$-value to $\alpha$,│
+│                              │ related.&quot;                    │ frames decision without  │
+│                              │                              │ &quot;accepting $H_0$&quot;, and   │
+│                              │                              │ evaluates residuals.     │
+└──────────────────────────────┴──────────────────────────────┴──────────────────────────┘
+</code></pre>
+<h3>Detailed Exam Pitfalls</h3>
+<h4>Pitfall 1: Confusing Test for Homogeneity with Test for Independence</h4>
+<ul>
+<li><strong>The Error</strong>: Stating a hypothesis of "independence" when data is collected from multiple distinct populations (e.g., separate random samples of 100 freshmen, 100 sophomores, and 100 juniors).</li>
+<li><strong>The Fix</strong>: Look at the sampling design. </li>
+<li>Multiple independent samples/treatments $\implies$ <strong>Homogeneity</strong>. $H_0$: "The proportion distribution of [Variable] is the same across [Populations]."</li>
+<li>Single sample, two variables measured $\implies$ <strong>Independence</strong>. $H_0$: "There is no association between [Variable A] and [Variable B] in [Population]."</li>
+</ul>
+<h4>Pitfall 2: Confusing Observed and Expected Counts in Conditions</h4>
+<ul>
+<li><strong>The Error</strong>: Verifying that all <em>observed</em> cell counts are $\ge 5$.</li>
+<li><strong>The Fix</strong>: The Chi-Square distribution approximates the sampling distribution of the test statistic only when the continuous approximation holds. This requires that the theoretical mean count for each cell under $H_0$ satisfies $E_{i,j} \ge 5$. You must explicitly state and evaluate every calculated $E_{i,j}$.</li>
+</ul>
+<h4>Pitfall 3: Failing to Interpret Standardized Residuals</h4>
+<ul>
+<li><strong>The Error</strong>: Ending the response immediately after rejecting $H_0$.</li>
+<li><strong>The Fix</strong>: High-scoring responses identify <em>which</em> categories contributed most significantly to the large $\chi^2$ statistic by finding standardized residuals where $|R| &gt; 2$, where:</li>
+</ul>
+<p>$$R = \frac{O - E}{\sqrt{E}}$$</p>
+<hr />
+<h2>4. MIT Placement Pathway</h2>
+<h3>Satisfying the Quantitative Rigor Portfolio</h3>
+<p>At MIT, incoming students with AP Statistics scores of 5 are evaluated for advanced quantitative placement. Demonstrating mastery of categorical inference helps satisfy the <strong>Quantitative Rigor Portfolio</strong>, allowing students to bypass introductory statistics requirements.</p>
+<pre><code>┌─────────────────────────────────────────┐
+│     AP Statistics (Score 5 Target)      │
+└────────────────────┬────────────────────┘
+                     │
+                     ▼
+┌─────────────────────────────────────────┐
+│     Quantitative Rigor Portfolio        │
+│  (Validation of Empirical Data Analysis)│
+└────────────────────┬────────────────────┘
+                     │
+                     ▼
+┌─────────────────────────────────────────┐
+│     Advanced Placement Granted:         │
+│     Bypass Introductory Statistics      │
+└────────────────────┬────────────────────┘
+                     │
+                     ▼
+┌─────────────────────────────────────────┐
+│      Accelerate Directly Into:          │
+│  18.650: Fundamentals of Statistics     │
+└─────────────────────────────────────────┘
+</code></pre>
+<h3>Direct Acceleration: Course 18.650 (Fundamentals of Statistics)</h3>
+<p>18.650 is MIT’s rigorous, calculus-based introduction to mathematical statistics. Mastering Chi-Square inference prepares you for advanced topics in 18.650, such as:
+1. <strong>Likelihood Ratio Tests (LRT)</strong>: Proving that Pearson's $\chi^2$ test is an asymptotic equivalent of the LRT via Wilks' Theorem:</p>
+<p>$$-2 \ln \Lambda = 2 \sum_{i} O_i \ln\left(\frac{O_i}{E_i}\right) \xrightarrow{d} \chi^2_{df}$$</p>
+<ol>
+<li><strong>Generalized Linear Models (GLMs)</strong>: Extending categorical analysis to logistic regression and Poisson log-linear models.</li>
+<li><strong>High-Dimensional Categorical Analysis</strong>: Managing large sparse matrices in machine learning applications where standard Chi-Square assumptions break down (requiring Fisher's Exact Test or permutation tests).</li>
+</ol>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution</h2>
+<h3>Scenario</h3>
+<p>An MIT CSAIL research team is evaluating three different large language model (LLM) alignment strategies: <strong>RLHF</strong> (Reinforcement Learning from Human Feedback), <strong>DPO</strong> (Direct Preference Optimization), and <strong>KTO</strong> (Kahneman-Tversky Optimization). </p>
+<p>The researchers randomly sample $n = 600$ model outputs evaluated under high-temperature sampling and classify each output into one of three response categories: <strong>Fully Compliant</strong>, <strong>Hallucination</strong>, or <strong>Refusal</strong>. </p>
+<p>The observed counts are recorded in the contingency table below:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Alignment Strategy</th>
+<th style="text-align: center;">Fully Compliant</th>
+<th style="text-align: center;">Hallucination</th>
+<th style="text-align: center;">Refusal</th>
+<th style="text-align: center;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>RLHF</strong></td>
+<td style="text-align: center;">135</td>
+<td style="text-align: center;">35</td>
+<td style="text-align: center;">30</td>
+<td style="text-align: center;"><strong>200</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>DPO</strong></td>
+<td style="text-align: center;">150</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">30</td>
+<td style="text-align: center;"><strong>200</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>KTO</strong></td>
+<td style="text-align: center;">115</td>
+<td style="text-align: center;">45</td>
+<td style="text-align: center;">40</td>
+<td style="text-align: center;"><strong>200</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Total</strong></td>
+<td style="text-align: center;"><strong>400</strong></td>
+<td style="text-align: center;"><strong>100</strong></td>
+<td style="text-align: center;"><strong>100</strong></td>
+<td style="text-align: center;"><strong>600</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Questions</h3>
+<ol>
+<li>Identify the appropriate inference procedure and state the null and alternative hypotheses in context.</li>
+<li>Verify all necessary theoretical conditions for performing this test.</li>
+<li>Calculate the matrix of expected counts, the test statistic ($\chi^2$), degrees of freedom ($df$), and the corresponding $p$-value. Show all work.</li>
+<li>Based on your $p$-value, render a conclusion using $\alpha = 0.01$.</li>
+<li>Calculate the standardized residuals for the <strong>DPO / Hallucination</strong> and <strong>KTO / Hallucination</strong> cells. Interpret these values to explain which alignment strategy deviates most significantly from expected behavior.</li>
+</ol>
+<hr />
+<h3>Comprehensive Solution &amp; Grading Rubric</h3>
+<h4>Step 1: Identify Test &amp; Hypotheses</h4>
+<ul>
+<li><strong>Test Identification</strong>: Chi-Square Test for Homogeneity (since three independent samples of equal size $n=200$ were evaluated across categorical responses).</li>
+<li><strong>Hypotheses</strong>:</li>
+<li>$H_0$: The distribution of model response types (Fully Compliant, Hallucination, Refusal) is the same across all three alignment strategies (RLHF, DPO, KTO).</li>
+<li>$H_a$: The distribution of model response types is not the same across all three alignment strategies.</li>
+</ul>
+<h4>Step 2: Verification of Conditions</h4>
+<ol>
+<li><strong>Randomization</strong>: Models/outputs were randomly sampled for evaluation across alignment strategies.</li>
+<li><strong>Independence</strong>: Outputs are independently generated. Sampling without replacement is not applicable here if generation is an infinite process, or $N &gt; 6000$ generations easily satisfies $n \le 0.10 N$.</li>
+<li><strong>Large Expected Counts</strong>:
+   Expected counts are calculated using $E_{i,j} = \frac{\text{Row Total}_i \times \text{Column Total}_j}{\text{Grand Total}}$:</li>
+</ol>
+<p>$$\text{For all rows, Row Total} = 200$$</p>
+<ul>
+<li>$E_{\text{Row}, \text{Compliant}} = \frac{200 \times 400}{600} = \frac{800}{6} \approx 133.33$</li>
+<li>$E_{\text{Row}, \text{Hallucination}} = \frac{200 \times 100}{600} = \frac{200}{6} \approx 33.33$</li>
+<li>$E_{\text{Row}, \text{Refusal}} = \frac{200 \times 100}{600} = \frac{200}{6} \approx 33.33$</li>
+</ul>
+<p>Matrix of Expected Counts ($E_{i,j}$):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Strategy</th>
+<th style="text-align: center;">Fully Compliant</th>
+<th style="text-align: center;">Hallucination</th>
+<th style="text-align: center;">Refusal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>RLHF</strong></td>
+<td style="text-align: center;">133.33</td>
+<td style="text-align: center;">33.33</td>
+<td style="text-align: center;">33.33</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>DPO</strong></td>
+<td style="text-align: center;">133.33</td>
+<td style="text-align: center;">33.33</td>
+<td style="text-align: center;">33.33</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>KTO</strong></td>
+<td style="text-align: center;">133.33</td>
+<td style="text-align: center;">33.33</td>
+<td style="text-align: center;">33.33</td>
+</tr>
+</tbody>
+</table>
+<p><em>Condition Met</em>: All expected cell counts are $133.33 \text{ or } 33.33$, which are all $\ge 5$.</p>
+<hr />
+<h4>Step 3: Mechanics &amp; Calculations</h4>
+<p>$$df = (r - 1)(c - 1) = (3 - 1)(3 - 1) = 2 \times 2 = 4$$</p>
+<p>Calculate Pearson's $\chi^2$ Statistic:</p>
+<p>$$\chi^2 = \sum \frac{(O_{i,j} - E_{i,j})^2}{E_{i,j}}$$</p>
+<p>$$\chi^2 = \frac{(135 - 133.33)^2}{133.33} + \frac{(35 - 33.33)^2}{33.33} + \frac{(30 - 33.33)^2}{33.33}$$</p>
+<p>$$+ \frac{(150 - 133.33)^2}{133.33} + \frac{(20 - 33.33)^2}{33.33} + \frac{(30 - 33.33)^2}{33.33}$$</p>
+<p>$$+ \frac{(115 - 133.33)^2}{133.33} + \frac{(45 - 33.33)^2}{33.33} + \frac{(40 - 33.33)^2}{33.33}$$</p>
+<p>Evaluating individual term values:
+* $\text{RLHF}: 0.021 + 0.084 + 0.333 = 0.438$
+* $\text{DPO}: 2.083 + 5.330 + 0.333 = 7.746$
+* $\text{KTO}: 2.520 + 4.085 + 1.333 = 7.938$</p>
+<p>$$\chi^2 = 0.438 + 7.746 + 7.938 = 16.122$$</p>
+<p>$p$-value calculation:</p>
+<p>$$p\text{-value} = P(\chi^2_4 \ge 16.122)$$</p>
+<p>Using the continuous $\chi^2$ integral with $df=4$:</p>
+<p>$$p\text{-value} \approx 0.00286$$</p>
+<hr />
+<h4>Step 4: Decision and Justification</h4>
+<ul>
+<li><strong>Decision</strong>: Reject $H_0$.</li>
+<li><strong>Justification</strong>: Since the $p$-value ($0.00286$) is less than our significance level $\alpha = 0.01$, we reject the null hypothesis. There is strong evidence that the distribution of model response types is not identical across the three alignment strategies.</li>
+</ul>
+<hr />
+<h4>Step 5: Standardized Residual Analysis</h4>
+<p>Standardized Residual formula:</p>
+<p>$$R_{i,j} = \frac{O_{i,j} - E_{i,j}}{\sqrt{E_{i,j}}}$$</p>
+<ol>
+<li>
+<p><strong>DPO / Hallucination</strong>:
+   $$R_{\text{DPO, Hall}} = \frac{20 - 33.33}{\sqrt{33.33}} = \frac{-13.33}{5.773} \approx -2.31$$</p>
+</li>
+<li>
+<p><strong>KTO / Hallucination</strong>:
+   $$R_{\text{KTO, Hall}} = \frac{45 - 33.33}{\sqrt{33.33}} = \frac{11.67}{5.773} \approx +2.02$$</p>
+</li>
+</ol>
+<p><strong>Interpretation</strong>:
+* DPO produces significantly <strong>fewer</strong> hallucinations than expected under the null hypothesis of homogeneity ($R = -2.31$), falling more than 2 standard deviations below expectation.
+* KTO produces significantly <strong>more</strong> hallucinations than expected ($R = +2.02$), falling more than 2 standard deviations above expectation.
+* These two cells are the primary contributors to the overall test statistic ($\chi^2 = 16.122$). DPO demonstrates a clear advantage over KTO in reducing output hallucinations.</p>
+<hr />
+<h2>6. Target Score 5 Checklist for the AP Exam</h2>
+<ul>
+<li>[ ] <strong>Hypotheses</strong>: Written in terms of population distributions (Homogeneity) or associations (Independence)—never using sample-specific language.</li>
+<li>[ ] <strong>Conditions</strong>: Stated and verified with explicitly displayed values. You must list all expected counts, not just state $E_i \ge 5$.</li>
+<li>[ ] <strong>Test Statistic &amp; $df$</strong>: Explicitly state the formula, write out at least the first two terms of the summation, show $df = (r-1)(c-1)$, and state the exact calculated $\chi^2$ value.</li>
+<li>[ ] <strong>$p$-Value Linkage</strong>: State both the $p$-value and $\alpha$. Explicitly write out $p &lt; \alpha$ or $p &gt; \alpha$.</li>
+<li>[ ] <strong>Contextual Conclusion</strong>: Frame the final decision in terms of the alternative hypothesis. Never say "accept $H_0$."</li>
+<li>[ ] <strong>Residual Analysis</strong>: If requested, calculate $R = \frac{O-E}{\sqrt{E}}$ and identify cells where $|R| &gt; 2$ to explain the underlying driver of statistical significance.</li>
+</ul>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Statistics?</h2>
+      <p>Secure admission and advanced standing at top institutions like MIT with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

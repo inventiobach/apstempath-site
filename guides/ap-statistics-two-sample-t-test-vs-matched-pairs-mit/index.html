@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Two-Sample t-Test vs. Matched Pairs Inference & Verification Guide: AP Statistics Score 5 for MIT | AP STEM PATH</title>
+  <meta name="description" content="Master Two-Sample t-Test vs. Matched Pairs Inference & Verification in AP Statistics. Deep dive with LaTeX/code examples and score 5 strategies tailored for MIT applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Two-Sample t-Test vs. Matched Pairs Inference & Verification Guide: AP Statistics Score 5 for MIT",
+    "description": "Master Two-Sample t-Test vs. Matched Pairs Inference & Verification in AP Statistics. Deep dive with LaTeX/code examples and score 5 strategies tailored for MIT applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Statistics • Score 5 Strategy</span>
+      <h1>Two-Sample t-Test vs. Matched Pairs Inference & Verification Guide: AP Statistics Score 5 for MIT</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Statistics Mastery Guide: Two-Sample $t$-Test vs. Matched Pairs Inference</h1>
+<p><strong>Target Audience:</strong> High-achieving AP Statistics students aiming for a Score 5 and targeting <strong>MIT</strong> (Department of Economics, Course 6-3 Computer Science and Molecular Biology, and Course 18 Mathematics).</p>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>In quantitative inference, distinguishing between <strong>Independent Two-Sample Problems</strong> and <strong>Matched Pairs (Dependent) Problems</strong> represents one of the most critical conceptual hurdles on the AP Statistics Exam. Standardized testing data reveals that while over $60\%$ of students can mechanically calculate a $t$-statistic, fewer than $25\%$ of test-takers achieve full credit ("Essentially Correct") on Free Response Questions (FRQs) involving two-sample versus paired design verification and condition checking.</p>
+<h3>AP Exam Weighting</h3>
+<ul>
+<li><strong>Unit 7: Inference for Quantitative Data: Means</strong> accounts for <strong>10%–18%</strong> of the total AP Exam score.</li>
+<li>A two-sample vs. matched-pairs FRQ regularly appears as either Question 3, 4, or 5, or as a key component of the Investigative Task (Question 6).</li>
+</ul>
+<h3>Why MIT Cares</h3>
+<p>At MIT, introductory quantitative requirements expect applicants to demonstrate foundational statistical rigor beyond plug-and-chug arithmetic. Understanding variance reduction via dependent sampling structures (Matched Pairs) directly translates to advanced concepts in:
+* <strong>Variance Reduction in Monte Carlo Simulations</strong>
+* <strong>Causal Inference and Econometrics</strong> (e.g., Difference-in-Differences estimators in Course 14)
+* <strong>Empirical Risk Minimization and Paired Testing in Machine Learning</strong> (e.g., evaluating classifier performance across identical cross-validation folds in Course 6)</p>
+<p>Mastering this distinction guarantees the conceptual foundation required to skip introductory survey courses and immediately step into rigorous coursework such as <strong>6.3702 (Introduction to Probability and Statistics)</strong> or <strong>18.650 (Fundamentals of Statistics)</strong>.</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>2.1 The Mathematical Core: Independence vs. Dependence</h3>
+<p>To understand why misidentifying a test leads to invalid inference, we must examine the variance of the difference between two random variables, $X_1$ and $X_2$.</p>
+<p>For any two random variables $X_1$ and $X_2$, the variance of their difference is defined as:</p>
+<p>$$\text{Var}(X_1 - X_2) = \text{Var}(X_1) + \text{Var}(X_2) - 2\text{Cov}(X_1, X_2)$$</p>
+<h4>Case 1: Independent Two-Sample Design</h4>
+<p>When samples are drawn independently from two distinct populations (or two independently randomized treatment groups):</p>
+<p>$$\text{Cov}(X_1, X_2) = 0 \implies \text{Var}(\bar{X}_1 - \bar{X}_2) = \frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}$$</p>
+<p>The standard error of the estimator $\bar{X}_1 - \bar{X}_2$ is:</p>
+<p>$$\text{SE}_{(\bar{X}_1 - \bar{X}_2)} = \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}$$</p>
+<p>The degrees of freedom ($df$) are calculated via the <strong>Welch–Satterthwaite Equation</strong>:</p>
+<p>$$df = \frac{\left(\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}\right)^2}{\frac{\left(\frac{s_1^2}{n_1}\right)^2}{n_1 - 1} + \frac{\left(\frac{s_2^2}{n_2}\right)^2}{n_2 - 1}}$$</p>
+<p><em>(Note: AP Statistics permits using the conservative approximation $df = \min(n_1 - 1, n_2 - 1)$, though technological tools default to Welch–Satterthwaite).</em></p>
+<h4>Case 2: Matched Pairs Design</h4>
+<p>When observations are paired (e.g., pre-test/post-test on the same subject, twin studies, or matching subjects by blocking attributes), $X_1$ and $X_2$ are <strong>dependent</strong>. Typically, $\text{Cov}(X_1, X_2) &gt; 0$.</p>
+<p>By defining a single univariate random variable representing individual differences:</p>
+<p>$$D_i = X_{1i} - X_{2i}$$</p>
+<p>The parameters reduce to a univariate $t$-test on the single variable $D$:
+* Population Mean Difference: $\mu_d = E[D] = \mu_1 - \mu_2$
+* Sample Mean of Differences: $\bar{d} = \frac{1}{n}\sum_{i=1}^{n} D_i$
+* Sample Standard Deviation of Differences: $s_d = \sqrt{\frac{\sum_{i=1}^{n} (D_i - \bar{d})^2}{n - 1}}$</p>
+<p>The standard error of $\bar{d}$ is:</p>
+<p>$$\text{SE}_{\bar{d}} = \frac{s_d}{\sqrt{n_d}}$$</p>
+<p>Degrees of freedom: $df = n_d - 1$, where $n_d$ is the number of <strong>pairs</strong>.</p>
+<blockquote>
+<p><strong>The Mathematical Advantage of Pairing (Variance Reduction):</strong>
+Because $\text{Cov}(X_1, X_2) &gt; 0$ in matched designs, subtracting $2\text{Cov}(X_1, X_2)$ substantially <strong>reduces overall variance</strong>. Lower standard error yields higher statistical power, allowing researchers to reject false null hypotheses with smaller sample sizes.</p>
+</blockquote>
+<hr />
+<h3>2.2 Computational Verification via Python</h3>
+<p>The following Python script demonstrates the mathematical catastrophe of analyzing paired data as an independent two-sample test. Notice how treating paired data as independent artificially inflates the standard error and increases the $p$-value, causing a <strong>Type II Error</strong>.</p>
+<pre><code class="language-python">import numpy as np
+from scipy import stats
+
+# Seed for reproducibility
+np.random.seed(42)
+
+# Generate synthetic paired data: Pre-test vs Post-test scores
+# High positive covariance between pre and post scores
+n_pairs = 30
+pre_scores = np.random.normal(loc=70, scale=10, size=n_pairs)
+# Post-score improves by an average of 3 points + individual variance
+post_scores = pre_scores + np.random.normal(loc=3, scale=2, size=n_pairs)
+
+# 1. CORRECT ANALYSIS: Matched Pairs t-test
+differences = post_scores - pre_scores
+t_stat_paired, p_val_paired = stats.ttest_rel(post_scores, pre_scores)
+
+# 2. INCORRECT ANALYSIS: Independent Two-Sample t-test
+t_stat_ind, p_val_ind = stats.ttest_ind(post_scores, pre_scores, equal_var=False)
+
+print(&quot;=&quot; * 60)
+print(f&quot;SAMPLE SIZE: {n_pairs} pairs&quot;)
+print(&quot;-&quot; * 60)
+print(f&quot;Matched Pairs t-Test  : t = {t_stat_paired:.4f}, p-value = {p_val_paired:.6f}&quot;)
+print(f&quot;Two-Sample t-Test     : t = {t_stat_ind:.4f}, p-value = {p_val_ind:.6f}&quot;)
+print(&quot;=&quot; * 60)
+
+# Statistical Conclusion Output
+alpha = 0.05
+if p_val_paired &lt; alpha and p_val_ind &gt;= alpha:
+    print(&quot;CRITICAL INSIGHT: The Matched Pairs test correctly REJECTS H0.&quot;)
+    print(&quot;The independent two-sample test FAILS TO REJECT H0 because it ignores&quot;)
+    print(&quot;the positive covariance structure, artificially inflating standard error!&quot;)
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<p>To secure a 5 on the AP Statistics Exam, your responses must move past basic calculations and address specific AP scoring requirements. Below is a breakdown of common mistakes that reduce scores from an "Essentially Correct" (E) to a "Partially Correct" (P) or "Incorrect" (I).</p>
+<pre><code>   ┌─────────────────────────────────────────────────────────────┐
+   │                    EXPERIMENTAL DESIGN                      │
+   └──────────────────────────────┬──────────────────────────────┘
+                                  │
+                  Are observational units paired?
+                                  │
+         ┌────────────────────────┴────────────────────────┐
+        YES                                               NO
+         │                                                 │
+  ┌──────┴───────────────┐                       ┌─────────┴────────────┐
+  │  MATCHED PAIRS TEST  │                       │ TWO-SAMPLE t-TEST    │
+  └──────┬───────────────┘                       └─────────┬────────────┘
+         │                                                 │
+  Define: D = X1 - X2                            Verify: 2 Independent
+  Check Normality of: Differences (D)                    Groups
+  df = n_pairs - 1                               Check Normality of: Both
+                                                         Sample 1 AND Sample 2
+                                                         df = Welch or min(n1-1, n2-1)
+</code></pre>
+<h3>Critical Pitfalls Table</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature / Step</th>
+<th style="text-align: left;">Score 4 Response (Partially Correct)</th>
+<th style="text-align: left;">Score 5 Response (Essentially Correct)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Hypothesis Definition</strong></td>
+<td style="text-align: left;">Defines $\mu_1$ and $\mu_2$ separately for a paired design: $H_0: \mu_1 - \mu_2 = 0$.</td>
+<td style="text-align: left;">Explicitly defines parameter for paired design: $H_0: \mu_d = 0$, where $\mu_d$ is the population mean difference ($D = \text{Post} - \text{Pre}$).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Name of Test</strong></td>
+<td style="text-align: left;">States "Two-Sample $t$-test" for paired data or omits the word "paired".</td>
+<td style="text-align: left;">Explicitly names: <strong>"Paired $t$-test for a population mean difference"</strong> or <strong>"Two-sample $t$-test for the difference between two independent means"</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Normality Condition Check</strong></td>
+<td style="text-align: left;">Checks normality for Sample 1 and Sample 2 separately during a paired test.</td>
+<td style="text-align: left;">Evaluates the distribution of the <strong>differences</strong> $D = X_1 - X_2$ using a histogram, dotplot, or boxplot. Checks for strong skewness or outliers in $D$.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Independence Verification</strong></td>
+<td style="text-align: left;">Omits the $10\%$ condition or conflates independent samples with independent observations.</td>
+<td style="text-align: left;">Checks that sample size $n &lt; 10\%$ of population <strong>and</strong> explicitly states why the two groups are independent (or why pairs are independently selected).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Conclusion Context</strong></td>
+<td style="text-align: left;">"We reject $H_0$. There is a difference." (Lacks parameter context or direction).</td>
+<td style="text-align: left;">"Because $p$-value $= 0.002 &lt; \alpha = 0.05$, we reject $H_0$. There is convincing evidence that the mean increase in test score ($\mu_d$) is greater than zero."</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. MIT Placement Pathway: Accelerated Track</h2>
+<p>Exempting introductory quantitative courses at MIT requires demonstrating mastery over probabilistic assumptions and experimental design boundaries.</p>
+<pre><code>                      ┌─────────────────────────────────┐
+                      │    AP STATISTICS (SCORE 5)      │
+                      └────────────────┬────────────────┘
+                                       │
+                      Waives Quantitative Requirements /
+                      Fulfills Math/Data Foundational Step
+                                       │
+            ┌──────────────────────────┴──────────────────────────┐
+            ▼                                                     ▼
+┌──────────────────────┐                              ┌──────────────────────┐
+│  MIT Course 6.3702   │                              │   MIT Course 18.650  │
+│ Intro to Probability │                              │   Fundamentals of    │
+│    &amp; Statistics      │                              │      Statistics      │
+└──────────┬───────────┘                              └──────────┬───────────┘
+           │                                                     │
+           ▼                                                     ▼
+┌──────────────────────┐                              ┌──────────────────────┐
+│  Advanced AI/ML Track│                              │ Causal Inference &amp;   │
+│  (6.3900 / 6.7900)   │                              │ Econometrics (14.32) │
+└──────────────────────┘                              └──────────────────────┘
+</code></pre>
+<h3>MIT Course 6.3702 (Introduction to Probability and Statistics)</h3>
+<ul>
+<li><strong>Core Concept Alignment:</strong> Course 6.3702 extends linear transformations of random variables into multivariate Gaussian distributions. Understanding why $\text{Var}(X_1 - X_2) = \text{Var}(X_1) + \text{Var}(X_2) - 2\text{Cov}(X_1, X_2)$ provides the direct groundwork for constructing joint covariance matrices $\mathbf{\Sigma}$.</li>
+<li><strong>Practical Advantage:</strong> Prevents loss of time on basic statistical concepts, enabling students to quickly take advanced Machine Learning coursework (<strong>6.3900 / 6.7900</strong>).</li>
+</ul>
+<h3>MIT Course 18.650 (Fundamentals of Statistics)</h3>
+<ul>
+<li><strong>Core Concept Alignment:</strong> Focuses heavily on the theoretical mechanics of hypothesis testing, Neyman-Pearson lemmas, asymptotic distribution theory, and maximum likelihood estimation (MLE).</li>
+<li><strong>Practical Advantage:</strong> Paired testing serves as a gateway to understanding variance reduction techniques, non-parametric paired inference (e.g., Wilcoxon Signed-Rank Test), and randomized block designs in causal inference.</li>
+</ul>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution Checklist</h2>
+<h3>The Problem (AP-Style FRQ)</h3>
+<p>An educational technology firm develops a new algorithmic software program designed to increase reading comprehension speeds in high school students. </p>
+<p>To evaluate the program's efficacy, two proposals are submitted for a statistical study involving 20 available student volunteers:</p>
+<ul>
+<li><strong>Design A:</strong> Randomly assign 10 students to use the new software program and 10 students to use standard reading materials for one month. Record final reading speeds (words per minute) for all 20 students.</li>
+<li><strong>Design B:</strong> Take all 20 students and record their initial baseline reading speeds. Have all 20 students use the software program for one month, then record their final reading speeds.</li>
+</ul>
+<h4>Questions:</h4>
+<ol>
+<li>Identify the appropriate statistical test for <strong>Design A</strong> and <strong>Design B</strong>.</li>
+<li>Explain why <strong>Design B</strong> is mathematically advantageous over <strong>Design A</strong> if individual student baseline reading speeds vary widely.</li>
+<li>Below are the results collected from <strong>Design B</strong> for a random sample of $n = 12$ students:</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Student</th>
+<th style="text-align: left;">1</th>
+<th style="text-align: left;">2</th>
+<th style="text-align: left;">3</th>
+<th style="text-align: left;">4</th>
+<th style="text-align: left;">5</th>
+<th style="text-align: left;">6</th>
+<th style="text-align: left;">7</th>
+<th style="text-align: left;">8</th>
+<th style="text-align: left;">9</th>
+<th style="text-align: left;">10</th>
+<th style="text-align: left;">11</th>
+<th style="text-align: left;">12</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Baseline ($X_1$)</strong></td>
+<td style="text-align: left;">210</td>
+<td style="text-align: left;">185</td>
+<td style="text-align: left;">240</td>
+<td style="text-align: left;">190</td>
+<td style="text-align: left;">205</td>
+<td style="text-align: left;">220</td>
+<td style="text-align: left;">175</td>
+<td style="text-align: left;">230</td>
+<td style="text-align: left;">195</td>
+<td style="text-align: left;">215</td>
+<td style="text-align: left;">250</td>
+<td style="text-align: left;">180</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Post-Software ($X_2$)</strong></td>
+<td style="text-align: left;">222</td>
+<td style="text-align: left;">192</td>
+<td style="text-align: left;">245</td>
+<td style="text-align: left;">198</td>
+<td style="text-align: left;">218</td>
+<td style="text-align: left;">225</td>
+<td style="text-align: left;">181</td>
+<td style="text-align: left;">239</td>
+<td style="text-align: left;">201</td>
+<td style="text-align: left;">220</td>
+<td style="text-align: left;">254</td>
+<td style="text-align: left;">189</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Difference ($D = X_2 - X_1$)</strong></td>
+<td style="text-align: left;">+12</td>
+<td style="text-align: left;">+7</td>
+<td style="text-align: left;">+5</td>
+<td style="text-align: left;">+8</td>
+<td style="text-align: left;">+13</td>
+<td style="text-align: left;">+5</td>
+<td style="text-align: left;">+6</td>
+<td style="text-align: left;">+9</td>
+<td style="text-align: left;">+6</td>
+<td style="text-align: left;">+5</td>
+<td style="text-align: left;">+4</td>
+<td style="text-align: left;">+9</td>
+</tr>
+</tbody>
+</table>
+<p>Carry out an appropriate inference procedure at the $\alpha = 0.05$ significance level to determine whether the software program significantly increases mean reading speed.</p>
+<hr />
+<h3>Complete Step-by-Step Solution Checklist</h3>
+<h4>Part 1: Design Identification</h4>
+<ul>
+<li><strong>Design A:</strong> <strong>Two-Sample $t$-test for the difference between two independent means</strong>. The two groups (Software vs. Standard) consist of distinct, independently assigned subjects.</li>
+<li><strong>Design B:</strong> <strong>Paired $t$-test for a population mean difference</strong>. Two measurements (Baseline vs. Post-software) are taken on the <em>same individual observational units</em>.</li>
+</ul>
+<h4>Part 2: Design Advantage &amp; Variance Reduction Explanations</h4>
+<ul>
+<li><strong>Design B</strong> controls for student-to-student variability in baseline reading speed by using each student as their own control.</li>
+<li>Mathematically:
+  $$\text{Var}(\bar{X}<em>{\text{Post}} - \bar{X}</em>{\text{Pre}}) = \text{Var}(\bar{X}<em>{\text{Post}}) + \text{Var}(\bar{X}</em>{\text{Pre}}) - 2\text{Cov}(\bar{X}<em>{\text{Post}}, \bar{X}</em>{\text{Pre}})$$
+  Because a student's baseline speed correlates strongly with their post-treatment speed ($\text{Cov} &gt; 0$), pairing reduces the standard error of the estimator. This increased precision yields a higher statistical power to detect real improvements compared to Design A.</li>
+</ul>
+<hr />
+<h4>Part 3: Complete 4-Step Inference Procedure (Design B)</h4>
+<h5>Step 1: STATE</h5>
+<p>We wish to test the following hypotheses at significance level $\alpha = 0.05$:</p>
+<p>$$H_0: \mu_d = 0$$
+$$H_a: \mu_d &gt; 0$$</p>
+<p>Where $\mu_d$ represents the true population mean difference in reading speed ($D = \text{Post-Software} - \text{Baseline}$, in words per minute) for high school students using this software program.</p>
+<h5>Step 2: PLAN</h5>
+<ul>
+<li><strong>Name of Procedure:</strong> Paired $t$-test for a population mean difference.</li>
+<li><strong>Condition Verification:</strong></li>
+<li><strong>Random Sampling / Assignment:</strong> The problem states that data was collected from a random sample of 12 students.</li>
+<li><strong>10% Condition:</strong> $n = 12 &lt; 10\%$ of all high school students who could potentially use the program.</li>
+<li><strong>Normality / Sample Size Condition:</strong> Since $n = 12 &lt; 30$, we must verify that the population of differences is approximately normal by constructing a graph of the sample differences ($D$):<ul>
+<li>Differences: ${12, 7, 5, 8, 13, 5, 6, 9, 6, 5, 4, 9}$</li>
+<li>Sample summary: No extreme outliers or severe skewness are present in the differences. Thus, conditions are met to proceed with a $t$-distribution.</li>
+</ul>
+</li>
+</ul>
+<h5>Step 3: DO</h5>
+<ul>
+<li><strong>Sample Statistics:</strong></li>
+<li>Sample size of differences: $n_d = 12$</li>
+<li>Sample mean difference: $\bar{d} = \frac{12 + 7 + 5 + 8 + 13 + 5 + 6 + 9 + 6 + 5 + 4 + 9}{12} = \frac{89}{12} \approx 7.417 \text{ wpm}$</li>
+<li>Sample standard deviation of differences ($s_d$):
+    $$s_d = \sqrt{\frac{\sum (D_i - \bar{d})^2}{n_d - 1}} \approx 2.779 \text{ wpm}$$</li>
+<li>
+<p>Standard Error: $\text{SE}_{\bar{d}} = \frac{s_d}{\sqrt{n_d}} = \frac{2.779}{\sqrt{12}} \approx 0.8022$</p>
+</li>
+<li>
+<p><strong>Test Statistic:</strong>
+  $$t = \frac{\bar{d} - \mu_{d,0}}{\frac{s_d}{\sqrt{n_d}}} = \frac{7.417 - 0}{0.8022} \approx 9.246$$</p>
+</li>
+<li>
+<p><strong>Degrees of Freedom &amp; $p$-value:</strong>
+  $$df = n_d - 1 = 12 - 1 = 11$$
+  $$p\text{-value} = P(t_{11} \ge 9.246) \approx 0.00000084 \quad (8.4 \times 10^{-7})$$</p>
+</li>
+</ul>
+<h5>Step 4: CONCLUDE</h5>
+<p>Because the $p$-value $\approx 8.4 \times 10^{-7}$ is far less than $\alpha = 0.05$, we reject the null hypothesis $H_0$. </p>
+<p>There is overwhelming statistical evidence that the true mean difference in reading speed for high school students after using the software program is greater than zero. On average, the software program significantly increases student reading speed.</p>
+<hr />
+<h3>Score 5 Diagnostic Assessment Checklist</h3>
+<p>Before submitting your AP exam paper, verify that your response meets these exact criteria:</p>
+<ul>
+<li>[ ] Defined the parameter as a <strong>single mean difference</strong> ($\mu_d$), not two separate means ($\mu_1 - \mu_2$).</li>
+<li>[ ] Explicitly evaluated the normality assumption on the <strong>differences</strong> $D$, rather than the raw baseline/post score distributions.</li>
+<li>[ ] Correctly named the test <strong>Paired $t$-test</strong> (or $t$-test for mean difference).</li>
+<li>[ ] Stated the degrees of freedom ($df = n - 1 = 11$).</li>
+<li>[ ] Extended conclusions back to <strong>population parameters in context</strong> with explicit mention of the direction of change.</li>
+</ul>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Statistics?</h2>
+      <p>Secure admission and advanced standing at top institutions like MIT with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

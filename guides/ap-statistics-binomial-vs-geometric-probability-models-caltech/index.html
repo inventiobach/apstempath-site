@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Binomial vs. Geometric Probability Models & Expected Values Guide: AP Statistics Score 5 for Caltech | AP STEM PATH</title>
+  <meta name="description" content="Master Binomial vs. Geometric Probability Models & Expected Values in AP Statistics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Caltech applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Binomial vs. Geometric Probability Models & Expected Values Guide: AP Statistics Score 5 for Caltech",
+    "description": "Master Binomial vs. Geometric Probability Models & Expected Values in AP Statistics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Caltech applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Statistics • Score 5 Strategy</span>
+      <h1>Binomial vs. Geometric Probability Models & Expected Values Guide: AP Statistics Score 5 for Caltech</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Statistics Mastery Guide: Binomial vs. Geometric Probability Models &amp; Expected Values</h1>
+<p><strong>Target University:</strong> California Institute of Technology (Caltech)<br />
+<strong>Academic Goal:</strong> AP Exam Score 5 | Waiver of <em>Quantitative Research Evidence</em> Requirement<br />
+<strong>Acceleration Path:</strong> Direct enrollment into <strong>Ma 3 (Probability &amp; Statistics)</strong> &amp; Accelerated SURF (Summer Undergraduate Research Fellowship) Eligibility</p>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>In AP Statistics, Discrete Random Variables—specifically <strong>Binomial</strong> and <strong>Geometric Probability Models</strong>—form the backbone of Topic 4.10–4.12 (Unit 4: Random Variables, Sets, and Probability). This unit constitutes <strong>10–20% of the Multiple-Choice section</strong> and appears reliably in <strong>Free-Response Questions (FRQs)</strong>, often integrated with sampling distributions and hypothesis testing.</p>
+<h3>AP Exam Weight Breakdown</h3>
+<ul>
+<li><strong>Unit 4 Coverage:</strong> 10%–20% of AP Exam</li>
+<li><strong>Target Concept Mastery:</strong><ul>
+<li>Distinguishing Bernoulli trial structures ($n$ fixed vs. $n$ variable).</li>
+<li>Exact PMF/CDF evaluation for Binomial $B(n, p)$ and Geometric $G(p)$.</li>
+<li>Analytical derivation and application of Expected Value $E[X]$ and Variance $\text{Var}(X)$.</li>
+<li>Linear transformations and sums of independent discrete random variables.</li>
+</ul>
+</li>
+</ul>
+<h3>The Caltech Imperative</h3>
+<p>At Caltech, mastery over independent trials is not merely an AP milestone; it is a fundamental prerequisite for physical modeling. Whether quantifying quantum efficiency in single-photon avalanche diodes (SPADs) within Quantum Optics labs or computing detection thresholds for gravitational wave transients in LIGO data, discrete probability models dictate experimental design. Waiving Caltech's introductory quantitative requirement positions incoming freshmen to take <strong>Ma 3</strong>, unlocking competitive <strong>SURF (Summer Undergraduate Research Fellowship)</strong> positions as early as the spring of freshman year.</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>2.1 Theoretical Foundations of Bernoulli Trials</h3>
+<p>Both Binomial and Geometric models originate from a <strong>Bernoulli Process</strong>: a sequence of independent trials where each trial yields binary outcomes: Success ($S$) with probability $p$, or Failure ($F$) with probability $q = 1 - p$.</p>
+<p>$$\begin{aligned}
+\text{Binomial Model } B(n, p): &amp; \quad \text{Fixed number of trials } n; \text{ count number of successes } X. \
+\text{Geometric Model } G(p): &amp; \quad \text{Variable number of trials } Y; \text{ count trials until FIRST success occurs.}
+\end{aligned}$$</p>
+<hr />
+<h3>2.2 Derivation of the Binomial Distribution $X \sim B(n, p)$</h3>
+<h4>Probability Mass Function (PMF)</h4>
+<p>For $X = k$ successes in $n$ trials:</p>
+<p>$$P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}, \quad k \in {0, 1, 2, \dots, n}$$</p>
+<h4>Proof of Expected Value $E[X] = np$</h4>
+<p>Using the definition of expectation:</p>
+<p>$$E[X] = \sum_{k=0}^{n} k \cdot P(X = k) = \sum_{k=0}^{n} k \binom{n}{k} p^k (1-p)^{n-k}$$</p>
+<p>Since the $k=0$ term evaluates to zero:</p>
+<p>$$E[X] = \sum_{k=1}^{n} k \frac{n!}{k!(n-k)!} p^k (1-p)^{n-k} = \sum_{k=1}^{n} \frac{n!}{(k-1)!(n-k)!} p^k (1-p)^{n-k}$$</p>
+<p>Factor out $n$ and $p$:</p>
+<p>$$E[X] = np \sum_{k=1}^{n} \frac{(n-1)!}{(k-1)!((n-1)-(k-1))!} p^{k-1} (1-p)^{(n-1)-(k-1)}$$</p>
+<p>Let $j = k - 1$ and $m = n - 1$. As $k$ runs from $1$ to $n$, $j$ runs from $0$ to $m$:</p>
+<p>$$E[X] = np \sum_{j=0}^{m} \binom{m}{j} p^j (1-p)^{m-j}$$</p>
+<p>By the Binomial Theorem, $\sum_{j=0}^{m} \binom{m}{j} p^j (1-p)^{m-j} = (p + (1-p))^m = 1^m = 1$. Thus:</p>
+<p>$$\bbox[10px,border:2px solid #003865]{E[X] = np}$$</p>
+<h4>Proof of Variance $\text{Var}(X) = np(1-p)$</h4>
+<p>Using $\text{Var}(X) = E[X(X-1)] + E[X] - (E[X])^2$:</p>
+<p>$$\begin{aligned}
+E[X(X-1)] &amp;= \sum_{k=0}^{n} k(k-1) \binom{n}{k} p^k (1-p)^{n-k} \
+&amp;= n(n-1)p^2 \sum_{k=2}^{n} \binom{n-2}{k-2} p^{k-2} (1-p)^{(n-2)-(k-2)} \
+&amp;= n(n-1)p^2
+\end{aligned}$$</p>
+<p>Substituting back:</p>
+<p>$$\begin{aligned}
+\text{Var}(X) &amp;= n(n-1)p^2 + np - (np)^2 \
+&amp;= n^2 p^2 - np^2 + np - n^2 p^2 \
+&amp;= np(1 - p)
+\end{aligned}$$</p>
+<p>$$\bbox[10px,border:2px solid #003865]{\text{Var}(X) = np(1-p)}$$</p>
+<hr />
+<h3>2.3 Derivation of the Geometric Distribution $Y \sim G(p)$</h3>
+<h4>Probability Mass Function (PMF)</h4>
+<p>For the first success occurring on trial $k$:</p>
+<p>$$P(Y = k) = (1-p)^{k-1} p, \quad k \in {1, 2, 3, \dots}$$</p>
+<h4>Cumulative Distribution Function (CDF) &amp; Survival Function</h4>
+<p>The probability that more than $k$ trials are required:</p>
+<p>$$P(Y &gt; k) = (1-p)^k$$</p>
+<p>Hence, the CDF is:</p>
+<p>$$P(Y \le k) = 1 - P(Y &gt; k) = 1 - (1-p)^k$$</p>
+<h4>Proof of Expected Value $E[Y] = \frac{1}{p}$</h4>
+<p>Using the analytical power series method:</p>
+<p>$$E[Y] = \sum_{k=1}^{\infty} k \cdot p(1-p)^{k-1}$$</p>
+<p>Let $q = 1-p$:</p>
+<p>$$E[Y] = p \sum_{k=1}^{\infty} k q^{k-1} = p \cdot \frac{d}{dq} \left( \sum_{k=0}^{\infty} q^k \right)$$</p>
+<p>For $|q| &lt; 1$, the geometric series evaluates to $\frac{1}{1-q}$:</p>
+<p>$$\frac{d}{dq} \left( \frac{1}{1-q} \right) = \frac{1}{(1-q)^2}$$</p>
+<p>Substitute $q = 1-p$:</p>
+<p>$$E[Y] = p \cdot \frac{1}{(1-(1-p))^2} = p \cdot \frac{1}{p^2} = \frac{1}{p}$$</p>
+<p>$$\bbox[10px,border:2px solid #003865]{E[Y] = \frac{1}{p}}$$</p>
+<h4>Proof of Variance $\text{Var}(Y) = \frac{1-p}{p^2}$</h4>
+<p>Differentiating twice yields $E[Y(Y-1)] = \frac{2(1-p)}{p^2}$. Thus:</p>
+<p>$$\begin{aligned}
+\text{Var}(Y) &amp;= E[Y(Y-1)] + E[Y] - (E[Y])^2 \
+&amp;= \frac{2(1-p)}{p^2} + \frac{1}{p} - \frac{1}{p^2} = \frac{2 - 2p + p - 1}{p^2} = \frac{1-p}{p^2}
+\end{aligned}$$</p>
+<p>$$\bbox[10px,border:2px solid #003865]{\text{Var}(Y) = \frac{1-p}{p^2}}$$</p>
+<hr />
+<h3>2.4 Computational Verification: Monte Carlo Physics Simulation</h3>
+<p>The following Python script simulates single-photon detection statistics under quantum noise, verifying empirical values against theoretical derivations for both distributions.</p>
+<pre><code class="language-python">import numpy as np
+
+def simulate_quantum_detection(p_success: float, n_trials_binomial: int, num_simulations: int = 1_000_000):
+    &quot;&quot;&quot;
+    Simulates Single-Photon Detector (SPAD) pulse streams.
+
+    Parameters:
+        p_success (float): Quantum efficiency of the detector.
+        n_trials_binomial (int): Fixed laser pulses per experimental run.
+        num_simulations (int): Total Monte Carlo realizations.
+    &quot;&quot;&quot;
+    np.random.seed(42)
+
+    # 1. Binomial Simulation: Count detected photons in fixed n pulses
+    binomial_trials = np.random.binomial(n=n_trials_binomial, p=p_success, size=num_simulations)
+    emp_mean_bin = np.mean(binomial_trials)
+    emp_var_bin = np.var(binomial_trials, ddof=1)
+
+    theo_mean_bin = n_trials_binomial * p_success
+    theo_var_bin = n_trials_binomial * p_success * (1 - p_success)
+
+    # 2. Geometric Simulation: Count pulses required until first photon detection
+    geometric_trials = np.random.geometric(p=p_success, size=num_simulations)
+    emp_mean_geo = np.mean(geometric_trials)
+    emp_var_geo = np.var(geometric_trials, ddof=1)
+
+    theo_mean_geo = 1 / p_success
+    theo_var_geo = (1 - p_success) / (p_success ** 2)
+
+    print(f&quot;=== MONTE CARLO SIMULATION RESULTS ({num_simulations:,} Iterations) ===&quot;)
+    print(f&quot;Quantum Efficiency (p): {p_success}\n&quot;)
+    print(&quot;BINOMIAL MODEL (n = {}, p = {}):&quot;.format(n_trials_binomial, p_success))
+    print(f&quot;  Empirical Mean : {emp_mean_bin:.5f} | Theoretical Mean : {theo_mean_bin:.5f}&quot;)
+    print(f&quot;  Empirical Var  : {emp_var_bin:.5f} | Theoretical Var  : {theo_var_bin:.5f}\n&quot;)
+    print(&quot;GEOMETRIC MODEL (p = {}):&quot;.format(p_success))
+    print(f&quot;  Empirical Mean : {emp_mean_geo:.5f} | Theoretical Mean : {theo_mean_geo:.5f}&quot;)
+    print(f&quot;  Empirical Var  : {emp_var_geo:.5f} | Theoretical Var  : {theo_var_geo:.5f}&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    # Test with Quantum Efficiency p = 0.85 and n = 20 pulses
+    simulate_quantum_detection(p_success=0.85, n_trials_binomial=20)
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<h3>Critical Verification Conditions Checklist</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Condition</th>
+<th style="text-align: left;">Binomial Criteria (<strong>BINS</strong>)</th>
+<th style="text-align: left;">Geometric Criteria (<strong>BITS</strong>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>B</strong>inary</td>
+<td style="text-align: left;">Outcomes are strictly Success / Failure.</td>
+<td style="text-align: left;">Outcomes are strictly Success / Failure.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>I</strong>ndependent</td>
+<td style="text-align: left;">Trials are independent (Check 10% Condition if sampling $n \le 0.10 N$).</td>
+<td style="text-align: left;">Trials are independent (Check 10% Condition if sampling $n \le 0.10 N$).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>N / T</strong></td>
+<td style="text-align: left;"><strong>N</strong>: Number of trials fixed in advance ($n$).</td>
+<td style="text-align: left;"><strong>T</strong>: Count trials until the <em>first</em> success.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>S</strong>ame $p$</td>
+<td style="text-align: left;">Probability of success $p$ is constant per trial.</td>
+<td style="text-align: left;">Probability of success $p$ is constant per trial.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Comparison Analysis: Score 4 vs. Score 5 Performance</h3>
+<h4>Scenario</h4>
+<p><em>A particle detector has an $18\%$ probability of detecting a cosmic muon during any given $1$-millisecond interval. Assume intervals are independent. Find the probability that the first muon is detected after the $5^{\text{th}}$ interval.</em></p>
+<pre><code>Score 4 Response (Essentially Correct Reasoning, Partial Communication)
+---------------------------------------------------------------------
+&quot;This is a geometric distribution with p = 0.18.
+We want the probability that it takes more than 5 intervals.
+P(Y &gt; 5) = (1 - 0.18)^5 = (0.82)^5 = 0.3707.
+The probability is 0.3707.&quot;
+</code></pre>
+<p><em>Why this loses top credit:</em> The student fails to explicitly define the random variable $Y$ with context, does not state the model conditions (independence/constant probability), and omits structural work showing $1 - P(Y \le 5)$.</p>
+<pre><code>Score 5 Exemplar Response (Complete and Rigorous)
+---------------------------------------------------------------------
+&quot;Let Y = the number of 1-millisecond intervals until the first cosmic muon is detected.
+Since each interval has two outcomes (detected/not detected), intervals are independent,
+we count until the FIRST success, and p = 0.18 is constant for all intervals,
+Y follows a Geometric distribution: Y ~ Geometric(p = 0.18).
+
+We need to calculate P(Y &gt; 5).
+
+P(Y &gt; 5) = 1 - P(Y &lt;= 5)
+         = 1 - [P(Y=1) + P(Y=2) + P(Y=3) + P(Y=4) + P(Y=5)]
+         = (1 - p)^5
+         = (1 - 0.18)^5
+         = (0.82)^5
+         = 0.370739
+
+There is approximately a 37.07% chance that the first cosmic muon detection occurs
+after the 5th interval.&quot;
+</code></pre>
+<h3>Key Scoring Guidelines Rules (AP Rubric Standards)</h3>
+<ol>
+<li><strong>Define Random Variables Contextually:</strong> Never start writing probabilities without stating: <em>"Let $X = \text{number of...}$"</em>.</li>
+<li><strong>Calculator Syntax Penalty:</strong> Writing <code>binomcdf(20, 0.85, 18)</code> alone results in an <strong>Automatic Partial (P)</strong> or <strong>Incomplete (I)</strong>. You must specify parameters explicitly: $\text{Binomial}(n = 20, p = 0.85)$ and $P(X \le 18) = \dots$</li>
+<li><strong>10% Condition Rule:</strong> If sampling without replacement from a finite population $N$, you <strong>must</strong> write: <em>"Since $n = 50 \le 0.10 N$, trials are treated as independent."</em></li>
+</ol>
+<hr />
+<h2>4. Caltech Placement Pathway: Accelerating Beyond Intro Stats</h2>
+<h3>Institutional Placement Mechanics</h3>
+<p>Exemption from <strong>Quantitative Research Evidence</strong> via a Score 5 on AP Statistics clears foundational hurdles at Caltech. Incoming STEM majors who demonstrate theoretical mastery of discrete processes can immediately fulfill core requisites and transition into <strong>Ma 3 (Probability &amp; Statistics)</strong>.</p>
+<pre><code>                  AP Statistics Score 5
+                            │
+                            ▼
+     Exemption: Quantitative Research Evidence
+                            │
+                            ▼
+             Direct Enrollment into Ma 3
+                            │
+        ┌───────────────────┴───────────────────┐
+        ▼                                       ▼
+Caltech LIGO Lab                     Caltech Quantum Optics
+(Stochastic Transient Search)        (Photon Counting Statistics)
+        │                                       │
+        └───────────────────┬───────────────────┘
+                            ▼
+            Competitive Freshman SURF Grant
+</code></pre>
+<h3>Applied Contexts in Caltech Core &amp; SURF Research</h3>
+<ul>
+<li><strong>Ma 3 Advanced Integration:</strong> Ma 3 transitions students from basic discrete models to Poisson Point Processes, Continuous-Time Markov Chains, and Measure-Theoretic Foundations. Understanding $G(p)$ as the discrete memoryless analog of the Exponential distribution $\text{Exp}(\lambda)$ is vital.</li>
+<li><strong>Physics Core (Ph 2a/b - Quantum Mechanics):</strong> Photons emitted from a coherent state (laser) hit a photodetector following Poisson statistics, but quantum efficiency limits mean the recorded signal undergoes <em>binomial thinning</em>. A detector efficiency $p$ transforms an incident beam into $X \sim B(n, p)$.</li>
+<li><strong>Caltech SURF Advantage:</strong> SURF proposals submitted to the Division of Physics, Mathematics and Astronomy (PMA) demand rigorous statistical risk modeling. Demonstrating fluency in analytical expected value derivations signals to potential faculty mentors (e.g., in PMA or JPL) that the student can build error budgets and noise covariance matrices on Day 1.</li>
+</ul>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution Checklist</h2>
+<h3>Problem Statement (AP FRQ Style - Multi-Part Cumulative)</h3>
+<p>A Caltech astrophysics lab uses an automated optical pipeline to process incoming multi-messenger transient alerts from deep-space observations. </p>
+<ul>
+<li><strong>System A:</strong> Evaluates candidate image frames independently. Each frame has a constant probability $p = 0.15$ of identifying an optical counterpart to a gravitational wave event.</li>
+<li><strong>System B:</strong> Processes a fixed batch of $n = 25$ candidate frames recorded during a single observation run.</li>
+</ul>
+<h4>Part (a)</h4>
+<p>Calculate the probability that System A requires <strong>more than 6</strong> candidate frames to identify its first optical counterpart. Interpret the expected value of this model in context.</p>
+<h4>Part (b)</h4>
+<p>Using System B, calculate the probability that the system identifies <strong>at least 4</strong> optical counterparts in a batch of $25$ frames.</p>
+<h4>Part (c)</h4>
+<p>The processing cost $C$ (in GPU-seconds) for System A to identify its first counterpart is modeled by the linear transformation $C = 120Y + 45$, where $Y$ is the frame count on which the first counterpart is identified. Calculate the mean $E[C]$ and standard deviation $\sigma_C$ of the processing cost.</p>
+<hr />
+<h3>Step-by-Step Exemplar Solution &amp; Rubric Checklist</h3>
+<pre><code>PART (A) SOLUTION
+--------------------------------------------------------------------------------
+
+Step 1: Identify and Define the Distribution
+Let Y = the number of candidate image frames processed until the first optical counterpart is identified.
+Conditions:
+1. Binary: Candidate contains optical counterpart (Success) or does not (Failure).
+2. Independent: Frames are processed independently.
+3. Trials: Processing continues until the FIRST optical counterpart is found.
+4. Same p: Probability of success p = 0.15 is constant for each frame.
+Therefore, Y ~ Geometric(p = 0.15).
+
+Step 2: Probability Calculation
+P(Y &gt; 6) = (1 - p)^6
+         = (1 - 0.15)^6
+         = (0.85)^6
+         ≈ 0.3771
+
+Step 3: Expected Value Calculation &amp; Contextual Interpretation
+E[Y] = 1 / p = 1 / 0.15 = 6.67 frames.
+
+Interpretation: Over a long sequence of observation runs, System A will process
+an average of approximately 6.67 candidate image frames to detect the first optical counterpart.
+</code></pre>
+<pre><code>PART (B) SOLUTION
+--------------------------------------------------------------------------------
+
+Step 1: Identify and Define the Distribution
+Let X = the number of frames containing an optical counterpart out of a fixed batch of n = 25 frames.
+Conditions:
+1. Binary: Success (counterpart found) / Failure (counterpart not found).
+2. Independent: Frames are processed independently.
+3. Number fixed: n = 25 fixed trials.
+4. Same p: p = 0.15 is constant per trial.
+Therefore, X ~ Binomial(n = 25, p = 0.15).
+
+Step 2: Calculate P(X &gt;= 4)
+P(X &gt;= 4) = 1 - P(X &lt;= 3)
+          = 1 - sum_{k=0}^{3} binom(25, k) (0.15)^k (0.85)^(25-k)
+
+Evaluating cumulative terms:
+P(X = 0) = binom(25,0) (0.15)^0 (0.85)^25 = 0.017198
+P(X = 1) = binom(25,1) (0.15)^1 (0.85)^24 = 0.075873
+P(X = 2) = binom(25,2) (0.15)^2 (0.85)^23 = 0.160673
+P(X = 3) = binom(25,3) (0.15)^3 (0.85)^22 = 0.217380
+
+P(X &lt;= 3) = 0.017198 + 0.075873 + 0.160673 + 0.217380 = 0.471124
+
+P(X &gt;= 4) = 1 - 0.471124 = 0.528876 ≈ 0.5289
+
+There is approximately a 52.89% probability that at least 4 counterparts are found.
+</code></pre>
+<pre><code>PART (C) SOLUTION
+--------------------------------------------------------------------------------
+
+Step 1: Calculate Mean Expected Cost E[C]
+Given C = 120Y + 45 and E[Y] = 1 / 0.15 = 20/3 ≈ 6.6667:
+
+Using linear properties of expectation E[aY + b] = a*E[Y] + b:
+E[C] = 120 * E[Y] + 45
+     = 120 * (20 / 3) + 45
+     = 800 + 45
+     = 845 GPU-seconds.
+
+Step 2: Calculate Standard Deviation σ_C
+First, determine Var(Y) for Y ~ Geometric(p = 0.15):
+Var(Y) = (1 - p) / p^2 = (1 - 0.15) / (0.15)^2 = 0.85 / 0.0225 = 37.7778
+
+Standard deviation σ_Y = sqrt(Var(Y)) = sqrt(37.7778) ≈ 6.1464 frames.
+
+Using linear properties of variance Var(aY + b) = a^2 * Var(Y):
+σ_C = sqrt(Var(120Y + 45))
+    = sqrt(120^2 * Var(Y))
+    = 120 * σ_Y
+    = 120 * 6.1464
+    ≈ 737.57 GPU-seconds.
+
+Summary: The mean processing cost is 845 GPU-seconds with a standard deviation of 737.57 GPU-seconds.
+</code></pre>
+<hr />
+<h3>Scoring Rubric Checklist (AP Exam Calibration)</h3>
+<h4>Part (a) Rubric Criteria</h4>
+<ul>
+<li>[ ] <strong>Essentially Correct (E):</strong> States Geometric distribution parameters ($p=0.15$), correctly calculates $P(Y &gt; 6) \approx 0.3771$, calculates $E[Y] = 6.67$, and provides context with long-run interpretation.</li>
+<li>[ ] <strong>Partially Correct (P):</strong> Correct calculation without context/interpretation OR missing geometric distribution validation.</li>
+<li>[ ] <strong>Incorrect (I):</strong> Uses Binomial distribution instead of Geometric model.</li>
+</ul>
+<h4>Part (b) Rubric Criteria</h4>
+<ul>
+<li>[ ] <strong>Essentially Correct (E):</strong> Defines $X \sim B(25, 0.15)$, sets up direction $P(X \ge 4) = 1 - P(X \le 3)$, and calculates $0.5289$ with clear supporting arithmetic.</li>
+<li>[ ] <strong>Partially Correct (P):</strong> Uses calculator syntax without parameter identification OR computes $1 - P(X \le 4)$ (off-by-one boundary error).</li>
+<li>[ ] <strong>Incorrect (I):</strong> Uses normal approximation without checking $np \ge 10$ and $n(1-p) \ge 10$ (note: $np = 3.75 &lt; 10$, so normal approximation is invalid).</li>
+</ul>
+<h4>Part (c) Rubric Criteria</h4>
+<ul>
+<li>[ ] <strong>Essentially Correct (E):</strong> Correctly applies linear transformation rules for expectation $E[aY+b] = aE[Y]+b$ and standard deviation $\sigma_{aY+b} = |a|\sigma_Y$, showing work resulting in $845$ and $737.57$.</li>
+<li>[ ] <strong>Partially Correct (P):</strong> Correct $E[C]$ but fails to scale variance correctly (e.g., adding $+45$ to the standard deviation or forgetting to take the square root).</li>
+<li>[ ] <strong>Incorrect (I):</strong> Arithmetic errors combined with structural misapplication of random variable transformations.</li>
+</ul>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Statistics?</h2>
+      <p>Secure admission and advanced standing at top institutions like Caltech with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faraday's Law of Induction & Differential RLC Circuits Guide: AP Physics C: Electricity & Magnetism Score 5 for Carnegie Mellon University | AP STEM PATH</title>
+  <meta name="description" content="Master Faraday's Law of Induction & Differential RLC Circuits in AP Physics C: Electricity & Magnetism. Deep dive with LaTeX/code examples and score 5 strategies tailored for Carnegie Mellon University applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Faraday's Law of Induction & Differential RLC Circuits Guide: AP Physics C: Electricity & Magnetism Score 5 for Carnegie Mellon University",
+    "description": "Master Faraday's Law of Induction & Differential RLC Circuits in AP Physics C: Electricity & Magnetism. Deep dive with LaTeX/code examples and score 5 strategies tailored for Carnegie Mellon University applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Physics C: Electricity & Magnetism • Score 5 Strategy</span>
+      <h1>Faraday's Law of Induction & Differential RLC Circuits Guide: AP Physics C: Electricity & Magnetism Score 5 for Carnegie Mellon University</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Physics C: Electricity &amp; Magnetism</h1>
+<h2>Master Guide: Faraday’s Law of Induction &amp; Differential RLC Circuits</h2>
+<p><strong>Target Institution:</strong> Carnegie Mellon University (CMU Placement Benchmark: Course 33-142 Waiver)</p>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>On the AP Physics C: Electricity &amp; Magnetism exam, <strong>Electromagnetism, Induction, and Circuit Mechanics</strong> represent the peak of conceptual integration. Magnetic Induction (Faraday’s and Lenz’s Laws) accounts for approximately <strong>14–20%</strong> of the multiple-choice and free-response sections. When coupled with time-dependent circuit dynamics—specifically second-order differential equations governing $RLC$ circuits—this domain separates high-performing students from the top 5th percentile.</p>
+<p>For students aiming for Carnegie Mellon University (CMU), achieving a <strong>Score 5</strong> is a strict prerequisite to obtain 12 units of credit for <strong>33-142 (Physics II for Engineering and Physics Students)</strong>. Mastering these topics provides the mathematical foundation necessary to bypass introductory physics and directly enroll in <strong>18-100 (Introduction to Electrical and Computer Engineering)</strong>, accelerating your progression into CMU’s legendary ECE core courses (such as 18-220: Electronic Devices &amp; Circuits and 18-240: Structure and Design of Digital Systems).</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>2.1 Faraday’s Law of Induction and Non-Conservative Fields</h3>
+<p>Faraday’s Law establishes that a changing magnetic flux through a closed path induces an electromotive force ($\mathcal{E}$):</p>
+<p>$$\mathcal{E} = -\frac{d\Phi_B}{dt}$$</p>
+<p>Where magnetic flux $\Phi_B$ is defined by the surface integral:</p>
+<p>$$\Phi_B = \iint_S \mathbf{B} \cdot d\mathbf{A}$$</p>
+<p>By applying Stokes' Theorem to the line integral of the electric field around a closed path $\partial S$, we derive the Maxwell-Faraday equation:</p>
+<p>$$\oint_{\partial S} \mathbf{E} \cdot d\mathbf{\ell} = -\frac{d}{dt} \iint_S \mathbf{B} \cdot d\mathbf{A}$$</p>
+<p>In differential form, this relation is expressed as:</p>
+<p>$$\nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t}$$</p>
+<h4>Critical Physics Distinction: Non-Conservative Fields</h4>
+<p>Unlike electrostatic fields ($\nabla \times \mathbf{E}<em>{\text{static}} = 0$), where potential difference $V = -\int \mathbf{E} \cdot d\mathbf{\ell}$ is path-independent, an induced electric field $\mathbf{E}</em>{\text{ind}}$ is <strong>non-conservative</strong> ($\nabla \times \mathbf{E}<em>{\text{ind}} \neq 0$). Consequently, scalar electric potential $V$ is undefined in regions with time-varying magnetic fields; one must work directly with path integrals of $\mathbf{E}</em>{\text{ind}}$ or electromotive force $\mathcal{E}$.</p>
+<hr />
+<h2>2.2 Mathematical Derivation of Driven and Undriven Differential $RLC$ Circuits</h2>
+<p>Consider a series $RLC$ circuit driven by a time-varying potential source $V(t)$, containing a resistor $R$, an inductor $L$, and a capacitor $C$.</p>
+<pre><code>       +---[ R ]---[ L ]---( C )---+
+       |                           |
+     ( ~ ) V(t)                    |
+       |                           |
+       +---------------------------+
+</code></pre>
+<p>Applying Kirchhoff’s Voltage Law (KVL) around the loop:</p>
+<p>$$V(t) - V_R(t) - V_L(t) - V_C(t) = 0$$</p>
+<p>Substituting the constitutive relations $V_R(t) = i(t)R$, $V_L(t) = L\frac{di(t)}{dt}$, and $V_C(t) = \frac{q(t)}{C}$:</p>
+<p>$$V(t) - R i(t) - L \frac{di(t)}{dt} - \frac{q(t)}{C} = 0$$</p>
+<p>Since current is the time derivative of charge, $i(t) = \frac{dq(t)}{dt}$, we formulate the second-order linear ordinary differential equation (ODE) with constant coefficients:</p>
+<p>$$L \frac{d^2q(t)}{dt^2} + R \frac{dq(t)}{dt} + \frac{1}{C}q(t) = V(t)$$</p>
+<p>Dividing by $L$:</p>
+<p>$$\frac{d^2q(t)}{dt^2} + \frac{R}{L} \frac{dq(t)}{dt} + \frac{1}{LC}q(t) = \frac{V(t)}{L}$$</p>
+<h3>Canonical Differential Form</h3>
+<p>We define the <strong>attenuation constant (damping factor)</strong> $\gamma$ and the <strong>undamped natural frequency</strong> $\omega_0$:</p>
+<p>$$\gamma = \frac{R}{2L}, \quad \omega_0 = \frac{1}{\sqrt{LC}}$$</p>
+<p>$$\frac{d^2q(t)}{dt^2} + 2\gamma \frac{dq(t)}{dt} + \omega_0^2 q(t) = \frac{V(t)}{L}$$</p>
+<p>For unforced/homogeneous systems ($V(t) = 0$), the characteristic equation is:</p>
+<p>$$\lambda^2 + 2\gamma \lambda + \omega_0^2 = 0 \implies \lambda = -\gamma \pm \sqrt{\gamma^2 - \omega_0^2}$$</p>
+<h3>The Three Damping Regimes</h3>
+<ol>
+<li>
+<p><strong>Overdamped ($\gamma &gt; \omega_0 \implies R &gt; 2\sqrt{\frac{L}{C}}$):</strong> 
+   Roots are real and distinct ($\lambda_1, \lambda_2 &lt; 0$).
+   $$q(t) = A_1 e^{\lambda_1 t} + A_2 e^{\lambda_2 t}$$</p>
+</li>
+<li>
+<p><strong>Critically Damped ($\gamma = \omega_0 \implies R = 2\sqrt{\frac{L}{C}}$):</strong>
+   Repeated real roots ($\lambda = -\gamma$). Returns to equilibrium as rapidly as possible without oscillation.
+   $$q(t) = (A_1 + A_2 t) e^{-\gamma t}$$</p>
+</li>
+<li>
+<p><strong>Underdamped ($\gamma &lt; \omega_0 \implies R &lt; 2\sqrt{\frac{L}{C}}$):</strong>
+   Complex conjugate roots ($\lambda = -\gamma \pm i \omega_d$), where $\omega_d = \sqrt{\omega_0^2 - \gamma^2}$ is the damped natural frequency.
+   $$q(t) = e^{-\gamma t} \left( A_1 \cos(\omega_d t) + A_2 \sin(\omega_d t) \right)$$</p>
+</li>
+</ol>
+<hr />
+<h3>2.3 Computational Modeling: Python Transient Analysis</h3>
+<p>To solidify these concepts for CMU ECE laboratory applications, the following Python script uses <code>scipy.integrate.solve_ivp</code> to simulate and plot the differential responses of an $RLC$ circuit under all three damping regimes:</p>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+from scipy.integrate import solve_ivp
+
+def rlc_ode(t, y, R, L, C):
+    &quot;&quot;&quot;
+    Defines the system of 1st order ODEs for an RLC circuit:
+    y[0] = q (charge)
+    y[1] = i = dq/dt (current)
+    &quot;&quot;&quot;
+    q, i = y
+    dqdt = i
+    didt = -(R / L) * i - (1.0 / (L * C)) * q
+    return [dqdt, didt]
+
+# Circuit parameters
+L = 10e-3  # 10 mH
+C = 1.0e-6  # 1 uF
+omega_0 = 1.0 / np.sqrt(L * C) # ~10000 rad/s
+R_crit = 2.0 * np.sqrt(L / C)  # Critical Resistance = 200 Ohms
+
+regimes = {
+    &quot;Underdamped (R=40 Ω)&quot;: 40.0,
+    &quot;Critically Damped (R=200 Ω)&quot;: R_crit,
+    &quot;Overdamped (R=800 Ω)&quot;: 800.0
+}
+
+# Initial conditions: Q0 = 5 uC, i(0) = 0 A
+y0 = [5.0e-6, 0.0]
+t_span = (0, 0.003)
+t_eval = np.linspace(t_span[0], t_span[1], 1000)
+
+plt.figure(figsize=(10, 6))
+
+for label, R in regimes.items():
+    sol = solve_ivp(rlc_ode, t_span, y0, args=(R, L, C), t_eval=t_eval, method='RK45')
+    plt.plot(sol.t * 1000, sol.y[0] * 1e6, label=label, linewidth=2)
+
+plt.title(&quot;Series RLC Circuit Transient Response ($q(t)$)&quot;, fontsize=14)
+plt.xlabel(&quot;Time (ms)&quot;, fontsize=12)
+plt.ylabel(&quot;Capacitor Charge ($q(t)$ [$\mu$C])&quot;, fontsize=12)
+plt.grid(True, linestyle='--', alpha=0.7)
+plt.legend(fontsize=11)
+plt.tight_layout()
+plt.show()
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<h3>Score 4 vs. Score 5 Performance</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Analytical Concept</th>
+<th style="text-align: left;">Score 4 Student Performance</th>
+<th style="text-align: left;">Score 5 Student Performance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Lenz’s Law Directionality</strong></td>
+<td style="text-align: left;">Determines direction of $I_{\text{ind}}$ via right-hand rule, but fails to justify using flux conservation language.</td>
+<td style="text-align: left;">Explicitly states: "External flux $\Phi_B$ is decreasing/increasing into the page. To oppose this change, induced current $I_{\text{ind}}$ generates magnetic field $\mathbf{B}_{\text{ind}}$ pointing into/out of the page, yielding a [CW/CCW] current."</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Non-Conservative Fields</strong></td>
+<td style="text-align: left;">Attempts to write $V_B - V_A = -\int \mathbf{E} \cdot d\mathbf{\ell}$ across a region containing time-varying magnetic flux.</td>
+<td style="text-align: left;">Recognizes $\oint \mathbf{E} \cdot d\mathbf{\ell} \neq 0$; calculates electromotive force directly via $-\frac{d\Phi_B}{dt}$ without invoking scalar potential $V$.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Differential Equation Setup</strong></td>
+<td style="text-align: left;">Sets up $\sum V = 0$, but mismanages initial conditions (e.g., assumes $i(0^+) = \frac{V_0}{R}$ instantaneously in an inductive loop).</td>
+<td style="text-align: left;">Explains physical continuity: $i_L(0^-) = i_L(0^+)$ because energy stored in an inductor $U_L = \frac{1}{2}L i^2$ cannot change instantaneously. Applies conditions to find constant values $A_1, A_2$.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Motional EMF Integrals</strong></td>
+<td style="text-align: left;">Treats $\mathcal{E} = BvL$ as a universal formula, failing when magnetic field varies along length $L$ or velocity is non-uniform.</td>
+<td style="text-align: left;">Sets up spatial integration $\mathcal{E} = \int (\mathbf{v} \times \mathbf{B}) \cdot d\mathbf{\ell}$ or calculates area function $A(x)$ to evaluate $-\frac{d}{dt}\int \mathbf{B}(x) \cdot d\mathbf{A}$.</td>
+</tr>
+</tbody>
+</table>
+<h3>AP Rubric Nuance Alert: "State Differential Equation"</h3>
+<p>When a rubric asks to <em>"Write, but do not solve, a differential equation that can be used to determine charge $q(t)$"</em>:
+- <strong>1 Point</strong> for applying KVL with proper functional variables ($L \ddot{q} + R \dot{q} + \frac{1}{C}q = 0$).
+- <strong>1 Point</strong> for expressing current in terms of charge ($i = \frac{dq}{dt}$ and $\frac{di}{dt} = \frac{d^2q}{dt^2}$).
+- <strong>0 Points</strong> if you leave a mixture of explicit dependent variables (e.g., keeping $i$, $\frac{di}{dt}$, and $q$ in the final equation without substitution).</p>
+<hr />
+<h2>4. Carnegie Mellon University Placement Pathway</h2>
+<h3>Exemption Criteria &amp; Accelerated Sequence</h3>
+<p>Earning a <strong>5</strong> on the AP Physics C: E&amp;M exam confers the following academic path at CMU:</p>
+<ul>
+<li><strong>Course Credit Granted:</strong> Bypasses <strong>33-142 (Physics II for Engineering and Physics Students)</strong> — 12 units.</li>
+<li><strong>Immediate Academic Velocity:</strong> Clears prerequisites for <strong>18-100 (Introduction to Electrical and Computer Engineering)</strong> in your first semester at Carnegie Mellon.</li>
+</ul>
+<pre><code>AP Physics C: E&amp;M (Score 5) 
+       │
+       ▼
+[Waive 33-142] ──► Direct Enrollment: 18-100 (Intro to ECE)
+(12 Units Granted)           │
+                             ▼
+                 Direct Line to Upper-Level Labs
+                 - 18-220: Electronic Devices &amp; Circuits
+                 - 18-240: Structure &amp; Design of Digital Systems
+</code></pre>
+<h3>Hardware Laboratory Core Requirements</h3>
+<p>CMU's Department of Electrical and Computer Engineering demands immediate competency in real-world circuit dynamics. The theoretical mastery of Faraday's Law and second-order differential equations translates directly to the following ECE laboratory competencies:</p>
+<ol>
+<li><strong>Oscilloscope Transient Signal Analysis:</strong> In 18-100 labs, students construct transient response circuits. Identifying parasitic inductance and capacitance requires understanding underdamped ringing versus critically damped settling times.</li>
+<li><strong>Field-Circuit Duality:</strong> Understanding Maxwell-Faraday principles ($\nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t}$) is fundamental for avoiding crosstalk, parasitic magnetic coupling, and ground loops on high-speed printed circuit boards (PCBs).</li>
+</ol>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution Checklist</h2>
+<h3>The Problem</h3>
+<p>A conducting circuit loop of width $w$, length $y$, and total resistance $R$ rests in the $xy$-plane. A uniform magnetic field points into the page ($\mathbf{B} = -B_0 \hat{z}$ for $z&gt;0$). A movable conducting crossbar of mass $m$ and length $w$ slides frictionless along two stationary parallel rails. </p>
+<p>The bar is connected in series with an inductor $L$ and an uncharged capacitor $C$. At $t=0$, the bar is pushed to the right with an initial velocity $v_0$. The magnetic field is static and uniform across the loop region.</p>
+<pre><code>  y=0   +-------[ L ]-------( C )-------+
+        |                               |
+        |  B (into page)                | | (Crossbar slides right at v)
+        |  x x x x x x x x x x x x x    | v
+        |  x x x x x x x x x x x x x    | |
+        |  x x x x x x x x x x x x x    |
+  y=w   +-------------------------------v
+        |←-------------- x -------------→|
+</code></pre>
+<p><strong>(a)</strong> Derive an expression for the induced motional EMF $\mathcal{E}$ as a function of the bar's velocity $v(t)$.<br />
+<strong>(b)</strong> Write the differential equation governing the charge $q(t)$ on the capacitor in terms of $m, L, R, C, B_0, w$, and the derivatives of $q(t)$.<br />
+<strong>(c)</strong> Derive the expression for the critical resistance $R_{\text{crit}}$ of this electromechanical system that prevents oscillatory movement of the charge.  </p>
+<hr />
+<h3>Step-by-Step Solution Checklist</h3>
+<h4>Part (a) - Motional EMF Derivation</h4>
+<ol>
+<li>
+<p>Define flux through the loop as a function of position $x(t)$:
+   $$\Phi_B = \iint \mathbf{B} \cdot d\mathbf{A} = B_0 \cdot A(t) = B_0 w x(t)$$</p>
+</li>
+<li>
+<p>Apply Faraday's Law:
+   $$\mathcal{E} = -\frac{d\Phi_B}{dt} = -B_0 w \frac{dx}{dt} = -B_0 w v(t)$$</p>
+</li>
+<li>
+<p><strong>Magnitude Statement:</strong>
+   $$|\mathcal{E}| = B_0 w v(t)$$</p>
+</li>
+</ol>
+<hr />
+<h4>Part (b) - Differential Equation Formulation</h4>
+<ol>
+<li>
+<p><strong>Apply KVL to the loop containing motional EMF, resistor, inductor, and capacitor:</strong>
+   $$\mathcal{E}_{\text{induced}} - V_R - V_L - V_C = 0$$
+   $$B_0 w v(t) - i R - L \frac{di}{dt} - \frac{q}{C} = 0$$</p>
+</li>
+<li>
+<p><strong>Connect mechanics to electrodynamics (Lorentz Magnetic Force):</strong>
+   The magnetic force acting back on the sliding bar carrying current $i$ is:
+   $$F_B = i (\mathbf{w} \times \mathbf{B}) = -i w B_0$$
+   Using Newton’s Second Law:
+   $$m \frac{dv}{dt} = -i w B_0 \implies \frac{dv}{dt} = -\frac{B_0 w}{m} i(t)$$
+   Integrating with respect to time (noting $i = \frac{dq}{dt}$):
+   $$v(t) = v_0 - \frac{B_0 w}{m} q(t)$$</p>
+</li>
+<li>
+<p><strong>Substitute $v(t)$ back into KVL:</strong>
+   $$B_0 w \left(v_0 - \frac{B_0 w}{m} q(t)\right) - R \frac{dq}{dt} - L \frac{d^2q}{dt^2} - \frac{q}{C} = 0$$</p>
+</li>
+<li>
+<p><strong>Rearrange into standard 2nd order non-homogeneous differential equation form:</strong>
+   $$L \frac{d^2q}{dt^2} + R \frac{dq}{dt} + \left( \frac{1}{C} + \frac{B_0^2 w^2}{m} \right) q(t) = B_0 w v_0$$</p>
+</li>
+</ol>
+<hr />
+<h4>Part (c) - Determining Critical Resistance ($R_{\text{crit}}$)</h4>
+<ol>
+<li>
+<p>Identify effective equivalent natural frequency $\omega_{0,\text{eff}}$ of the electromechanical system:
+   $$\omega_{0,\text{eff}}^2 = \frac{1}{L} \left( \frac{1}{C} + \frac{B_0^2 w^2}{m} \right)$$</p>
+</li>
+<li>
+<p>Recall the condition for critical damping in a second-order linear ODE:
+   $$\gamma = \omega_{0,\text{eff}}$$
+   Where attenuation factor $\gamma = \frac{R}{2L}$.</p>
+</li>
+<li>
+<p>Set up equation and solve for $R_{\text{crit}}$:
+   $$\frac{R_{\text{crit}}}{2L} = \sqrt{\frac{1}{L} \left( \frac{1}{C} + \frac{B_0^2 w^2}{m} \right)}$$</p>
+</li>
+</ol>
+<p>$$R_{\text{crit}} = 2L \sqrt{\frac{1}{L} \left( \frac{1}{C} + \frac{B_0^2 w^2}{m} \right)} = 2 \sqrt{L \left( \frac{1}{C} + \frac{B_0^2 w^2}{m} \right)}$$</p>
+<hr />
+<h2>6. Final Score 5 Strategy Tip</h2>
+<p>When solving complex electromechanical induction problems on the AP Physics C exam, <strong>never decouple the mechanical force equations from the circuit loop equations</strong>. The key to securing full credit on differential equation questions lies in expressing velocity $v(t)$ or position $x(t)$ strictly in terms of charge $q(t)$ or current $i(t)$ through conservation laws or Newton's second law. Mastering these coupled systems demonstrates the mathematical rigor expected at Carnegie Mellon.</p>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Physics C: Electricity & Magnetism?</h2>
+      <p>Secure admission and advanced standing at top institutions like Carnegie Mellon University with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

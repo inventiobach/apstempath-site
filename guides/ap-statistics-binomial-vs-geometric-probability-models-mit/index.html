@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Binomial vs. Geometric Probability Models & Expected Values Guide: AP Statistics Score 5 for MIT | AP STEM PATH</title>
+  <meta name="description" content="Master Binomial vs. Geometric Probability Models & Expected Values in AP Statistics. Deep dive with LaTeX/code examples and score 5 strategies tailored for MIT applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Binomial vs. Geometric Probability Models & Expected Values Guide: AP Statistics Score 5 for MIT",
+    "description": "Master Binomial vs. Geometric Probability Models & Expected Values in AP Statistics. Deep dive with LaTeX/code examples and score 5 strategies tailored for MIT applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Statistics • Score 5 Strategy</span>
+      <h1>Binomial vs. Geometric Probability Models & Expected Values Guide: AP Statistics Score 5 for MIT</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Statistics Mastery Guide: Binomial vs. Geometric Probability Models &amp; Expected Values</h1>
+<p><strong>Target Audience:</strong> High-Achieving AP Statistics Students<br />
+<strong>Institutional Goal:</strong> MIT Placement / Quantitative Rigor Portfolio Exemption<br />
+<strong>Subsequent Acceleration Track:</strong> Course 6.3700 (<em>Introduction to Probability</em>) / Course 18.600 (<em>Probability and Random Variables</em>)</p>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>On the AP Statistics exam, Topic 4.10 (<em>Introduction to Planning a Study</em>) through Topic 4.12 (<em>Nested Random Variables</em>) form the cornerstone of discrete probability models. Binomial and Geometric distributions explicitly account for <strong>10% to 15%</strong> of the Multiple-Choice Section and regularly feature as a primary focus or sub-component of a Free-Response Question (FRQ #2, #3, or #6).</p>
+<p>While standard AP Statistics prep emphasizes plug-and-chug formula application via graphing calculator functions (<code>binpdf</code>, <code>geometcdf</code>), achieving a <strong>Score 5</strong>—and demonstrating the quantitative maturity expected by institutions like MIT—requires an axiomatic understanding of discrete stochastic processes. At MIT, discrete probability is not treated as a static collection of formulas; it is the foundation for:</p>
+<ul>
+<li><strong>Algorithms &amp; Machine Learning (6.006 / 6.3900):</strong> Analyzing randomized algorithms, collision probabilities in hash functions, and Markov Chains.</li>
+<li><strong>Quantitative Finance &amp; Economics (Course 14-2 / 18.S096):</strong> Modeling discrete default events, stopping times, and option pricing trees.</li>
+<li><strong>Stochastic Modeling (18.600 / 6.3700):</strong> Transitioning from discrete Bernoulli trials to continuous Poisson processes and dynamic programming.</li>
+</ul>
+<p>Mastering the mathematical derivations and structural nuances of Binomial and Geometric models allows you to seamlessly clear the <strong>Quantitative Rigor Portfolio</strong> evaluation and accelerate directly into higher-level probability and computer science tracks.</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<p>To select the correct distribution model, you must evaluate the structural constraints of the underlying random trial.</p>
+<pre><code>                  ┌───────────────────────────────┐
+                  │ Are outcomes Binary &amp; Independent?│
+                  └───────────────┬───────────────┘
+                                  │ YES
+                  ┌───────────────┴───────────────┐
+                  │  Is the Number of Trials Fixed? │
+                  └───────┬───────────────┬───────┘
+                     YES  │               │  NO (Trial until 1st Success)
+                          ▼               ▼
+                   BINOMIAL MODEL   GEOMETRIC MODEL
+                    X ~ Bin(n, p)    Y ~ Geo(p)
+</code></pre>
+<h3>2.1 The Conditions Framework</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Condition</th>
+<th style="text-align: left;">Binomial Model ($X \sim \text{Bin}(n, p)$)</th>
+<th style="text-align: left;">Geometric Model ($Y \sim \text{Geo}(p)$)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>B</strong>inary</td>
+<td style="text-align: left;">Trial outcomes are partitioned into Success ($S$) or Failure ($F$).</td>
+<td style="text-align: left;">Trial outcomes are partitioned into Success ($S$) or Failure ($F$).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>I</strong>ndependent</td>
+<td style="text-align: left;">Trials are independent ($P(S)$ remains constant across trials).</td>
+<td style="text-align: left;">Trials are independent ($P(S)$ remains constant across trials).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>N</strong>umber / <strong>T</strong>rials</td>
+<td style="text-align: left;"><strong>Fixed number of trials $n$</strong> set prior to experiment.</td>
+<td style="text-align: left;"><strong>Count number of trials $Y$ required</strong> to get the <em>first</em> success.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>S</strong>ame $p$</td>
+<td style="text-align: left;">$P(\text{Success}) = p$ for all $n$ trials.</td>
+<td style="text-align: left;">$P(\text{Success}) = p$ for all trials.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Critical Note on Independence:</strong> When sampling without replacement from a finite population of size $N$, trials are strictly dependent. However, if $n \le 0.10N$ (the <strong>10% Condition</strong>), the dependence is negligible, and the Binomial/Geometric model serves as a valid approximation.</p>
+</blockquote>
+<hr />
+<h3>2.2 Binomial Distribution $X \sim \text{Bin}(n, p)$</h3>
+<p>The random variable $X$ counts the total number of successes in $n$ independent trials.</p>
+<ul>
+<li><strong>Probability Mass Function (PMF):</strong>
+    $$P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}, \quad k \in {0, 1, 2, \dots, n}$$
+    Where $\binom{n}{k} = \frac{n!}{k!(n-k)!}$ represents the combinations of selecting $k$ successful trials out of $n$.</li>
+</ul>
+<h4>Rigorous Derivation of $E[X]$ via Linearity of Expectation</h4>
+<p>While algebra can prove $E[X] = \sum k \binom{n}{k} p^k q^{n-k} = np$, the MIT-preferred approach uses <strong>Indicator Random Variables</strong> (Bernoulli trials).</p>
+<p>Let $X = \sum_{i=1}^{n} I_i$, where $I_i$ is an indicator variable for trial $i$:
+$$I_i = \begin{cases} 1 &amp; \text{if trial } i \text{ is a success} \ 0 &amp; \text{if trial } i \text{ is a failure} \end{cases}$$</p>
+<p>By definition of expected value for a Bernoulli trial:
+$$E[I_i] = (1 \cdot p) + (0 \cdot (1-p)) = p$$</p>
+<p>Applying the <strong>Linearity of Expectation</strong> (which holds regardless of independence):
+$$E[X] = E\left[ \sum_{i=1}^{n} I_i \right] = \sum_{i=1}^{n} E[I_i] = \sum_{i=1}^{n} p = np$$</p>
+<h4>Variance Derivation ($\text{Var}(X) = np(1-p)$)</h4>
+<p>Since the trials are independent:
+$$\text{Var}(X) = \sum_{i=1}^{n} \text{Var}(I_i)$$
+$$\text{Var}(I_i) = E[I_i^2] - (E[I_i])^2 = (1^2 \cdot p + 0^2 \cdot (1-p)) - p^2 = p - p^2 = p(1-p)$$
+$$\text{Var}(X) = \sum_{i=1}^{n} p(1-p) = np(1-p)$$</p>
+<hr />
+<h3>2.3 Geometric Distribution $Y \sim \text{Geo}(p)$</h3>
+<p>The random variable $Y$ counts the trial number on which the <em>first</em> success occurs.</p>
+<ul>
+<li><strong>Probability Mass Function (PMF):</strong>
+    $$P(Y = k) = (1-p)^{k-1}p, \quad k \in {1, 2, 3, \dots}$$</li>
+<li><strong>Cumulative Distribution Function (CDF) &amp; Tail Probability:</strong>
+    $$P(Y &gt; k) = (1-p)^k \quad \implies \quad P(Y \le k) = 1 - (1-p)^k$$</li>
+</ul>
+<h4>Rigorous Derivation of $E[Y] = \frac{1}{p}$ via First-Step Analysis</h4>
+<p>Rather than computing the infinite sum $\sum_{k=1}^{\infty} k(1-p)^{k-1}p$, we use the <strong>Law of Total Expectation / First-Step Analysis</strong>:</p>
+<p>Let $\mu = E[Y]$. Condition on the outcome of the very first trial:
+1. If the 1st trial succeeds (probability $p$), the number of trials executed is $1$.
+2. If the 1st trial fails (probability $1-p$), $1$ trial has been expended, and by the <strong>Memoryless Property</strong>, the process resets. The expected remaining trials is again $\mu$.</p>
+<p>$$E[Y] = p(1) + (1-p)(1 + \mu)$$
+$$\mu = p + 1 - p + (1-p)\mu$$
+$$\mu = 1 + (1-p)\mu$$
+$$\mu - (1-p)\mu = 1 \implies p\mu = 1 \implies \mu = \frac{1}{p}$$</p>
+<hr />
+<h3>2.4 Empirical Verification &amp; Computational Simulation</h3>
+<p>The following Python script simulates both distributions, constructs empirical frequency distributions, and computes theoretical vs. empirical expected values and variances.</p>
+<pre><code class="language-python">import numpy as np
+import pandas as pd
+
+def simulate_discrete_models(
+    n_trials: int = 10, 
+    p: float = 0.3, 
+    simulations: int = 1_000_000
+) -&gt; None:
+    &quot;&quot;&quot;
+    Simulates Binomial and Geometric distributions to verify 
+    theoretical expected value and variance.
+    &quot;&quot;&quot;
+    np.random.seed(42)  # For reproducibility
+
+    # --- BINOMIAL SIMULATION ---
+    # Bin(n, p): Sum of n Bernoulli trials
+    bernoulli_draws = np.random.binomial(n=1, p=p, size=(simulations, n_trials))
+    binomial_rvs = np.sum(bernoulli_draws, axis=1)
+
+    exp_binom_theory = n * p
+    var_binom_theory = n * p * (1 - p)
+
+    exp_binom_emp = np.mean(binomial_rvs)
+    var_binom_emp = np.var(binomial_rvs, ddof=0)
+
+    # --- GEOMETRIC SIMULATION ---
+    # Geo(p): Number of trials until first success (1-indexed)
+    geometric_rvs = np.random.geometric(p=p, size=simulations)
+
+    exp_geom_theory = 1 / p
+    var_geom_theory = (1 - p) / (p**2)
+
+    exp_geom_emp = np.mean(geometric_rvs)
+    var_geom_emp = np.var(geometric_rvs, ddof=0)
+
+    # Output Results
+    print(&quot;==================================================&quot;)
+    print(f&quot; BINOMIAL MODEL: X ~ Bin(n={n_trials}, p={p})&quot;)
+    print(&quot;==================================================&quot;)
+    print(f&quot;Theoretical E[X]: {exp_binom_theory:.4f} | Empirical E[X]: {exp_binom_emp:.4f}&quot;)
+    print(f&quot;Theoretical Var(X): {var_binom_theory:.4f} | Empirical Var(X): {var_binom_emp:.4f}\n&quot;)
+
+    print(&quot;==================================================&quot;)
+    print(f&quot; GEOMETRIC MODEL: Y ~ Geo(p={p})&quot;)
+    print(&quot;==================================================&quot;)
+    print(f&quot;Theoretical E[Y]: {exp_geom_theory:.4f} | Empirical E[Y]: {exp_geom_emp:.4f}&quot;)
+    print(f&quot;Theoretical Var(Y): {var_geom_theory:.4f} | Empirical Var(Y): {var_geom_emp:.4f}&quot;)
+    print(&quot;==================================================&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    simulate_discrete_models(n_trials=12, p=0.25)
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<p>To secure a <strong>Score 5</strong>, your FRQ answers must satisfy the <strong>Essentially Correct (E)</strong> rubric standards defined by College Board Chief Readers.</p>
+<h3>Key Conceptual Pitfalls</h3>
+<ol>
+<li><strong>Naked Calculator Syntax:</strong> Writing <code>binpdf(10, 0.4, 3)</code> or <code>geometcdf(0.2, 5)</code> without defining parameters yields an automatic <strong>Incomplete (I)</strong> score. You must state the distribution, its parameters, and the boundary condition mathematically.</li>
+<li><strong>Failure to Verify the 10% Condition:</strong> If an FRQ scenario involves selecting items without replacement, failing to explicitly write $n \le 0.10N$ invalidates your independence assumption.</li>
+<li><strong>Confusing "First Success" with "Fixed Trials":</strong> Identifying a situation as Binomial when the total number of trials is variable (or vice versa).</li>
+<li><strong>Misinterpreting "At Least" vs "More Than":</strong><ul>
+<li>$P(X \ge k) = 1 - P(X \le k - 1)$</li>
+<li>$P(X &gt; k) = 1 - P(X \le k)$</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3>Score 4 vs. Score 5 Performance Contrast</h3>
+<h4>Scenario</h4>
+<p><em>An auditor inspects tax returns submitted by a firm. Historical data shows that 15% of returns contain processing errors. The auditor randomly inspects returns one by one.</em>
+*   <strong>(a)</strong> What is the probability that the first error is found on the 4th return inspected?
+*   <strong>(b)</strong> What is the probability that the auditor finds at least 2 returns with errors in a sample of 8 returns?</p>
+<hr />
+<h4>Solution Comparison</h4>
+<h5>Part (a)</h5>
+<ul>
+<li>
+<p><strong>Score 4 Response (Partially Correct / Borderline E):</strong>
+    &gt; $P(\text{4th return}) = (0.85)^3(0.15) = 0.0921$.<br />
+    &gt; Used <code>geometpdf(0.15, 4)</code> on calculator.</p>
+<p><em>Why it drops points:</em> Fails to explicitly name the random variable and state its parameter values.</p>
+</li>
+<li>
+<p><strong>Score 5 Response (Essentially Correct):</strong>
+    &gt; Let $Y$ = the number of tax returns inspected until the first error is identified.<br />
+    &gt; Since trials are binary (Error / No Error), independent (returns are randomly selected from a large population $N \gg 10 \times 4$), $p = 0.15$ is constant, and we observe until the first success, $Y \sim \text{Geo}(p = 0.15)$.<br />
+    &gt; $$P(Y = 4) = (1 - 0.15)^{4-1}(0.15) = (0.85)^3(0.15) = 0.09214$$<br />
+    &gt; The probability that the first error occurs on the 4th return is approximately <strong>0.0921</strong>.</p>
+</li>
+</ul>
+<hr />
+<h5>Part (b)</h5>
+<ul>
+<li>
+<p><strong>Score 4 Response (Partially Correct):</strong>
+    &gt; $n = 8, p = 0.15$.<br />
+    &gt; $P(X \ge 2) = 1 - \text{binomcdf}(8, 0.15, 1) = 0.3428$.</p>
+<p><em>Why it drops points:</em> Uses non-standard calculator syntax without identifying $X$ or detailing the boundary summation.</p>
+</li>
+<li>
+<p><strong>Score 5 Response (Essentially Correct):</strong>
+    &gt; Let $X$ = the number of returns with errors out of $n = 8$ inspected returns.<br />
+    &gt; Assuming the total population of returns $N \ge 80$ (10% condition), $X$ follows a Binomial distribution: $X \sim \text{Bin}(n = 8, p = 0.15)$.<br />
+    &gt; We need $P(X \ge 2)$:
+    &gt; $$P(X \ge 2) = 1 - [P(X = 0) + P(X = 1)]$$
+    &gt; $$P(X = 0) = \binom{8}{0}(0.15)^0(0.85)^8 = 0.2725$$
+    &gt; $$P(X = 1) = \binom{8}{1}(0.15)^1(0.85)^7 = 0.3847$$
+    &gt; $$P(X \ge 2) = 1 - (0.2725 + 0.3847) = 1 - 0.6572 = 0.3428$$<br />
+    &gt; The probability of identifying at least 2 returns with errors is <strong>0.3428</strong>.</p>
+</li>
+</ul>
+<hr />
+<h2>4. MIT Placement Pathway</h2>
+<pre><code> AP Statistics Score 5 
+        │
+        ▼
+ Exempts: Quantitative Rigor Portfolio (Discrete Math/Stats Requirement)
+        │
+        ├───────────────────────────────────────┐
+        ▼                                       ▼
+ Course 6.3700                           Course 18.600
+ Intro to Probability                    Probability &amp; Random Variables
+ (EECS Track: AI/ML, CS Algorithms)      (Mathematics Track: Finance, Physics)
+</code></pre>
+<p>At MIT, gaining an exemption from entry-level quantitative requirements via the <strong>Quantitative Rigor Portfolio</strong> allows high-achieving undergraduates to immediately enroll in advanced probabilistic coursework during their Freshman Fall or Spring term.</p>
+<h3>Direct Academic Equivalencies &amp; Acceleration</h3>
+<ol>
+<li>
+<p><strong>Course 6.3700 (Introduction to Probability):</strong></p>
+<ul>
+<li><strong>Core Concepts Prepared:</strong> Indicator variables, memoryless distributions, transformations of discrete random variables, joint discrete PMFs.</li>
+<li><strong>Downstream Impact:</strong> Unlocks 6.3900 (<em>Introduction to Machine Learning</em>) and 6.046 (<em>Design and Analysis of Algorithms</em>) a full year ahead of schedule.</li>
+</ul>
+</li>
+<li>
+<p><strong>Course 18.600 (Probability and Random Variables):</strong></p>
+<ul>
+<li><strong>Core Concepts Prepared:</strong> Derivations of Moment Generating Functions (MGFs) for Binomial ($M_X(t) = (pe^t + 1-p)^n$) and Geometric distributions ($M_Y(t) = \frac{pe^t}{1 - (1-p)e^t}$), Poisson limit theorems ($\lim_{n \to \infty} \text{Bin}(n, \lambda/n) = \text{Poisson}(\lambda)$).</li>
+<li><strong>Downstream Impact:</strong> Forms the prerequisite for 18.650 (<em>Statistics for Engineers and Scientists</em>) and Course 14-2 (<em>Mathematical Economics</em>).</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution Checklist</h2>
+<h3>AP-Style Multi-Part Free-Response Question (FRQ)</h3>
+<p>An automated high-throughput quality control sensor scans microchips manufactured at an MIT Fabrication Lab.
+*   The probability that an individual microchip is defective is $p = 0.08$.
+*   Defect events between microchips are mutually independent.</p>
+<h4>Questions:</h4>
+<ol>
+<li><strong>Part (a):</strong> Calculate the probability that the sensor must scan more than 5 microchips to detect the first defective chip. Show your work mathematically.</li>
+<li><strong>Part (b):</strong> The quality control protocol dictates that microchips are tested in batches of $n = 20$. Let $X$ represent the number of defective chips in a single batch.<ul>
+<li>Compute $E[X]$ and $\text{SD}(X)$.</li>
+<li>Calculate the probability that a batch of 20 chips contains at least 3 defective chips.</li>
+</ul>
+</li>
+<li><strong>Part (c):</strong> A cost function for re-processing a batch of 20 chips is defined as $C = 50X + 12$. Calculate the expected value and standard deviation of the re-processing cost per batch.</li>
+</ol>
+<hr />
+<h3>Step-by-Step Solution Checklist &amp; Rubric</h3>
+<pre><code>        ┌─────────────────────────────────────────────────────────┐
+        │  Checklist for AP Stats FRQ Score 5 Evaluation          │
+        ├─────────────────────────────────────────────────────────┤
+        │ [ ] Variable named and distribution model explicitly declared│
+        │ [ ] BINS/BITS criteria satisfied (or cited)             │
+        │ [ ] Formula written in standard mathematical form       │
+        │ [ ] Boundary conditions specified                       │
+        │ [ ] Final value computed with correct units / context   │
+        └─────────────────────────────────────────────────────────┘
+</code></pre>
+<h4>Solution Part (a)</h4>
+<ul>
+<li><strong>Define Variable &amp; Distribution:</strong>
+    Let $Y$ = the number of microchips scanned until the first defective microchip is found.
+    Since trials are binary (Defective / Non-defective), independent ($p = 0.08$ is constant), and scanning continues until the first defect, $Y \sim \text{Geo}(p = 0.08)$.</li>
+<li><strong>Mathematical Form:</strong>
+    We need $P(Y &gt; 5)$. Using the tail probability formula for a Geometric model:
+    $$P(Y &gt; 5) = (1 - p)^5 = (1 - 0.08)^5 = (0.92)^5$$</li>
+<li><strong>Computation:</strong>
+    $$P(Y &gt; 5) = 0.65908$$</li>
+<li><strong>Contextual Conclusion:</strong>
+    There is approximately a <strong>65.91% chance</strong> that the sensor will need to scan more than 5 microchips before encountering its first defective chip.</li>
+</ul>
+<hr />
+<h4>Solution Part (b)</h4>
+<ul>
+<li>
+<p><strong>Define Variable &amp; Distribution:</strong>
+    Let $X$ = the number of defective microchips in a batch of $n = 20$.
+    Since $n = 20$ is fixed, outcomes are binary, independent, and $p = 0.08$ is constant, $X \sim \text{Bin}(n = 20, p = 0.08)$.</p>
+</li>
+<li>
+<p><strong>Expected Value &amp; Standard Deviation:</strong>
+    $$E[X] = np = 20(0.08) = 1.6 \text{ defective chips}$$
+    $$\text{Var}(X) = np(1-p) = 20(0.08)(0.92) = 1.472$$
+    $$\text{SD}(X) = \sqrt{\text{Var}(X)} = \sqrt{1.472} \approx 1.2133 \text{ defective chips}$$</p>
+</li>
+<li>
+<p><strong>Probability Calculation:</strong>
+    $$P(X \ge 3) = 1 - [P(X=0) + P(X=1) + P(X=2)]$$
+    $$P(X=0) = \binom{20}{0}(0.08)^0(0.92)^{20} = 0.1887$$
+    $$P(X=1) = \binom{20}{1}(0.08)^1(0.92)^{19} = 0.3282$$
+    $$P(X=2) = \binom{20}{2}(0.08)^2(0.92)^{18} = 0.2711$$
+    $$P(X \ge 3) = 1 - (0.1887 + 0.3282 + 0.2711) = 1 - 0.7880 = 0.2120$$
+    The probability that a batch contains at least 3 defective chips is <strong>0.2120</strong>.</p>
+</li>
+</ul>
+<hr />
+<h4>Solution Part (c)</h4>
+<ul>
+<li>
+<p><strong>Linear Transformations of Expectation and Variance:</strong>
+    Given $C = 50X + 12$:</p>
+</li>
+<li>
+<p><strong>Expected Cost $E[C]$:</strong>
+    Applying linearity of expectation ($E[aX + b] = aE[X] + b$):
+    $$E[C] = 50 \cdot E[X] + 12 = 50(1.6) + 12 = 80 + 12 = \$92.00$$</p>
+</li>
+<li>
+<p><strong>Standard Deviation of Cost $\text{SD}(C)$:</strong>
+    Applying variance transformations ($\text{Var}(aX + b) = a^2 \text{Var}(X)$):
+    $$\text{Var}(C) = 50^2 \cdot \text{Var}(X) = 2500 \cdot (1.472) = 3680$$
+    $$\text{SD}(C) = \sqrt{\text{Var}(C)} = |a| \cdot \text{SD}(X) = 50 \cdot 1.21326 = \$60.66$$</p>
+</li>
+<li>
+<p><strong>Contextual Conclusion:</strong>
+    The expected re-processing cost per batch is <strong>\$92.00</strong>, with a standard deviation of <strong>\$60.66</strong>.</p>
+</li>
+</ul>
+<hr />
+<h3>Scoring Rubric Benchmarks (For Self-Assessment)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Score Level</th>
+<th style="text-align: left;">Technical Benchmark Requirements</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Essentially Correct (E)</strong></td>
+<td style="text-align: left;">Explicitly defines random variables $Y$ and $X$; identifies distribution names ($\text{Geo}$, $\text{Bin}$) with correct parameters; shows mathematical summations or complement rules; calculates $E[C]$ and $\text{SD}(C)$ using correct linear transformations; rounds accurately with units attached.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Partially Correct (P)</strong></td>
+<td style="text-align: left;">Obtains correct numerical answers using calculator functions (<code>geometcdf</code>, <code>binomcdf</code>) without defining parameters or boundary formulas; OR incorrectly computes $\text{SD}(C)$ by adding 12 to the standard deviation ($\text{SD}(aX+b) \neq a\text{SD}(X) + b$).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Incomplete (I)</strong></td>
+<td style="text-align: left;">Confuses Geometric and Binomial models in Parts (a) and (b); provides unsupported numerical values; fails to demonstrate understanding of expected value linearity.</td>
+</tr>
+</tbody>
+</table>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Statistics?</h2>
+      <p>Secure admission and advanced standing at top institutions like MIT with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

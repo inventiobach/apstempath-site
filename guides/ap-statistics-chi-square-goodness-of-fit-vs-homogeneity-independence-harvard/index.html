@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi-Square Tests: Goodness-of-Fit, Homogeneity & Independence Guide: AP Statistics Score 5 for Harvard University | AP STEM PATH</title>
+  <meta name="description" content="Master Chi-Square Tests: Goodness-of-Fit, Homogeneity & Independence in AP Statistics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Harvard University applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Chi-Square Tests: Goodness-of-Fit, Homogeneity & Independence Guide: AP Statistics Score 5 for Harvard University",
+    "description": "Master Chi-Square Tests: Goodness-of-Fit, Homogeneity & Independence in AP Statistics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Harvard University applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Statistics • Score 5 Strategy</span>
+      <h1>Chi-Square Tests: Goodness-of-Fit, Homogeneity & Independence Guide: AP Statistics Score 5 for Harvard University</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Statistics Mastery Guide: Categorical Inference &amp; $\chi^2$ Tests</h1>
+<p><strong>Target Institution:</strong> Harvard University<br />
+<strong>Exempted Course:</strong> Stat 100 (Introduction to Quantitative Methods for the Social Sciences and Humanities)<br />
+<strong>Acceleration Track:</strong> Stat 111 (Introduction to Statistical Inference)<br />
+<strong>Target Score:</strong> 5  </p>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>Categorical data analysis via Chi-Square ($\chi^2$) procedures represents one of the most conceptually nuanced sections of the AP Statistics curriculum. Covered in <strong>Unit 8</strong> ($\chi^2$ Goodness-of-Fit) and <strong>Unit 9</strong> ($\chi^2$ Tests for Two-Way Tables), these topics account for approximately <strong>7%–11%</strong> of the total AP Exam weight.</p>
+<p>On the AP Statistics exam, scoring a 5 requires more than mere formulaic computation. AP Readers rigorously evaluate your ability to justify sample design, verify explicit conditions, differentiate between study structures, and articulate contextually precise conclusions. </p>
+<p>For aspiring Harvard undergraduates, mastering categorical inference serves a dual purpose:
+1. It guarantees the empirical maturity needed to secure a <strong>Score 5</strong>.
+2. It satisfies the foundational competencies evaluated by the Department of Statistics, allowing placement out of <strong>Stat 100</strong> and immediate enrollment in <strong>Stat 111</strong> (<em>Introduction to Statistical Inference</em>), a calculus-based treatment of statistical theory.</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<p>The family of Chi-Square tests evaluates discrepancies between <strong>Observed counts</strong> ($O$) and <strong>Expected counts</strong> ($E$) under a specified null model. The unified test statistic across all three procedures is:</p>
+<p>$$\chi^2 = \sum \frac{(O - E)^2}{E}$$</p>
+<p>Where the summation runs over all $k$ categories or $r \times c$ cells in a contingency table.</p>
+<pre><code>                  ┌─────────────────────────────────────────┐
+                  │       Categorical Data Analysis         │
+                  └────────────────────┬────────────────────┘
+                                       │
+            ┌──────────────────────────┴──────────────────────────┐
+            ▼                                                     ▼
+    Single Population                                    Multiple Populations
+  (One Sample Drawn)                                   (or Stratified/Experimental)
+            │                                                     │
+    ┌───────┴────────┐                                            │
+    ▼                ▼                                            ▼
+One Variable    Two Variables                             One Variable Across Groups
+    │                │                                            │
+    ▼                ▼                                            ▼
+ Goodness-of-Fit  Independence                               Homogeneity
+(df = k - 1)      (df = (r-1)(c-1))                           (df = (r-1)(c-1))
+</code></pre>
+<hr />
+<h3>A. The Three Essential Chi-Square Tests</h3>
+<h4>1. Chi-Square Goodness-of-Fit ($\chi^2$ GoF)</h4>
+<ul>
+<li><strong>Study Design:</strong> A single random sample drawn from a single population, categorized across a <strong>single</strong> categorical variable with $k$ distinct levels.</li>
+<li><strong>Objective:</strong> Determines whether an observed categorical distribution conforms to a hypothesized theoretical distribution.</li>
+<li><strong>Hypotheses:</strong></li>
+<li>$H_0$: The distribution of [categorical variable] follows the specified proportions ($p_1 = p_{10}, p_2 = p_{20}, \dots, p_k = p_{k0}$).</li>
+<li>$H_a$: The distribution of [categorical variable] differs from the specified proportions (at least one $p_i \neq p_{i0}$).</li>
+<li><strong>Expected Counts:</strong> $E_i = n \cdot p_{i0}$</li>
+<li><strong>Degrees of Freedom:</strong> $df = k - 1$</li>
+</ul>
+<h4>2. Chi-Square Test for Homogeneity</h4>
+<ul>
+<li><strong>Study Design:</strong> Independent random samples drawn from <strong>$r$ distinct populations</strong> (or $r$ treatment groups in a randomized experiment), where individuals in each sample are categorized according to <strong>one</strong> categorical variable with $c$ levels.</li>
+<li><strong>Objective:</strong> Determines whether the distribution of the categorical variable is the same across multiple populations/treatments.</li>
+<li><strong>Hypotheses:</strong></li>
+<li>$H_0$: The distribution of [categorical variable] is the same across all $r$ populations/treatments.</li>
+<li>$H_a$: The distribution of [categorical variable] differs across at least two of the $r$ populations/treatments.</li>
+<li><strong>Expected Counts:</strong> $E_{ij} = \frac{(\text{Row } i \text{ Total}) \times (\text{Column } j \text{ Total})}{\text{Grand Total } n}$</li>
+<li><strong>Degrees of Freedom:</strong> $df = (r - 1)(c - 1)$</li>
+</ul>
+<h4>3. Chi-Square Test for Independence</h4>
+<ul>
+<li><strong>Study Design:</strong> A <strong>single</strong> random sample drawn from a <strong>single</strong> population, where each individual is measured on <strong>two distinct categorical variables</strong> (Variable $A$ with $r$ levels, Variable $B$ with $c$ levels).</li>
+<li><strong>Objective:</strong> Determines whether an association exists between two categorical variables within a single population.</li>
+<li><strong>Hypotheses:</strong></li>
+<li>$H_0$: Variable $A$ and Variable $B$ are independent in the population.</li>
+<li>$H_a$: Variable $A$ and Variable $B$ are associated (dependent) in the population.</li>
+<li><strong>Expected Counts:</strong> $E_{ij} = \frac{(\text{Row } i \text{ Total}) \times (\text{Column } j \text{ Total})}{\text{Grand Total } n}$</li>
+<li><strong>Degrees of Freedom:</strong> $df = (r - 1)(c - 1)$</li>
+</ul>
+<hr />
+<h3>B. Fundamental Assumptions &amp; Inference Conditions</h3>
+<p>To earn full credit (E) on AP Free-Response Questions, you must explicitly state and verify the following three conditions:</p>
+<ol>
+<li><strong>Categorical Data Condition:</strong> Data must consist of observed counts (frequency data), not percentages, proportions, or continuous measurements.</li>
+<li><strong>Random Sampling / Assignment Condition:</strong> </li>
+<li>Samples must be selected via Random Sampling (SRS, Stratified, Cluster) or treatments randomly assigned in an experiment.</li>
+<li><strong>Large Sample Size Condition (Expected Cell Counts):</strong> </li>
+<li><strong>All expected cell counts must be at least 5</strong> ($\forall E_{ij} \ge 5$). </li>
+<li><em>Critical AP Pitfall:</em> You must write out the computed matrix of expected counts—stating "all expected counts are $\ge 5$" without providing the actual values yields an Automatic Partial (P) or Incorrect (I).</li>
+<li><strong>10% Condition (Independence of Observations):</strong> </li>
+<li>When sampling without replacement, sample size $n \le 0.10 N$ (where $N$ is total population size).</li>
+</ol>
+<hr />
+<h3>C. Computational Implementation (Python Engine)</h3>
+<p>Below is an annotated Python implementation utilizing standard statistical libraries (<code>scipy.stats</code> and <code>numpy</code>) to perform contingency table analysis, verify expected counts, extract cell-by-cell contributions, and execute hypothesis testing.</p>
+<pre><code class="language-python">import numpy as np
+from scipy import stats
+
+def analyze_chi_square_contingency(observed_matrix):
+    &quot;&quot;&quot;
+    Executes a Chi-Square Test for Homogeneity or Independence.
+    Calculates expected counts, individual cell contributions, df, and p-value.
+
+    Parameters:
+        observed_matrix (list or np.ndarray): 2D array of observed counts.
+    &quot;&quot;&quot;
+    O = np.array(observed_matrix, dtype=np.float64)
+
+    # Perform standard Chi-Square Contingency Test
+    chi2_stat, p_val, dof, E = stats.chi2_contingency(O, correction=False)
+
+    # Calculate cell-by-cell contributions: (O - E)^2 / E
+    contributions = ((O - E) ** 2) / E
+
+    print(&quot;=== CHI-SQUARE CONTINGENCY ANALYSIS ===&quot;)
+    print(f&quot;Observed Counts Matrix:\n{O}\n&quot;)
+    print(f&quot;Expected Counts Matrix:\n{np.round(E, 2)}\n&quot;)
+
+    # Verify Condition: All expected counts &gt;= 5
+    condition_met = np.all(E &gt;= 5)
+    print(f&quot;Condition Check (All E_ij &gt;= 5): {condition_met}&quot;)
+    if not condition_met:
+        failing_cells = np.argwhere(E &lt; 5)
+        print(f&quot;  --&gt; WARNING: Expected count &lt; 5 at indices: {failing_cells}&quot;)
+
+    print(f&quot;\nCell Contributions Matrix ((O - E)^2 / E):\n{np.round(contributions, 4)}\n&quot;)
+    print(f&quot;Chi-Square Test Statistic (\u03c7\u00b2): {chi2_stat:.4f}&quot;)
+    print(f&quot;Degrees of Freedom (df): {dof}&quot;)
+    print(f&quot;p-value: {p_val:.6e}&quot;)
+
+    return {
+        &quot;chi2_stat&quot;: chi2_stat,
+        &quot;p_value&quot;: p_val,
+        &quot;dof&quot;: dof,
+        &quot;expected&quot;: E,
+        &quot;contributions&quot;: contributions
+    }
+
+# Example Usage: 2x3 Contingency Table
+sample_observed = [
+    [45, 30, 25],  # Group A
+    [20, 40, 40]   # Group B
+]
+
+results = analyze_chi_square_contingency(sample_observed)
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<p>To secure a <strong>Score 5</strong>, candidates must avoid specific technical errors that reduce student scores from a 5 to a 4.</p>
+<pre><code>       ┌────────────────────────────────────────────────────────┐
+       │   Score 4 Student          │   Score 5 Student         │
+       ├────────────────────────────┼───────────────────────────┤
+       │ Confuses Homogeneity &amp;     │ Distinguishes test by     │
+       │ Independence tests         │ sampling design           │
+       │                            │                           │
+       │ Asserts conditions:        │ Displays explicit expected│
+       │ &quot;All E_i &gt;= 5&quot;             │ matrix: E_11=12.5, etc.   │
+       │                            │                           │
+       │ Writes H_0 using           │ States H_0 in contextual  │
+       │ symbols like mu or p       │ words or distribution     │
+       │                            │                           │
+       │ Stops at p-value;          │ Conducts component cell   │
+       │ gives generic conclusion   │ analysis for insight      │
+       └────────────────────────────┴───────────────────────────┘
+</code></pre>
+<h3>Critical Pitfalls</h3>
+<h4>1. Sampling Design Ambiguity (Homogeneity vs. Independence)</h4>
+<ul>
+<li><strong>Score 4 Behavior:</strong> Identifies a two-way test based solely on the data layout (table), incorrectly treating Homogeneity and Independence as interchangeable terms.</li>
+<li><strong>Score 5 Behavior:</strong> Evaluates the sampling process.</li>
+<li>Single sample $\rightarrow$ Two variables evaluated $\rightarrow$ <strong>Test for Independence</strong>.</li>
+<li>Multiple independent samples (or experimental groups) $\rightarrow$ One variable evaluated $\rightarrow$ <strong>Test for Homogeneity</strong>.</li>
+</ul>
+<h4>2. Parameterization Errors in Hypotheses</h4>
+<ul>
+<li><strong>Score 4 Behavior:</strong> Writes $H_0: p_1 = p_2 = p_3 = 0$ or uses population mean symbols ($\mu$).</li>
+<li><strong>Score 5 Behavior:</strong> Recognizes that $\chi^2$ tests evaluate overall distributions or associations, not single parameter values. Hypotheses are written explicitly in words referencing the population structure.</li>
+</ul>
+<h4>3. Incomplete Verification of Expected Counts</h4>
+<ul>
+<li><strong>Score 4 Behavior:</strong> Writes "All expected counts are greater than or equal to 5" without presenting the expected counts matrix.</li>
+<li><strong>Score 5 Behavior:</strong> Computes and explicitly writes out the matrix of expected counts in the response, verifying that every single $E_{ij} \ge 5$.</li>
+</ul>
+<h4>4. Omission of Component Contribution Analysis</h4>
+<ul>
+<li><strong>Score 4 Behavior:</strong> Rejects $H_0$ based on $p &lt; \alpha$ and provides a standard generic conclusion.</li>
+<li><strong>Score 5 Behavior:</strong> Rejects $H_0$, provides context, and highlights the <strong>largest individual $\frac{(O-E)^2}{E}$ component contribution</strong> to explain <em>where</em> the deviation from the null model is strongest.</li>
+</ul>
+<hr />
+<h3>Scoring Rubric Nuance Comparison (AP FRQ Style)</h3>
+<h4>Scenario</h4>
+<p>A study selects a single random sample of 200 adults to determine if an association exists between Education Level (High School, College, Advanced Degree) and Primary Source of News (TV, Online, Print).</p>
+<pre><code>                             Observed Data
+┌──────────────────┬──────────┬──────────┬───────────┬─────────┐
+│ News Source      │ High Sch │ College  │ Adv Degree│ Total   │
+├──────────────────┼──────────┼──────────┼───────────┼─────────┤
+│ Television       │    40    │    20    │    10     │   70    │
+│ Online           │    30    │    50    │    35     │  115    │
+│ Print            │    10    │    10    │     5     │   25    │
+├──────────────────┼──────────┼──────────┼───────────┼─────────┤
+│ Total            │    80    │    80    │    40     │  200    │
+└──────────────────┴──────────┴──────────┴───────────┴─────────┘
+</code></pre>
+<h4>Score 4 vs. Score 5 Exemplar Comparison</h4>
+<ul>
+<li><strong>Score 4 Solution (Partial / Incomplete Credit):</strong><blockquote>
+<p>$H_0$: News source and Education Level are equal.<br />
+$H_a$: They are not equal.<br />
+Conditions: Random sample is given. Expected counts are all $&gt;5$.<br />
+$\chi^2 = 10.34$, $p = 0.035$.<br />
+Because $p &lt; 0.05$, we reject $H_0$. There is evidence of a relationship.</p>
+</blockquote>
+</li>
+</ul>
+<p><em>Why this loses points:</em> Hypotheses are poorly stated (uses "equal" for categorical association); expected counts are asserted without providing values; conclusion lacks full population context.</p>
+<ul>
+<li><strong>Score 5 Solution (Complete / E-E-E-E Credit):</strong><blockquote>
+<p><strong>1. Hypotheses:</strong><br />
+$H_0$: Primary news source and educational attainment level are independent in the population of adults.<br />
+$H_a$: Primary news source and educational attainment level are associated (dependent) in the population of adults.  </p>
+<p><strong>2. Name of Test &amp; Conditions:</strong><br />
+Perform a <strong>$\chi^2$ Test for Independence</strong>.<br />
+<em> Randomness: A single random sample of 200 adults was selected.<br />
+</em> 10% Condition: $n = 200 \le 0.10 N$ (Reasonable to assume more than 2,000 adults in the target population).<br />
+* Expected Counts Condition: All expected counts $E_{ij} = \frac{(\text{Row Total})(\text{Col Total})}{\text{Grand Total}}$ must be $\ge 5$.  </p>
+<p><em>Computed Expected Counts Matrix:</em>
+$$\begin{pmatrix} 28.0 &amp; 28.0 &amp; 14.0 \ 46.0 &amp; 46.0 &amp; 23.0 \ 10.0 &amp; 10.0 &amp; 5.0 \end{pmatrix}$$
+<em>All calculated expected cell counts are $\ge 5$ (minimum expected count is $5.0$). Conditions met.</em></p>
+<p><strong>3. Mechanics:</strong><br />
+$df = (3 - 1)(3 - 1) = 4$<br />
+$$\chi^2 = \frac{(40-28)^2}{28} + \frac{(20-28)^2}{28} + \dots + \frac{(5-5)^2}{5} = 5.143 + 2.286 + 1.143 + 2.739 + 0.348 + 6.261 + 0.000 + 0.000 + 0.000 = 17.920$$<br />
+$p\text{-value} = P(\chi^2_4 \ge 17.920) = 0.00128$</p>
+<p><strong>4. Conclusion in Context:</strong><br />
+Since $p \approx 0.00128 &lt; \alpha = 0.05$, we reject $H_0$. There is strong convincing evidence that primary news source and educational attainment level are associated in the adult population. The largest component contribution to $\chi^2$ comes from adults with High School education watching Television ($\frac{(40-28)^2}{28} = 5.14$), which occurred at a higher rate than expected under independence.</p>
+</blockquote>
+</li>
+</ul>
+<hr />
+<h2>4. Harvard University Placement Pathway</h2>
+<p>Mastering categorical inference provides a direct path to satisfying statistical rigor requirements at top-tier institutions like Harvard University.</p>
+<pre><code>                    ┌───────────────────────────────────────┐
+                    │ AP Statistics Score 5                 │
+                    │ Demonstrates fundamental inference    │
+                    └──────────────────┬────────────────────┘
+                                       │
+                                       ▼
+                    ┌───────────────────────────────────────┐
+                    │ Harvard Stat 100 Placement Waiver     │
+                    │ Waives introductory requirement       │
+                    └──────────────────┬────────────────────┘
+                                       │
+                                       ▼
+                    ┌───────────────────────────────────────┐
+                    │ Direct Acceleration into Stat 111     │
+                    │ &quot;Introduction to Statistical Inference&quot;│
+                    └───────────────────────────────────────┘
+</code></pre>
+<h3>Strategic Placement &amp; Academic Advantage</h3>
+<ol>
+<li><strong>Course Exemption Mechanics:</strong>
+   A score of <strong>5 on AP Statistics</strong> qualifies students to fulfill or waive introductory requirements like <strong>Stat 100</strong> (<em>Introduction to Quantitative Methods for the Social Sciences and Humanities</em>).</li>
+<li><strong>Acceleration into Stat 111:</strong>
+   Waiving Stat 100 allows freshman students interested in Quantitative Social Sciences, Applied Mathematics, Economics, or Computer Science to enter <strong>Stat 111</strong> (<em>Introduction to Statistical Inference</em>) in their first year.</li>
+<li><strong>Mathematical Rigor in Stat 111:</strong>
+   Stat 111 frames the AP Chi-Square test within mathematical frameworks, including:</li>
+<li><strong>Likelihood Ratio Tests (LRT) &amp; Wilks' Theorem:</strong> Proving that $-2 \ln \Lambda \xrightarrow{d} \chi^2_k$ as $n \to \infty$.</li>
+<li><strong>Multinomial Maximum Likelihood Estimation (MLE):</strong> Deriving expected counts as vector projections under the constrained parameter space $\Theta_0$.</li>
+<li><strong>Asymptotic Variance &amp; Fisher Information Matrices:</strong> Linking categorical contingency tables to covariance structures in Generalized Linear Models (GLMs).</li>
+</ol>
+<p>Demonstrating strong precision with categorical data—such as correctly identifying degrees of freedom vector dimensions and cell residual structures—reflects the empirical literacy evaluated by quantitative departments at Harvard.</p>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution Checklist</h2>
+<h3>Problem Statement</h3>
+<p>A research team at a university health center wants to evaluate the efficacy of three different stress-reduction interventions: Mindfulness Meditation, Aerobic Exercise, and Cognitive Behavioral Therapy (CBT). </p>
+<p>A total of $n = 300$ undergraduate students are recruited and randomly assigned in equal numbers ($100$ per group) to one of the three interventions. At the end of an 8-week program, each participant's self-reported stress level reduction is categorized into one of three levels: <strong>Low Improvement</strong>, <strong>Moderate Improvement</strong>, or <strong>High Improvement</strong>.</p>
+<p>The observed data are summarized in the contingency table below:</p>
+<pre><code>                            Observed Improvement Counts
+┌─────────────────────────┬─────────────────┬──────────────────────┬──────────────────┬────────┐
+│ Intervention Group      │ Low Improvement │ Moderate Improvement │ High Improvement │ Total  │
+├─────────────────────────┼─────────────────┼──────────────────────┼──────────────────┼────────┤
+│ Meditation              │       42        │          38          │        20        │  100   │
+│ Aerobic Exercise        │       28        │          42          │        30        │  100   │
+│ CBT                     │       20        │          40          │        40        │  100   │
+├─────────────────────────┼─────────────────┼──────────────────────┼──────────────────┼────────┤
+│ Total                   │       90        │         120          │        90        │  300   │
+└─────────────────────────┴─────────────────┴──────────────────────┴──────────────────┴────────┘
+</code></pre>
+<p><strong>Task:</strong> Perform the appropriate statistical test to determine whether there is evidence of a difference in the distribution of stress level improvements among the three interventions. Use $\alpha = 0.01$.</p>
+<hr />
+<h3>Step-by-Step Solution &amp; AP Scoring Checklist</h3>
+<h4>Step 1: Identify the Appropriate Test &amp; State Hypotheses</h4>
+<ul>
+<li><strong>Test Type:</strong> $\chi^2$ Test for Homogeneity.</li>
+<li><em>Justification:</em> Individuals were randomly assigned to <strong>three distinct intervention groups</strong> (multiple populations/treatments), measuring <strong>one categorical variable</strong> (Improvement Level).</li>
+<li><strong>Hypotheses:</strong></li>
+<li>$H_0$: The distribution of stress level improvement is the same across all three intervention groups (Meditation, Exercise, CBT).</li>
+<li>$H_a$: The distribution of stress level improvement is not the same across all three intervention groups.</li>
+</ul>
+<hr />
+<h4>Step 2: Check Conditions for Inference</h4>
+<ol>
+<li><strong>Categorical Data:</strong> The measured data represent counts of individuals in discrete categories.</li>
+<li><strong>Randomization:</strong> Participants were randomly assigned to the three treatment groups.</li>
+<li><strong>10% Condition:</strong> Not required here because this is a randomized experiment, not sampling without replacement from a finite population.</li>
+<li><strong>Expected Cell Counts Condition ($\ge 5$):</strong></li>
+<li>Expected Count Formula: $E_{ij} = \frac{(\text{Row Total}_i) \times (\text{Column Total}_j)}{\text{Grand Total}}$</li>
+<li>Computed Expected Counts:</li>
+</ol>
+<p>$$\begin{aligned}
+E_{\text{Med, Low}} &amp;= \frac{100 \times 90}{300} = 30.0 &amp; E_{\text{Med, Mod}} &amp;= \frac{100 \times 120}{300} = 40.0 &amp; E_{\text{Med, High}} &amp;= \frac{100 \times 90}{300} = 30.0 \
+E_{\text{Exe, Low}} &amp;= \frac{100 \times 90}{300} = 30.0 &amp; E_{\text{Exe, Mod}} &amp;= \frac{100 \times 120}{300} = 40.0 &amp; E_{\text{Exe, High}} &amp;= \frac{100 \times 90}{300} = 30.0 \
+E_{\text{CBT, Low}} &amp;= \frac{100 \times 90}{300} = 30.0 &amp; E_{\text{CBT, Mod}} &amp;= \frac{100 \times 120}{300} = 40.0 &amp; E_{\text{CBT, High}} &amp;= \frac{100 \times 90}{300} = 30.0
+\end{aligned}$$</p>
+<pre><code>                            Expected Counts Matrix
+┌─────────────────────────┬─────────────────┬──────────────────────┬──────────────────┐
+│ Intervention Group      │ Low Improvement │ Moderate Improvement │ High Improvement │
+├─────────────────────────┼─────────────────┼──────────────────────┼──────────────────┤
+│ Meditation              │      30.0       │         40.0         │       30.0       │
+│ Aerobic Exercise        │      30.0       │         40.0         │       30.0       │
+│ CBT                     │      30.0       │         40.0         │       30.0       │
+└─────────────────────────┴─────────────────┴──────────────────────┴──────────────────┘
+</code></pre>
+<p><em>Verification Statement:</em> All expected cell counts are equal to $30.0$ or $40.0$, which are all $\ge 5$. The condition is met.</p>
+<hr />
+<h4>Step 3: Perform Calculations (Mechanics)</h4>
+<ul>
+<li>
+<p><strong>Degrees of Freedom:</strong>
+  $$df = (r - 1)(c - 1) = (3 - 1)(3 - 1) = 2 \times 2 = 4$$</p>
+</li>
+<li>
+<p><strong>Test Statistic Computation:</strong>
+  $$\chi^2 = \sum \frac{(O - E)^2}{E}$$</p>
+</li>
+</ul>
+<p>$$\begin{aligned}
+\chi^2 &amp;= \frac{(42 - 30)^2}{30} + \frac{(38 - 40)^2}{40} + \frac{(20 - 30)^2}{30} \
+       &amp;+ \frac{(28 - 30)^2}{30} + \frac{(42 - 40)^2}{40} + \frac{(30 - 30)^2}{30} \
+       &amp;+ \frac{(20 - 30)^2}{30} + \frac{(40 - 40)^2}{40} + \frac{(40 - 30)^2}{30}
+\end{aligned}$$</p>
+<p>$$\begin{aligned}
+\chi^2 &amp;= \frac{144}{30} + \frac{4}{40} + \frac{100}{30} + \frac{4}{30} + \frac{4}{40} + \frac{0}{30} + \frac{100}{30} + \frac{0}{40} + \frac{100}{30} \
+       &amp;= 4.800 + 0.100 + 3.333 + 0.133 + 0.100 + 0.000 + 3.333 + 0.000 + 3.333 \
+       &amp;= 15.232
+\end{aligned}$$</p>
+<ul>
+<li><strong>p-value Calculation:</strong>
+  $$p\text{-value} = P(\chi^2_4 \ge 15.232) \approx 0.00424$$</li>
+</ul>
+<hr />
+<h4>Step 4: Contextual Conclusion &amp; Decision</h4>
+<ul>
+<li><strong>Decision:</strong>
+  Since $p\text{-value} = 0.00424 &lt; \alpha = 0.01$, we <strong>reject $H_0$</strong>.</li>
+<li><strong>Contextual Statement:</strong>
+  There is statistically convincing evidence at the $\alpha = 0.01$ significance level that the distribution of stress level improvement differs across the three intervention groups (Meditation, Aerobic Exercise, and CBT). </li>
+<li><strong>Component Contribution Analysis:</strong>
+  The primary driver of this significant difference is the <strong>Meditation group showing a higher-than-expected number of Low Improvement responses</strong> (observed = $42$, expected = $30.0$, contribution = $4.800$) and the <strong>CBT group showing a higher-than-expected number of High Improvement responses</strong> (observed = $40$, expected = $30.0$, contribution = $3.333$).</li>
+</ul>
+<hr />
+<h3>AP Scoring Checklist Review</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Rubric Component</th>
+<th style="text-align: left;">Scoring Requirement</th>
+<th style="text-align: center;">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Component 1: Hypotheses</strong></td>
+<td style="text-align: left;">Stated in terms of distributions across groups; no parameter symbols ($\mu, p$).</td>
+<td style="text-align: center;"><strong>E</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Component 2: Name &amp; Conditions</strong></td>
+<td style="text-align: left;">Correct test named ($\chi^2$ Homogeneity); explicit expected matrix displayed; $E_{ij} \ge 5$ verified.</td>
+<td style="text-align: center;"><strong>E</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Component 3: Calculations</strong></td>
+<td style="text-align: left;">Correct degrees of freedom ($df=4$), test statistic ($\chi^2=15.232$), and $p$-value ($0.00424$) shown.</td>
+<td style="text-align: center;"><strong>E</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Component 4: Conclusion</strong></td>
+<td style="text-align: left;">Decision linked directly to $p$-value vs. $\alpha$; contextually stated with cell contribution nuance.</td>
+<td style="text-align: center;"><strong>E</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Final Score:</strong> <strong>4/4 (Essentially Correct - E)</strong> $\longrightarrow$ On track for <strong>Score 5</strong> performance.</p>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Statistics?</h2>
+      <p>Secure admission and advanced standing at top institutions like Harvard University with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

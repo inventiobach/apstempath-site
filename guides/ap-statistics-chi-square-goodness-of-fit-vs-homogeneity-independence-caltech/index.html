@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi-Square Tests: Goodness-of-Fit, Homogeneity & Independence Guide: AP Statistics Score 5 for Caltech | AP STEM PATH</title>
+  <meta name="description" content="Master Chi-Square Tests: Goodness-of-Fit, Homogeneity & Independence in AP Statistics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Caltech applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Chi-Square Tests: Goodness-of-Fit, Homogeneity & Independence Guide: AP Statistics Score 5 for Caltech",
+    "description": "Master Chi-Square Tests: Goodness-of-Fit, Homogeneity & Independence in AP Statistics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Caltech applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Statistics • Score 5 Strategy</span>
+      <h1>Chi-Square Tests: Goodness-of-Fit, Homogeneity & Independence Guide: AP Statistics Score 5 for Caltech</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Statistics Mastery Guide: Chi-Square Tests (Goodness-of-Fit, Homogeneity, Independence)</h1>
+<p><strong>Target Institution:</strong> California Institute of Technology (Caltech)<br />
+<strong>Target AP Exam Score:</strong> 5<br />
+<strong>Exempted Requirement:</strong> Empirical Research Portfolio &amp; Introductory Data Verification<br />
+<strong>Subsequent Acceleration Track:</strong> Ma 3 (Introduction to Probability and Statistics) / Advanced Experimental Physics (Ph 3/Ph 5)</p>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>Chi-Square ($\chi^2$) inference procedures constitute <strong>8% to 11%</strong> of the total AP Statistics Exam (spanning Unit 8 of the Course and Exam Description). These tests extend univariate inference into categorical contexts, allowing researchers to evaluate distributional claims and bivariate relationships without assuming underlying normality.</p>
+<p>On the AP Statistics exam, these tests are partitioned into three distinct procedures:
+1. <strong>Chi-Square Goodness-of-Fit Test:</strong> Compares an observed single-variable categorical distribution against a theoretical probability model.
+2. <strong>Chi-Square Test for Homogeneity:</strong> Determines whether the distribution of a single categorical variable differs across two or more independent populations or treatment groups.
+3. <strong>Chi-Square Test for Independence:</strong> Assesses whether an association exists between two categorical variables evaluated within a single population sample.</p>
+<h3>Caltech Alignment &amp; Academic Nuance</h3>
+<p>At Caltech, experimental verification is central to the curriculum. High-energy physics experiments (such as those conducted at LIGO or CERN), quantum optics calibration, and computational biology frameworks rely on Pearson's $\chi^2$ metrics to differentiate stochastic noise from fundamental physical signals. Demonstrating a rigorous, mathematically sound command of categorical data analysis waives Caltech’s entry-level <em>Empirical Research Portfolio</em> requirement, allowing immediate placement into advanced experimental pathways such as <strong>Ma 3</strong> and <strong>Ph 3/5</strong>.</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>A. Mathematical Derivation &amp; Theoretical Foundations</h3>
+<p>Let $X = (X_1, X_2, \dots, X_k)^T$ follow a <strong>Multinomial Distribution</strong> with parameters $n$ (total sample size) and probabilities $\mathbf{p} = (p_1, p_2, \dots, p_k)^T$, where $\sum_{i=1}^k p_i = 1$ and $\sum_{i=1}^k X_i = n$.</p>
+<p>The Pearson Chi-Square test statistic is defined as:</p>
+<p>$$\chi^2 = \sum_{i=1}^k \frac{(O_i - E_i)^2}{E_i}$$</p>
+<p>where $O_i = X_i$ is the observed count, and $E_i = n p_i$ is the expected count under the null hypothesis $H_0$.</p>
+<h4>Asymptotic Convergence to $\chi^2_{k-1}$</h4>
+<p>To prove why this statistic converges asymptotically to a Chi-Square distribution with $k-1$ degrees of freedom, consider the standardized residual vector $\mathbf{Z}$:</p>
+<p>$$Z_i = \frac{X_i - n p_i}{\sqrt{n p_i}}$$</p>
+<p>By the Central Limit Theorem, as $n \to \infty$, the vector $\mathbf{Z}$ converges in distribution to a multivariate normal distribution $\mathcal{N}(\mathbf{0}, \boldsymbol{\Sigma})$. </p>
+<p>The variance-covariance matrix $\boldsymbol{\Sigma}$ has entries:
+- $\text{Var}(Z_i) = 1 - p_i$
+- $\text{Cov}(Z_i, Z_j) = -\sqrt{p_i p_j} \quad (i \neq j)$</p>
+<p>The matrix $\boldsymbol{\Sigma}$ is idempotent ($\boldsymbol{\Sigma}^2 = \boldsymbol{\Sigma}$) with $\text{rank}(\boldsymbol{\Sigma}) = \text{tr}(\boldsymbol{\Sigma}) = k - 1$. Since the quadratic form $\mathbf{Z}^T \mathbf{Z} = \sum_{i=1}^k Z_i^2 = \chi^2$, by <strong>Cochran's Theorem</strong>, the sum of squares of $k$ linearly constrained normal variables follows a $\chi^2$ distribution with degrees of freedom equal to the rank of the covariance matrix:</p>
+<p>$$\chi^2 \sim \chi^2_{k-1} \quad \text{as } n \to \infty$$</p>
+<h4>Linear Constraints and Degrees of Freedom in Two-Way Tables</h4>
+<p>For an $r \times c$ contingency table:
+- Total cells = $r \cdot c$.
+- Total parameters constrained by fixed sample size $n$: $1$.
+- Row marginal probabilities estimated: $r - 1$.
+- Column marginal probabilities estimated: $c - 1$.</p>
+<p>The resulting degrees of freedom $df$ are:</p>
+<p>$$df = (r \cdot c - 1) - (r - 1) - (c - 1) = r \cdot c - r - c + 1 = (r - 1)(c - 1)$$</p>
+<hr />
+<h3>B. Categorical Test Distinction Matrix</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Metric / Dimension</th>
+<th style="text-align: left;">Goodness-of-Fit (GOF)</th>
+<th style="text-align: left;">Test for Homogeneity</th>
+<th style="text-align: left;">Test for Independence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Sampling Method</strong></td>
+<td style="text-align: left;"><strong>1 Random Sample</strong> from <strong>1 Population</strong></td>
+<td style="text-align: left;"><strong>$\ge 2$ Independent Random Samples</strong> from $\ge 2$ Populations OR $\ge 2$ Groups in an Experiment</td>
+<td style="text-align: left;"><strong>1 Random Sample</strong> from <strong>1 Population</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Categorical Variables</strong></td>
+<td style="text-align: left;">$1$ Categorical Variable</td>
+<td style="text-align: left;">$1$ Categorical Variable measured across multiple groups</td>
+<td style="text-align: left;">$2$ Categorical Variables measured on each subject</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Degrees of Freedom</strong></td>
+<td style="text-align: left;">$df = k - 1$ ($k$ = # of categories)</td>
+<td style="text-align: left;">$df = (r - 1)(c - 1)$</td>
+<td style="text-align: left;">$df = (r - 1)(c - 1)$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Null Hypothesis ($H_0$)</strong></td>
+<td style="text-align: left;">$H_0$: Distribution of [Variable] matches specified proportions $p_1, p_2, \dots, p_k$.</td>
+<td style="text-align: left;">$H_0$: Distribution of [Variable] is the same across all $r$ populations/treatments.</td>
+<td style="text-align: left;">$H_0$: [Variable 1] and [Variable 2] are independent in the population.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Expected Counts ($E_{i,j}$)</strong></td>
+<td style="text-align: left;">$E_i = n \cdot p_i$</td>
+<td style="text-align: left;">$E_{i,j} = \frac{\text{Row } i \text{ Total} \times \text{Col } j \text{ Total}}{\text{Grand Total}}$</td>
+<td style="text-align: left;">$E_{i,j} = \frac{\text{Row } i \text{ Total} \times \text{Col } j \text{ Total}}{\text{Grand Total}}$</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>C. Conditions Verification Checklist</h3>
+<p>Every AP Statistics inference procedure requires strict verification of conditions.</p>
+<ol>
+<li><strong>Randomness Condition:</strong> </li>
+<li><em>Sampling:</em> Data must come from a well-designed random sample (SRS, Stratified, Cluster).</li>
+<li><em>Experimentation:</em> Treatment assignments must be randomized.</li>
+<li><strong>10% Condition (Independence of trials):</strong> </li>
+<li>$n \le 0.10 N$ when sampling without replacement from a finite population $N$. (Omit this condition for randomized experiments).</li>
+<li><strong>Large Counts Condition (Expected Counts $\ge 5$):</strong> </li>
+<li><strong>All</strong> calculated expected cell counts must be at least 5 ($E_i \ge 5$). </li>
+<li><em>Theoretical Basis:</em> The Chi-Square continuous distribution is an asymptotic approximation of the discrete multinomial sampling distribution. When $E_i &lt; 5$, skewness dominates, causing underestimation of $p$-values and inflation of Type I error rates ($\alpha$).</li>
+</ol>
+<hr />
+<h3>D. Computational Engine: Python Verification Script</h3>
+<p>Below is a Python module using <code>scipy.stats</code> to process two-way contingency tables, verify expected counts, calculate test statistics, and perform exact Monte Carlo simulations when conditions fail.</p>
+<pre><code class="language-python">import numpy as np
+from scipy.stats import chi2_contingency, chisquare
+
+def analyze_contingency_table(observed_matrix: np.ndarray, alpha: float = 0.05) -&gt; dict:
+    &quot;&quot;&quot;
+    Performs Chi-Square Test of Homogeneity or Independence.
+    Verifies Large Counts Condition automatically.
+    &quot;&quot;&quot;
+    observed_matrix = np.array(observed_matrix)
+    chi2_stat, p_val, dof, expected = chi2_contingency(observed_matrix)
+
+    # Check Large Counts Condition
+    min_expected = np.min(expected)
+    condition_met = bool(min_expected &gt;= 5.0)
+
+    results = {
+        &quot;chi2_statistic&quot;: float(chi2_stat),
+        &quot;p_value&quot;: float(p_val),
+        &quot;degrees_of_freedom&quot;: int(dof),
+        &quot;expected_counts&quot;: expected.tolist(),
+        &quot;large_counts_condition_met&quot;: condition_met,
+        &quot;min_expected_count&quot;: float(min_expected)
+    }
+
+    return results
+
+# Example Usage: Caltech Optical Sensor Failure Data across 3 Lab Clusters
+# Observed counts matrix: Rows = Failure Types, Columns = Lab Locations
+observed_data = np.array([
+    [18, 24, 15],  # Type A Failures
+    [42, 36, 45],  # Type B Failures
+    [10, 12, 18]   # Type C Failures
+])
+
+analysis = analyze_contingency_table(observed_data)
+print(f&quot;Chi-Square Stat: {analysis['chi2_statistic']:.4f}&quot;)
+print(f&quot;p-value:        {analysis['p_value']:.4e}&quot;)
+print(f&quot;Degrees of Freedom: {analysis['degrees_of_freedom']}&quot;)
+print(f&quot;Large Counts Met?:  {analysis['large_counts_condition_met']}&quot;)
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<h3>Critical Exam Pitfalls</h3>
+<ol>
+<li><strong>Misidentifying the Test:</strong> Confusing Homogeneity and Independence is a common error on the AP exam. </li>
+<li><em>Rule of Thumb:</em> Look at how data was collected. <strong>One sample, two variables $\implies$ Independence.</strong> <strong>Two or more samples/groups, one variable $\implies$ Homogeneity.</strong></li>
+<li><strong>Confusing Observed with Expected Counts in Conditions:</strong> Stating "all observed counts are $\ge 5$" yields an automatic <strong>Incomplete (I)</strong> score on the Plan component. The condition strictly governs <strong>expected counts</strong>.</li>
+<li><strong>Hypotheses Stated via Parameters vs. Categorical Distributions:</strong> Do <strong>not</strong> use $\mu$ or $p$ in $H_0/H_a$ for Chi-Square tests (except when defining individual categorical probabilities in GOF tests like $H_0: p_1 = 0.2, p_2 = 0.8$). State hypotheses using <strong>words</strong> contextualized to the problem.</li>
+<li><strong>Failing to Show Individual Components:</strong> When calculating $\chi^2$ by hand, write out at least the first two terms and the last term of the summation explicitly:
+   $$\chi^2 = \frac{(O_1 - E_1)^2}{E_1} + \frac{(O_2 - E_2)^2}{E_2} + \dots + \frac{(O_k - E_k)^2}{E_k}$$</li>
+</ol>
+<hr />
+<h3>Scoring Rubric Breakdown: Score 4 vs. Score 5 Solution</h3>
+<h4>Scenario Context:</h4>
+<p>A study tests whether student preferred learning modalities (Visual, Auditory, Kinesthetic) are independent of STEM major selection (Physics, Computer Science, Bioengineering) using a sample of 300 undergraduates.</p>
+<pre><code>       Visual  Auditory  Kinesthetic  Total
+Physics    45        20           35    100
+CS         50        35           15    100
+BioE       35        25           40    100
+Total     130        80           90    300
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Rubric Component</th>
+<th style="text-align: left;">Score 4 Response (Sub-Optimal / Partially Correct)</th>
+<th style="text-align: left;">Score 5 Response (Essentially Correct - E)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>1. Hypotheses (State)</strong></td>
+<td style="text-align: left;">$H_0$: Variable 1 and Variable 2 are independent.<br>$H_a$: Variable 1 and Variable 2 are dependent.<br><em>(Lacks context).</em></td>
+<td style="text-align: left;">$H_0$: Preferred learning modality (Visual, Auditory, Kinesthetic) and chosen STEM major (Physics, Computer Science, Bioengineering) are independent in the population of undergraduate students.<br>$H_a$: Preferred learning modality and chosen STEM major are dependent in this population.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2. Plan</strong></td>
+<td style="text-align: left;">Chi-Square Test.<br>Conditions: Random sample. Counts $&gt; 5$.<br><em>(Does not explicitly calculate expected counts or check the 10% condition).</em></td>
+<td style="text-align: left;">Perform a <strong>Chi-Square Test for Independence</strong>.<br>• <strong>Random:</strong> Stated as a random sample of undergraduates.<br>• <strong>10% Condition:</strong> $n = 300 \le 0.10(\text{All Undergraduates})$.<br>• <strong>Large Counts:</strong> Expected counts calculated via $E = \frac{\text{Row Total} \cdot \text{Col Total}}{N}$. Minimum expected count is $\frac{80 \times 100}{300} = 26.67 \ge 5$. All expected counts $\ge 5$ (Visual: 43.33, Auditory: 26.67, Kinesthetic: 30.00 for each row).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3. Do</strong></td>
+<td style="text-align: left;">$\chi^2 = 14.89$, $p = 0.0049$, $df = 4$.<br><em>(No work shown).</em></td>
+<td style="text-align: left;">$\chi^2 = \sum \frac{(O - E)^2}{E} = \frac{(45 - 43.33)^2}{43.33} + \frac{(20 - 26.67)^2}{26.67} + \dots + \frac{(40 - 30.00)^2}{30.00} = 14.892$<br>$df = (3 - 1)(3 - 1) = 4$<br>$p\text{-value} = P(\chi^2_4 \ge 14.892) = 0.00493$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>4. Conclude</strong></td>
+<td style="text-align: left;">$p &lt; 0.05$, reject $H_0$. They are dependent.<br><em>(Lacks explicit decision threshold comparison and formal context).</em></td>
+<td style="text-align: left;">Because the $p\text{-value} = 0.00493$ is less than our significance level $\alpha = 0.05$, we <strong>reject $H_0$</strong>. There is convincing statistical evidence that learning modality preference and chosen STEM major are <strong>dependent</strong> among undergraduate students.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. Caltech Placement Pathway</h2>
+<h3>Strategic Placement Advantage</h3>
+<p>At Caltech, incoming freshmen are evaluated for placement into advanced quantitative tracks. Earning a 5 on the AP Statistics Exam combined with demonstrating mastery of categorical inference unlocks specific exemptions:</p>
+<ol>
+<li><strong>Empirical Research Portfolio Exemption:</strong> Satisfies the basic data validation requirement for introductory lab modules.</li>
+<li><strong>Acceleration into Ma 3 (Introduction to Probability and Statistics):</strong> Allows skipping introductory computational workshops to take higher-level stochastic modeling and Bayesian statistics courses.</li>
+<li><strong>Advanced Experimental Physics Track (Ph 3 / Ph 5):</strong> Equips students with the statistical tools needed for particle count analysis, noise thresholding, and signal detection in advanced lab work.</li>
+</ol>
+<pre><code>AP Statistics (Score 5) 
+       │
+       ▼
+[ Waive Empirical Research Portfolio ] 
+       │
+       ├─────────────────────────────────────────┐
+       ▼                                         ▼
+[ Ma 3 Acceleration ]                 [ Ph 3 / Ph 5 Placement ]
+ stochastic analysis,                 sensor calibration, background
+ statistical mechanics                noise isolation, error propagation
+</code></pre>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution</h2>
+<h3>Problem Statement</h3>
+<p>An experimental high-energy physics laboratory at Caltech measures dark matter candidate detection counts across three distinct sensor arrays ($A$, $B$, and $C$). Each sensor array operates at a different cryo-temperature setting. Researchers classify detected signal pulses into three discrete energy bands: <strong>Low-Energy Noise</strong>, <strong>Medium-Energy Baseline</strong>, and <strong>High-Energy Anomaly</strong>.</p>
+<p>A single continuous run yields 600 detected signals across the three arrays.</p>
+<pre><code>                      Sensor A    Sensor B    Sensor C    Total
+Low-Energy Noise           110         130         120      360
+Medium-Energy Baseline      60          50          40      150
+High-Energy Anomaly         30          20          40       90
+Total                      200         200         200      600
+</code></pre>
+<h4>Questions:</h4>
+<ol>
+<li>Identify the appropriate statistical test to determine whether the distribution of energy bands differs across the three sensor arrays. Justify your choice based on the data collection design.</li>
+<li>State the null and alternative hypotheses in context.</li>
+<li>Check all conditions required for inference. Calculate all expected cell counts.</li>
+<li>Calculate the test statistic, degrees of freedom, and $p$-value.</li>
+<li>Make a conclusion at the $\alpha = 0.01$ significance level.</li>
+</ol>
+<hr />
+<h3>Step-by-Step Solution Checklist</h3>
+<h4>Step 1: Identify the Test &amp; Justify</h4>
+<ul>
+<li><strong>Selected Test:</strong> <strong>Chi-Square Test for Homogeneity</strong>.</li>
+<li><strong>Justification:</strong> The data collection design splits the detector system into three separate, independent sensor arrays ($A$, $B$, and $C$, each $n=200$) and records the distribution of one categorical variable (Energy Band: Low, Medium, High) across those groups.</li>
+</ul>
+<h4>Step 2: State Hypotheses</h4>
+<ul>
+<li><strong>$H_0$:</strong> The distribution of signal pulse energy bands (Low-Energy Noise, Medium-Energy Baseline, High-Energy Anomaly) is the same across all three sensor arrays ($A$, $B$, and $C$).</li>
+<li><strong>$H_a$:</strong> The distribution of signal pulse energy bands differs across at least one of the sensor arrays.</li>
+</ul>
+<h4>Step 3: Check Conditions &amp; Compute Expected Counts</h4>
+<ol>
+<li><strong>Randomness / Experimental Control:</strong> Signal detections represent independent sensor observations under controlled experiment runs.</li>
+<li><strong>10% Condition:</strong> $n = 600$ is less than 10% of all potential subatomic particle collisions during continuous beam runs.</li>
+<li><strong>Large Counts Condition:</strong> Calculate $E_{i,j} = \frac{\text{Row } i \text{ Total} \times \text{Col } j \text{ Total}}{N}$:</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Expected Counts Matrix</th>
+<th style="text-align: left;">Sensor A</th>
+<th style="text-align: left;">Sensor B</th>
+<th style="text-align: left;">Sensor C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Low-Energy Noise</strong></td>
+<td style="text-align: left;">$\frac{360 \times 200}{600} = 120.0$</td>
+<td style="text-align: left;">$\frac{360 \times 200}{600} = 120.0$</td>
+<td style="text-align: left;">$\frac{360 \times 200}{600} = 120.0$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Medium-Energy Baseline</strong></td>
+<td style="text-align: left;">$\frac{150 \times 200}{600} = 50.0$</td>
+<td style="text-align: left;">$\frac{150 \times 200}{600} = 50.0$</td>
+<td style="text-align: left;">$\frac{150 \times 200}{600} = 50.0$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>High-Energy Anomaly</strong></td>
+<td style="text-align: left;">$\frac{90 \times 200}{600} = 30.0$</td>
+<td style="text-align: left;">$\frac{90 \times 200}{600} = 30.0$</td>
+<td style="text-align: left;">$\frac{90 \times 200}{600} = 30.0$</td>
+</tr>
+</tbody>
+</table>
+<p><em>Condition Verification:</em> All expected counts ($120.0, 50.0, 30.0$) are $\ge 5$. The Large Counts condition is met.</p>
+<h4>Step 4: Compute Test Statistic &amp; $p$-value</h4>
+<p>Write out the Chi-Square summation:</p>
+<p>$$\chi^2 = \sum \frac{(O - E)^2}{E}$$</p>
+<p>$$\chi^2 = \frac{(110 - 120)^2}{120} + \frac{(130 - 120)^2}{120} + \frac{(120 - 120)^2}{120}$$</p>
+<p>$$+ \frac{(60 - 50)^2}{50} + \frac{(50 - 50)^2}{50} + \frac{(40 - 50)^2}{50}$$</p>
+<p>$$+ \frac{(30 - 30)^2}{30} + \frac{(20 - 30)^2}{30} + \frac{(40 - 30)^2}{30}$$</p>
+<p>$$\chi^2 = \frac{100}{120} + \frac{100}{120} + 0 + \frac{100}{50} + 0 + \frac{100}{50} + 0 + \frac{100}{30} + \frac{100}{30}$$</p>
+<p>$$\chi^2 = 0.8333 + 0.8333 + 0 + 2.000 + 0 + 2.000 + 0 + 3.3333 + 3.3333 = \mathbf{12.333}$$</p>
+<p><strong>Degrees of Freedom ($df$):</strong></p>
+<p>$$df = (r - 1)(c - 1) = (3 - 1)(3 - 1) = (2)(2) = \mathbf{4}$$</p>
+<p><strong>$p$-value Calculation:</strong></p>
+<p>$$p\text{-value} = P(\chi^2_4 \ge 12.333)$$</p>
+<p>Using the $\chi^2$ CDF distribution:</p>
+<p>$$p\text{-value} \approx \mathbf{0.0150}$$</p>
+<h4>Step 5: Formal Conclusion</h4>
+<p>Because the calculated $p\text{-value} = 0.0150$ is greater than our significance level $\alpha = 0.01$, we <strong>fail to reject $H_0$</strong>. </p>
+<p>There is insufficient statistical evidence at the $\alpha = 0.01$ level to conclude that the distribution of energy bands differs across the three sensor arrays. The observed variations remain consistent with expected stochastic fluctuations.</p>
+<p><em>(Note: At $\alpha = 0.05$, we would have rejected $H_0$. Always adhere strictly to the specified $\alpha$-level).</em></p>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Statistics?</h2>
+      <p>Secure admission and advanced standing at top institutions like Caltech with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

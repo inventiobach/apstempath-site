@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArrayList Traversals, Mutation Pitfalls & 2D Matrix Algorithms Guide: AP Computer Science A Score 5 for MIT | AP STEM PATH</title>
+  <meta name="description" content="Master ArrayList Traversals, Mutation Pitfalls & 2D Matrix Algorithms in AP Computer Science A. Deep dive with LaTeX/code examples and score 5 strategies tailored for MIT applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "ArrayList Traversals, Mutation Pitfalls & 2D Matrix Algorithms Guide: AP Computer Science A Score 5 for MIT",
+    "description": "Master ArrayList Traversals, Mutation Pitfalls & 2D Matrix Algorithms in AP Computer Science A. Deep dive with LaTeX/code examples and score 5 strategies tailored for MIT applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Computer Science A • Score 5 Strategy</span>
+      <h1>ArrayList Traversals, Mutation Pitfalls & 2D Matrix Algorithms Guide: AP Computer Science A Score 5 for MIT</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Computer Science A Mastery Guide: ArrayList Traversals, Mutation Pitfalls &amp; 2D Matrix Algorithms</h1>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>Dynamic data structures and multi-dimensional arrays constitute the primary foundation of the AP Computer Science A curriculum. Mastery over <code>ArrayList</code> traversals (Unit 7) and 2D Matrices (Unit 8) is the single highest-leverage area for securing a top score.</p>
+<ul>
+<li><strong>Combined AP Exam Weight:</strong> ~17%–25% of Multiple-Choice Questions (MCQs).</li>
+<li><strong>Free-Response Questions (FRQs):</strong> Guaranteed <strong>50% of the FRQ section</strong> (2 out of 4 questions):</li>
+<li><strong>FRQ 3:</strong> Array / <code>ArrayList</code></li>
+<li><strong>FRQ 4:</strong> 2D Array</li>
+</ul>
+<pre><code>   [AP CS A FRQ Section Breakdown]
+   ┌───────────────────────────────────────────────┐
+   │ FRQ 1: Methods and Control Structures  (25%)  │
+   │ FRQ 2: Class Implementation            (25%)  │
+   │ FRQ 3: Array / ArrayList               (25%)  ◄── Focus Area
+   │ FRQ 4: 2D Array                        (25%)  ◄── Focus Area
+   └───────────────────────────────────────────────┘
+</code></pre>
+<p>On the AP Exam, a <strong>Score 4</strong> student often understands basic syntax and linear searching but routinely loses points to subtle index-shifting errors during element deletion, matrix boundary overruns, or reference assignment bugs. A <strong>Score 5</strong> student executes index-safe traversals, maintains correct runtime complexity guarantees, and avoids structural mutations while iterating.</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>2.1 Dynamic Mutation &amp; Modern Traversal Mechanics (<code>ArrayList</code>)</h3>
+<p>An <code>ArrayList&lt;E&gt;</code> is backed by a dynamically resized array. Accessing an element by index via <code>.get(i)</code> runs in $\mathcal{O}(1)$ time, but structural mutations (<code>.add(i, element)</code> or <code>.remove(i)</code>) require element shifting, yielding an $\mathcal{O}(n)$ time complexity per mutation.</p>
+<h4>Mathematical Derivation of Mutation Overhead</h4>
+<p>When purging items matching a predicate from an <code>ArrayList</code> of initial size $n$ using a naive forward traversal:</p>
+<p>$$T(n) = \sum_{k=0}^{n-1} C_{\text{shift}}(k)$$</p>
+<p>If every element is removed, the $k$-th removal requires shifting $n - 1 - k$ elements. The cumulative shift operations evaluate to:</p>
+<p>$$T(n) = \sum_{k=0}^{n-1} (n - 1 - k) = \frac{(n - 1)n}{2} = \mathcal{O}(n^2)$$</p>
+<h4>The Off-by-One Mutation Fallacy</h4>
+<p>Consider deleting matching elements while iterating forward:</p>
+<pre><code class="language-java">// BUGGY IMPLEMENTATION: Traversal skips adjacent targeted elements
+public static void purgeBuggy(ArrayList&lt;Integer&gt; list, int target) {
+    for (int i = 0; i &lt; list.size(); i++) {
+        if (list.get(i).equals(target)) {
+            list.remove(i); // Index shift occurs! Next element moves to index i.
+                            // The loop increment (i++) then skips inspecting the new index i!
+        }
+    }
+}
+</code></pre>
+<h4>Canonical Correct Mutation Patterns</h4>
+<ol>
+<li><strong>Backward Iteration (AP Standard Strategy):</strong>
+   Iterating from $n-1$ down to $0$ ensures that shifting elements only affects indices $&gt; i$, which have already been inspected.</li>
+</ol>
+<pre><code class="language-java">public static void purgeCorrectBackward(ArrayList&lt;Integer&gt; list, int target) {
+    for (int i = list.size() - 1; i &gt;= 0; i--) {
+        if (list.get(i).equals(target)) {
+            list.remove(i); // Safe: shifts indices &gt;= i, leaves indices &lt; i unchanged.
+        }
+    }
+}
+</code></pre>
+<ol>
+<li><strong>Index-Decrement Iteration:</strong>
+   Adjust the iteration index immediately following a removal.</li>
+</ol>
+<pre><code class="language-java">public static void purgeCorrectForward(ArrayList&lt;Integer&gt; list, int target) {
+    for (int i = 0; i &lt; list.size(); i++) {
+        if (list.get(i).equals(target)) {
+            list.remove(i);
+            i--; // Compensate for the leftward shift of remaining elements
+        }
+    }
+}
+</code></pre>
+<hr />
+<h3>2.2 2D Matrix Algorithms &amp; Spatial Mechanics</h3>
+<p>A 2D array in Java (<code>int[][] matrix</code>) is an <strong>array of arrays</strong>. Row-major ordering is native to Java: <code>matrix.length</code> returns the number of rows $R$, and <code>matrix[r].length</code> returns the number of columns $C$ in row $r$.</p>
+<pre><code>         Col 0   Col 1   Col 2   Col 3
+       ┌───────┬───────┬───────┬───────┐
+Row 0  │ [0][0]│ [0][1]│ [0][2]│ [0][3]│  matrix[0] (length = 4)
+       ├───────┼───────┼───────┼───────┤
+Row 1  │ [1][0]│ [1][1]│ [1][2]│ [1][3]│  matrix[1] (length = 4)
+       ├───────┼───────┼───────┼───────┤
+Row 2  │ [2][0]│ [2][1]│ [2][2]│ [2][3]│  matrix[2] (length = 4)
+       └───────┴───────┴───────┴───────┘
+       matrix.length = 3 (Rows)
+</code></pre>
+<h4>Traversals: Row-Major vs. Column-Major</h4>
+<ul>
+<li><strong>Row-Major Traversal:</strong>
+  $$\text{Index Order: } (0,0), (0,1), \dots, (0, C-1), (1,0), \dots$$</li>
+<li><strong>Column-Major Traversal:</strong>
+  $$\text{Index Order: } (0,0), (1,0), \dots, (R-1, 0), (0,1), \dots$$</li>
+</ul>
+<pre><code class="language-java">public class MatrixTraverser {
+
+    // Row-Major Processing
+    public static void traverseRowMajor(int[][] grid) {
+        for (int r = 0; r &lt; grid.length; r++) {
+            for (int c = 0; c &lt; grid[r].length; c++) {
+                process(grid[r][c]);
+            }
+        }
+    }
+
+    // Column-Major Processing (Assumes non-ragged, standard rectangular matrix)
+    public static void traverseColumnMajor(int[][] grid) {
+        if (grid.length == 0) return;
+        int numRows = grid.length;
+        int numCols = grid[0].length;
+
+        for (int c = 0; c &lt; numCols; c++) {
+            for (int r = 0; r &lt; numRows; r++) {
+                process(grid[r][c]);
+            }
+        }
+    }
+
+    private static void process(int val) { /* O(1) Operations */ }
+}
+</code></pre>
+<h4>Boundary Checking for Bounded Grid Traversal</h4>
+<p>For any dynamic neighbor search centered at coordinate $(r, c)$ with directional offsets $(\Delta r, \Delta c)$, absolute bounds validity requires:</p>
+<p>$$\text{IsValid}(r, c, \Delta r, \Delta c) = (0 \le r + \Delta r &lt; R) \land (0 \le c + \Delta c &lt; C)$$</p>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<h3>Pitfalls Matrix: Score 4 vs. Score 5 Performance</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Pitfall / Scenario</th>
+<th style="text-align: left;">Score 4 Common Mistake</th>
+<th style="text-align: left;">Score 5 Exemplar Precision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>ArrayList</code> Mutation in Loop</strong></td>
+<td style="text-align: left;">Uses an enhanced <code>for-each</code> loop to call <code>list.remove()</code>, triggering a <code>ConcurrentModificationException</code>.</td>
+<td style="text-align: left;">Uses backward <code>for</code> loop ($i = \text{size}-1 \to 0$) or adjusts index ($i--$) on mutation.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Matrix Indexing</strong></td>
+<td style="text-align: left;">Inverts row/column boundaries (<code>grid[c][r]</code> or mixing up <code>grid.length</code> and <code>grid[0].length</code>).</td>
+<td style="text-align: left;">Strictly tracks $r \in [0, \text{grid.length})$ and $c \in [0, \text{grid}[r].length)$.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Boundary Guarding</strong></td>
+<td style="text-align: left;">Evaluates bounds <em>after</em> accessing the element: <code>if (grid[r][c] == val &amp;&amp; r &gt;= 0)</code>.</td>
+<td style="text-align: left;">Evaluates short-circuit bounds <em>before</em> array access: <code>if (r &gt;= 0 &amp;&amp; r &lt; R &amp;&amp; grid[r][c] == val)</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Reference Duplication</strong></td>
+<td style="text-align: left;">Creates a 2D matrix by assigning identical row references: <code>grid[r] = singleRowArray;</code>.</td>
+<td style="text-align: left;">Creates distinct individual array instances for each row: <code>grid[r] = new int[cols];</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3>AP Grading Rubric (FRQ Nuances)</h3>
+<p>On AP CS A FRQ grading rubrics, key points are lost through predictable errors:</p>
+<ol>
+<li><strong>Accessing Index -1 or <code>size()</code>:</strong></li>
+<li>Calling <code>.get(list.size())</code> or <code>.remove(list.size())</code> causes an <code>IndexOutOfBoundsException</code>. Points are automatically lost under "Accesses all necessary elements".</li>
+<li><strong>Failure to Return Transformed Data Structures:</strong></li>
+<li>Modifying a local variable copy instead of updating the target instance state or returning the mutated structure correctly.</li>
+<li><strong>Array Boundaries in Search Traversal:</strong></li>
+<li>When evaluating horizontal/vertical neighbors (e.g., <code>grid[r+1][c]</code>), omitting the check <code>r + 1 &lt; grid.length</code> causes a runtime exception, penalizing the student on "Algorithm completion / Loop bounds".</li>
+</ol>
+<hr />
+<h2>4. MIT Placement Pathway</h2>
+<h3>Admissions Rigor Evidence &amp; Academic Standing</h3>
+<p>While MIT requires <strong>6.100A / 6.100B</strong> (Introduction to Computer Science and Programming in Python) for its core requirements, achieving a score of <strong>5 on AP Computer Science A</strong> during high school serves as crucial evidence of data structure literacy and algorithmic thinking.</p>
+<pre><code>[AP CS A (Java Engine)] ──► [MIT Admissions Proof of Rigor]
+                                      │
+                                      ▼
+                        [Exemption / Placement Assessment]
+                                      │
+              ┌───────────────────────┴───────────────────────┐
+              ▼                                               ▼
+  [6.1010: Software Construction]            [6.1210: Discrete Math / Algorithms]
+  (Advanced Object-Oriented Design)          (Asymptotic Complexity &amp; Graphs)
+</code></pre>
+<h3>Strategic Acceleration Path:</h3>
+<ul>
+<li><strong>Placement Waiver:</strong> High performance on the AP CS A curriculum provides the foundational object-oriented principles (data abstractions, encapsulation, array mechanics) required to pass MIT's Advanced Standing Exam (ASE) for introductory programming.</li>
+<li><strong>Accelerated Coursework:</strong> Bypassing entry-level syntax subjects allows students to enroll directly in:</li>
+<li><strong>6.1010 (Fundamentals of Programming):</strong> Focuses on modular design, state management, complex data structures, and dynamic algorithms.</li>
+<li><strong>6.1210 (Design and Analysis of Algorithms):</strong> Requires immediate fluency with asymptotic complexity ($\mathcal{O}(n)$, $\mathcal{O}(n^2)$), graph processing, dynamic programming, and dynamic space allocations.</li>
+<li><strong>UROP (Undergraduate Research Opportunities Program) Advantage:</strong> Advanced placement signals to research labs (such as CSAIL) that an incoming student can immediately write performant matrix-processing operations, manage dynamic data pipelines, and implement complex linear structures without basic algorithm debugging overhead.</li>
+</ul>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution Checklist</h2>
+<h3>AP Exam Style Free Response Question (Combined Focus)</h3>
+<h4>Context &amp; Class Specifications</h4>
+<p>A data visualizer system tracks dynamic grid nodes. A grid cell's weight is maintained within a 2D grid matrix. You will write two methods inside the class <code>GridAnalyzer</code>.</p>
+<pre><code class="language-java">public class GridCell {
+    private int row;
+    private int col;
+    private int weight;
+
+    public GridCell(int r, int c, int w) {
+        row = r;
+        col = c;
+        weight = w;
+    }
+
+    public int getRow() { return row; }
+    public int getCol() { return col; }
+    public int getWeight() { return weight; }
+}
+</code></pre>
+<hr />
+<h4>Part A: <code>filterAndPurgeCells</code></h4>
+<p>Write the method <code>filterAndPurgeCells</code>. This method accepts an <code>ArrayList&lt;GridCell&gt;</code> and an integer <code>minWeightThreshold</code>. The method must:
+1. Remove all <code>GridCell</code> objects from the list whose <code>weight</code> is <strong>strictly less than</strong> <code>minWeightThreshold</code>.
+2. Return an array of type <code>int[]</code> containing the <code>weight</code> values of the <strong>removed elements</strong>, in the exact order they were purged.</p>
+<pre><code class="language-java">/**
+  * Purges elements with weight &lt; minWeightThreshold from cellList.
+  * @param cellList non-null list of GridCell objects
+  * @param minWeightThreshold lower bound threshold
+  * @return array containing weights of removed cells
+  */
+public static int[] filterAndPurgeCells(ArrayList&lt;GridCell&gt; cellList, int minWeightThreshold)
+</code></pre>
+<hr />
+<h4>Part B: <code>extractDenseSubgrid</code></h4>
+<p>Write the method <code>extractDenseSubgrid</code>. This method accepts a 2D array <code>int[][] matrix</code>, a target <code>row</code>, a target <code>col</code>, and a <code>radius</code>. </p>
+<p>The method calculates and returns a new 2D square array of size $(2 \times \text{radius} + 1) \times (2 \times \text{radius} + 1)$ representing the subgrid centered at <code>(row, col)</code>. </p>
+<p>If a coordinate in the subgrid falls <strong>out of bounds</strong> relative to <code>matrix</code>, the corresponding cell in the returned subgrid must be populated with <code>-1</code>.</p>
+<pre><code class="language-java">/**
+  * Extracts a square subgrid centered at (row, col) extending 'radius' units.
+  * Out-of-bound cells are filled with -1.
+  * Precondition: matrix is non-null, matrix.length &gt; 0, matrix[0].length &gt; 0.
+  *               radius &gt;= 0.
+  */
+public static int[][] extractDenseSubgrid(int[][] matrix, int row, int col, int radius)
+</code></pre>
+<hr />
+<h3>Comprehensive Java Implementation</h3>
+<pre><code class="language-java">import java.util.ArrayList;
+
+public class GridAnalyzer {
+
+    /**
+     * PART A: Correct reverse-traversal purging with removed value aggregation.
+     */
+    public static int[] filterAndPurgeCells(ArrayList&lt;GridCell&gt; cellList, int minWeightThreshold) {
+        // Temporary dynamic storage to collect removed weights safely
+        ArrayList&lt;Integer&gt; removedWeightsList = new ArrayList&lt;&gt;();
+
+        // Traverse backward to avoid index-skipping structural shift issues
+        for (int i = cellList.size() - 1; i &gt;= 0; i--) {
+            if (cellList.get(i).getWeight() &lt; minWeightThreshold) {
+                // Remove element and preserve removed element's payload
+                GridCell removedCell = cellList.remove(i);
+                removedWeightsList.add(removedCell.getWeight());
+            }
+        }
+
+        // Convert removed weights from reverse insertion into correct extraction order
+        int numRemoved = removedWeightsList.size();
+        int[] result = new int[numRemoved];
+
+        // Items were collected backward, so reverse them to match extraction sequence
+        for (int i = 0; i &lt; numRemoved; i++) {
+            result[i] = removedWeightsList.get(numRemoved - 1 - i);
+        }
+
+        return result;
+    }
+
+    /**
+     * PART B: Subgrid extraction using robust coordinate transformation bounds checks.
+     */
+    public static int[][] extractDenseSubgrid(int[][] matrix, int row, int col, int radius) {
+        int dimension = 2 * radius + 1;
+        int[][] subgrid = new int[dimension][dimension];
+
+        int numRows = matrix.length;
+        int numCols = matrix[0].length;
+
+        for (int r = 0; r &lt; dimension; r++) {
+            for (int c = 0; c &lt; dimension; c++) {
+                // Map subgrid local coordinates back to matrix coordinates
+                int sourceRow = row - radius + r;
+                int sourceCol = col - radius + c;
+
+                // Short-circuit boundary safety check
+                if (sourceRow &gt;= 0 &amp;&amp; sourceRow &lt; numRows &amp;&amp; sourceCol &gt;= 0 &amp;&amp; sourceCol &lt; numCols) {
+                    subgrid[r][c] = matrix[sourceRow][sourceCol];
+                } else {
+                    subgrid[r][c] = -1; // Boundary pad standard fallback
+                }
+            }
+        }
+
+        return subgrid;
+    }
+}
+</code></pre>
+<hr />
+<h3>Step-by-Step AP Scoring Rubric Checklist</h3>
+<h4>Part A Scoring Rubric (4.5 Points Total)</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Criterion</th>
+<th style="text-align: left;">Points</th>
+<th style="text-align: left;">Rubric Description &amp; Verification Checklist</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Traversal Mechanics</strong></td>
+<td style="text-align: left;"><strong>1.0 Pt</strong></td>
+<td style="text-align: left;">Traverses <code>cellList</code> completely without skipping elements during mutation (uses backward loop $i = \text{size}-1 \to 0$ or index adjustment $i--$).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Condition Check</strong></td>
+<td style="text-align: left;"><strong>1.0 Pt</strong></td>
+<td style="text-align: left;">Correctly evaluates <code>getWeight() &lt; minWeightThreshold</code> for each element.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>List Mutation</strong></td>
+<td style="text-align: left;"><strong>1.0 Pt</strong></td>
+<td style="text-align: left;">Invokes <code>.remove(i)</code> correctly on qualifying elements without throwing <code>IndexOutOfBoundsException</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Array Creation &amp; Order</strong></td>
+<td style="text-align: left;"><strong>1.5 Pts</strong></td>
+<td style="text-align: left;">Instantiates <code>int[]</code> with correct length equal to total removed items, preserves original structural order, and returns array.</td>
+</tr>
+</tbody>
+</table>
+<h4>Part B Scoring Rubric (4.5 Points Total)</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Criterion</th>
+<th style="text-align: left;">Points</th>
+<th style="text-align: left;">Rubric Description &amp; Verification Checklist</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Output Allocation</strong></td>
+<td style="text-align: left;"><strong>1.0 Pt</strong></td>
+<td style="text-align: left;">Correctly initializes returning array with dimensions <code>[2 * radius + 1][2 * radius + 1]</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Nested Loop Structure</strong></td>
+<td style="text-align: left;"><strong>1.0 Pt</strong></td>
+<td style="text-align: left;">Iterates through all row/column index pairs of the subgrid output array.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Coordinate Mapping</strong></td>
+<td style="text-align: left;"><strong>1.0 Pt</strong></td>
+<td style="text-align: left;">Maps subgrid $(r, c)$ to matrix space as $\text{sourceRow} = \text{row} - \text{radius} + r$ and $\text{sourceCol} = \text{col} - \text{radius} + c$.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Bound Guarding &amp; Fallback</strong></td>
+<td style="text-align: left;"><strong>1.5 Pts</strong></td>
+<td style="text-align: left;">Evaluates explicit short-circuit bounds ($0 \le \text{sourceRow} &lt; \text{matrix.length}$ and $0 \le \text{sourceCol} &lt; \text{matrix}[0].\text{length}$), sets valid matrix value or pads with <code>-1</code>.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>6. Execution Verification: Crossover to Python for MIT 6.100A/B</h2>
+<p>To reinforce concepts across languages, here is the equivalent logic implemented in Python for students preparing for MIT's core computer science sequence (6.100A/B).</p>
+<pre><code class="language-python">from typing import List, Tuple
+
+class GridCell:
+    def __init__(self, row: int, col: int, weight: int):
+        self.row = row
+        self.col = col
+        self.weight = weight
+
+def filter_and_purge_cells(cell_list: List[GridCell], min_weight_threshold: int) -&gt; List[int]:
+    &quot;&quot;&quot;
+    Purges elements with weight &lt; min_weight_threshold using list comprehension/filtering logic.
+    Demonstrates idiomatic Python memory isolation.
+    &quot;&quot;&quot;
+    removed_weights = [cell.weight for cell in cell_list if cell.weight &lt; min_weight_threshold]
+    # In-place modification matching AP requirements
+    cell_list[:] = [cell for cell in cell_list if cell.weight &gt;= min_weight_threshold]
+    return removed_weights
+
+def extract_dense_subgrid(matrix: List[List[int]], row: int, col: int, radius: int) -&gt; List[List[int]]:
+    &quot;&quot;&quot;
+    Extracts a square subgrid with boundary guarding in Python matrix space.
+    &quot;&quot;&quot;
+    num_rows = len(matrix)
+    num_cols = len(matrix[0]) if num_rows &gt; 0 else 0
+    dimension = 2 * radius + 1
+
+    subgrid = []
+    for r in range(dimension):
+        subgrid_row = []
+        source_row = row - radius + r
+        for c in range(dimension):
+            source_col = col - radius + c
+            if 0 &lt;= source_row &lt; num_rows and 0 &lt;= source_col &lt; num_cols:
+                subgrid_row.append(matrix[source_row][source_col])
+            else:
+                subgrid_row.append(-1)
+        subgrid.append(subgrid_row)
+
+    return subgrid
+</code></pre>
+<h3>Key Differences to Keep in Mind for AP CS A:</h3>
+<ol>
+<li><strong>Dynamic Resizing:</strong> Python's <code>list.pop()</code> or list comprehension abstracts index management, whereas AP Java requires explicit index management with <code>ArrayList.remove(index)</code>.</li>
+<li><strong>Type Safety:</strong> Java uses explicit static typing (<code>ArrayList&lt;GridCell&gt;</code>, <code>int[][]</code>), while Python uses dynamic typing (with optional type hints).</li>
+<li><strong>Matrix Dimension Handling:</strong> In Java, arrays have fixed <code>.length</code> attributes, while Python uses the <code>len()</code> function. In both languages, access outside these bounds will raise an exception (<code>IndexOutOfBoundsException</code> in Java, <code>IndexError</code> in Python).</li>
+</ol>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Computer Science A?</h2>
+      <p>Secure admission and advanced standing at top institutions like MIT with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

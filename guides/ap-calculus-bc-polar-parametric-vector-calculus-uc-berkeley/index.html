@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parametric Motion & Polar Area Integrals Guide: AP Calculus BC Score 5 for UC Berkeley | AP STEM PATH</title>
+  <meta name="description" content="Master Parametric Motion & Polar Area Integrals in AP Calculus BC. Deep dive with LaTeX/code examples and score 5 strategies tailored for UC Berkeley applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Parametric Motion & Polar Area Integrals Guide: AP Calculus BC Score 5 for UC Berkeley",
+    "description": "Master Parametric Motion & Polar Area Integrals in AP Calculus BC. Deep dive with LaTeX/code examples and score 5 strategies tailored for UC Berkeley applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Calculus BC • Score 5 Strategy</span>
+      <h1>Parametric Motion & Polar Area Integrals Guide: AP Calculus BC Score 5 for UC Berkeley</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Calculus BC Mastery Guide: Parametric Motion &amp; Polar Area Integrals</h1>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>Parametric Motion and Polar Coordinates represent the absolute pinnacle of dynamic spatial reasoning on the AP Calculus BC Exam. Taught within <strong>Unit 9: Parametric Equations, Polar Coordinates, and Vector-Valued Functions</strong>, these topics constitute <strong>11–12% of the multiple-choice section</strong> and are guaranteed to anchor at least <strong>one full 9-point Free-Response Question (FRQ)</strong>—typically FRQ 2 (Calculator Active) or FRQ 5/6 (Non-Calculator).</p>
+<p>Unlike Calculus AB content, Unit 9 shifts the analytical framework from planar functions $y = f(x)$ to vector-valued mappings $\vec{r}(t) = \langle x(t), y(t) \rangle$ and radial-angular mappings $r = f(\theta)$. Mastery of this topic is the primary differentiator between a Score 4 and a Score 5. </p>
+<p>For students targeting <strong>UC Berkeley</strong>, particularly within the <strong>College of Engineering (EECS, Mechanical Engineering)</strong> or the <strong>College of Letters and Science (Computer Science, Applied Mathematics)</strong>, achieving a Score 5 on the Calculus BC exam is non-negotiable.</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>A. Parametric Motion &amp; Kinematics in $\mathbb{R}^2$</h3>
+<p>Consider a particle moving in the $xy$-plane whose position at time $t$ is defined by the twice-differentiable vector function:</p>
+<p>$$\vec{r}(t) = \begin{pmatrix} x(t) \ y(t) \end{pmatrix} = x(t)\hat{i} + y(t)\hat{j}$$</p>
+<h4>Kinematic Vectors</h4>
+<ol>
+<li><strong>Position Vector:</strong> $\vec{r}(t) = \langle x(t), y(t) \rangle$</li>
+<li><strong>Velocity Vector:</strong> $\vec{v}(t) = \vec{r}'(t) = \left\langle x'(t), y'(t) \right\rangle = \left\langle \frac{dx}{dt}, \frac{dy}{dt} \right\rangle$</li>
+<li><strong>Acceleration Vector:</strong> $\vec{a}(t) = \vec{v}'(t) = \vec{r}''(t) = \left\langle x''(t), y''(t) \right\rangle = \left\langle \frac{d^2x}{dt^2}, \frac{d^2y}{dt^2} \right\rangle$</li>
+</ol>
+<h4>Scalar Quantities Derived from Vectors</h4>
+<ul>
+<li><strong>Speed:</strong> The magnitude of the velocity vector $|\vec{v}(t)|$:</li>
+</ul>
+<p>$$\text{Speed} = |\vec{v}(t)| = \sqrt{\left(\frac{dx}{dt}\right)^2 + \left(\frac{dy}{dt}\right)^2}$$</p>
+<ul>
+<li><strong>Total Distance Traveled ($t_1 \le t \le t_2$):</strong> The arc length of the parametric path across the time interval:</li>
+</ul>
+<p>$$L = \int_{t_1}^{t_2} |\vec{v}(t)| \, dt = \int_{t_1}^{t_2} \sqrt{\left(\frac{dx}{dt}\right)^2 + \left(\frac{dy}{dt}\right)^2} \, dt$$</p>
+<ul>
+<li><strong>Displacement Vector:</strong> The net change in position over $[t_1, t_2]$:</li>
+</ul>
+<p>$$\Delta \vec{r} = \vec{r}(t_2) - \vec{r}(t_1) = \left\langle \int_{t_1}^{t_2} x'(t) \, dt, \int_{t_1}^{t_2} y'(t) \, dt \right\rangle$$</p>
+<h4>Path Slopes and Higher-Order Derivatives</h4>
+<p>The slope of the tangent line to the path in the $xy$-plane is the ratio of vertical to horizontal rates of change:</p>
+<p>$$\frac{dy}{dx} = \frac{\frac{dy}{dt}}{\frac{dx}{dt}} \quad \text{provided } \frac{dx}{dt} \neq 0$$</p>
+<p>The second derivative $\frac{d^2y}{dx^2}$, which dictates path concavity in the $xy$-plane, requires applying the Chain Rule to $\frac{dy}{dx}$ with respect to $x$:</p>
+<p>$$\frac{d^2y}{dx^2} = \frac{d}{dx}\left[ \frac{dy}{dx} \right] = \frac{\frac{d}{dt}\left[ \frac{dy}{dx} \right]}{\frac{dx}{dt}}$$</p>
+<hr />
+<h3>B. Polar Coordinates &amp; Area Integrals</h3>
+<p>Polar coordinates map a point in the plane via $(r, \theta)$, where $r$ is the directed distance from the pole (origin) and $\theta$ is the polar angle measured counterclockwise from the positive polar axis ($x$-axis).</p>
+<pre><code>          y
+          ^          P(x,y) = P(r, θ)
+          |         /|
+          |        / |
+          |    r  /  |
+          |      /   | y = r sin(θ)
+          |     /    |
+          |    / θ   |
+          +---/------+-----&gt; x
+             O   x = r cos(θ)
+</code></pre>
+<h4>Conversion Equations</h4>
+<p>$$x = r \cos\theta, \quad y = r \sin\theta, \quad r^2 = x^2 + y^2, \quad \tan\theta = \frac{y}{x}$$</p>
+<h4>Derivation of the Polar Area Integral</h4>
+<p>To derive the area bounded by a continuous polar function $r = f(\theta)$ on $\alpha \le \theta \le \beta$:</p>
+<ol>
+<li>Partition the angular interval $[\alpha, \beta]$ into $n$ subintervals of width $\Delta \theta = \frac{\beta - \alpha}{n}$.</li>
+<li>Approximate the differential region $\Delta A_i$ as a sector of a circle with radius $r(\theta_i^*)$:</li>
+</ol>
+<p>$$\Delta A_i \approx \frac{1}{2} [r(\theta_i^*)]^2 \Delta \theta$$</p>
+<ol>
+<li>Construct the Riemann Sum and evaluate the limit as $n \to \infty$:</li>
+</ol>
+<p>$$A = \lim_{n \to \infty} \sum_{i=1}^{n} \frac{1}{2} [r(\theta_i^*)]^2 \Delta \theta = \frac{1}{2} \int_{\alpha}^{\beta} [r(\theta)]^2 \, d\theta$$</p>
+<pre><code>                   r = f(θ)
+                 ..---..
+               .'       '. 
+             .'           '.
+            /   /|          \
+           /   / |           \
+          |   /  | ΔA_i       |
+          |  /   |            |
+           \ \ θ |           /
+            \ \  |          /
+             '.\ |        .'
+               '.|      .'
+                 '+----'
+                  O (Pole)
+</code></pre>
+<h4>Bounded Region Between Two Polar Curves</h4>
+<p>For an outer curve $r_{\text{out}}(\theta)$ and an inner curve $r_{\text{in}}(\theta)$ on $[\alpha, \beta]$:</p>
+<p>$$A = \frac{1}{2} \int_{\alpha}^{\beta} \left( \left[r_{\text{out}}(\theta)\right]^2 - \left[r_{\text{in}}(\theta)\right]^2 \right) d\theta$$</p>
+<blockquote>
+<p><strong>Crucial Distinction:</strong> $A \neq \frac{1}{2} \int_{\alpha}^{\beta} \left[ r_{\text{out}}(\theta) - r_{\text{in}}(\theta) \right]^2 d\theta$. You MUST subtract the squares of the radii, NOT square the difference of the radii.</p>
+</blockquote>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<h3>Pitfall Analysis &amp; Contrast Matrix</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Concept</th>
+<th style="text-align: left;">Common Score 4 Error</th>
+<th style="text-align: left;">Score 5 Exemplar Performance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Parametric 2nd Derivative</strong></td>
+<td style="text-align: left;">Calculating $\frac{d^2y}{dx^2} = \frac{y''(t)}{x''(t)}$.</td>
+<td style="text-align: left;">Correctly executing chain rule: $\frac{d^2y}{dx^2} = \frac{\frac{d}{dt}[y'(t)/x'(t)]}{x'(t)}$.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Polar Area Between Curves</strong></td>
+<td style="text-align: left;">Computing $\frac{1}{2}\int (r_1 - r_2)^2 d\theta$.</td>
+<td style="text-align: left;">Computing $\frac{1}{2}\int (r_1^2 - r_2^2) d\theta$ with explicit symmetry justification.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Limits of Integration in Polar</strong></td>
+<td style="text-align: left;">Equating expressions without checking if intersections pass through the pole at <em>different</em> values of $\theta$.</td>
+<td style="text-align: left;">Graphically/algebraically solving $r_1(\theta) = r_2(\theta)$ AND testing $r(\theta) = 0$ independently.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Parametric Position Restoration</strong></td>
+<td style="text-align: left;">Forgetting initial condition: $x(t) = \int_0^t x'(v)dv$.</td>
+<td style="text-align: left;">Applying Fundamental Theorem of Calculus: $x(t) = x(0) + \int_0^t x'(v)dv$.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Units &amp; Context</strong></td>
+<td style="text-align: left;">Omitting units when evaluating rates like speed ($\text{units/time}$) vs. acceleration vector ($\text{units/time}^2$).</td>
+<td style="text-align: left;">Consistently attaching rigorous, Context-Specific Dimensional Units.</td>
+</tr>
+</tbody>
+</table>
+<h3>Scoring Rubric Nuance (AP Reader Perspective)</h3>
+<p>On FRQs involving Polar Area:
+* <strong>1 Point</strong> is awarded for the constant $\frac{1}{2}$ and correct limits of integration.
+* <strong>1 Point</strong> is awarded for the integrand ($r^2$ or $r_{\text{out}}^2 - r_{\text{in}}^2$).
+* <strong>1 Point</strong> is awarded for the final numerical answer.</p>
+<p><em>Warning:</em> If you write an uncollected integral setup with wrong limits, you lose both the integrand setup point and the final answer point. Always state equation setups explicitly prior to entering numerical computations into your NSpire or TI-84 Plus CE.</p>
+<hr />
+<h2>4. UC Berkeley Placement Pathway</h2>
+<pre><code>[ Score 5 on AP Calculus BC ]
+               │
+               ▼
+   Exempts: Math 1A (4 Units) &amp; Math 1B (4 Units)
+   Total Awarded: 8 Semester Units Direct Degree Credit
+               │
+               ▼
+   Accelerated Fall Placement: Math 53 (Multivariable Calculus)
+               │
+               ├──────────────────────────────┐
+               ▼                              ▼
+   EECS Major Pathway            Mechanical Engineering Pathway
+   • Early access to EECS 16A/B   • Early access to MechE 40 / CE C85
+   • Unlocks CS 61A/B timeline     • On-time graduation safety buffer
+</code></pre>
+<h3>Institutional Impact at UC Berkeley</h3>
+<ol>
+<li><strong>Course Exemptions Granted:</strong></li>
+<li><strong>Math 1A:</strong> Calculus I (Single Variable Differential Calculus) — 4 units</li>
+<li><strong>Math 1B:</strong> Calculus II (Single Variable Integral Calculus, Series, Intro Differential Equations) — 4 units</li>
+<li>
+<p><strong>Total Credit Direct Award:</strong> <strong>8 Semester Units</strong> applied directly toward your degree requirement.</p>
+</li>
+<li>
+<p><strong>Acceleration into Math 53 (Multivariable Calculus):</strong></p>
+</li>
+<li>By waiving Math 1A and Math 1B, high-achieving freshmen enter <strong>Math 53</strong> in their first semester. </li>
+<li>
+<p><strong>Direct Connection:</strong> Math 53 heavily relies on AP Calculus BC Unit 9 concepts. Parametric position vectors $\vec{r}(t)$ expand directly into 3D space curves $\vec{r}(t) = \langle x(t), y(t), z(t) \rangle$, line integrals $\int_C \vec{F} \cdot d\vec{r}$, and polar coordinates evolve into cylindrical coordinates $(r, \theta, z)$ and spherical coordinates $(\rho, \theta, \phi)$.</p>
+</li>
+<li>
+<p><strong>Strategic Advantage for College of Engineering Majors (EECS &amp; MechE):</strong></p>
+</li>
+<li><strong>EECS Requirement Alignment:</strong> Math 53 is a lower-division core requirement for EECS. Skipping Math 1A/1B frees up critical schedule space during the competitive freshman year to take <strong>EECS 16A/16B</strong> (Designing Information Devices and Systems) and <strong>CS 61A</strong> (Structure and Interpretation of Computer Programs).</li>
+<li><strong>Mechanical Engineering Alignment:</strong> MechE majors clear prerequisites for <strong>Engineering Mechanics (CE C85)</strong> and <strong>Thermodynamics (MechE 40)</strong> an entire semester ahead of peers, opening opportunities for early undergraduate research in labs such as the Berkeley Artificial Intelligence Research (BAIR) Lab or the Robotics and Intelligent Machines Lab.</li>
+</ol>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution Checklist</h2>
+<h3>Problem Statement (AP-Style FRQ - Calculator Active)</h3>
+<p>A particle moves along a smooth curve in the $xy$-plane for $t \ge 0$. The velocity vector of the particle is given by:</p>
+<p>$$\vec{v}(t) = \left\langle \cos(t^2), e^{0.5t} - 2 \right\rangle$$</p>
+<p>At time $t = 1$, the position of the particle is $(3, -4)$.</p>
+<p>Simultaneously, a second geometric path is defined in polar coordinates by the inner loop of the limaçon $r(\theta) = 1 + 2\cos\theta$.</p>
+<hr />
+<h3>Questions</h3>
+<ul>
+<li><strong>(a)</strong> Find the speed of the particle at time $t = 2$, and find the acceleration vector of the particle at $t = 2$.</li>
+<li><strong>(b)</strong> Find the total distance traveled by the particle over the time interval $1 \le t \le 3$.</li>
+<li><strong>(c)</strong> Find the $x$-coordinate of the position of the particle at time $t = 3$.</li>
+<li><strong>(d)</strong> Find the area of the region bounded inside the inner loop of the polar curve $r(\theta) = 1 + 2\cos\theta$.</li>
+</ul>
+<hr />
+<h3>Complete Step-by-Step Solution &amp; Verification Checklist</h3>
+<h4>Part (a): Speed and Acceleration at $t = 2$</h4>
+<ul>
+<li>
+<p><strong>Step 1: Compute Speed.</strong>
+  $$\text{Speed} = |\vec{v}(2)| = \sqrt{\left(\cos(2^2)\right)^2 + \left(e^{0.5(2)} - 2\right)^2} = \sqrt{(\cos(4))^2 + (e - 2)^2}$$
+  Using a graphing calculator:
+  $$\cos(4) \approx -0.653643, \quad e - 2 \approx 0.718282$$
+  $$\text{Speed} = \sqrt{(-0.653643)^2 + (0.718282)^2} = \sqrt{0.42725 + 0.51593} \approx \mathbf{0.971}$$</p>
+</li>
+<li>
+<p><strong>Step 2: Compute Acceleration Vector.</strong>
+  $$\vec{a}(t) = \vec{v}'(t) = \left\langle \frac{d}{dt}[\cos(t^2)], \frac{d}{dt}[e^{0.5t} - 2] \right\rangle = \left\langle -2t\sin(t^2), 0.5e^{0.5t} \right\rangle$$
+  Evaluate at $t = 2$:
+  $$\vec{a}(2) = \left\langle -4\sin(4), 0.5e^{1} \right\rangle \approx \mathbf{\langle 3.027, 1.359 \rangle}$$</p>
+</li>
+</ul>
+<hr />
+<h4>Part (b): Total Distance Traveled for $1 \le t \le 3$</h4>
+<ul>
+<li>
+<p><strong>Step 1: Set up Integral.</strong>
+  $$\text{Distance} = \int_{1}^{3} \sqrt{\left(\cos(t^2)\right)^2 + \left(e^{0.5t} - 2\right)^2} \, dt$$</p>
+</li>
+<li>
+<p><strong>Step 2: Evaluate Numerical Integration via Calculator.</strong>
+  $$\text{Distance} \approx \mathbf{2.812}$$</p>
+</li>
+</ul>
+<hr />
+<h4>Part (c): Position $x(3)$</h4>
+<ul>
+<li>
+<p><strong>Step 1: Apply Fundamental Theorem of Calculus.</strong>
+  $$x(3) = x(1) + \int_{1}^{3} x'(t) \, dt = 3 + \int_{1}^{3} \cos(t^2) \, dt$$</p>
+</li>
+<li>
+<p><strong>Step 2: Numerical Computation.</strong>
+  $$\int_{1}^{3} \cos(t^2) \, dt \approx 0.13856$$
+  $$x(3) = 3 + 0.13856 = \mathbf{3.139}$$</p>
+</li>
+</ul>
+<hr />
+<h4>Part (d): Area Bounded by the Inner Loop of $r(\theta) = 1 + 2\cos\theta$</h4>
+<ul>
+<li>
+<p><strong>Step 1: Find angular limits for the inner loop.</strong>
+  Set $r(\theta) = 0$:
+  $$1 + 2\cos\theta = 0 \implies \cos\theta = -\frac{1}{2}$$
+  $$\theta = \frac{2\pi}{3}, \frac{4\pi}{3}$$
+  The inner loop is traversed as $\theta$ moves from $\frac{2\pi}{3}$ to $\frac{4\pi}{3}$.</p>
+</li>
+<li>
+<p><strong>Step 2: Set up Area Integral.</strong>
+  $$A = \frac{1}{2} \int_{2\pi/3}^{4\pi/3} \left(1 + 2\cos\theta\right)^2 d\theta$$</p>
+</li>
+<li>
+<p><strong>Step 3: Analytical Evaluation.</strong>
+  $$\left(1 + 2\cos\theta\right)^2 = 1 + 4\cos\theta + 4\cos^2\theta$$
+  Use power-reducing identity $\cos^2\theta = \frac{1 + \cos(2\theta)}{2}$:
+  $$1 + 4\cos\theta + 4\left(\frac{1 + \cos(2\theta)}{2}\right) = 3 + 4\cos\theta + 2\cos(2\theta)$$</p>
+</li>
+</ul>
+<p>Integrate term-by-term:
+  $$\int \left(3 + 4\cos\theta + 2\cos(2\theta)\right) d\theta = \left[ 3\theta + 4\sin\theta + \sin(2\theta) \right]_{2\pi/3}^{4\pi/3}$$</p>
+<p>Evaluate bounds:
+  $$\text{At } \theta = \frac{4\pi}{3}: \quad 3\left(\frac{4\pi}{3}\right) + 4\left(-\frac{\sqrt{3}}{2}\right) + \sin\left(\frac{8\pi}{3}\right) = 4\pi - 2\sqrt{3} + \frac{\sqrt{3}}{2} = 4\pi - \frac{3\sqrt{3}}{2}$$
+  $$\text{At } \theta = \frac{2\pi}{3}: \quad 3\left(\frac{2\pi}{3}\right) + 4\left(\frac{\sqrt{3}}{2}\right) + \sin\left(\frac{4\pi}{3}\right) = 2\pi + 2\sqrt{3} - \frac{\sqrt{3}}{2} = 2\pi + \frac{3\sqrt{3}}{2}$$</p>
+<p>Subtract lower limit from upper limit:
+  $$\Delta = \left(4\pi - \frac{3\sqrt{3}}{2}\right) - \left(2\pi + \frac{3\sqrt{3}}{2}\right) = 2\pi - 3\sqrt{3}$$</p>
+<p>Multiply by pre-factor $\frac{1}{2}$:
+  $$A = \frac{1}{2} \left( 2\pi - 3\sqrt{3} \right) = \mathbf{\pi - \frac{3\sqrt{3}}{2} \approx 0.544}$$</p>
+<hr />
+<h3>AP Score Breakdown &amp; Rubric Point Allocation Check</h3>
+<pre><code>Part (a) [2 Points Total]:
+ [1 pt] Speed = 0.971
+ [1 pt] Acceleration Vector = &lt;3.027, 1.359&gt;
+
+Part (b) [2 Points Total]:
+ [1 pt] Definite integral integrand and limits setup
+ [1 pt] Value = 2.812
+
+Part (c) [2 Points Total]:
+ [1 pt] Fundamental Theorem of Calculus setup: x(1) + ∫ x'(t) dt
+ [1 pt] Answer = 3.139
+
+Part (d) [3 Points Total]:
+ [1 pt] Correct limits of integration (θ = 2π/3 to 4π/3)
+ [1 pt] Polar area integrand setup (1/2 ∫ r^2 dθ)
+ [1 pt] Final answer (π - 3√3/2 or exact decimal equivalent 0.544)
+</code></pre>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Calculus BC?</h2>
+      <p>Secure admission and advanced standing at top institutions like UC Berkeley with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

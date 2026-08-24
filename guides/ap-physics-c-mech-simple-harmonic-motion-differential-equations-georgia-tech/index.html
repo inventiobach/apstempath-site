@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Harmonic Motion & Calculus-Driven Oscillations Guide: AP Physics C: Mechanics Score 5 for Georgia Tech | AP STEM PATH</title>
+  <meta name="description" content="Master Simple Harmonic Motion & Calculus-Driven Oscillations in AP Physics C: Mechanics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Georgia Tech applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Simple Harmonic Motion & Calculus-Driven Oscillations Guide: AP Physics C: Mechanics Score 5 for Georgia Tech",
+    "description": "Master Simple Harmonic Motion & Calculus-Driven Oscillations in AP Physics C: Mechanics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Georgia Tech applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Physics C: Mechanics • Score 5 Strategy</span>
+      <h1>Simple Harmonic Motion & Calculus-Driven Oscillations Guide: AP Physics C: Mechanics Score 5 for Georgia Tech</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Physics C: Mechanics Master Guide</h1>
+<h2>Unit 5: Simple Harmonic Motion &amp; Calculus-Driven Oscillations</h2>
+<hr />
+<h3>1. Introduction &amp; AP Exam Weight</h3>
+<p>Simple Harmonic Motion (SHM) and calculus-driven oscillations account for approximately <strong>10–14%</strong> of the AP Physics C: Mechanics exam. While introductory physics relies heavily on memorized algebraic formulas ($T = 2\pi\sqrt{\frac{m}{k}}$), AP Physics C tests your ability to model oscillatory systems through <strong>second-order differential equations</strong>, <strong>Taylor series potential approximations</strong>, and <strong>rotational dynamic equivalences</strong>.</p>
+<p>To earn a 5 on the AP Physics C exam—and demonstrate readiness for Georgia Tech’s rigorous engineering core—you must view SHM not as a specific system (like a mass on a spring), but as a fundamental mathematical behavior: <strong>any system whose restoring force or torque is linearly proportional to displacement from a stable equilibrium executes Simple Harmonic Motion.</strong></p>
+<hr />
+<h3>2. Deep Concept Breakdown</h3>
+<h4>2.1 The Differential Equation of SHM</h4>
+<p>Newton’s Second Law for a one-dimensional translational system subject to a Hooke’s Law restoring force $F(x) = -kx$ is:</p>
+<p>$$\sum F_x = m a_x \implies -kx = m \frac{d^2x}{dt^2}$$</p>
+<p>Rearranging into standard second-order linear homogeneous differential equation form:</p>
+<p>$$\frac{d^2x}{dt^2} + \left(\frac{k}{m}\right)x = 0$$</p>
+<p>We define the <strong>angular frequency</strong> $\omega \equiv \sqrt{\frac{k}{m}}$, yielding the canonical SHM differential equation:</p>
+<p>$$\frac{d^2x(t)}{dt^2} + \omega^2 x(t) = 0$$</p>
+<h5>Proof of Solution</h5>
+<p>The general trial solution to this second-order differential equation is:</p>
+<p>$$x(t) = A \cos(\omega t + \phi)$$</p>
+<p>Taking the first derivative with respect to time to find velocity $v(t)$:</p>
+<p>$$v(t) = \frac{dx}{dt} = -A\omega \sin(\omega t + \phi)$$</p>
+<p>Taking the second derivative with respect to time to find acceleration $a(t)$:</p>
+<p>$$a(t) = \frac{d^2x}{dt^2} = -A\omega^2 \cos(\omega t + \phi)$$</p>
+<p>Substituting $x(t)$ back into $a(t)$:</p>
+<p>$$\frac{d^2x}{dt^2} = -\omega^2 x(t) \implies \frac{d^2x}{dt^2} + \omega^2 x(t) = 0 \quad \blacksquare$$</p>
+<hr />
+<h4>2.2 Energy Conservation &amp; Calculus-Driven Oscillations</h4>
+<p>The total mechanical energy $E$ in an ideal oscillator is constant:</p>
+<p>$$E = K + U = \frac{1}{2}m v^2 + U(x) = \text{constant}$$</p>
+<p>Taking the time derivative of the total energy ($\frac{dE}{dt} = 0$):</p>
+<p>$$\frac{dE}{dt} = \frac{d}{dt}\left(\frac{1}{2}m\left(\frac{dx}{dt}\right)^2 + U(x)\right) = 0$$</p>
+<p>Applying the chain rule:</p>
+<p>$$m \left(\frac{dx}{dt}\right)\left(\frac{d^2x}{dt^2}\right) + \frac{dU}{dx}\left(\frac{dx}{dt}\right) = 0$$</p>
+<p>Since velocity $v = \frac{dx}{dt} \neq 0$ for all $t$:</p>
+<p>$$m\frac{d^2x}{dt^2} + \frac{dU}{dx} = 0 \implies m\frac{d^2x}{dt^2} = -\frac{dU}{dx}$$</p>
+<p>This proves that the restoring force is $F(x) = -\frac{dU}{dx}$.</p>
+<hr />
+<h4>2.3 Oscillations in Non-Linear Potential Wells $U(x)$</h4>
+<p>When given an arbitrary potential energy function $U(x)$, small oscillations occur around local minima (stable equilibrium points).</p>
+<ol>
+<li>
+<p><strong>Find Stable Equilibrium ($x_0$):</strong>
+   $$\left.\frac{dU}{dx}\right|<em>{x = x_0} = 0 \quad \text{and} \quad \left.\frac{d^2U}{dx^2}\right|</em>{x = x_0} &gt; 0$$</p>
+</li>
+<li>
+<p><strong>Taylor Series Expansion around $x_0$:</strong>
+   $$U(x) \approx U(x_0) + \left.\frac{dU}{dx}\right|<em>{x_0}(x - x_0) + \frac{1}{2}\left.\frac{d^2U}{dx^2}\right|</em>{x_0}(x - x_0)^2 + \mathcal{O}((x - x_0)^3)$$</p>
+</li>
+</ol>
+<p>Since $U'(x_0) = 0$, defining displacement coordinate $\eta = x - x_0$:</p>
+<p>$$U(\eta) \approx U(x_0) + \frac{1}{2}k_{\text{eff}} \eta^2, \quad \text{where } k_{\text{eff}} = \left.\frac{d^2U}{dx^2}\right|_{x_0}$$</p>
+<ol>
+<li><strong>Effective Angular Frequency:</strong>
+   $$\omega = \sqrt{\frac{k_{\text{eff}}}{m}} = \sqrt{\frac{1}{m}\left.\frac{d^2U}{dx^2}\right|_{x_0}}$$</li>
+</ol>
+<hr />
+<h4>2.4 Physical Pendulums &amp; Rotational SHM</h4>
+<p>For a rigid body pivoted about a fixed axis at distance $d$ from its center of mass ($CM$):</p>
+<p>$$\sum \tau = I \alpha \implies -m g d \sin\theta = I \frac{d^2\theta}{dt^2}$$</p>
+<p>Applying the <strong>Small-Angle Approximation</strong> ($\sin\theta \approx \theta$ for $\theta \ll 1$ rad via Maclaurin expansion $\sin\theta = \theta - \frac{\theta^3}{3!} + \dots$):</p>
+<p>$$I \frac{d^2\theta}{dt^2} + m g d \theta = 0 \implies \frac{d^2\theta}{dt^2} + \left(\frac{mgd}{I}\right)\theta = 0$$</p>
+<p>Hence, the period of a physical pendulum is:</p>
+<p>$$\omega = \sqrt{\frac{mgd}{I}} \implies T = 2\pi\sqrt{\frac{I}{mgd}}$$</p>
+<hr />
+<h4>2.5 Computational Modeling: Linear vs. Non-Linear Pendulum</h4>
+<p>The small-angle approximation breaks down at larger amplitudes. The standard AP equation underestimates the true period at higher angles. The following Python script uses <strong>Euler-Cromer numerical integration</strong> to demonstrate the breakdown of simple harmonic motion as amplitude increases.</p>
+<pre><code class="language-python">import math
+
+def simulate_pendulum(theta0_deg, length=1.0, g=9.81, dt=0.001, t_max=5.0):
+    &quot;&quot;&quot;
+    Simulates simple pendulum motion via Euler-Cromer integration.
+    Compares dynamic non-linear trajectory with exact analytical SHM.
+    &quot;&quot;&quot;
+    theta0 = math.radians(theta0_deg)
+    omega = 0.0
+    theta = theta0
+    t = 0.0
+
+    omega_shm = math.sqrt(g / length)
+    t_shm_period = 2 * math.pi / omega_shm
+
+    # Tracking period via zero-crossing detection
+    previous_theta = theta
+    half_period_time = None
+
+    while t &lt; t_max:
+        # Exact differential equation: d^2(theta)/dt^2 = -(g/L)*sin(theta)
+        alpha = -(g / length) * math.sin(theta)
+
+        # Euler-Cromer step
+        omega += alpha * dt
+        theta += omega * dt
+        t += dt
+
+        # Zero-crossing detection (positive to negative direction)
+        if previous_theta &gt; 0 and theta &lt;= 0 and half_period_time is None:
+            half_period_time = t
+
+        previous_theta = theta
+
+    simulated_period = 2 * half_period_time if half_period_time else float('nan')
+
+    print(f&quot;--- Initial Amplitude: {theta0_deg} deg ---&quot;)
+    print(f&quot;Theoretical Small-Angle Period: {t_shm_period:.4f} s&quot;)
+    print(f&quot;Numerical Non-Linear Period:    {simulated_period:.4f} s&quot;)
+    print(f&quot;Error Percentage:               {abs(simulated_period - t_shm_period)/t_shm_period * 100:.2f}%\n&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    simulate_pendulum(theta0_deg=5.0)   # Small angle (SHM valid)
+    simulate_pendulum(theta0_deg=60.0)  # Large angle (SHM fails)
+</code></pre>
+<hr />
+<h3>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Topic / Scenario</th>
+<th style="text-align: left;">Score 4 Response (Lacks Rigor)</th>
+<th style="text-align: left;">Score 5 Response (Mastery)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Deriving $T$ for Non-Standard Oscillators</strong></td>
+<td style="text-align: left;">Plugs parameters blindly into $T = 2\pi\sqrt{m/k}$ without justifying why $k$ applies to the system.</td>
+<td style="text-align: left;">Sets up dynamic restoring equation ($\sum F = m\ddot{x}$ or $\sum \tau = I\ddot{\theta}$), explicitly casts into $\ddot{x} + \omega^2 x = 0$, and defines $\omega^2$ explicitly.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Kinematic Approximations</strong></td>
+<td style="text-align: left;">Attempts to use linear kinematic formulas ($v = v_0 + at$) because acceleration depends on position.</td>
+<td style="text-align: left;">Explicitly states kinematics are invalid since $a(t) = -\omega^2 x(t) \neq \text{constant}$; integrates energy or uses differential equations.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Physical Pendulum Inertia</strong></td>
+<td style="text-align: left;">Uses $I = m L^2$ for rigid bodies (e.g., uniform rods or disks) pivoted at the end.</td>
+<td style="text-align: left;">Calculates correct $I$ using the <strong>Parallel Axis Theorem</strong> ($I = I_{cm} + m d^2$) before finding period $T = 2\pi\sqrt{I / mgd}$.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Potential Well Equilibrium</strong></td>
+<td style="text-align: left;">Assumes equilibrium occurs where $U(x) = 0$.</td>
+<td style="text-align: left;">Proves equilibrium occurs at local extremum where $\frac{dU}{dx} = 0$, and checks stability via $\frac{d^2U}{dx^2} &gt; 0$.</td>
+</tr>
+</tbody>
+</table>
+<h4>Critical AP Rubric Trap: The Restoring Sign Failure</h4>
+<p>When setting up $\sum F = m a$ or $\sum \tau = I \alpha$, <strong>failing to include the explicit negative sign</strong> for restoring force drops you from a 15/15 to an 11/15 instantly on AP Physics C FRQs.</p>
+<ul>
+<li><strong>Incorrect:</strong> $m \frac{d^2x}{dt^2} = kx \implies \frac{d^2x}{dt^2} - \frac{k}{m}x = 0$<ul>
+<li><em>Mathematical Consequence:</em> Solution is real exponentials $x(t) = C_1 e^{\omega t} + C_2 e^{-\omega t}$ (unbounded motion, NOT oscillation).</li>
+</ul>
+</li>
+<li><strong>Correct:</strong> $m \frac{d^2x}{dt^2} = -kx \implies \frac{d^2x}{dt^2} + \frac{k}{m}x = 0$<ul>
+<li><em>Mathematical Consequence:</em> Solution yields complex exponentials leading to bounded sinusoidal motion $x(t) = A\cos(\omega t + \phi)$.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3>4. Georgia Tech Placement Pathway</h3>
+<pre><code>                    [ Score 5 on AP Physics C: Mechanics ]
+                                      │
+                                      ▼
+             [ Exempts PHYS 2211: Intro Physics I (4 Credits) ]
+                                      │
+                 ┌────────────────────┴────────────────────┐
+                 ▼                                         ▼
+   [ Direct Entry: PHYS 2212 ]                [ Accelerated Track ]
+     Intro Physics II (E&amp;M)                     MATH 2551 (Multivariable)
+                 │                                      │
+                 └────────────────────┬────────────────────┘
+                                      ▼
+                        [ Core Engineering Coursework ]
+                        • ECE 2040: Circuit Analysis
+                        • ME 3017: System Dynamics &amp; Control
+                        • COE 2001: Statics &amp; Dynamics
+</code></pre>
+<h4>Academic &amp; Strategic Placement Advantages at Georgia Tech</h4>
+<ol>
+<li><strong>Exempted Credit:</strong> Earning a 5 grants credit for <strong>PHYS 2211</strong> (Introductory Physics I, 4 Credit Hours), satisfying a fundamental core laboratory science requirement.</li>
+<li><strong>Direct Acceleration into PHYS 2212:</strong> By waiving PHYS 2211, GT engineering majors (AE, ME, ECE, CEE, BMED) can take PHYS 2212 (Introductory Physics II - Electromagnetism) during their first semester freshman year.</li>
+<li><strong>Core Engineering Mapping:</strong></li>
+<li><strong>Differential Isomorphism:</strong> The differential equation for mechanical SHM ($\ddot{x} + \frac{k}{m}x = 0$) directly mirrors the differential equation for LC electrical circuits ($\ddot{q} + \frac{1}{LC}q = 0$) in PHYS 2212 and <strong>ECE 2040 (Circuit Analysis)</strong>.</li>
+<li><strong>Advanced Mechanical Dynamics:</strong> Mechanical and Aerospace majors leverage non-linear stability proofs ($U''(x_0) &gt; 0$) directly in <strong>ME 3017 (System Dynamics and Control)</strong> and <strong>COE 2001 (Statics/Dynamics)</strong>.</li>
+</ol>
+<hr />
+<h3>5. High-Yield Practice Problem &amp; Step-by-Step Solution Checklist</h3>
+<h4>Problem Statement</h4>
+<p>A uniform thin rod of mass $M$ and length $L$ is pivoted smoothly at one end. A small block of mass $m = \frac{M}{2}$ is attached to the non-pivoted bottom tip of the rod. 
+A horizontal spring with spring constant $k$ is attached to the midpoint of the rod ($\frac{L}{2}$). The system is at rest vertically in equilibrium.</p>
+<pre><code>          Fixed Pivot
+             (O)
+              | \
+              |  \
+              |   \
+        [k]---|----(Rod, Mass M, Length L)
+              |     \
+              |      \
+             ( )     [m = M/2]
+</code></pre>
+<ol>
+<li><strong>Calculate</strong> the total moment of inertia $I_O$ of the rod-mass system about the pivot axis $O$.</li>
+<li><strong>Derive</strong> the second-order differential equation governing small angular displacements $\theta(t)$ from the vertical equilibrium position.</li>
+<li><strong>Determine</strong> the angular frequency $\omega$ and period $T$ of small oscillations in terms of $M, k, g,$ and $L$.</li>
+</ol>
+<hr />
+<h4>Step-by-Step Solution &amp; AP Rubric Grading Checklist</h4>
+<h5>Step 1: Total Moment of Inertia $I_O$</h5>
+<ul>
+<li>Moment of inertia of uniform rod about end pivot: $I_{\text{rod}} = \frac{1}{3}M L^2$</li>
+<li>Moment of inertia of point mass $m$ at distance $L$: $I_{\text{mass}} = m L^2 = \left(\frac{M}{2}\right)L^2$</li>
+<li>By superposition:</li>
+</ul>
+<p>$$I_O = I_{\text{rod}} + I_{\text{mass}} = \frac{1}{3}M L^2 + \frac{1}{2}M L^2 = \frac{5}{6}M L^2$$</p>
+<h5>Step 2: Restoring Torque Analysis &amp; Differential Equation</h5>
+<p>Apply rotational form of Newton’s Second Law ($\sum \tau_O = I_O \alpha$):</p>
+<ol>
+<li><strong>Torque due to Gravity:</strong></li>
+<li>Center of Mass of rod is at $\frac{L}{2}$: $\tau_{g,\text{rod}} = - M g \left(\frac{L}{2}\right) \sin\theta$</li>
+<li>Mass $m$ is at $L$: $\tau_{g,\text{mass}} = - \left(\frac{M}{2}\right) g L \sin\theta$</li>
+<li>Total Gravitational Torque:</li>
+</ol>
+<p>$$\tau_g = -M g \left(\frac{L}{2}\right) \sin\theta - \frac{1}{2}M g L \sin\theta = -M g L \sin\theta$$</p>
+<ol>
+<li><strong>Torque due to Spring Force:</strong></li>
+<li>Displacement of spring at distance $\frac{L}{2}$ for small angle $\theta$: $x_s = \frac{L}{2}\sin\theta$</li>
+<li>Restoring force: $F_s = -k x_s = -k \left(\frac{L}{2}\sin\theta\right)$</li>
+<li>Lever arm is $\frac{L}{2}$:</li>
+</ol>
+<p>$$\tau_s = -F_s \left(\frac{L}{2}\cos\theta\right) = -k \left(\frac{L}{2}\sin\theta\right)\left(\frac{L}{2}\cos\theta\right)$$</p>
+<ol>
+<li><strong>Summing Torques:</strong></li>
+</ol>
+<p>$$\sum \tau_O = -M g L \sin\theta - \frac{1}{4}k L^2 \sin\theta \cos\theta = I_O \frac{d^2\theta}{dt^2}$$</p>
+<ol>
+<li><strong>Small-Angle Approximation ($\sin\theta \approx \theta$, $\cos\theta \approx 1$):</strong></li>
+</ol>
+<p>$$-M g L \theta - \frac{1}{4}k L^2 \theta = I_O \frac{d^2\theta}{dt^2}$$</p>
+<p>$$-\left(M g L + \frac{1}{4}k L^2\right)\theta = \left(\frac{5}{6}M L^2\right) \frac{d^2\theta}{dt^2}$$</p>
+<ol>
+<li><strong>Final Standard Differential Form:</strong></li>
+</ol>
+<p>$$\frac{d^2\theta}{dt^2} + \left( \frac{M g L + \frac{1}{4}k L^2}{\frac{5}{6}M L^2} \right) \theta = 0$$</p>
+<p>Simplifying coefficients (divide numerator and denominator by $L$):</p>
+<p>$$\frac{d^2\theta}{dt^2} + \left( \frac{6g}{5L} + \frac{3k}{10M} \right) \theta = 0$$</p>
+<h5>Step 3: Determining $\omega$ and Period $T$</h5>
+<p>Comparing directly with standard SHM form $\ddot{\theta} + \omega^2 \theta = 0$:</p>
+<p>$$\omega = \sqrt{\frac{6g}{5L} + \frac{3k}{10M}}$$</p>
+<p>$$\implies T = \frac{2\pi}{\omega} = 2\pi \sqrt{\frac{1}{\frac{6g}{5L} + \frac{3k}{10M}}} = 2\pi \sqrt{\frac{10 M L}{12 M g + 3 k L}}$$</p>
+<hr />
+<h4>Official AP Free-Response Scoring Rubric (15-Point Basis)</h4>
+<ul>
+<li><strong>Part 1: Moment of Inertia (3 Points)</strong></li>
+<li><strong>+1 Point:</strong> Correct statement and application of rod moment of inertia about end axis ($I = \frac{1}{3}ML^2$).</li>
+<li><strong>+1 Point:</strong> Correct application of point-mass moment of inertia ($I = mL^2 = \frac{1}{2}ML^2$).</li>
+<li>
+<p><strong>+1 Point:</strong> Correct sum yielding $I_O = \frac{5}{6}ML^2$.</p>
+</li>
+<li>
+<p><strong>Part 2: Differential Equation Setup &amp; Approximations (8 Points)</strong></p>
+</li>
+<li><strong>+1 Point:</strong> Expressing torque balance using $\sum \tau = I \alpha$ or $I \frac{d^2\theta}{dt^2}$.</li>
+<li><strong>+1 Point:</strong> Correct negative signs assigned to both restoring torques.</li>
+<li><strong>+1 Point:</strong> Correct gravitational torque expression (accounting for both rod CM and point mass).</li>
+<li><strong>+1 Point:</strong> Correct spring force stretch distance $x = \frac{L}{2}\theta$ or $\frac{L}{2}\sin\theta$.</li>
+<li><strong>+1 Point:</strong> Correct spring torque calculation ($\tau_s = F \cdot d$).</li>
+<li><strong>+1 Point:</strong> Explicit application of small-angle approximation ($\sin\theta \approx \theta$).</li>
+<li>
+<p><strong>+2 Points:</strong> Substituting $I_O$ and rearranging equation into standard differential form $\frac{d^2\theta}{dt^2} + \omega^2 \theta = 0$.</p>
+</li>
+<li>
+<p><strong>Part 3: Final Angular Frequency &amp; Period Execution (4 Points)</strong></p>
+</li>
+<li><strong>+2 Points:</strong> Correct extraction of $\omega^2$ from the linear coefficient of $\theta$.</li>
+<li><strong>+1 Point:</strong> Correct relational application $T = \frac{2\pi}{\omega}$.</li>
+<li><strong>+1 Point:</strong> Correct final algebraic expression in terms of simplified target variables ($M, k, g, L$).</li>
+</ul>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Physics C: Mechanics?</h2>
+      <p>Secure admission and advanced standing at top institutions like Georgia Tech with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

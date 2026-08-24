@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lagrange Error Bound & Taylor Series Remainder Guide: AP Calculus BC Score 5 for Stanford University | AP STEM PATH</title>
+  <meta name="description" content="Master Lagrange Error Bound & Taylor Series Remainder in AP Calculus BC. Deep dive with LaTeX/code examples and score 5 strategies tailored for Stanford University applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Lagrange Error Bound & Taylor Series Remainder Guide: AP Calculus BC Score 5 for Stanford University",
+    "description": "Master Lagrange Error Bound & Taylor Series Remainder in AP Calculus BC. Deep dive with LaTeX/code examples and score 5 strategies tailored for Stanford University applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Calculus BC • Score 5 Strategy</span>
+      <h1>Lagrange Error Bound & Taylor Series Remainder Guide: AP Calculus BC Score 5 for Stanford University</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Calculus BC Mastery Guide: Lagrange Error Bound &amp; Taylor Series Remainder</h1>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>In AP Calculus BC, <strong>Unit 10: Infinite Sequences and Series</strong> represents <strong>17%–22%</strong> of the total exam weight. Within this unit, the <strong>Lagrange Error Bound</strong> (also known as the Taylor Series Remainder Theorem) serves as the primary discriminator between a <strong>Score 4</strong> and a <strong>Score 5</strong>.</p>
+<p>While polynomial approximation via Taylor and Maclaurin series allows us to express non-polynomial functions $f(x)$ through infinite sums, practical applications in computational mathematics, physics, and engineering require truncation to an $n$-th degree polynomial $P_n(x)$. Truncation introduces approximation error. </p>
+<p>The Lagrange Error Bound quantifies the absolute upper limit of this error:</p>
+<p>$$|E_n(x)| = |f(x) - P_n(x)| = |R_n(x)|$$</p>
+<p>On the AP Calculus BC exam, Free-Response Question 6 (FRQ 6) almost universally assesses series. Scoring full credit on the final parts of FRQ 6 requires:
+1. Distinguishing when to apply the <strong>Alternating Series Error Bound</strong> versus the <strong>Lagrange Error Bound</strong>.
+2. Rigorously bounding the $(n+1)$-th derivative $|f^{(n+1)}(c)|$ over a closed interval $[a, x]$.
+3. Formatting mathematical inequality statements to satisfy College Board scoring rubrics.</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>Taylor's Theorem with Lagrange Remainder</h3>
+<p>Let $f$ be a function $n+1$ times continuously differentiable on an open interval $I$ containing the center $a$ and the target value $x$. The $n$-th degree Taylor polynomial $P_n(x)$ centered at $x = a$ is given by:</p>
+<p>$$P_n(x) = \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!}(x - a)^k = f(a) + f'(a)(x-a) + \frac{f''(a)}{2!}(x-a)^2 + \dots + \frac{f^{(n)}(a)}{n!}(x-a)^n$$</p>
+<p>The exact function $f(x)$ is the sum of the polynomial $P_n(x)$ and the remainder $R_n(x)$:</p>
+<p>$$f(x) = P_n(x) + R_n(x)$$</p>
+<p>Taylor’s Theorem asserts that there exists at least one real number $c$ strictly between $a$ and $x$ such that the remainder $R_n(x)$ can be written in Lagrange form:</p>
+<p>$$R_n(x) = \frac{f^{(n+1)}(c)}{(n+1)!}(x - a)^{n+1}$$</p>
+<h3>The Lagrange Error Bound Inequality</h3>
+<p>Because the exact value of $c \in (a, x)$ is typically unknown, we bound the term $|f^{(n+1)}(c)|$ by its maximum value $M$ on the closed interval bounded by $a$ and $x$:</p>
+<p>$$M = \max_{c \in [a, x]} \left| f^{(n+1)}(c) \right|$$</p>
+<p>This yields the <strong>Lagrange Error Bound Inequality</strong>:</p>
+<p>$$\left| E_n(x) \right| = \left| f(x) - P_n(x) \right| \le \frac{M}{(n+1)!} \left| x - a \right|^{n+1}$$</p>
+<hr />
+<h3>Derivation via the Fundamental Theorem of Calculus</h3>
+<p>We derive the remainder using repeated integration by parts starting from the Fundamental Theorem of Calculus.</p>
+<p><strong>Step 1: Base Case</strong>
+$$f(x) = f(a) + \int_{a}^{x} f'(t) \, dt$$</p>
+<p><strong>Step 2: Integration by Parts</strong>
+Let $u = f'(t)$ and $dv = dt$. Choose the antiderivative $v = -(x - t)$:
+$$\int_{a}^{x} f'(t) \, dt = \Big[ -f'(t)(x - t) \Big]<em>{a}^{x} - \int</em>{a}^{x} -(x - t) f''(t) \, dt$$
+$$\int_{a}^{x} f'(t) \, dt = f'(a)(x - a) + \int_{a}^{x} f''(t)(x - t) \, dt$$</p>
+<p>Substituting this back yields the 1st-degree polynomial plus remainder:
+$$f(x) = f(a) + f'(a)(x - a) + \int_{a}^{x} f''(t)(x - t) \, dt$$</p>
+<p><strong>Step 3: Generalization to $n$-th Integral Form</strong>
+Repeating integration by parts $n$ times produces the integral form of the remainder:</p>
+<p>$$R_n(x) = \frac{1}{n!} \int_{a}^{x} f^{(n+1)}(t)(x - t)^n \, dt$$</p>
+<p><strong>Step 4: Applying the Mean Value Theorem for Definite Integrals</strong>
+Since $(x - t)^n$ does not change sign on $t \in [a, x]$, by the Mean Value Theorem for Definite Integrals, there exists some $c \in (a, x)$ such that:</p>
+<p>$$R_n(x) = \frac{f^{(n+1)}(c)}{n!} \int_{a}^{x} (x - t)^n \, dt$$</p>
+<p>Evaluating the integral:
+$$\int_{a}^{x} (x - t)^n \, dt = \left[ -\frac{(x - t)^{n+1}}{n+1} \right]_{a}^{x} = \frac{(x - a)^{n+1}}{n+1}$$</p>
+<p>Thus:
+$$R_n(x) = \frac{f^{(n+1)}(c)}{(n+1)!}(x - a)^{n+1} \quad \blacksquare$$</p>
+<hr />
+<h3>Python Verification: Taylor Error &amp; Bounding</h3>
+<p>The following Python script models $f(x) = \cos(x)$ centered at $a = 0$, computes the $n$-th degree Taylor polynomial, evaluates the exact truncation error, and confirms that it remains strictly below the Lagrange Error Bound.</p>
+<pre><code class="language-python">import math
+import numpy as np
+
+def compute_lagrange_bound(x_target: float, n: int, center: float = 0.0) -&gt; dict:
+    &quot;&quot;&quot;
+    Computes the Taylor polynomial approximation, actual absolute error, 
+    and the theoretical Lagrange Error Bound for f(x) = cos(x).
+
+    Parameters:
+        x_target (float): Point of evaluation x.
+        n (int): Degree of Taylor polynomial P_n(x).
+        center (float): Center of expansion 'a'.
+
+    Returns:
+        dict: Summary of analytical and numerical error metrics.
+    &quot;&quot;&quot;
+    # 1. Compute exact value of f(x) = cos(x)
+    exact_val = math.cos(x_target)
+
+    # 2. Compute P_n(x) for cos(x) centered at 0
+    # cos(x) = sum_{k=0}^{floor(n/2)} (-1)^k * x^(2k) / (2k)!
+    p_n = 0.0
+    for k in range((n // 2) + 1):
+        term = ((-1)**k * (x_target - center)**(2*k)) / math.factorial(2*k)
+        p_n += term
+
+    actual_error = abs(exact_val - p_n)
+
+    # 3. Determine upper bound M = max|f^{(n+1)}(c)| on [center, x_target]
+    # Derivatives of cos(x) are +/- sin(x) or +/- cos(x), bounded by 1.0 overall.
+    # To be precise, bound max|f^{(n+1)}(c)| on the interval [min(a,x), max(a,x)].
+    deriv_order = n + 1
+    interval = np.linspace(min(center, x_target), max(center, x_target), 1000)
+
+    if deriv_order % 4 == 0:
+        deriv_vals = np.abs(np.cos(interval))
+    elif deriv_order % 4 == 1:
+        deriv_vals = np.abs(-np.sin(interval))
+    elif deriv_order % 4 == 2:
+        deriv_vals = np.abs(-np.cos(interval))
+    else:
+        deriv_vals = np.abs(np.sin(interval))
+
+    M = float(np.max(deriv_vals))
+
+    # 4. Compute Lagrange Error Bound
+    lagrange_bound = (M / math.factorial(n + 1)) * (abs(x_target - center) ** (n + 1))
+
+    return {
+        &quot;Degree (n)&quot;: n,
+        &quot;Exact Value&quot;: exact_val,
+        &quot;P_n(x)&quot;: p_n,
+        &quot;Actual Error&quot;: actual_error,
+        &quot;Max |f^(n+1)(c)| (M)&quot;: M,
+        &quot;Lagrange Bound&quot;: lagrange_bound,
+        &quot;Bound Holds&quot;: actual_error &lt;= lagrange_bound
+    }
+
+if __name__ == &quot;__main__&quot;:
+    x_val = 0.5
+    degree = 3  # P_3(x) for cos(x) is 1 - x^2/2
+    results = compute_lagrange_bound(x_target=x_val, n=degree, center=0.0)
+
+    for key, val in results.items():
+        print(f&quot;{key}: {val}&quot;)
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<h3>Critical Pitfalls</h3>
+<ol>
+<li><strong>Confusing Alternating Series Error Bound with Lagrange Error Bound</strong></li>
+<li><em>Alternating Series Error Bound</em> requires an alternating series whose terms decrease monotonically in absolute value ($\lim_{n \to \infty} a_n = 0$ and $|a_{n+1}| \le |a_n|$). Error is bounded by the first omitted term: $|E_n| \le |a_{n+1}|$.</li>
+<li>
+<p><em>Lagrange Error Bound</em> applies to <strong>all</strong> Taylor series regardless of term signs. It requires evaluating or bounding the $(n+1)$-th <strong>derivative</strong> $f^{(n+1)}(c)$, not simply evaluating the $(n+1)$-th term of the series unless $f^{(n+1)}(c)$ is explicitly constant or maximized at $a$.</p>
+</li>
+<li>
+<p><strong>Evaluating $f^{(n+1)}$ at $x = a$ Instead of Bounding on $[a, x]$</strong></p>
+</li>
+<li>
+<p>Students often mistakenly compute $\frac{|f^{(n+1)}(a)|}{(n+1)!}|x-a|^{n+1}$. The value $c$ resides in $(a, x)$. You must find an upper bound $M \ge |f^{(n+1)}(c)|$ across the <strong>entire interval</strong> $[a, x]$.</p>
+</li>
+<li>
+<p><strong>Off-by-One Degree Error ($n$ vs. $n+1$)</strong></p>
+</li>
+<li>
+<p>If asked for the error bound using a 3rd-degree polynomial $P_3(x)$, the bound uses the <strong>4th derivative</strong> $f^{(4)}(c)$ and $(4)!$ in the denominator:
+     $$|E_3(x)| \le \frac{\max |f^{(4)}(c)|}{4!} |x - a|^4$$</p>
+</li>
+<li>
+<p><strong>Incomplete Inequality Statements</strong></p>
+</li>
+<li>College Board rubrics require an explicit chain of inequalities connecting the absolute error to the numerical bound. Omitting $|f(x) - P_n(x)| \le \dots$ or writing floating expressions without relations results in a loss of point(s).</li>
+</ol>
+<hr />
+<h3>Score 4 vs. Score 5 Comparative Analysis</h3>
+<h4>Problem Context:</h4>
+<blockquote>
+<p>The function $f$ has derivatives of all orders. It is known that $|f^{(4)}(x)| \le 12$ for all $x \in [2, 2.3]$. Find an upper bound for $|f(2.3) - P_3(2.3)|$, where $P_3(x)$ is the third-degree Taylor polynomial for $f$ centered at $a = 2$.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Criteria</th>
+<th style="text-align: left;">Score 4 Response (Sub-optimal)</th>
+<th style="text-align: left;">Score 5 Response (Exemplary)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Formulations</strong></td>
+<td style="text-align: left;">$\text{Error} = \frac{f^{(4)}(2)}{4!}(2.3 - 2)^4$</td>
+<td style="text-align: left;">$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Derivative Bounding</strong></td>
+<td style="text-align: left;">Plugs in $12$ without justifying $M$: $\frac{12}{24}(0.3)^4 = 0.00405$.</td>
+<td style="text-align: left;">Identifies $M = \max_{c \in [2, 2.3]}</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Mathematical Precision</strong></td>
+<td style="text-align: left;">Writes: <code>12 / 24 * (0.3)^4 = 0.00405</code> without linkage to the original error expression.</td>
+<td style="text-align: left;">Writes:<br>$\begin{aligned} |f(2.3) - P_3(2.3)| &amp;\le \frac{\max_{c \in [2, 2.3]}|f^{(4)}(c)|}{4!}|2.3 - 2|^4 \ &amp;\le \frac{12}{24}(0.3)^4 = \frac{1}{2}(0.0081) = 0.00405 \end{aligned}$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>AP Rubric Outcome</strong></td>
+<td style="text-align: left;"><strong>1/2 or 0/2 Points</strong>: Missing inequality linkage; assumes derivative evaluated at center.</td>
+<td style="text-align: left;"><strong>2/2 Points</strong>: Full credit. Correct derivative order, explicit bound on interval, linked inequality statement.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. Stanford University Placement Pathway</h2>
+<pre><code>  AP Calculus BC (Score 5)
+             │
+             ▼
+  Waive MATH 19, 20, 21 (10 Quarter Units)
+             │
+             ▼
+  Autumn Quarter Entry: MATH 51 
+  (Linear Algebra &amp; Multivariable Calculus)
+             │
+             ▼
+  Unlocks Accelerated Advanced Tracks:
+  ├── CS 106B / CS 205L (Algorithmic &amp; Numerical Optimization)
+  ├── CME 100 / CME 108 (Vector Calculus &amp; Computational Math)
+  └── PHYSICS 41 / 43 (Mechanics &amp; Electricity/Magnetism)
+</code></pre>
+<h3>Credit Exemption Breakdown</h3>
+<p>At <strong>Stanford University</strong>, achieving a <strong>Score of 5</strong> on the AP Calculus BC exam yields <strong>10 quarter units</strong> of credit, granting full exemption from the Single Variable Calculus sequence:
+* <strong>MATH 19</strong>: Calculus (3 units)
+* <strong>MATH 20</strong>: Calculus (3 units)
+* <strong>MATH 21</strong>: Calculus (4 units)</p>
+<h3>Direct Acceleration into MATH 51</h3>
+<p>By satisfying the single-variable requirement via a score of 5, students place directly into <strong>MATH 51: Linear Algebra, Multivariable Calculus, and Modern Applications</strong> during Autumn quarter of their freshman year. </p>
+<h4>Why Lagrange Error Bound Mastery is Essential for Stanford STEM</h4>
+<ol>
+<li>
+<p><strong>Multivariable Taylor Expansions (MATH 51 / MATH 52)</strong>:
+   In MATH 51, single-variable Taylor polynomials generalize to multi-variable quadratic forms using Hessians:
+   $$f(\mathbf{x}) \approx f(\mathbf{a}) + \nabla f(\mathbf{a})^T (\mathbf{x} - \mathbf{a}) + \frac{1}{2}(\mathbf{x} - \mathbf{a})^T H_f(\mathbf{a})(\mathbf{x} - \mathbf{a})$$
+   Understanding the 1D Lagrange Error Bound provides the analytical foundation for bounding remainder terms in multivariable optimization and gradient descent algorithms.</p>
+</li>
+<li>
+<p><strong>Numerical Analysis &amp; Scientific Computing (CME 108 / CS 205L)</strong>:
+   Coursework in Computational and Mathematical Engineering (CME) relies on truncation error analysis ($O(h^{n+1})$ convergence rates) derived directly from the Lagrange form of the remainder.</p>
+</li>
+<li>
+<p><strong>Strategic Schedule Optimization</strong>:
+   Bypassing MATH 19–21 frees up 10 units in freshman year, allowing immediate enrollment in <strong>CS 106B (Programming Abstractions)</strong> and <strong>PHYSICS 41 (Mechanics)</strong> alongside <strong>MATH 51</strong>.</p>
+</li>
+</ol>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution Checklist</h2>
+<h3>Problem Statement (AP Calculus BC FRQ 6 Style)</h3>
+<p>Let $f$ be a continuous function defined for all real numbers, whose derivatives $f^{(k)}(x)$ exist for all $k \ge 1$. The function $f$ and its first four derivatives at $x = 3$ are given in the table below:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">$x$</th>
+<th style="text-align: center;">$f(x)$</th>
+<th style="text-align: center;">$f'(x)$</th>
+<th style="text-align: center;">$f''(x)$</th>
+<th style="text-align: center;">$f'''(x)$</th>
+<th style="text-align: center;">$f^{(4)}(x)$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">$3$</td>
+<td style="text-align: center;">$2$</td>
+<td style="text-align: center;">$-4$</td>
+<td style="text-align: center;">$6$</td>
+<td style="text-align: center;">$-12$</td>
+<td style="text-align: center;">$48$</td>
+</tr>
+</tbody>
+</table>
+<p>It is also known that the fifth derivative of $f$ satisfies the inequality:</p>
+<p>$$\left| f^{(5)}(x) \right| \le 180 \quad \text{for all } x \in [3, 3.5]$$</p>
+<hr />
+<h4>Part A</h4>
+<p>Write the 4th-degree Taylor polynomial $P_4(x)$ for $f$ centered at $a = 3$.</p>
+<h4>Part B</h4>
+<p>Use $P_4(3.2)$ to approximate $f(3.2)$.</p>
+<h4>Part C</h4>
+<p>Use the Lagrange Error Bound to prove that $|f(3.2) - P_4(3.2)| \le 0.0024$.</p>
+<h4>Part D</h4>
+<p>A student claims that since the terms of the Taylor series at $x = 3.2$ alternate in sign, the Alternating Series Error Bound can also be used to bound $|f(3.2) - P_4(3.2)|$ using the 5th term of the expansion. Explain why the student's reasoning is mathematically incomplete or incorrect.</p>
+<hr />
+<h3>Comprehensive Solution &amp; AP Rubric Checklist</h3>
+<pre><code>[ ] Step 1: Construct P_4(x) using the Taylor formula centered at a = 3.
+[ ] Step 2: Plug in x = 3.2 into P_4(x) and evaluate arithmetic precisely.
+[ ] Step 3: Identify n = 4, target x = 3.2, center a = 3, and bound M on f^(5)(c).
+[ ] Step 4: Write the explicit inequality relation for Lagrange Error Bound.
+[ ] Step 5: Address Part D by explaining the criteria for Alternating Series Error Bound.
+</code></pre>
+<hr />
+<h4>Solution to Part A</h4>
+<p>The general Taylor polynomial centered at $a = 3$ up to $n = 4$ is:</p>
+<p>$$P_4(x) = f(3) + f'(3)(x-3) + \frac{f''(3)}{2!}(x-3)^2 + \frac{f'''(3)}{3!}(x-3)^3 + \frac{f^{(4)}(3)}{4!}(x-3)^4$$</p>
+<p>Substitute the values from the table:
+* $f(3) = 2$
+* $f'(3) = -4$
+* $\frac{f''(3)}{2!} = \frac{6}{2} = 3$
+* $\frac{f'''(3)}{3!} = \frac{-12}{6} = -2$
+* $\frac{f^{(4)}(3)}{4!} = \frac{48}{24} = 2$</p>
+<p>$$P_4(x) = 2 - 4(x - 3) + 3(x - 3)^2 - 2(x - 3)^3 + 2(x - 3)^4$$</p>
+<hr />
+<h4>Solution to Part B</h4>
+<p>Evaluate $P_4(x)$ at $x = 3.2$:</p>
+<p>$$(x - 3) = 3.2 - 3 = 0.2 = \frac{1}{5}$$</p>
+<p>$$\begin{aligned}
+P_4(3.2) &amp;= 2 - 4(0.2) + 3(0.2)^2 - 2(0.2)^3 + 2(0.2)^4 \
+&amp;= 2 - 0.8 + 3(0.04) - 2(0.008) + 2(0.0016) \
+&amp;= 2 - 0.8 + 0.12 - 0.016 + 0.0032 \
+&amp;= 1.3072
+\end{aligned}$$</p>
+<hr />
+<h4>Solution to Part C</h4>
+<p>By Taylor's Theorem, the error $|E_4(3.2)| = |f(3.2) - P_4(3.2)|$ is bounded by:</p>
+<p>$$\left| f(3.2) - P_4(3.2) \right| \le \frac{M}{5!} \left| 3.2 - 3 \right|^5$$</p>
+<p>where $M = \max_{c \in [3, 3.2]} \left| f^{(5)}(c) \right|$.</p>
+<p>From the given condition, $|f^{(5)}(x)| \le 180$ for all $x \in [3, 3.5]$. Since $[3, 3.2] \subset [3, 3.5]$, we set $M = 180$.</p>
+<p>$$\begin{aligned}
+\left| f(3.2) - P_4(3.2) \right| &amp;\le \frac{180}{5!} (0.2)^5 \
+&amp;= \frac{180}{120} \left( \frac{1}{5} \right)^5 \
+&amp;= \frac{3}{2} \cdot \frac{1}{3125} \
+&amp;= \frac{3}{6250} = 0.00048
+\end{aligned}$$</p>
+<p>Since $0.00048 \le 0.0024$, it is proved that:</p>
+<p>$$\left| f(3.2) - P_4(3.2) \right| \le 0.0024 \quad \blacksquare$$</p>
+<hr />
+<h4>Solution to Part D</h4>
+<p>The student's reasoning is <strong>incorrect</strong>. </p>
+<p>To apply the Alternating Series Error Bound, three conditions must be verified:
+1. The terms of the series must strictly alternate in sign for all $n$.
+2. The absolute values of the terms must be monotonically decreasing ($|a_{n+1}| \le |a_n|$ for all $n$).
+3. $\lim_{n \to \infty} a_n = 0$.</p>
+<p>While the first four evaluated terms alternate, we are only given derivative information at a single point $x = 3$ and an upper bound on $f^{(5)}(x)$. We have no guarantee that $f^{(5)}(c)$ maintains a fixed sign or that the terms of the series decrease monotonically in magnitude for all $n$ beyond $n = 4$. Therefore, the Alternating Series Error Bound cannot be rigorously applied, and the Lagrange Error Bound must be used instead.</p>
+<hr />
+<h3>AP Scoring Breakdown (College Board Alignment)</h3>
+<ul>
+<li><strong>Part A (2 Points)</strong>:</li>
+<li>1 pt for correct coefficients derived from derivatives.</li>
+<li>1 pt for the final expression of $P_4(x)$.</li>
+<li><strong>Part B (1 Point)</strong>:</li>
+<li>1 pt for correct evaluation of $P_4(3.2) = 1.3072$.</li>
+<li><strong>Part C (3 Points)</strong>:</li>
+<li>1 pt for setting up the Lagrange error formula with $n+1 = 5$ ($5!$ and $|0.2|^5$).</li>
+<li>1 pt for correctly identifying $M = 180$.</li>
+<li>1 pt for completing the calculation ($0.00048$) and establishing the inequality $\le 0.0024$.</li>
+<li><strong>Part D (3 Points)</strong>:</li>
+<li>1 pt for stating the student's reasoning is incorrect.</li>
+<li>1 pt for identifying that alternating signs alone are insufficient.</li>
+<li>1 pt for citing the requirement of monotonic decrease in magnitude ($|a_{n+1}| \le |a_n|$) or lack of derivative sign information for all $n$.</li>
+</ul>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Calculus BC?</h2>
+      <p>Secure admission and advanced standing at top institutions like Stanford University with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

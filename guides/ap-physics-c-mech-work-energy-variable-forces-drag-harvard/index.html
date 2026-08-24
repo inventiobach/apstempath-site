@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work-Energy Theorem with Velocity-Dependent Drag Forces Guide: AP Physics C: Mechanics Score 5 for Harvard University | AP STEM PATH</title>
+  <meta name="description" content="Master Work-Energy Theorem with Velocity-Dependent Drag Forces in AP Physics C: Mechanics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Harvard University applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Work-Energy Theorem with Velocity-Dependent Drag Forces Guide: AP Physics C: Mechanics Score 5 for Harvard University",
+    "description": "Master Work-Energy Theorem with Velocity-Dependent Drag Forces in AP Physics C: Mechanics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Harvard University applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Physics C: Mechanics • Score 5 Strategy</span>
+      <h1>Work-Energy Theorem with Velocity-Dependent Drag Forces Guide: AP Physics C: Mechanics Score 5 for Harvard University</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Physics C: Mechanics Mastery Guide</h1>
+<h2>Work-Energy Theorem with Velocity-Dependent Drag Forces</h2>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>The interaction between conservative field forces and velocity-dependent non-conservative drag forces represents one of the most sophisticated, high-yielding conceptual frameworks on the <strong>AP Physics C: Mechanics Exam</strong>. While introductory physics relies on constant acceleration models, the College Board heavily favors non-linear differential equations where force vector fields depend dynamically on system velocity $\vec{v}(t)$.</p>
+<p>This topic typically constitutes <strong>15–23% of the Free-Response Question (FRQ) section</strong>, frequently appearing in FRQ 1 or FRQ 2 as a hybrid dynamic-energy calculus question.</p>
+<h3>Core Conceptual Scope</h3>
+<ul>
+<li><strong>Non-Conservative Work Vector Integrals</strong>: Calculating $W_{\text{nc}} = \int \vec{F}<em>{\text{drag}} \cdot d\vec{r}$ where $\vec{F}</em>{\text{drag}} = -b\vec{v}$ or $-c v |\vec{v}|$.</li>
+<li><strong>Differential Transformations</strong>: Utilizing dynamic variable substitutions such as $a = \frac{dv}{dt} = v \frac{dv}{dx}$ to map time-domain velocity vectors into spatial coordinates.</li>
+<li><strong>First-Law Energy Balance</strong>: Explicitly coupling the mechanical energy balance equation $\Delta E_{\text{mech}} = W_{\text{nc}}$ with integral calculus boundary conditions.</li>
+</ul>
+<p>Mastery of this domain demands transitioning from algebraic energy equations to dynamic variable-separable differential integrals—a hallmark skill distinguishing top-tier applicants to elite physical science and engineering programs.</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>Theoretical Framework &amp; Differential Mechanics</h3>
+<p>The Work-Energy Theorem asserts that the net work performed on a particle equals the change in its kinetic energy:</p>
+<p>$$W_{\text{net}} = \Delta K = K_f - K_i$$</p>
+<p>When non-conservative forces like velocity-dependent drag act on an object, the total work splits into conservative ($W_c$) and non-conservative ($W_{\text{nc}}$) components:</p>
+<p>$$W_c + W_{\text{nc}} = \Delta K \implies W_{\text{nc}} = \Delta K - W_c = \Delta E_{\text{mech}}$$</p>
+<p>Consider a particle of mass $m$ subject to a constant gravitational force and a linear velocity-dependent drag force $\vec{F}_d = -b\vec{v}$. If the particle is launched vertically downward with initial velocity $v_0$ from $y = 0$:</p>
+<p>$$\sum F_y = mg - bv = m a = m v \frac{dv}{dy}$$</p>
+<p>To find velocity as a function of position $y$, we establish a variable-separable differential equation:</p>
+<p>$$m v \frac{dv}{dy} = mg - bv \implies \frac{m v}{mg - bv} \, dv = dy$$</p>
+<h4>Derivation of Spatial Velocity $v(y)$ via Dynamic Integration</h4>
+<p>$$\int_{v_0}^{v(y)} \frac{m v}{mg - bv} \, dv = \int_0^y dy$$</p>
+<p>Using the substitution $u = mg - bv \implies du = -b \, dv$ and $v = \frac{mg - u}{b}$:</p>
+<p>$$\int_{u_0}^{u} \frac{m \left(\frac{mg - u}{b}\right)}{u} \left(-\frac{du}{b}\right) = -\frac{m}{b^2} \int_{u_0}^{u} \left( \frac{mg}{u} - 1 \right) du = y$$</p>
+<p>$$-\frac{m}{b^2} \left[ mg \ln\left(\frac{u}{u_0}\right) - (u - u_0) \right] = y$$</p>
+<p>Substituting back $u = mg - bv$ and $u_0 = mg - bv_0$:</p>
+<p>$$-\frac{m}{b^2} \left[ mg \ln\left(\frac{mg - bv}{mg - bv_0}\right) + b(v - v_0) \right] = y$$</p>
+<h4>Exact Non-Conservative Work Integral</h4>
+<p>The work done by the drag force as a function of position $y$ can be expressed either spatially or temporally:</p>
+<p>$$W_{\text{drag}} = \int_0^y \vec{F}_d \cdot d\vec{y} = \int_0^y (-bv) \, dy$$</p>
+<p>Since $dy = v \, dt$:</p>
+<p>$$W_{\text{drag}} = -b \int_0^t v(t)^2 \, dt$$</p>
+<p>Alternatively, invoking the Work-Energy Theorem directly:</p>
+<p>$$W_{\text{drag}} = \Delta K - W_g = \frac{1}{2}m\left(v(y)^2 - v_0^2\right) - mgy$$</p>
+<hr />
+<h3>Computational Simulation (Python)</h3>
+<p>To validate non-conservative work dissipation and energy conservation numerically, high-achieving students utilize numerical integration schemes such as RK2 (Midpoint Method) or RK4. Below is a production-grade Python script modeling velocity-dependent drag work dissipation.</p>
+<pre><code class="language-python">import numpy as np
+
+def simulate_drag_energy(m: float, g: float, b: float, v0: float, y_target: float, dt: float = 1e-5):
+    &quot;&quot;&quot;
+    Numerically integrates dynamic equations of motion with linear drag v(y) 
+    and verifies the Work-Energy Theorem: W_nc = Delta K - W_g.
+    &quot;&quot;&quot;
+    # State variables
+    y = 0.0
+    v = v0
+    t = 0.0
+
+    # Energy terms
+    K_initial = 0.5 * m * v0**2
+    W_drag = 0.0
+
+    while y &lt; y_target:
+        # Dynamic acceleration
+        a = g - (b / m) * v
+
+        # Incremental work done by drag over displacement dy = v * dt
+        dy = v * dt
+        F_drag = -b * v
+        dW_drag = F_drag * dy
+
+        # State update (Euler-Cromer Integration for stability)
+        v += a * dt
+        y += dy
+        t += dt
+        W_drag += dW_drag
+
+    K_final = 0.5 * m * v**2
+    Delta_K = K_final - K_initial
+    W_gravity = m * g * y
+
+    # Verification of Work-Energy balance
+    E_error = abs(Delta_K - (W_gravity + W_drag))
+
+    print(f&quot;--- Numerical Results at y = {y:.3f} m ---&quot;)
+    print(f&quot;Final Velocity (v): {v:.4f} m/s&quot;)
+    print(f&quot;Delta K:            {Delta_K:.4f} J&quot;)
+    print(f&quot;Gravity Work (Wg):  {W_gravity:.4f} J&quot;)
+    print(f&quot;Drag Work (W_drag): {W_drag:.4f} J&quot;)
+    print(f&quot;Absolute Residual:  {E_error:.8e} J&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    # Parameters: m=1.5kg, g=9.8m/s^2, b=0.45kg/s, v0=2.0m/s, y_target=10.0m
+    simulate_drag_energy(m=1.5, g=9.8, b=0.45, v0=2.0, y_target=10.0)
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<h3>Score 4 vs. Score 5 Performance Contrast</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Topic</th>
+<th style="text-align: left;">Score 4 Student Approach</th>
+<th style="text-align: left;">Score 5 Elite Student Approach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Work Integrals with Drag</strong></td>
+<td style="text-align: left;">Assumes force is static and writes $W_d = F_d \cdot d = (-bv)d$, attempting to plug in average velocity $\bar{v}$.</td>
+<td style="text-align: left;">Treats drag work strictly as a dynamic integral $W_d = -\int b v^2 dt$ or isolates it via $W_{\text{nc}} = \Delta K - W_c$.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Differential Setup</strong></td>
+<td style="text-align: left;">Writes $a = \frac{dv}{dt}$ when asked for position-dependent velocity, getting stuck in time-domain variable separation.</td>
+<td style="text-align: left;">Immediately substitutes $a = v\frac{dv}{dx}$, setting up separable integrals with spatial boundary conditions ($x_0 \to x_f$).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Terminal Limits</strong></td>
+<td style="text-align: left;">Forgets that as $t \to \infty$, $a \to 0$, leading to incorrect asymptotic integration boundaries.</td>
+<td style="text-align: left;">Explicitly solves for $v_T = \frac{mg}{b}$ prior to integration to define explicit integral convergent bounds.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Vector Calculus Alignment</strong></td>
+<td style="text-align: left;">Neglects dot product signs; explicitly double-counts negative signs, yielding positive work for dissipative drag forces.</td>
+<td style="text-align: left;">Formally evaluates $\vec{F}_d \cdot d\vec{r} = F_d \, dr \cos(180^\circ) = -F_d \, dr$, ensuring work is strictly negative.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Scoring Rubric Nuances (AP FRQ Analysis)</h3>
+<p>Consider an official AP Physics C FRQ prompt involving non-constant forces:</p>
+<h4>AP Physics C AP Rubric Breakdown (3-Point Sub-part)</h4>
+<ol>
+<li><strong>[1 Point] Differential Equation Setup</strong>:</li>
+<li><em>Criterion</em>: Writes a valid Newton's 2nd Law equation incorporating dynamic derivative definitions.</li>
+<li><em>Score 5 Execution</em>: Explicitly writes $m v \frac{dv}{dx} = -b v^2 - \mu m g$. Earns point instantly.</li>
+<li><strong>[1 Point] Separation of Variables &amp; Limits</strong>:</li>
+<li><em>Criterion</em>: Correctly separates variables with proper integration limits matching state variables.</li>
+<li><em>Score 5 Execution</em>: Writes $\int_{v_0}^{v_f} \frac{m v}{b v^2 + \mu m g} dv = -\int_0^D dx$.</li>
+<li><strong>[1 Point] Correct Final Algebraic Expression</strong>:</li>
+<li><em>Criterion</em>: Correctly integrates natural logarithms and evaluates boundaries without sign errors.</li>
+</ol>
+<blockquote>
+<p><strong>Pitfall Alert</strong>: Never drop explicit integration limits or leave the constant of integration $+C$ un-evaluated. AP Readers immediately deduct the final point if $+C$ remains without initial condition substitution ($v(0) = v_0$).</p>
+</blockquote>
+<hr />
+<h2>4. Harvard University Placement Pathway</h2>
+<p>At <strong>Harvard University</strong>, achieving a <strong>5 on AP Physics C: Mechanics</strong> along with AP Physics C: Electricity &amp; Magnetism provides substantial placement leverage within the <strong>School of Engineering and Applied Sciences (SEAS)</strong> and the <strong>Department of Physics</strong>.</p>
+<pre><code>                           [AP Physics C: Mechanics (Score 5)]
+                                            │
+                                            ▼
+                       [Exemption: SEAS Introductory Mechanics]
+                                            │
+               ┌────────────────────────────┴────────────────────────────┐
+               ▼                                                         ▼
+   [Physics 15b: E&amp;M &amp; Waves]                                 [Physics 16: Honors Mechanics]
+  (Accelerated Physics Sequence)                             (Special Relativity Emphasis)
+               │                                                         │
+               └────────────────────────────┬────────────────────────────┘
+                                            ▼
+                             [Advanced Computational Physics]
+</code></pre>
+<h3>Course Exemption &amp; Acceleration Details</h3>
+<ol>
+<li><strong>Exempted Requirement</strong>:</li>
+<li>Fulfills the introductory mechanics requirement equivalent to <strong>Physics 15a (Introductory Mechanics and Special Relativity)</strong> or <strong>AP-level SEAS foundational prerequisites</strong>.</li>
+<li><strong>Subsequent Placement</strong>:</li>
+<li><strong>Physics 15b (Electromagnetism and Waves)</strong>: High-achieving STEM concentrators bypass standard sequence bottlenecks and directly enter Physics 15b in their first year.</li>
+<li><strong>Physics 16 (Honors Mechanics and Relativity)</strong>: Students wanting deep theoretical exposure use their strong calculus-based mechanics foundation from AP Physics C to enroll directly in Harvard's famously rigorous honors track.</li>
+</ol>
+<h3>Bridge to Advanced Coursework</h3>
+<p>The dynamic mathematical techniques mastered in AP Physics C velocity-dependent drag problems—such as separable ordinary differential equations (ODEs), dynamic variable substitution, phase space trajectories, and non-conservative work line integrals—are directly applied in <strong>Physics 15b</strong> when calculating:
+* Velocity-dependent <strong>Lorentz Forces</strong>: $\vec{F} = q(\vec{E} + \vec{v} \times \vec{B})$
+* Damped and driven harmonic oscillators: $m\frac{d^2 x}{dt^2} + b\frac{dx}{dt} + kx = F_0 \cos(\omega t)$
+* Energy dissipation density in conductive media (Poynting Flux and Joule heating integrals)</p>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution Checklist</h2>
+<h3>Problem Statement</h3>
+<p>A block of mass $m = 2.0 \text{ kg}$ is launched horizontally along a flat surface at initial speed $v_0 = 10.0 \text{ m/s}$ at position $x = 0$. The surface exerts both a constant kinetic friction force with coefficient $\mu = 0.20$ and a quadratic velocity-dependent air resistance force $F_d = -c v^2$, where $c = 0.10 \text{ kg/m}$. Take $g = 9.8 \text{ m/s}^2$.</p>
+<pre><code>                 Fd = -c*v^2      F_k = μ*m*g
+                   &lt;───          &lt;───
+               ┌──────────┐
+  v0 = 10 m/s  │  Mass m  │ ───►  +x direction
+  ────────────►│  2.0 kg  │
+───────────────┴──────────┴───────────────────────────────
+  x = 0                                           x = D
+</code></pre>
+<p><em>(a)</em> Formulate a variable-separable differential equation for velocity as a function of position, $v(x)$.<br />
+<em>(b)</em> Solve the differential equation analytically to find an explicit expression for $v(x)$.<br />
+<em>(c)</em> Determine the exact distance $D$ traveled by the block before it comes to rest.<br />
+<em>(d)</em> Calculate the total work done by the quadratic drag force $W_{\text{drag}}$ during the interval from $x = 0$ to $x = D$. Prove that your result satisfies the Work-Energy Theorem.</p>
+<hr />
+<h3>Step-by-Step Solution Checklist</h3>
+<h4>Part (a): Differential Equation Formulation</h4>
+<ul>
+<li>[ ] Draw a free-body diagram identifying horizontal forces: $F_k = \mu m g$ and $F_d = c v^2$, both directed opposite to motion ($-\hat{i}$).</li>
+<li>[ ] Apply Newton's Second Law:</li>
+</ul>
+<p>$$\sum F_x = -\mu m g - c v^2 = m a$$</p>
+<ul>
+<li>[ ] Substitute the spatial acceleration operator $a = v \frac{dv}{dx}$:</li>
+</ul>
+<p>$$m v \frac{dv}{dx} = -(\mu m g + c v^2)$$</p>
+<ul>
+<li>[ ] Separate variables into $v$ and $x$ domains:</li>
+</ul>
+<p>$$\frac{m v}{\mu m g + c v^2} \, dv = -dx$$</p>
+<hr />
+<h4>Part (b): Analytical Integration for $v(x)$</h4>
+<ul>
+<li>[ ] Set up definite integrals with boundary conditions $(0 \to x)$ and $(v_0 \to v(x))$:</li>
+</ul>
+<p>$$\int_{v_0}^{v(x)} \frac{m v}{\mu m g + c v^2} \, dv = -\int_0^x dx'$$</p>
+<ul>
+<li>[ ] Execute substitution $u = \mu m g + c v^2 \implies du = 2c v \, dv \implies v \, dv = \frac{du}{2c}$:</li>
+</ul>
+<p>$$\frac{m}{2c} \int_{u_0}^{u(x)} \frac{du}{u} = -x$$</p>
+<p>$$\frac{m}{2c} \ln\left(\frac{\mu m g + c v(x)^2}{\mu m g + c v_0^2}\right) = -x$$</p>
+<ul>
+<li>[ ] Exponentiate both sides:</li>
+</ul>
+<p>$$\frac{\mu m g + c v(x)^2}{\mu m g + c v_0^2} = e^{-\frac{2c}{m}x}$$</p>
+<ul>
+<li>[ ] Isolate $v(x)^2$:</li>
+</ul>
+<p>$$v(x)^2 = \left(v_0^2 + \frac{\mu m g}{c}\right) e^{-\frac{2c}{m}x} - \frac{\mu m g}{c}$$</p>
+<ul>
+<li>[ ] Substitute numerical values ($m = 2.0$, $c = 0.10$, $\mu = 0.20$, $g = 9.8$, $v_0 = 10.0$):</li>
+<li>$\frac{\mu m g}{c} = \frac{0.20 \times 2.0 \times 9.8}{0.10} = 39.2 \text{ m}^2/\text{s}^2$</li>
+<li>$\frac{2c}{m} = \frac{2(0.10)}{2.0} = 0.10 \text{ m}^{-1}$</li>
+</ul>
+<p>$$v(x)^2 = (100 + 39.2) e^{-0.10 x} - 39.2 = 139.2 e^{-0.10 x} - 39.2$$</p>
+<p>$$v(x) = \sqrt{139.2 e^{-0.10 x} - 39.2}$$</p>
+<hr />
+<h4>Part (c): Total Stopping Distance $D$</h4>
+<ul>
+<li>[ ] Set final velocity $v(D) = 0$:</li>
+</ul>
+<p>$$139.2 e^{-0.10 D} - 39.2 = 0$$</p>
+<p>$$e^{-0.10 D} = \frac{39.2}{139.2} \approx 0.2816$$</p>
+<ul>
+<li>[ ] Take the natural logarithm:</li>
+</ul>
+<p>$$-0.10 D = \ln(0.2816) \approx -1.2673 \implies D \approx 12.67 \text{ m}$$</p>
+<hr />
+<h4>Part (d): Non-Conservative Work Calculation &amp; Theorem Verification</h4>
+<ul>
+<li>[ ] <strong>Method 1: Direct Integration of Friction and Work-Energy Balance</strong></li>
+<li>Calculate initial kinetic energy: $K_i = \frac{1}{2} m v_0^2 = \frac{1}{2}(2.0)(10.0)^2 = 100.0 \text{ J}$.</li>
+<li>Calculate final kinetic energy: $K_f = 0 \text{ J} \implies \Delta K = -100.0 \text{ J}$.</li>
+<li>Calculate total work done by constant kinetic friction $W_{\text{friction}}$:</li>
+</ul>
+<p>$$W_{\text{friction}} = -\mu m g D = -(0.20)(2.0)(9.8)(12.673) = -49.68 \text{ J}$$</p>
+<ul>
+<li>[ ] Apply the Work-Energy Theorem to solve for $W_{\text{drag}}$:</li>
+</ul>
+<p>$$W_{\text{net}} = W_{\text{friction}} + W_{\text{drag}} = \Delta K$$</p>
+<p>$$-49.68 \text{ J} + W_{\text{drag}} = -100.0 \text{ J}$$</p>
+<p>$$W_{\text{drag}} = -100.0 + 49.68 = -50.32 \text{ J}$$</p>
+<ul>
+<li>[ ] <strong>Method 2: Direct Calculus Integration of $W_{\text{drag}} = \int_0^D -c v(x)^2 dx$</strong> (Verification step)</li>
+</ul>
+<p>$$W_{\text{drag}} = \int_0^D -c \left( 139.2 e^{-0.10 x} - 39.2 \right) dx$$</p>
+<p>$$W_{\text{drag}} = -0.10 \left[ \frac{139.2}{-0.10} e^{-0.10 x} - 39.2 x \right]_0^{12.673}$$</p>
+<p>$$W_{\text{drag}} = -0.10 \left[ \left(-1392 e^{-0.10(12.673)} - 39.2(12.673)\right) - \left(-1392 e^0 - 0\right) \right]$$</p>
+<p>$$W_{\text{drag}} = -0.10 \left[ (-392 - 496.78) + 1392 \right] = -0.10 \left[ 503.22 \right] = -50.32 \text{ J}$$</p>
+<ul>
+<li>[ ] <strong>Final Check</strong>:
+  Both calculus integration and energy conservation yield $W_{\text{drag}} = -50.32 \text{ J}$.<br />
+  $\Delta K = W_{\text{friction}} + W_{\text{drag}} = -49.68 \text{ J} + (-50.32 \text{ J}) = -100.0 \text{ J}$.<br />
+<strong>The Work-Energy Theorem is fully verified.</strong></li>
+</ul>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Physics C: Mechanics?</h2>
+      <p>Secure admission and advanced standing at top institutions like Harvard University with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

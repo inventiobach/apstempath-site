@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rotational Dynamics, Torque & Variable Inertia Integrals Guide: AP Physics C: Mechanics Score 5 for Harvard University | AP STEM PATH</title>
+  <meta name="description" content="Master Rotational Dynamics, Torque & Variable Inertia Integrals in AP Physics C: Mechanics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Harvard University applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Rotational Dynamics, Torque & Variable Inertia Integrals Guide: AP Physics C: Mechanics Score 5 for Harvard University",
+    "description": "Master Rotational Dynamics, Torque & Variable Inertia Integrals in AP Physics C: Mechanics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Harvard University applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Physics C: Mechanics • Score 5 Strategy</span>
+      <h1>Rotational Dynamics, Torque & Variable Inertia Integrals Guide: AP Physics C: Mechanics Score 5 for Harvard University</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Physics C: Mechanics Mastery Guide</h1>
+<h2>Rotational Dynamics, Torque &amp; Variable Inertia Integrals</h2>
+<p><strong>Target Institution:</strong> Harvard University (John A. Paulson School of Engineering and Applied Sciences / Department of Physics)<br />
+<strong>Target Score:</strong> 5  </p>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>Rotational Dynamics represents the conceptual and mathematical capstone of the AP Physics C: Mechanics curriculum. Accountable for <strong>14% to 20%</strong> of the total exam weighting, this domain separates high-performing students from the top percentage of test-takers.</p>
+<p>While basic rotational motion involves fixed moments of inertia ($I = \sum m_i r_i^2$ or standard geometric constants like $I_{\text{disk}} = \frac{1}{2}MR^2$), upper-tier AP problems demand calculus-based integration over non-uniform mass distributions. Mastery of this topic requires:
+1. Converting mass elements ($dm$) into spatial differentials ($dx$, $dr$, $d\theta$, $dV$) using non-uniform density functions ($\lambda(x)$, $\sigma(r)$, $\rho(r)$).
+2. Setting precise limits of integration based on coordinate system origins.
+3. Applying Newton’s Second Law for Rotation in variable-inertia or continuous-torque systems ($\vec{\tau}_{\text{net}} = \frac{d\vec{L}}{dt}$).</p>
+<p>At Harvard University, top AP Physics C scores signify readiness for rigorous analytical physics. The ability to execute continuous variable integrals and formulate rotational differential equations without standard formula sheets is a prerequisites for skipping foundational physics sequences.</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>2.1 The Generalized Moment of Inertia Integral</h3>
+<p>The moment of inertia $I$ of a continuous body about a specified axis is defined as:</p>
+<p>$$I = \int r^2 \, dm$$</p>
+<p>where $r$ is the perpendicular distance from the axis of rotation to the infinitesimal mass element $dm$. </p>
+<p>To evaluate this integral, $dm$ must be transformed into a spatial variable using the density distribution of the object:</p>
+<ul>
+<li><strong>1D Linear Mass Density ($\lambda$):</strong> $dm = \lambda(x) \, dx \quad \implies \quad \lambda(x) = \frac{dm}{dx}$</li>
+<li><strong>2D Surface Mass Density ($\sigma$):</strong> $dm = \sigma(r) \, dA = \sigma(r) (2\pi r \, dr) \quad \implies \quad \sigma(r) = \frac{dm}{dA}$</li>
+<li><strong>3D Volumetric Mass Density ($\rho$):</strong> $dm = \rho(r) \, dV = \rho(r) (4\pi r^2 \, dr) \quad \implies \quad \rho(r) = \frac{dm}{dV}$</li>
+</ul>
+<h4>Continuous Non-Uniform Density Derivation</h4>
+<p>Consider a thin rod of length $L$ aligned along the x-axis from $x = 0$ to $x = L$. The rod has a non-uniform linear mass density given by:</p>
+<p>$$\lambda(x) = \lambda_0 \left(\frac{x}{L}\right)^2$$</p>
+<h5>Step 1: Calculate Total Mass $M$</h5>
+<p>$$M = \int_0^L dm = \int_0^L \lambda(x) \, dx = \int_0^L \lambda_0 \left(\frac{x}{L}\right)^2 dx = \frac{\lambda_0}{L^2} \left[ \frac{x^3}{3} \right]_0^L = \frac{\lambda_0 L}{3}$$</p>
+<p>Thus, express $\lambda_0$ in terms of total mass $M$:</p>
+<p>$$\lambda_0 = \frac{3M}{L}$$</p>
+<h5>Step 2: Compute $I_{\text{end}}$ about an axis through $x = 0$</h5>
+<p>$$I_{\text{end}} = \int_0^L x^2 \, dm = \int_0^L x^2 \left[ \lambda_0 \left(\frac{x}{L}\right)^2 dx \right] = \frac{\lambda_0}{L^2} \int_0^L x^4 \, dx$$</p>
+<p>$$I_{\text{end}} = \frac{\lambda_0}{L^2} \left[ \frac{x^5}{5} \right]_0^L = \frac{\lambda_0 L^3}{5}$$</p>
+<p>Substituting $\lambda_0 = \frac{3M}{L}$:</p>
+<p>$$I_{\text{end}} = \left(\frac{3M}{L}\right) \frac{L^3}{5} = \frac{3}{5} M L^2$$</p>
+<hr />
+<h3>2.2 Parallel Axis Theorem Proof &amp; Constraints</h3>
+<p>The Parallel Axis Theorem states that if $I_{\text{cm}}$ is the moment of inertia about an axis passing through the center of mass, the moment of inertia $I$ about any parallel axis at a distance $d$ is:</p>
+<p>$$I = I_{\text{cm}} + M d^2$$</p>
+<h4>Proof:</h4>
+<p>Let $x_{\text{cm}}$ be the center of mass. Define a coordinate system $y$ relative to $x_{\text{cm}}$ such that $x = x_{\text{cm}} + y$.
+By definition of $x_{\text{cm}}$, $\int y \, dm = 0$.</p>
+<p>$$I = \int x^2 \, dm = \int (y + d)^2 \, dm = \int (y^2 + 2yd + d^2) \, dm$$</p>
+<p>$$I = \int y^2 \, dm + 2d \underbrace{\int y \, dm}_{= 0} + d^2 \int dm$$</p>
+<p>$$I = I_{\text{cm}} + M d^2 \quad \blacksquare$$</p>
+<blockquote>
+<p><strong>CRITICAL PITFALL WARNING:</strong> You <strong>cannot</strong> use $I_A = I_B + M d^2$ directly between two arbitrary parallel axes $A$ and $B$. One of the axes <strong>must</strong> be the center-of-mass axis $I_{\text{cm}}$. To shift from $A$ to $B$, you must go: $A \to \text{CM} \to B$.</p>
+</blockquote>
+<hr />
+<h3>2.3 General Rotational Dynamic Equation</h3>
+<p>The full form of Newton's Second Law for rotational systems where the moment of inertia varies over time (e.g., accretive disks, unfurling cables) is:</p>
+<p>$$\vec{\tau}_{\text{net}} = \frac{d\vec{L}}{dt} = \frac{d}{dt}(I\vec{\omega}) = I\vec{\alpha} + \vec{\omega}\frac{dI}{dt}$$</p>
+<p>If $I$ is constant ($\frac{dI}{dt} = 0$), this reduces to the standard AP-level formula:</p>
+<p>$$\vec{\tau}_{\text{net}} = I\vec{\alpha}$$</p>
+<hr />
+<h3>2.4 Computational Verification of Variable Inertia Integrals</h3>
+<p>Below is a Python implementation utilizing explicit Riemann summation alongside <code>scipy.integrate</code> to compute non-uniform inertia integrals, verifying analytical derivations numerically.</p>
+<pre><code class="language-python">import numpy as np
+from scipy.integrate import quad
+
+def calculate_moment_of_inertia(L: float, M: float, n: int = 2) -&gt; tuple[float, float]:
+    &quot;&quot;&quot;
+    Calculates the moment of inertia of a non-uniform rod with density lambda(x) = lambda_0 * (x/L)^n.
+    Returns: (I_analytical, I_numerical)
+    &quot;&quot;&quot;
+    # Step 1: Compute lambda_0 such that integral(lambda(x) dx) = M
+    # Integral of (x/L)^n from 0 to L is L / (n + 1)
+    lambda_0 = M * (n + 1) / L
+
+    # Integrand for dm: lambda(x) = lambda_0 * (x/L)^n
+    density_func = lambda x: lambda_0 * (x / L)**n
+
+    # Integrand for Moment of Inertia: x^2 * lambda(x)
+    inertia_integrand = lambda x: (x**2) * density_func(x)
+
+    # Numerical Integration using Scipy
+    I_numerical, abs_error = quad(inertia_integrand, 0, L)
+
+    # Analytical solution: I = lambda_0 * L^3 / (n + 3) = [(n+1)/(n+3)] * M * L^2
+    I_analytical = ((n + 1) / (n + 3)) * M * (L**2)
+
+    return I_analytical, I_numerical
+
+if __name__ == &quot;__main__&quot;:
+    L_val, M_val, power = 2.0, 5.0, 2
+    I_exact, I_num = calculate_moment_of_inertia(L_val, M_val, n=power)
+
+    print(f&quot;Analytical Moment of Inertia: {I_exact:.6f} kg*m^2&quot;)
+    print(f&quot;Numerical Integration Result: {I_num:.6f} kg*m^2&quot;)
+    assert np.isclose(I_exact, I_num), &quot;Numerical and analytical results diverge!&quot;
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<h3>Score 4 vs. Score 5 Performance Contrast</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Conceptual Vector</th>
+<th style="text-align: left;">Score 4 Student Approach</th>
+<th style="text-align: left;">Score 5 Student Approach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Mass Differential Conversion</strong></td>
+<td style="text-align: left;">Treats $dm$ as $M/L \, dx$ even when density is explicitly non-uniform.</td>
+<td style="text-align: left;">Sets $dm = \lambda(x) dx$, computes total mass $M = \int \lambda(x) dx$ first to express constant coefficients.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Parallel Axis Application</strong></td>
+<td style="text-align: left;">Applies $I = I_{\text{edge}} + Md^2$ directly to shift between two outer edges.</td>
+<td style="text-align: left;">Identifies center of mass via $x_{\text{cm}} = \frac{1}{M}\int x dm$, converts to $I_{\text{cm}}$, then shifts to the target axis.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Torque Integrals</strong></td>
+<td style="text-align: left;">Integrates torque assuming angular acceleration $\alpha$ is constant across space: $\tau = I\alpha$.</td>
+<td style="text-align: left;">Formulates $\tau(t) = \frac{dL}{dt}$, sets up differential equations $\tau(t) = I \frac{d\omega}{dt}$, and integrates with respect to time $t$.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Vector Sign Conventions</strong></td>
+<td style="text-align: left;">Ignores right-hand rule sign conventions; treats clockwise/counterclockwise torque arbitrarily.</td>
+<td style="text-align: left;">Defines a rigid coordinate frame (+$\hat{z}$ out-of-page), consistently evaluating $\vec{\tau} = \vec{r} \times \vec{F}$ using vector products.</td>
+</tr>
+</tbody>
+</table>
+<h3>AP Grading Rubric (FRQ Scoring Insights)</h3>
+<p>When AP Readers grade variable inertia FRQs, partial points are awarded strictly based on explicit mathematical steps:</p>
+<ol>
+<li><strong>Mass Distribution Point (+1):</strong> Writing $dm = \lambda(x)dx$ or $dm = \sigma(r)2\pi r dr$ explicitly inside an integral sign. Substituting $M/L$ without taking non-uniform density into account immediately forfeits this point and derivative points.</li>
+<li><strong>Limits of Integration Point (+1):</strong> Setting limits matching the chosen coordinate origin (e.g., $x \in [-L/2, L/2]$ vs. $x \in [0, L]$).</li>
+<li><strong>Algebraic Substitution Point (+1):</strong> Correctly eliminating unknown constant prefactors ($\lambda_0$, $\sigma_0$) by expressing them in terms of known system constants ($M, R, L$).</li>
+<li><strong>Differential Calculus Application Point (+1):</strong> Expressing $\alpha$ as $\frac{d\omega}{dt}$ or $\frac{d^2\theta}{dt^2}$ when set equal to variable torque functions.</li>
+</ol>
+<hr />
+<h2>4. Harvard University Placement Pathway</h2>
+<h3>Institutional Context: SEAS &amp; Physics Track</h3>
+<p>At <strong>Harvard University</strong>, the John A. Paulson School of Engineering and Applied Sciences (SEAS) and the Department of Physics set a rigorous bar for foundational mechanics. </p>
+<pre><code>                                  AP Physics C: Mechanics
+                                    (Score 5 Required)
+                                            │
+                                            ▼
+                       ┌─────────────────────────────────────────┐
+                       │  SEAS Introductory Physics Requirement   │
+                       │             EXEMPTED/WAIVED             │
+                       └────────────────────┬────────────────────┘
+                                            │
+                                            ▼
+                    ┌───────────────────────────────────────────────┐
+                    │ Acceleration Pathway Options at Harvard       │
+                    └───────┬───────────────────────────────┬───────┘
+                            │                               │
+                            ▼                               ▼
+               ┌─────────────────────────┐     ┌─────────────────────────┐
+               │       PHYSICS 15a       │     │        PHYSICS 16       │
+               │ Advanced Intro Physics  │     │ Mechanics &amp; Relativity  │
+               │ (Multivariable Calc)    │     │ (Honors Track / Morin)  │
+               └────────────┬────────────┘     └────────────┬────────────┘
+                            │                               │
+                            └───────────────┬───────────────┘
+                                            │
+                                            ▼
+                       ┌─────────────────────────────────────────┐
+                       │   Accelerated Upper-Level Electives     │
+                       │  - ES 120 (Fluid Mech &amp; Solid Mech)     │
+                       │  - Physics 181 (Statistical Mechanics)  │
+                       │  - Bioengineering / Applied Physics   │
+                       └─────────────────────────────────────────┘
+</code></pre>
+<ul>
+<li><strong>Exempted Requirement:</strong> Achieving a <strong>Score of 5</strong> on AP Physics C Mechanics satisfies the introductory mechanics requirement or permits students to sit for the Harvard Physics Advanced Placement Test during Freshman Orientation.</li>
+<li><strong>Accelerated Track Options:</strong></li>
+<li><strong>Physics 15a:</strong> <em>Introductory Mechanics at an Advanced Level</em> — Utilizes multivariable calculus and linear algebra from week one.</li>
+<li><strong>Physics 16:</strong> <em>Mechanics and Special Relativity</em> — The legendary honors sequence taught using David Morin’s <em>Introduction to Classical Mechanics</em>. Requires deep proficiency with Lagrangian mechanics, variable mass systems, non-inertial frames, and intricate rotational dynamics.</li>
+</ul>
+<h3>Why Variable Inertia Integrals Matter for Harvard</h3>
+<p>In Physics 16, standard rigid body rotation is covered in the first two weeks. Homework problems routinely involve continuous dynamic tensors, inertia tensor diagonalizations $\mathbf{I}$, and Eulerian precession. </p>
+<p>Demonstrating a 5-level command of variable density continuous integrals ($\int r^2 dm$) proves to Harvard academic advisors that a student possesses the mathematical sophistication needed to handle Lagrangian mechanics ($L = T - V$) and honors-level coursework without remediation.</p>
+<hr />
+<h2>5. High-Yield Practice Problem</h2>
+<h3>Problem Statement</h3>
+<p>A non-uniform thin rod of total mass $M$ and length $L$ lies along the x-axis with its left end located at the origin $x = 0$. The linear mass density of the rod is expressed by:</p>
+<p>$$\lambda(x) = C x^2$$</p>
+<p>where $C$ is a positive constant with units $\text{kg/m}^3$.</p>
+<pre><code>Y
+^
+│   Axis of Rotation
+│   │
+│   │   x = 0                          x = L
+├───┼───█▓▒░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▒▓▓██────&gt; X
+│   │   ├─── dx ───┤
+│   │   │&lt;── x ───&gt;│
+│   │
+</code></pre>
+<ol>
+<li><strong>[Part A]</strong> Determine the constant $C$ strictly in terms of $M$ and $L$.</li>
+<li><strong>[Part B]</strong> Calculate the moment of inertia $I_0$ of the rod about an axis perpendicular to the page passing through the origin $x = 0$.</li>
+<li><strong>[Part C]</strong> Determine the center of mass position $x_{\text{cm}}$ of the rod relative to the origin.</li>
+<li><strong>[Part D]</strong> Using the Parallel Axis Theorem and your results from Parts B and C, calculate the moment of inertia $I_{\text{cm}}$ about an axis perpendicular to the rod passing through its center of mass.</li>
+<li><strong>[Part E]</strong> A time-dependent torque $\tau(t) = \tau_0 e^{-\gamma t}$ (where $\tau_0$ and $\gamma$ are positive constants) is applied to the rod about the axis passing through $x = 0$. Assuming the rod starts from rest at $t = 0$, derive an expression for the final angular velocity $\omega_\infty = \lim_{t \to \infty} \omega(t)$.</li>
+</ol>
+<hr />
+<h3>Step-by-Step Solution Checklist &amp; Rubric</h3>
+<h4>Part A: Expressing $C$ in terms of $M$ and $L$</h4>
+<p>The total mass is the integral of the differential mass elements:</p>
+<p>$$M = \int_0^L dm = \int_0^L \lambda(x) \, dx = \int_0^L C x^2 \, dx$$</p>
+<p>$$M = C \left[ \frac{x^3}{3} \right]_0^L = \frac{C L^3}{3}$$</p>
+<p>Solving for $C$:</p>
+<p>$$C = \frac{3M}{L^3}$$</p>
+<ul>
+<li><strong>Grading Check:</strong></li>
+<li>$\text{+1 point}$ for correctly setting $dm = \lambda(x) dx$.</li>
+<li>$\text{+1 point}$ for integrating with correct limits $[0, L]$ to obtain $C = \frac{3M}{L^3}$.</li>
+</ul>
+<hr />
+<h4>Part B: Calculating Moment of Inertia $I_0$</h4>
+<p>$$I_0 = \int x^2 \, dm = \int_0^L x^2 (\lambda(x) \, dx) = \int_0^L x^2 (C x^2) \, dx = C \int_0^L x^4 \, dx$$</p>
+<p>$$I_0 = C \left[ \frac{x^5}{5} \right]_0^L = C \frac{L^5}{5}$$</p>
+<p>Substitute $C = \frac{3M}{L^3}$:</p>
+<p>$$I_0 = \left(\frac{3M}{L^3}\right) \frac{L^5}{5} = \frac{3}{5} M L^2$$</p>
+<ul>
+<li><strong>Grading Check:</strong></li>
+<li>$\text{+1 point}$ for setting up $I_0 = \int x^2 \lambda(x) dx$.</li>
+<li>$\text{+1 point}$ for correct integration evaluation yielding $I_0 = \frac{3}{5} M L^2$.</li>
+</ul>
+<hr />
+<h4>Part C: Determining Center of Mass $x_{\text{cm}}$</h4>
+<p>$$x_{\text{cm}} = \frac{1}{M} \int x \, dm = \frac{1}{M} \int_0^L x (C x^2) \, dx = \frac{C}{M} \int_0^L x^3 \, dx$$</p>
+<p>$$x_{\text{cm}} = \frac{C}{M} \left[ \frac{x^4}{4} \right]_0^L = \frac{C L^4}{4M}$$</p>
+<p>Substitute $C = \frac{3M}{L^3}$:</p>
+<p>$$x_{\text{cm}} = \frac{1}{4M} \left(\frac{3M}{L^3}\right) L^4 = \frac{3}{4} L$$</p>
+<ul>
+<li><strong>Grading Check:</strong></li>
+<li>$\text{+1 point}$ for applying the $x_{\text{cm}} = \frac{1}{M}\int x dm$ formula with density substitution.</li>
+<li>$\text{+1 point}$ for correct final location $x_{\text{cm}} = \frac{3}{4}L$.</li>
+</ul>
+<hr />
+<h4>Part D: Parallel Axis Theorem Application for $I_{\text{cm}}$</h4>
+<p>The Parallel Axis Theorem connects $I_0$ and $I_{\text{cm}}$ via $d = x_{\text{cm}} = \frac{3}{4}L$:</p>
+<p>$$I_0 = I_{\text{cm}} + M d^2 \quad \implies \quad I_{\text{cm}} = I_0 - M \left(x_{\text{cm}}\right)^2$$</p>
+<p>Substitute $I_0 = \frac{3}{5} M L^2$ and $x_{\text{cm}} = \frac{3}{4}L$:</p>
+<p>$$I_{\text{cm}} = \frac{3}{5} M L^2 - M \left(\frac{3}{4} L\right)^2 = \frac{3}{5} M L^2 - \frac{9}{16} M L^2$$</p>
+<p>Find a common denominator ($80$):</p>
+<p>$$I_{\text{cm}} = \left( \frac{48}{80} - \frac{45}{80} \right) M L^2 = \frac{3}{80} M L^2$$</p>
+<ul>
+<li><strong>Grading Check:</strong></li>
+<li>$\text{+1 point}$ for applying the Parallel Axis Theorem in reverse ($I_{\text{cm}} = I_0 - Md^2$).</li>
+<li>$\text{+1 point}$ for correct algebraic fraction simplification to $\frac{3}{80}ML^2$.</li>
+</ul>
+<hr />
+<h4>Part E: Rotational Dynamics &amp; Terminal Angular Velocity</h4>
+<p>Apply Newton's Second Law for Rotation about $x = 0$:</p>
+<p>$$\tau(t) = I_0 \alpha(t) = I_0 \frac{d\omega}{dt}$$</p>
+<p>$$\frac{d\omega}{dt} = \frac{\tau_0 e^{-\gamma t}}{I_0}$$</p>
+<p>Separate variables and integrate from $t = 0$ ($\omega = 0$) to $t \to \infty$ ($\omega = \omega_\infty$):</p>
+<p>$$\int_0^{\omega_\infty} d\omega = \frac{\tau_0}{I_0} \int_0^\infty e^{-\gamma t} \, dt$$</p>
+<p>$$\omega_\infty = \frac{\tau_0}{I_0} \left[ -\frac{1}{\gamma} e^{-\gamma t} \right]_0^\infty = \frac{\tau_0}{I_0} \left( 0 - \left(-\frac{1}{\gamma}\right) \right) = \frac{\tau_0}{\gamma I_0}$$</p>
+<p>Substitute $I_0 = \frac{3}{5} M L^2$:</p>
+<p>$$\omega_\infty = \frac{\tau_0}{\gamma \left(\frac{3}{5} M L^2\right)} = \frac{5 \tau_0}{3 \gamma M L^2}$$</p>
+<ul>
+<li><strong>Grading Check:</strong></li>
+<li>$\text{+1 point}$ for expressing $\tau(t) = I_0 \frac{d\omega}{dt}$.</li>
+<li>$\text{+1 point}$ for evaluating the improper exponential integral $\int_0^\infty e^{-\gamma t} dt = \frac{1}{\gamma}$.</li>
+<li>$\text{+1 point}$ for correct final symbolic substitution for $\omega_\infty$.</li>
+</ul>
+<hr />
+<h2>Final Review Summary for Harvard-Bound Students</h2>
+<p>To guarantee a <strong>5</strong> on the AP Physics C: Mechanics exam:
+1. Never assume constant mass density unless explicitly stated as "uniform".
+2. Always write out differential elements ($dm$) explicitly before placing them inside an integral.
+3. Keep track of the center of mass when applying the Parallel Axis Theorem—you can only shift to or from $I_{\text{cm}}$.
+4. Treat rotational dynamic equations as differential equations when torque or moment of inertia depends on position or time.</p>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Physics C: Mechanics?</h2>
+      <p>Secure admission and advanced standing at top institutions like Harvard University with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

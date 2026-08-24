@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Two-Sample t-Test vs. Matched Pairs Inference & Verification Guide: AP Statistics Score 5 for Georgia Tech | AP STEM PATH</title>
+  <meta name="description" content="Master Two-Sample t-Test vs. Matched Pairs Inference & Verification in AP Statistics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Georgia Tech applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Two-Sample t-Test vs. Matched Pairs Inference & Verification Guide: AP Statistics Score 5 for Georgia Tech",
+    "description": "Master Two-Sample t-Test vs. Matched Pairs Inference & Verification in AP Statistics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Georgia Tech applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Statistics • Score 5 Strategy</span>
+      <h1>Two-Sample t-Test vs. Matched Pairs Inference & Verification Guide: AP Statistics Score 5 for Georgia Tech</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Statistics Mastery Guide: Two-Sample $t$-Test vs. Matched Pairs Inference &amp; Verification</h1>
+<p><strong>Target Institution:</strong> Georgia Institute of Technology (Georgia Tech)<br />
+<strong>Score Target:</strong> 5 (Essential for STEM/Analytics Placement)<br />
+<strong>Course Credit Exempted:</strong> ISYE 3770 (<em>Statistics and Applications</em> — 3 Credit Hours)<br />
+<strong>Accelerated Track:</strong> MATH 3215 (<em>Introduction to Probability &amp; Statistics</em>) / ISYE 2028 (<em>Basic Statistical Methods</em>)</p>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>Inference for two-sample data and paired data accounts for <strong>10–15%</strong> of the AP Statistics Exam multiple-choice section and appears consistently on Free-Response Questions (FRQs)—frequently on <strong>FRQ 3, 4, or 5</strong>, and as a crucial component of the Investigative Task (<strong>FRQ 6</strong>). </p>
+<p>The critical challenge evaluated by AP Chief Readers is a student's ability to distinguish between <strong>two independent samples</strong> and <strong>a single sample of paired observations (matched pairs)</strong>. Confusing a Matched Pairs $t$-procedure with a Two-Sample $t$-procedure is an immediate automatic downgrade on Section II of the AP Exam (reducing a response from <em>Essentially Correct</em> $[E]$ to <em>Incomplete</em> $[I]$ or <em>Incorrect</em> $[I]$).</p>
+<h3>Why Georgia Tech Demands Perfection Here</h3>
+<p>Georgia Tech’s <strong>H. Milton Stewart School of Industrial and Systems Engineering (ISyE)</strong>—consistently ranked #1 nationally—and the <strong>College of Computing</strong> require absolute statistical precision. </p>
+<p>By achieving a Score 5 on the AP Statistics Exam, you earn credit for <strong>ISYE 3770</strong>, waiving a 3-credit core requirement. This allows immediate acceleration into <strong>MATH 3215</strong> or advanced operations research modules in your freshman year. </p>
+<p>In industrial design, computer architecture benchmarking, and algorithmic optimization, mistaking dependent paired data for independent samples introduces massive covariance bias. Master this distinction to demonstrate true university-level mastery.</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>Mathematical Foundations &amp; Variance Structure</h3>
+<p>The core difference between a Two-Sample $t$-test and a Matched Pairs $t$-test lies in the covariance structure of the random variables under observation.</p>
+<h4>1. Two Independent Samples (Two-Sample $t$-Test)</h4>
+<p>Let $X_1 \sim N(\mu_1, \sigma_1^2)$ and $X_2 \sim N(\mu_2, \sigma_2^2)$ be two <strong>independent</strong> random variables.
+The linear combination representing their difference is $D = X_1 - X_2$.</p>
+<p>By the properties of expectation and variance for independent variables:
+$$\mathbb{E}[\bar{X}_1 - \bar{X}_2] = \mu_1 - \mu_2$$</p>
+<p>$$\text{Var}(\bar{X}_1 - \bar{X}_2) = \text{Var}(\bar{X}_1) + \text{Var}(\bar{X}_2) = \frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}$$</p>
+<p>Standard Error ($SE_{\bar{X}<em>1 - \bar{X}_2}$):
+$$SE</em>{\bar{X}_1 - \bar{X}_2} = \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}$$</p>
+<p>Degrees of Freedom ($df$): Computed using the <strong>Welch–Satterthwaite equation</strong>:
+$$df = \frac{\left(\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}\right)^2}{\frac{\left(\frac{s_1^2}{n_1}\right)^2}{n_1 - 1} + \frac{\left(\frac{s_2^2}{n_2}\right)^2}{n_2 - 1}}$$
+<em>(Note: On the AP Exam, technology calculates Welch-Satterthwaite $df$, or the conservative approximation $df = \min(n_1-1, n_2-1)$ is used).</em></p>
+<h4>2. Dependent / Paired Samples (Matched Pairs $t$-Test)</h4>
+<p>When observations are matched in pairs $(X_{1i}, X_{2i})$ for $i = 1, 2, \dots, n$, the variables are <strong>not independent</strong>.
+$$\text{Var}(X_1 - X_2) = \text{Var}(X_1) + \text{Var}(X_2) - 2\text{Cov}(X_1, X_2)$$</p>
+<p>If subjects are positively correlated ($\text{Cov}(X_1, X_2) &gt; 0$), pairing <strong>reduces overall variance</strong>, drastically increasing the statistical power of the test to detect true differences!</p>
+<p>We collapse the paired data into a single univariate random variable $d_i = X_{1i} - X_{2i}$:
+$$\bar{d} = \frac{1}{n}\sum_{i=1}^n d_i, \quad s_d = \sqrt{\frac{\sum (d_i - \bar{d})^2}{n - 1}}$$</p>
+<p>Standard Error ($SE_{\bar{d}}$):
+$$SE_{\bar{d}} = \frac{s_d}{\sqrt{n}}$$</p>
+<p>Degrees of Freedom:
+$$df = n - 1 \quad \text{(where } n \text{ is the number of pairs)}$$</p>
+<hr />
+<h3>Comparative Structural Matrix</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Architectural Feature</th>
+<th style="text-align: left;">Two-Sample $t$-Test</th>
+<th style="text-align: left;">Matched Pairs $t$-Test</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Data Structure</strong></td>
+<td style="text-align: left;">Two separate, independent groups ($n_1, n_2$)</td>
+<td style="text-align: left;">One sample of paired units, or repeated measures on same units ($n$ pairs)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Parameter of Interest</strong></td>
+<td style="text-align: left;">Difference of means: $\mu_1 - \mu_2$</td>
+<td style="text-align: left;">Mean difference: $\mu_d$ (where $d = x_1 - x_2$)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Null Hypothesis ($H_0$)</strong></td>
+<td style="text-align: left;">$H_0: \mu_1 - \mu_2 = 0$</td>
+<td style="text-align: left;">$H_0: \mu_d = 0$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Test Statistic</strong></td>
+<td style="text-align: left;">$t = \frac{(\bar{x}_1 - \bar{x}_2) - 0}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}}$</td>
+<td style="text-align: left;">$t = \frac{\bar{x}_d - 0}{\frac{s_d}{\sqrt{n}}}$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Degrees of Freedom</strong></td>
+<td style="text-align: left;">Satterthwaite or $\min(n_1-1, n_2-1)$</td>
+<td style="text-align: left;">$n_{pairs} - 1$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Normality Condition</strong></td>
+<td style="text-align: left;">Both sample distributions must be normal/large ($n_1, n_2 \ge 30$)</td>
+<td style="text-align: left;">The single distribution of <em>differences</em> ($d_i$) must be normal/large ($n_{pairs} \ge 30$)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Python Verification Script: Algorithmic Differentiation</h3>
+<p>This Python script demonstrates how treating paired data as independent two-sample data severely inflates standard error and distorts the $p$-value:</p>
+<pre><code class="language-python">import numpy as np
+from scipy import stats
+
+# Simulated Data: Pre-treatment vs Post-treatment optimization benchmark (ms)
+np.random.seed(42)
+pre_treatment = np.array([120.4, 135.2, 128.1, 145.0, 118.9, 133.5, 140.1, 129.8])
+# Strong positive correlation added to simulate paired observations
+post_treatment = pre_treatment - np.random.normal(loc=5.0, scale=1.5, size=8)
+
+print(&quot;=== CORRECT METHOD: Matched Pairs t-Test ===&quot;)
+differences = pre_treatment - post_treatment
+t_stat_paired, p_val_paired = stats.ttest_rel(pre_treatment, post_treatment)
+print(f&quot;Mean Difference (d_bar): {np.mean(differences):.4f}&quot;)
+print(f&quot;Std Dev of Differences (s_d): {np.std(differences, ddof=1):.4f}&quot;)
+print(f&quot;Paired t-statistic: {t_stat_paired:.4f}&quot;)
+print(f&quot;Paired p-value: {p_val_paired:.6f}\n&quot;)
+
+print(&quot;=== INCORRECT METHOD: Two-Sample t-Test (Ignoring Pairing) ===&quot;)
+t_stat_2samp, p_val_2samp = stats.ttest_ind(pre_treatment, post_treatment, equal_var=False)
+print(f&quot;Two-Sample t-statistic: {t_stat_2samp:.4f}&quot;)
+print(f&quot;Two-Sample p-value: {p_val_2samp:.6f}&quot;)
+
+# Output Analysis:
+# Notice how the paired test detects significance due to controlling baseline noise!
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<p>To secure a <strong>5</strong>, your response must be complete, precise, and contextualized. AP Readers follow strict analytical rubrics.</p>
+<h3>Top AP Exam Pitfalls</h3>
+<ol>
+<li><strong>Incorrect Parameter Definition</strong>:</li>
+<li><em>Score 4 mistake</em>: Defining $\mu_d$ as "the difference in mean scores." (Ambiguous: sounds like $\mu_1 - \mu_2$).</li>
+<li>
+<p><em>Score 5 execution</em>: "Let $\mu_d$ be the true mean difference in benchmark execution time (Pre-optimization minus Post-optimization) for Georgia Tech servers."</p>
+</li>
+<li>
+<p><strong>Checking Conditions on Separate Groups for Paired Data</strong>:</p>
+</li>
+<li><em>Score 4 mistake</em>: Plotting $X_1$ and $X_2$ separately, showing histogram graphs of both groups for a matched-pairs test.</li>
+<li>
+<p><em>Score 5 execution</em>: Calculating $d_i = X_{1i} - X_{2i}$, plotting a single boxplot or histogram of the <strong>differences</strong>, and stating: "The plot of differences shows no extreme skewness or outliers, satisfying the Normality condition for $n = 8 &lt; 30$."</p>
+</li>
+<li>
+<p><strong>Confusing Random Assignment with Random Sampling</strong>:</p>
+</li>
+<li>If data comes from a paired experiment (e.g., subjects assigned both treatments in random order), state: "Randomization condition is met via random assignment of treatment order within each pair/subject." Do <strong>not</strong> claim it is a "random sample of subjects" unless explicitly stated.</li>
+</ol>
+<hr />
+<h3>Rubric Comparison Matrix: Score 4 vs. Score 5 Solutions</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Rubric Component</th>
+<th style="text-align: left;">Score 4 Response (Sub-Optimal)</th>
+<th style="text-align: left;">Score 5 Response (AP Reader Ideal)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Hypotheses &amp; Parameter</strong></td>
+<td style="text-align: left;">$H_0: \mu_1 = \mu_2$, $H_a: \mu_1 &gt; \mu_2$<br><em>(Fails to recognize pairing structure)</em></td>
+<td style="text-align: left;">$H_0: \mu_d = 0$ vs $H_a: \mu_d &gt; 0$<br>Where $\mu_d = \text{true mean difference in... } (X_1 - X_2)$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Conditions Check</strong></td>
+<td style="text-align: left;">Writes "Normal because $N &gt; 30$" without checking differences or providing graph sketches when $n &lt; 30$.</td>
+<td style="text-align: left;">Explicitly lists: 1. Paired data/random order; 2. $n_{pairs} \le 10\%$ of population; 3. Sketch of $d_i$ showing no strong skewness/outliers.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Mechanics</strong></td>
+<td style="text-align: left;">Reports $t = 3.42, p = 0.002$ without listing formula, substitution, or $df$.</td>
+<td style="text-align: left;">Shows $t = \frac{\bar{d} - 0}{s_d / \sqrt{n}} = \frac{4.81}{1.38/\sqrt{8}} = 9.86$, $df = 7$, $p\text{-value} = 0.000012$.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Conclusion</strong></td>
+<td style="text-align: left;">"Reject $H_0$. There is a difference."</td>
+<td style="text-align: left;">"Because $p$-value $\approx 0.000012 &lt; \alpha = 0.05$, we reject $H_0$. There is convincing statistical evidence that the true mean difference in..."</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. Georgia Tech Placement Pathway</h2>
+<h3>Exemption Dynamics: ISYE 3770 Waiver</h3>
+<p>Achieving a Score 5 on AP Statistics opens immediate academic advantages at Georgia Tech:</p>
+<pre><code>[AP Statistics: Score 5] 
+       │
+       ▼
+[Waives ISYE 3770: Statistics &amp; Applications (3 Credits)]
+       │
+       ├─────────────────────────────────────────┐
+       ▼                                         ▼
+[Immediate Entry: MATH 3215]        [Accelerated Path: ISYE 2028]
+Intro to Probability &amp; Stats        Basic Statistical Methods
+       │                                         │
+       ▼                                         ▼
+[Advanced Stochastic Modeling]     [ISYE 3044: Simulation Analysis]
+</code></pre>
+<h3>Strategic Value for GT Majors</h3>
+<ol>
+<li><strong>Industrial &amp; Systems Engineering (ISyE)</strong>:</li>
+<li>ISyE students who clear ISYE 3770 early unlock <strong>ISYE 2028 (Basic Statistical Methods)</strong> in their second semester.</li>
+<li>This pushes prerequisite completion for critical junior-level tracks like <strong>ISYE 3044 (Simulation Analysis)</strong> and <strong>ISYE 3231 (Deterministic Operations Research)</strong> ahead by a full academic year.</li>
+<li><strong>Computer Science (CS - AI/ML Threads)</strong>:</li>
+<li>Enables immediate enrollment in <strong>MATH 3215 (Probability &amp; Statistics for Applications)</strong>, bypassing introductory survey courses and moving directly into <strong>CS 4641 (Machine Learning)</strong> and <strong>CS 4731 (Game AI)</strong>.</li>
+<li><strong>Variance Reduction Expertise</strong>:</li>
+<li>Matched pairs inference is the foundational baseline for <strong>Design of Experiments (DoE)</strong> and A/B testing protocols taught in GT’s high-level engineering sequences.</li>
+</ol>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution Checklist</h2>
+<h3>The Problem</h3>
+<p>A Georgia Tech computer science researcher is testing a new memory-compression algorithm designed to reduce thread execution times. Eight server cores are selected at random. Each core runs a complex benchmark under two conditions: <strong>Control</strong> (standard memory management) and <strong>Treatment</strong> (compressed memory management). The order in which each core runs the two conditions is randomized. </p>
+<p>The benchmark completion times (in milliseconds) are recorded below:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Core ID</th>
+<th style="text-align: left;">1</th>
+<th style="text-align: left;">2</th>
+<th style="text-align: left;">3</th>
+<th style="text-align: left;">4</th>
+<th style="text-align: left;">5</th>
+<th style="text-align: left;">6</th>
+<th style="text-align: left;">7</th>
+<th style="text-align: left;">8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Control ($X_1$)</strong></td>
+<td style="text-align: left;">142.5</td>
+<td style="text-align: left;">158.0</td>
+<td style="text-align: left;">133.2</td>
+<td style="text-align: left;">167.4</td>
+<td style="text-align: left;">129.1</td>
+<td style="text-align: left;">151.3</td>
+<td style="text-align: left;">160.8</td>
+<td style="text-align: left;">144.7</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Treatment ($X_2$)</strong></td>
+<td style="text-align: left;">138.1</td>
+<td style="text-align: left;">151.2</td>
+<td style="text-align: left;">129.9</td>
+<td style="text-align: left;">160.1</td>
+<td style="text-align: left;">126.5</td>
+<td style="text-align: left;">144.8</td>
+<td style="text-align: left;">153.2</td>
+<td style="text-align: left;">139.0</td>
+</tr>
+</tbody>
+</table>
+<p>Do these data provide convincing statistical evidence at the $\alpha = 0.05$ significance level that the new compression algorithm reduces mean benchmark completion time across server cores?</p>
+<hr />
+<h3>Step-by-Step Complete Solution Checklist</h3>
+<h4>Step 1: Identify Procedure &amp; Hypotheses</h4>
+<ul>
+<li><strong>Procedure</strong>: Matched Pairs $t$-Test for a Mean Difference.</li>
+<li><strong>Parameter Definition</strong>: Let $\mu_d$ be the true mean difference in benchmark completion time ($\text{Control} - \text{Treatment}$, in ms) for server cores.</li>
+<li><strong>Hypotheses</strong>:
+    $$H_0: \mu_d = 0$$
+    $$H_a: \mu_d &gt; 0$$</li>
+</ul>
+<h4>Step 2: Check Conditions</h4>
+<ol>
+<li><strong>Paired Data &amp; Randomization</strong>: Data are paired by server core. The order of treatments (Control vs. Treatment) was randomized within each core.</li>
+<li><strong>10% Condition</strong>: $n = 8$ server cores is reasonable to assume as $\le 10\%$ of all available server cores in high-performance computing clusters.</li>
+<li><strong>Normality Condition</strong>: Calculate the sample differences $d_i = X_{1i} - X_{2i}$:</li>
+</ol>
+<p>$$\mathbf{d = [4.4, 6.8, 3.3, 7.3, 2.6, 6.5, 7.6, 5.7]}$$</p>
+<ul>
+<li>$n = 8 &lt; 30$, so we must plot the sample differences.</li>
+<li><em>Sketch/Description of Graph</em>: A dotplot or boxplot of the differences shows values clustered between $2.6$ and $7.6$. The distribution displays no strong skewness and contains no outliers. The Normality condition is satisfied.</li>
+</ul>
+<pre><code>Dotplot of Differences (d):
+  o   o   o       o   o   o   o   o
+──┼───┼───┼───┼───┼───┼───┼───┼───┼───
+ 2.0 3.0 4.0 5.0 6.0 7.0 8.0  (ms)
+</code></pre>
+<h4>Step 3: Compute Test Statistic &amp; Mechanics</h4>
+<p>Calculate summary statistics for differences:
+*   Sample size $n = 8$
+*   Mean of differences $\bar{d} = \frac{4.4 + 6.8 + 3.3 + 7.3 + 2.6 + 6.5 + 7.6 + 5.7}{8} = 5.525\text{ ms}$
+*   Standard deviation of differences $s_d = 1.838\text{ ms}$</p>
+<p>Test Statistic Computation:
+$$t = \frac{\bar{d} - \mu_0}{\frac{s_d}{\sqrt{n}}} = \frac{5.525 - 0}{\frac{1.838}{\sqrt{8}}} = \frac{5.525}{0.6498} \approx 8.503$$</p>
+<p>Degrees of Freedom:
+$$df = n - 1 = 8 - 1 = 7$$</p>
+<p>$p$-Value Calculation:
+$$p\text{-value} = P(T &gt; 8.503 \mid df = 7) \approx 0.0000302 \quad (3.02 \times 10^{-5})$$</p>
+<h4>Step 4: State Conclusion in Context</h4>
+<p>Because the $p$-value ($\approx 0.0000302$) is substantially less than the significance level $\alpha = 0.05$, we <strong>reject $H_0$</strong>. </p>
+<p>There is convincing statistical evidence that the true mean benchmark completion time under the compressed memory algorithm (Treatment) is significantly lower than under standard memory management (Control) across server cores.</p>
+<hr />
+<h3>Key Rubric Self-Check for FRQ Credit</h3>
+<ul>
+<li>[x] Did you explicitly name the <strong>Matched Pairs $t$-test</strong>?</li>
+<li>[x] Is $\mu_d$ defined with the correct <strong>order of subtraction</strong> ($\text{Control} - \text{Treatment}$)?</li>
+<li>[x] Did you construct a plot of the <strong>differences</strong> (not the raw groups)?</li>
+<li>[x] Did you link the final decision explicitly to $\alpha$ ($p &lt; \alpha \implies \text{Reject } H_0$)?</li>
+</ul>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Statistics?</h2>
+      <p>Secure admission and advanced standing at top institutions like Georgia Tech with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi-Square Tests: Goodness-of-Fit, Homogeneity & Independence Guide: AP Statistics Score 5 for Georgia Tech | AP STEM PATH</title>
+  <meta name="description" content="Master Chi-Square Tests: Goodness-of-Fit, Homogeneity & Independence in AP Statistics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Georgia Tech applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Chi-Square Tests: Goodness-of-Fit, Homogeneity & Independence Guide: AP Statistics Score 5 for Georgia Tech",
+    "description": "Master Chi-Square Tests: Goodness-of-Fit, Homogeneity & Independence in AP Statistics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Georgia Tech applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Statistics • Score 5 Strategy</span>
+      <h1>Chi-Square Tests: Goodness-of-Fit, Homogeneity & Independence Guide: AP Statistics Score 5 for Georgia Tech</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Statistics Exam Mastery Guide: Chi-Square Tests</h1>
+<p><strong>Target Institution:</strong> Georgia Institute of Technology<br />
+<strong>Target Score:</strong> 5<br />
+<strong>Georgia Tech Course Equivalent:</strong> ISYE 3770: Statistics and Applications (3 Credit Hours)<br />
+<strong>Accelerated Track:</strong> ISYE 3030: Basic Quality Control  </p>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>Chi-Square testing ($\chi^2$) constitutes the core of <strong>Unit 8: Inference for Categorical Data</strong> in the AP Statistics curriculum. Accounting for <strong>2%–5%</strong> of the multiple-choice section and serving as a frequent anchor for Free-Response Questions (FRQs)—often integrated into multi-part questions or Question 6 (Investigative Task)—mastery of this topic is mandatory for securing a 5.</p>
+<p>On the AP Statistics exam, Chi-Square inference tests whether observed categorical data distributions deviate significantly from expected theoretical distributions or across populations. For aspiring Georgia Tech engineers, this topic represents the empirical bedrock of Industrial and Systems Engineering (ISyE), quality assurance testing, and stochastic process modeling.</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<p>Chi-Square tests evaluate categorical counts. The unifying test statistic across all three variants is Pearson's Chi-Square statistic:</p>
+<p>$$\chi^2 = \sum \frac{(O_i - E_i)^2}{E_i}$$</p>
+<p>Where $O_i$ is the observed count in cell $i$, and $E_i$ is the expected count under the null hypothesis $H_0$.</p>
+<h3>2.1 Theoretical Derivation &amp; Distribution Behavior</h3>
+<p>The Chi-Square distribution with $k$ degrees of freedom ($\chi^2_k$) is derived from the sum of $k$ independent, squared standard normal random variables $Z_1, Z_2, \dots, Z_k \sim \mathcal{N}(0,1)$:</p>
+<p>$$Q = \sum_{i=1}^k Z_i^2 \sim \chi^2_k$$</p>
+<p>For a categorical variable with $k$ mutually exclusive outcomes, the counts follow a Multinomial distribution. Under $H_0$, as total sample size $n \to \infty$, the standardized residual for each category:</p>
+<p>$$z_i = \frac{O_i - E_i}{\sqrt{E_i}}$$</p>
+<p>asymptotically approaches a standard normal distribution $\mathcal{N}(0,1)$. Summing $z_i^2$ across all $k$ categories introduces one linear constraint ($\sum O_i = \sum E_i = n$), removing one degree of freedom. Thus:</p>
+<p>$$\chi^2 = \sum_{i=1}^k \frac{(O_i - E_i)^2}{E_i} \sim \chi^2_{k-1}$$</p>
+<pre><code> Chi-Square Distributions for Varying Degrees of Freedom (df)
+
+ Density
+   ^
+   |   * (df = 2: Exponential-like decay)
+   |    *
+   |     *
+   |      **  (df = 4: Right-skewed peak)
+   |     *  *
+   |    *     *    *** (df = 8: Approaching normality)
+   |   *       *  *   *
+   |  *         **     *
+   +--------------------------------------------------------&gt;
+   0        2        4        6        8       10       12    \chi^2
+</code></pre>
+<h3>2.2 Taxonomy of Chi-Square Tests</h3>
+<p>A major point of assessment on the AP Exam is distinguishing between the three types of Chi-Square tests:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Structural Criteria</th>
+<th style="text-align: left;">Goodness-of-Fit (GoF)</th>
+<th style="text-align: left;">Test for Homogeneity</th>
+<th style="text-align: left;">Test for Independence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Number of Samples</strong></td>
+<td style="text-align: left;"><strong>1</strong> Random Sample</td>
+<td style="text-align: left;"><strong>$\ge 2$</strong> Independent Samples</td>
+<td style="text-align: left;"><strong>1</strong> Random Sample</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Categorical Variables</strong></td>
+<td style="text-align: left;"><strong>1</strong> Variable ($k \ge 2$ categories)</td>
+<td style="text-align: left;"><strong>1</strong> Variable evaluated across groups</td>
+<td style="text-align: left;"><strong>2</strong> Variables evaluated for association</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Null Hypothesis ($H_0$)</strong></td>
+<td style="text-align: left;">The categorical distribution matches specified proportions.</td>
+<td style="text-align: left;">Distribution of the variable is the <strong>same</strong> across all populations.</td>
+<td style="text-align: left;">There is <strong>no association</strong> between the two variables in the population.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Degrees of Freedom ($df$)</strong></td>
+<td style="text-align: left;">$k - 1$</td>
+<td style="text-align: left;">$(r - 1)(c - 1)$</td>
+<td style="text-align: left;">$(r - 1)(c - 1)$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Expected Count ($E_i$)</strong></td>
+<td style="text-align: left;">$E_i = n \cdot p_i$</td>
+<td style="text-align: left;">$E_{r,c} = \frac{\text{Row Total} \times \text{Col Total}}{\text{Table Total}}$</td>
+<td style="text-align: left;">$E_{r,c} = \frac{\text{Row Total} \times \text{Col Total}}{\text{Table Total}}$</td>
+</tr>
+</tbody>
+</table>
+<h3>2.3 Programmatic Implementation (Python / <code>scipy.stats</code>)</h3>
+<p>To reinforce mechanics, the following Python script demonstrates how all three tests are executed computationally, verifying calculated expected values and degrees of freedom.</p>
+<pre><code class="language-python">import numpy as np
+from scipy import stats
+
+# 1. Chi-Square Goodness-of-Fit Test
+observed_gof = np.array([28, 42, 30])  # Observed counts in 3 categories
+expected_props_gof = np.array([0.25, 0.50, 0.25])
+n_total = np.sum(observed_gof)
+expected_gof = n_total * expected_props_gof
+
+chi2_gof, p_val_gof = stats.chisquare(f_obs=observed_gof, f_exp=expected_gof)
+df_gof = len(observed_gof) - 1
+
+print(f&quot;--- Goodness-of-Fit ---&quot;)
+print(f&quot;Chi2: {chi2_gof:.4f} | df: {df_gof} | p-value: {p_val_gof:.4f}\n&quot;)
+
+# 2. Chi-Square Test for Two-Way Tables (Homogeneity / Independence)
+# Contingency Table: Rows = Groups/Variable A, Cols = Outcomes/Variable B
+contingency_table = np.array([
+    [45, 35, 20],  # Group 1 / Category A1
+    [25, 40, 35]   # Group 2 / Category A2
+])
+
+chi2_stat, p_val_two_way, dof_two_way, expected_two_way = stats.chi2_contingency(
+    contingency_table, correction=False
+)
+
+print(f&quot;--- Two-Way Chi-Square Test (Homogeneity/Independence) ---&quot;)
+print(f&quot;Chi2 Stat: {chi2_stat:.4f}&quot;)
+print(f&quot;Degrees of Freedom: {dof_two_way}&quot;)
+print(f&quot;p-value: {p_val_two_way:.4f}&quot;)
+print(&quot;Expected Counts Table:\n&quot;, np.round(expected_two_way, 2))
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<p>To earn a Score 5, responses must meet strict AP scoring criteria (Essentially Correct - <strong>E</strong> vs. Partially Correct - <strong>P</strong>). Below are common pitfalls that degrade a score from 5 to 4.</p>
+<h3>Pitfall 1: Confusing Test for Homogeneity with Test for Independence</h3>
+<ul>
+<li><strong>The Mistake:</strong> Stating "The variables are independent" when evaluating data collected from two separate, fixed sample groups.</li>
+<li><strong>Score 5 Distinction:</strong> Determine the <strong>sampling design</strong>:<ul>
+<li>If <strong>one single random sample</strong> was taken and individuals were classified by two attributes $\to$ <strong>Independence</strong>.</li>
+<li>If <strong>distinct random samples</strong> were taken from two or more populations (or stratified groups) $\to$ <strong>Homogeneity</strong>.</li>
+</ul>
+</li>
+</ul>
+<h3>Pitfall 2: Incorrect Hypotheses Formulations</h3>
+<ul>
+<li><strong>The Mistake:</strong> Using parameters like $\mu$ or $p_1 = p_2$, or failing to state hypotheses in the context of the population.</li>
+<li><strong>Score 5 Distinction:</strong> Chi-Square tests evaluate distributions and associations, <strong>not single parameters</strong>. <ul>
+<li><em>Correct $H_0$ for Independence:</em> "There is no association between component failure type and assembly plant location in the population of manufactured microprocessors."</li>
+<li><em>Correct $H_0$ for Homogeneity:</em> "The distribution of component failure types is the same across all three assembly plant locations."</li>
+</ul>
+</li>
+</ul>
+<h3>Pitfall 3: Inadequate Condition Checking</h3>
+<ul>
+<li><strong>The Mistake:</strong> Stating "All counts are greater than 5" without calculating or explicitly writing out the <strong>Expected Counts</strong>, or referencing observed counts instead.</li>
+<li><strong>Score 5 Distinction:</strong> You must:<ol>
+<li>Verify <strong>Randomization</strong> (random sample or random assignment).</li>
+<li>Verify $n \le 10\%$ of the population (when sampling without replacement).</li>
+<li>Explicitly list or show a matrix of <strong>Expected Counts</strong> and state: <em>"All expected counts are at least 5"</em> (i.e., $E_i \ge 5$).</li>
+</ol>
+</li>
+</ul>
+<h3>Score 4 vs. Score 5 Performance Matrix</h3>
+<pre><code>+------------------------+------------------------------------------+------------------------------------------+
+| Evaluation Component   | Score 4 Standard (Partially Correct)     | Score 5 AP Standard (Essentially Correct) |
++------------------------+------------------------------------------+------------------------------------------+
+| 1. Hypotheses          | States $H_0/H_a$ non-contextually or     | Fully contextualized in terms of the     |
+|                        | uses population parameters ($\mu, p$).   | population distribution or association.  |
++------------------------+------------------------------------------+------------------------------------------+
+| 2. Conditions          | States &quot;Counts &gt; 5&quot; without displaying   | Explicitly displays ALL expected counts  |
+|                        | the expected values table.               | and verifies $E_i \ge 5$ along with      |
+|                        |                                          | Randomness and $10\%$ conditions.        |
++------------------------+------------------------------------------+------------------------------------------+
+| 3. Mechanics           | Gives correct $\chi^2$ and $p$-value but | Shows formula setup, gives $\chi^2$, $df$,|
+|                        | omits degrees of freedom ($df$).         | and precise $p$-value.                   |
++------------------------+------------------------------------------+------------------------------------------+
+| 4. Conclusion          | &quot;Reject $H_0$. There is a difference.&quot;   | Compares $p$-value to $\alpha$, rejects   |
+|                        | Omits link to $\alpha$ or context.       | $H_0$, and concludes in explicit context.|
++------------------------+------------------------------------------+------------------------------------------+
+</code></pre>
+<hr />
+<h2>4. Georgia Tech Placement Pathway</h2>
+<p>Mastering categorical data analysis opens up specific acceleration pathways within Georgia Tech’s H. Milton Stewart School of Industrial and Systems Engineering (ranked #1 nationally).</p>
+<pre><code>  AP Statistics Exam (Score 5)
+               │
+               ▼
+   Waive ISYE 3770 (3 Credits)
+   Statistics and Applications
+               │
+               ▼
+ Direct Accelerated Entry Into:
+   ISYE 3030 (3 Credits)
+   Basic Quality Control
+               │
+               ▼
+ Advanced Engineering Rigor:
+   • Shewhart Control Charts (p-charts, c-charts)
+   • Chi-Square Goodness-of-Fit for Defect Distributions
+   • Stochastic Modeling &amp; Process Capability Assessment
+</code></pre>
+<h3>Strategic Placement Breakdown</h3>
+<ul>
+<li><strong>Exempted Course:</strong> <strong>ISYE 3770 (Statistics and Applications)</strong> — A required foundational course covering probability, hypothesis testing, ANOVA, and categorical analysis. Achieving a Score 5 waives this requirement, granting <strong>3 credit hours</strong> directly toward the BS ISyE or core engineering degree requirements.</li>
+<li><strong>Accelerated Track:</strong> Direct entry into <strong>ISYE 3030 (Basic Quality Control)</strong> during your freshman or sophomore year.</li>
+<li><strong>Engineering Context Nuance:</strong> ISYE 3030 heavily leverages categorical test mechanics. Quality control engineers utilize Chi-Square Goodness-of-Fit tests to verify whether manufacturing defect rates follow theoretical Poisson or Binomial distributions. Furthermore, Chi-Square Tests of Independence are routinely used to analyze whether component defect types are linked to specific manufacturing lines or environmental variables.</li>
+</ul>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution Checklist</h2>
+<h3>Problem Statement</h3>
+<p>A senior quality control engineer at a semiconductor manufacturing plant in Atlanta evaluates microchip defect classifications across three parallel fabrication lines (Line A, Line B, Line C). A single random sample of 300 defective microchips is selected from the previous month's production run. Each defective chip is inspected and categorized into one of three primary failure modes: <em>Thermal</em>, <em>Dielectric</em>, or <em>Lithographic</em>.</p>
+<p>The observed counts are summarized below:</p>
+<pre><code>               Thermal    Dielectric    Lithographic    Total
+Line A            35          20             25           80
+Line B            45          35             40          120
+Line C            20          45             35          100
+Total            100         100            100          300
+</code></pre>
+<ol>
+<li><strong>(a)</strong> Identify the appropriate statistical test. State the null and alternative hypotheses in context.</li>
+<li><strong>(b)</strong> Check all necessary conditions for performing this test, displaying the expected counts for each cell.</li>
+<li><strong>(c)</strong> Calculate the test statistic, degrees of freedom, and the $p$-value.</li>
+<li><strong>(d)</strong> State an appropriate conclusion at the $\alpha = 0.05$ significance level.</li>
+<li><strong>(e)</strong> Identify which single cell contributes most to the calculated Chi-Square test statistic. Interpret the directional residual for this cell in context.</li>
+</ol>
+<hr />
+<h3>Step-by-Step Solution &amp; AP Rubric Checklist</h3>
+<h4>Part (a): Identification and Hypotheses</h4>
+<ul>
+<li><strong>Test Name:</strong> Chi-Square Test for Independence (since it is a single random sample categorized by two attributes).</li>
+<li><strong>Hypotheses:</strong><ul>
+<li>$H_0$: There is no association between manufacturing line and failure mode in the population of defective microchips.</li>
+<li>$H_a$: There is an association between manufacturing line and failure mode in the population of defective microchips.</li>
+</ul>
+</li>
+</ul>
+<h4>Part (b): Conditions Verification</h4>
+<ol>
+<li><strong>Randomness:</strong> Stated that a "single random sample of 300 defective microchips" was taken. (Satisfied)</li>
+<li><strong>10% Condition:</strong> Sample size $n = 300 \le 10\%$ of all defective microchips produced in a month. (Satisfied)</li>
+<li><strong>Expected Counts ($E_i \ge 5$):</strong><br />
+   Calculated via $E_{r,c} = \frac{\text{Row Total} \times \text{Column Total}}{\text{Table Total}}$:</li>
+</ol>
+<p>$$\begin{aligned}
+E_{\text{Line A, Thermal}} &amp;= \frac{80 \times 100}{300} = 26.67, &amp; E_{\text{Line A, Dielectric}} &amp;= \frac{80 \times 100}{300} = 26.67, &amp; E_{\text{Line A, Lithographic}} &amp;= \frac{80 \times 100}{300} = 26.67 \
+E_{\text{Line B, Thermal}} &amp;= \frac{120 \times 100}{300} = 40.00, &amp; E_{\text{Line B, Dielectric}} &amp;= \frac{120 \times 100}{300} = 40.00, &amp; E_{\text{Line B, Lithographic}} &amp;= \frac{120 \times 100}{300} = 40.00 \
+E_{\text{Line C, Thermal}} &amp;= \frac{100 \times 100}{300} = 33.33, &amp; E_{\text{Line C, Dielectric}} &amp;= \frac{100 \times 100}{300} = 33.33, &amp; E_{\text{Line C, Lithographic}} &amp;= \frac{100 \times 100}{300} = 33.33
+\end{aligned}$$</p>
+<ul>
+<li><strong>Expected Counts Table:</strong>
+    <code>Thermal    Dielectric    Lithographic
+    Line A          26.67        26.67          26.67
+    Line B          40.00        40.00          40.00
+    Line C          33.33        33.33          33.33</code></li>
+<li><em>Verification Statement:</em> All expected cell counts are at least 5 (minimum expected count is $26.67 \ge 5$). Conditions are met.</li>
+</ul>
+<h4>Part (c): Mechanics</h4>
+<ul>
+<li><strong>Formula Setup:</strong></li>
+</ul>
+<p>$$\chi^2 = \sum \frac{(O - E)^2}{E} = \frac{(35 - 26.67)^2}{26.67} + \frac{(20 - 26.67)^2}{26.67} + \dots + \frac{(35 - 33.33)^2}{33.33}$$</p>
+<ul>
+<li>
+<p><strong>Individual Cell Contributions $\frac{(O - E)^2}{E}$:</strong></p>
+<ul>
+<li>Line A: $\frac{(35-26.67)^2}{26.67} = 2.602$, $\frac{(20-26.67)^2}{26.67} = 1.668$, $\frac{(25-26.67)^2}{26.67} = 0.105$</li>
+<li>Line B: $\frac{(45-40.00)^2}{40.00} = 0.625$, $\frac{(35-40.00)^2}{40.00} = 0.625$, $\frac{(40-40.00)^2}{40.00} = 0.000$</li>
+<li>Line C: $\frac{(20-33.33)^2}{33.33} = 5.331$, $\frac{(45-33.33)^2}{33.33} = 4.086$, $\frac{(35-33.33)^2}{33.33} = 0.084$</li>
+</ul>
+</li>
+<li>
+<p><strong>Summing Test Statistic:</strong></p>
+</li>
+</ul>
+<p>$$\chi^2 = 2.602 + 1.668 + 0.105 + 0.625 + 0.625 + 0.000 + 5.331 + 4.086 + 0.084 = 14.426$$</p>
+<ul>
+<li><strong>Degrees of Freedom:</strong></li>
+</ul>
+<p>$$df = (r - 1)(c - 1) = (3 - 1)(3 - 1) = 4$$</p>
+<ul>
+<li><strong>$p$-value Calculation:</strong></li>
+</ul>
+<p>$$p\text{-value} = P(\chi^2_4 \ge 14.426) \approx 0.0060$$</p>
+<h4>Part (d): Conclusion</h4>
+<p>"Because the $p$-value ($0.0060$) is less than the significance level $\alpha = 0.05$, we reject the null hypothesis $H_0$. There is convincing statistical evidence that an association exists between the manufacturing line and the failure mode type in the population of defective microchips."</p>
+<h4>Part (e): Advanced Residual Interpretation</h4>
+<ul>
+<li><strong>Largest Contributor:</strong> <strong>Line C, Thermal failures</strong> contributes $5.331$ to the total $\chi^2$ value of $14.426$.</li>
+<li><strong>Directional Analysis:</strong> Standardized residual $z = \frac{O - E}{\sqrt{E}} = \frac{20 - 33.33}{\sqrt{33.33}} = -2.31$.</li>
+<li><strong>Interpretation:</strong> Line C produced significantly <strong>fewer thermal defects</strong> ($20$ observed vs. $33.33$ expected) than would be predicted if failure modes were independent of manufacturing lines. Process engineers should inspect Line C to determine what operational conditions are mitigating thermal failure risks compared to Lines A and B.</li>
+</ul>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Statistics?</h2>
+      <p>Secure admission and advanced standing at top institutions like Georgia Tech with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

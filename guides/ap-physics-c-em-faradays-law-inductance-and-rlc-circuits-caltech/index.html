@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faraday's Law of Induction & Differential RLC Circuits Guide: AP Physics C: Electricity & Magnetism Score 5 for Caltech | AP STEM PATH</title>
+  <meta name="description" content="Master Faraday's Law of Induction & Differential RLC Circuits in AP Physics C: Electricity & Magnetism. Deep dive with LaTeX/code examples and score 5 strategies tailored for Caltech applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Faraday's Law of Induction & Differential RLC Circuits Guide: AP Physics C: Electricity & Magnetism Score 5 for Caltech",
+    "description": "Master Faraday's Law of Induction & Differential RLC Circuits in AP Physics C: Electricity & Magnetism. Deep dive with LaTeX/code examples and score 5 strategies tailored for Caltech applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Physics C: Electricity & Magnetism • Score 5 Strategy</span>
+      <h1>Faraday's Law of Induction & Differential RLC Circuits Guide: AP Physics C: Electricity & Magnetism Score 5 for Caltech</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Physics C: Electricity &amp; Magnetism Exam Mastery Guide</h1>
+<h2>Topic: Faraday’s Law of Induction &amp; Differential $RLC$ Circuits</h2>
+<p><strong>Target Institution:</strong> California Institute of Technology (Caltech)<br />
+<strong>Aim:</strong> AP Score 5 &amp; Ph 1b Placement Exam Exemption  </p>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>Faraday’s Law of Induction and Differential $RLC$ Circuits represent the theoretical nexus of AP Physics C: Electricity &amp; Magnetism. Accounting for <strong>15–20% of the multiple-choice section</strong> and nearly always anchoring <strong>one full 15-point Free-Response Question (FRQ)</strong>, this domain transitions students from static field interactions to time-dependent electrodynamics and second-order linear differential systems.</p>
+<p>To score a 5 on the AP Exam—and to clear Caltech’s internal physics placement diagnostics—you must transcend algebraic plug-and-chug methods. You are expected to frame dynamic induction via vector calculus, set up and solve non-homogeneous second-order differential equations, and evaluate boundary conditions under transient states. Mastering these concepts provides the foundational apparatus required for advanced field theory and linear systems engineering.</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>2.1 Faraday’s Law and the Maxwell-Faraday Equation</h3>
+<p>Faraday’s Law states that the electromotive force ($\mathcal{E}$) induced around a closed loop is directly proportional to the negative time rate of change of magnetic flux ($\Phi_B$) through the area enclosed by the loop:</p>
+<p>$$\mathcal{E} = -\frac{d\Phi_B}{dt}$$</p>
+<p>where magnetic flux is defined via the surface integral:</p>
+<p>$$\Phi_B = \iint_S \vec{B} \cdot d\vec{A}$$</p>
+<h4>General Differential &amp; Integral Vector Forms</h4>
+<p>In electrodynamics, an induced EMF corresponds to a non-conservative, space-pervading electric field $\vec{E}_{\text{ind}}$. Evaluating the work done per unit charge around a closed contour $C$ yields the integral form of the Maxwell-Faraday Equation:</p>
+<p>$$\oint_C \vec{E} \cdot d\vec{\ell} = -\frac{\partial}{\partial t} \iint_S \vec{B} \cdot d\vec{A}$$</p>
+<p>By applying Stokes' Theorem ($\oint_C \vec{E} \cdot d\vec{\ell} = \iint_S (\nabla \times \vec{E}) \cdot d\vec{A}$), we arrive at the point (differential) form:</p>
+<p>$$\nabla \times \vec{E} = -\frac{\partial \vec{B}}{\partial t}$$</p>
+<blockquote>
+<p><strong>Key Takeaway:</strong> Unlike electrostatic fields generated by stationary charges ($\nabla \times \vec{E}<em>{\text{electrostatic}} = 0$, $\oint \vec{E} \cdot d\vec{\ell} = 0$), induced electric fields are <strong>non-conservative</strong> ($\nabla \times \vec{E}</em>{\text{ind}} \neq 0$). Electric potential ($V$) cannot be defined for an induced field loop.</p>
+</blockquote>
+<hr />
+<h3>2.2 Motional EMF &amp; Generalized Induction</h3>
+<p>When a conductor moves through a spatial magnetic field, charges inside experience a Lorentz force $\vec{F}_q = q(\vec{v} \times \vec{B})$. The effective field seen in the frame of the moving conductor produces a potential gradient along length $L$:</p>
+<p>$$\mathcal{E} = \oint (\vec{v} \times \vec{B}) \cdot d\vec{\ell}$$</p>
+<p>For a straight conductor of length $L$ moving perpendicularly at velocity $v$ through a uniform magnetic field $B$:</p>
+<p>$$\mathcal{E} = B L v$$</p>
+<hr />
+<h3>2.3 Self-Inductance &amp; Energy Stored in Magnetic Fields</h3>
+<p>An active current $I(t)$ generates a magnetic field proportional to itself, causing a dynamic self-flux $\Phi_B = L I$. A change in current induces an opposing back-EMF:</p>
+<p>$$\mathcal{E}_L = -L \frac{dI}{dt}$$</p>
+<p>Where $L$ is self-inductance measured in Henries ($\text{H}$). The energy stored within the inductor's magnetic field is derived via dynamic power integration:</p>
+<p>$$P(t) = \mathcal{E}_L I(t) = L I \frac{dI}{dt}$$</p>
+<p>$$U_L = \int_0^T P(t) \, dt = \int_0^I L i \, di = \frac{1}{2} L I^2$$</p>
+<hr />
+<h3>2.4 Differential Analysis of Series $RLC$ Circuits</h3>
+<p>Consider a series circuit containing a resistor ($R$), inductor ($L$), capacitor ($C$), and a DC voltage source ($V_0$) closed at $t=0$.</p>
+<pre><code>       +---[ R ]---[ L ]---( C )---+
+       |                           |
+    ( V_0 )                        |
+       |                           |
+       +---------------------------+
+</code></pre>
+<p>Applying Kirchhoff’s Voltage Law (KVL):</p>
+<p>$$V_0 - i(t)R - L\frac{di(t)}{dt} - \frac{q(t)}{C} = 0$$</p>
+<p>Substituting $i(t) = \frac{dq(t)}{dt}$ yields a non-homogeneous second-order linear ordinary differential equation (ODE) with constant coefficients:</p>
+<p>$$L \frac{d^2q(t)}{dt^2} + R \frac{dq(t)}{dt} + \frac{1}{C} q(t) = V_0$$</p>
+<p>Dividing by $L$:</p>
+<p>$$\frac{d^2q(t)}{dt^2} + 2\alpha \frac{dq(t)}{dt} + \omega_0^2 q(t) = \frac{V_0}{L}$$</p>
+<p>Where:
+*   <strong>Damping Factor ($\alpha$):</strong> $\alpha = \frac{R}{2L}$
+*   <strong>Undamped Natural Frequency ($\omega_0$):</strong> $\omega_0 = \frac{1}{\sqrt{LC}}$</p>
+<h4>Homogeneous Solution &amp; Transient Regimes</h4>
+<p>The characteristic equation for the homogenous ODE ($\frac{d^2q}{dt^2} + 2\alpha \frac{dq}{dt} + \omega_0^2 q = 0$) is:</p>
+<p>$$\lambda^2 + 2\alpha \lambda + \omega_0^2 = 0 \implies \lambda_{1,2} = -\alpha \pm \sqrt{\alpha^2 - \omega_0^2}$$</p>
+<ol>
+<li><strong>Overdamped ($\alpha &gt; \omega_0 \implies R &gt; 2\sqrt{L/C}$):</strong> Two real, distinct roots. The system returns to equilibrium slowly without oscillating.</li>
+<li><strong>Critically Damped ($\alpha = \omega_0 \implies R = 2\sqrt{L/C}$):</strong> Degenerate real roots ($\lambda = -\alpha$). The system returns to equilibrium as fast as possible without oscillating.</li>
+<li><strong>Underdamped ($\alpha &lt; \omega_0 \implies R &lt; 2\sqrt{L/C}$):</strong> Complex conjugate roots ($\lambda = -\alpha \pm i \omega_d$), where $\omega_d = \sqrt{\omega_0^2 - \alpha^2}$ is the damped natural frequency. The system oscillates with decaying amplitude:</li>
+</ol>
+<p>$$q_h(t) = e^{-\alpha t} \left( A \cos(\omega_d t) + B \sin(\omega_d t) \right)$$</p>
+<hr />
+<h3>2.5 Computational Simulation of Transient $RLC$ Dynamics</h3>
+<p>Below is a Python simulation using <code>scipy.integrate.solve_ivp</code> to model the charge $q(t)$ across all three damping regimes.</p>
+<pre><code class="language-python">import numpy as np
+from scipy.integrate import solve_ivp
+import matplotlib.pyplot as plt
+
+def rlc_ode(t, y, R, L, C, V0):
+    &quot;&quot;&quot;
+    State vector y = [q, i]
+    dq/dt = i
+    di/dt = (V0 - R*i - q/C) / L
+    &quot;&quot;&quot;
+    q, i = y
+    dqdt = i
+    didt = (V0 - R * i - q / C) / L
+    return [dqdt, didt]
+
+# Circuit Parameters
+L = 1.0  # Henry
+C = 1e-3 # Farad (1 mF)
+V0 = 10.0 # Volts
+omega_0 = 1.0 / np.sqrt(L * C) # ~31.62 rad/s
+
+# Damping Scenarios
+R_critical = 2.0 * np.sqrt(L / C) # 63.25 Ohms
+cases = {
+    'Underdamped (R=10)': 10.0,
+    'Critically Damped': R_critical,
+    'Overdamped (R=150)': 150.0
+}
+
+t_span = (0, 0.5)
+t_eval = np.linspace(t_span[0], t_span[1], 1000)
+y0 = [0.0, 0.0]  # Initial condition: q(0) = 0, i(0) = 0
+
+plt.figure(figsize=(10, 6))
+
+for label, R in cases.items():
+    sol = solve_ivp(rlc_ode, t_span, y0, args=(R, L, C, V0), t_eval=t_eval)
+    plt.plot(sol.t, sol.y[0] * 1e3, label=f&quot;{label} (R={R:.1f}$\Omega$)&quot;)
+
+plt.axhline(V0 * C * 1e3, color='gray', linestyle='--', label='Steady State Value ($C V_0$)')
+plt.title(&quot;Transient Charge Response $q(t)$ in Series $RLC$ Circuit&quot;, fontsize=14)
+plt.xlabel(&quot;Time $t$ (seconds)&quot;, fontsize=12)
+plt.ylabel(&quot;Charge $q(t)$ (mC)&quot;, fontsize=12)
+plt.grid(True, which='both', linestyle=':', linewidth=0.5)
+plt.legend(fontsize=10)
+plt.tight_layout()
+plt.show()
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<h3>Score 4 vs. Score 5 Performance Breakdown</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Analytical Focus</th>
+<th style="text-align: left;">Score 4 Response</th>
+<th style="text-align: left;">Score 5 Response</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Faraday's Law Vector Orientation</strong></td>
+<td style="text-align: left;">Applies $\mathcal{E} = -d\Phi_B/dt$ as a scalar expression; guesses induced current direction via right-hand rule separately without explicit sign matching.</td>
+<td style="text-align: left;">Defines field vectors explicitly ($\vec{B}$, $d\vec{A}$); applies Lenz's Law via dynamic vector integration, linking scalar calculus signs to physical direction.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Induced Electric Fields</strong></td>
+<td style="text-align: left;">Confuses induced electric fields with conservative fields, attempting to compute $\Delta V = -\int \vec{E} \cdot d\vec{\ell}$ around a closed circuit path.</td>
+<td style="text-align: left;">Explains that $\oint \vec{E}_{\text{ind}} \cdot d\vec{\ell} = \mathcal{E} \neq 0$; explicitly avoids assigning electric scalar potential differences to loop components driven by non-conservative induction.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Differential Equation Setup</strong></td>
+<td style="text-align: left;">Writes single-variable $RL$ or $RC$ first-order differential equations accurately, but stumbles on initial condition substitutions for second-order $RLC$ terms.</td>
+<td style="text-align: left;">Correctly formulates non-homogeneous 2nd-order ODEs ($L \ddot{q} + R \dot{q} + q/C = V_0$), setting up linear systems with initial boundary constraints ($q(0^+)=0, \dot{q}(0^+)=0$).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Transient Initial Conditions</strong></td>
+<td style="text-align: left;">Assumes $i(0^+) = V_0 / R$ instantly across an inductor, failing to account for back-EMF continuity conditions.</td>
+<td style="text-align: left;">Enforces $i(0^+) = i(0^-)$ due to continuous magnetic energy conservation ($U_L = \frac{1}{2}LI^2$), deducing $V_L(0^+) = V_0$.</td>
+</tr>
+</tbody>
+</table>
+<h3>AP Grading Rubric (FRQ Point Distribution Criteria)</h3>
+<ol>
+<li><strong>Differential Equation Setup Point:</strong> Awarded only when variables are fully separated or correctly transformed into standard operator forms. Using $I$ and $Q$ simultaneously without explicitly substituting $I = \frac{dQ}{dt}$ forfeits the point.</li>
+<li><strong>Initial/Boundary Condition Substitution:</strong> Explicit demonstration that current cannot change instantaneously through an inductor ($i(0^+) = 0$) and charge cannot change instantaneously across a capacitor ($q(0^+) = 0$) is mandatory.</li>
+<li><strong>Sign Conventions:</strong> Lenz's law credit requires explicit connection between decreasing/increasing flux and opposing/reinforcing self-induced magnetic fields.</li>
+</ol>
+<hr />
+<h2>4. Caltech Placement Pathway: Exemption to Acceleration</h2>
+<h3>Institutional Advantage</h3>
+<p>Achieving a <strong>5 on AP Physics C: E&amp;M</strong> unlocks eligibility to sit for the <strong>Caltech Physics 1b (Ph 1b) Placement Examination</strong> during Freshman Orientation. </p>
+<pre><code>[ Score 5 on AP Physics C: E&amp;M ]
+               │
+               ▼
+   [ Caltech Ph 1b Placement Exam ]
+               │
+               ▼
+    [ Exemption Granted (Ph 1b) ]
+               │
+               ▼
+[ Accelerate to EE 44: Circuits &amp; Systems ]
+</code></pre>
+<p>Clearing Ph 1b satisfies the general core freshman electrodynamics requirement, permitting high-performing freshmen to bypass introductory physics entirely and enroll directly in <strong>EE 44 (Circuits and Systems)</strong> or <strong>Ph 106 (Topics in Classical Physics)</strong> in their first year.</p>
+<h3>Alignment with Placement Expectations</h3>
+<p>The Caltech Ph 1b placement exam evaluates advanced computational physics fluency, focusing on:
+* Setting up multi-variable calculus surface integrations for magnetic fields over complex geometries.
+* Solving forced, damped differential equations using complex impedance ($\mathbf{Z} = R + j\left(\omega L - \frac{1}{\omega C}\right)$) and linear state-space operators.
+* Evaluating non-conservative dynamic electric fields ($\nabla \times \vec{E} = -\partial\vec{B}/\partial t$) under continuous time-varying charge distributions.</p>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution</h2>
+<h3>Problem Statement</h3>
+<p>A long, tightly wound circular solenoid of radius $a$ has $n$ turns per unit length. Concentric with the solenoid is a single circular loop of conducting wire of radius $r$ ($r &gt; a$) and total resistance $R$, connected in series with an ideal inductor $L$ and an uncharged capacitor $C$. </p>
+<pre><code>        Solenoid (radius a, n turns/m)
+              ┌─────────────┐
+              │  ••••••••   │
+      Loop ───┼─(  r &gt; a   )┼───[ R ]───[ L ]───( C )───┐
+  (radius r)  │  ••••••••   │                           │
+              └─────────────┘                           │
+              └─────────────────────────────────────────┘
+</code></pre>
+<p>At $t = 0$, a time-varying current inside the solenoid is initiated, generating an internal axial magnetic field:</p>
+<p>$$\vec{B}(t) = B_0 \left( 1 - e^{-\gamma t} \right) \hat{z} \quad (t \ge 0)$$</p>
+<p><em>(Assume the field outside the solenoid is strictly zero: $\vec{B}_{\text{out}} = 0$.)</em></p>
+<ol>
+<li><strong>[3 Points]</strong> Derive an expression for the magnitude of the induced electromotive force $\mathcal{E}_{\text{ind}}(t)$ in the outer conducting loop as a function of time $t$.</li>
+<li><strong>[4 Points]</strong> Construct the full non-homogeneous differential equation governing the charge $q(t)$ on the capacitor as a function of time $t$.</li>
+<li><strong>[5 Points]</strong> Assuming the loop parameters satisfy the critical damping condition ($\alpha = \omega_0$), solve for $q(t)$ explicitly using the boundary conditions $q(0) = 0$ and $i(0) = 0$.</li>
+<li><strong>[3 Points]</strong> Determine the magnitude of the non-conservative induced electric field $\vec{E}_{\text{ind}}$ at a radial distance $r$ from the central axis of the solenoid as a function of time.</li>
+</ol>
+<hr />
+<h3>Comprehensive Solution Checklist &amp; Rubric</h3>
+<h4>Part 1: Derivation of Induced EMF</h4>
+<p>Calculate magnetic flux $\Phi_B(t)$ through the outer loop of radius $r$:</p>
+<p>Since $\vec{B} \neq 0$ only for $0 \le \rho \le a$:</p>
+<p>$$\Phi_B(t) = \iint_{\text{loop}} \vec{B} \cdot d\vec{A} = B(t) \cdot \left(\pi a^2\right) = \pi a^2 B_0 \left( 1 - e^{-\gamma t} \right)$$</p>
+<p>Apply Faraday's Law to find $\mathcal{E}_{\text{ind}}(t)$:</p>
+<p>$$\mathcal{E}_{\text{ind}}(t) = -\frac{d\Phi_B}{dt} = -\frac{d}{dt} \left[ \pi a^2 B_0 \left( 1 - e^{-\gamma t} \right) \right]$$</p>
+<p>$$\mathcal{E}_{\text{ind}}(t) = -\pi a^2 B_0 \gamma e^{-\gamma t}$$</p>
+<p>$$\left| \mathcal{E}_{\text{ind}}(t) \right| = \pi a^2 B_0 \gamma e^{-\gamma t}$$</p>
+<hr />
+<h4>Part 2: Differential Equation Setup</h4>
+<p>Apply Kirchhoff’s Voltage Law around the outer series loop containing the induced field source, resistor $R$, inductor $L$, and capacitor $C$:</p>
+<p>$$\mathcal{E}_{\text{ind}}(t) - i(t)R - L\frac{di}{dt} - \frac{q}{C} = 0$$</p>
+<p>Substitute $i(t) = \frac{dq}{dt}$ and $\frac{di}{dt} = \frac{d^2q}{dt^2}$:</p>
+<p>$$\pi a^2 B_0 \gamma e^{-\gamma t} - R\frac{dq}{dt} - L\frac{d^2q}{dt^2} - \frac{q}{C} = 0$$</p>
+<p>Rearrange into canonical linear second-order ODE form:</p>
+<p>$$L \frac{d^2q(t)}{dt^2} + R \frac{dq(t)}{dt} + \frac{1}{C} q(t) = \pi a^2 B_0 \gamma e^{-\gamma t}$$</p>
+<p>Divide through by $L$:</p>
+<p>$$\frac{d^2q(t)}{dt^2} + 2\alpha \frac{dq(t)}{dt} + \omega_0^2 q(t) = \frac{\pi a^2 B_0 \gamma}{L} e^{-\gamma t}$$</p>
+<p>where $\alpha = \frac{R}{2L}$ and $\omega_0^2 = \frac{1}{LC}$.</p>
+<hr />
+<h4>Part 3: Solving the Critically Damped System</h4>
+<p>For critical damping, $\alpha = \omega_0 \implies \alpha^2 = \omega_0^2$. The homogenous equation is:</p>
+<p>$$\frac{d^2q_h}{dt^2} + 2\alpha \frac{dq_h}{dt} + \alpha^2 q_h = 0$$</p>
+<p>The homogeneous solution with repeated root $\lambda = -\alpha$ is:</p>
+<p>$$q_h(t) = (A + Bt)e^{-\alpha t}$$</p>
+<p>To find the particular solution $q_p(t)$, try $q_p(t) = K e^{-\gamma t}$.</p>
+<p>Substitute $q_p(t)$ into the full ODE:</p>
+<p>$$\frac{d^2}{dt^2}\left(K e^{-\gamma t}\right) + 2\alpha \frac{d}{dt}\left(K e^{-\gamma t}\right) + \alpha^2 \left(K e^{-\gamma t}\right) = \frac{\pi a^2 B_0 \gamma}{L} e^{-\gamma t}$$</p>
+<p>$$K \gamma^2 e^{-\gamma t} - 2\alpha K \gamma e^{-\gamma t} + \alpha^2 K e^{-\gamma t} = \frac{\pi a^2 B_0 \gamma}{L} e^{-\gamma t}$$</p>
+<p>Factor out $K e^{-\gamma t}$:</p>
+<p>$$K \left(\gamma^2 - 2\alpha \gamma + \alpha^2\right) = \frac{\pi a^2 B_0 \gamma}{L}$$</p>
+<p>$$K (\gamma - \alpha)^2 = \frac{\pi a^2 B_0 \gamma}{L} \implies K = \frac{\pi a^2 B_0 \gamma}{L (\gamma - \alpha)^2} \quad (\text{assuming } \gamma \neq \alpha)$$</p>
+<p>The general solution is:</p>
+<p>$$q(t) = (A + Bt)e^{-\alpha t} + \frac{\pi a^2 B_0 \gamma}{L (\gamma - \alpha)^2} e^{-\gamma t}$$</p>
+<p>Let $K_0 = \frac{\pi a^2 B_0 \gamma}{L (\gamma - \alpha)^2}$.</p>
+<p>Apply initial boundary conditions:
+1. $q(0) = 0$:</p>
+<p>$$q(0) = A + K_0 = 0 \implies A = -K_0$$</p>
+<ol>
+<li>$i(0) = \left.\frac{dq}{dt}\right|_{t=0} = 0$:</li>
+</ol>
+<p>$$\frac{dq}{dt} = B e^{-\alpha t} - \alpha(A + Bt) e^{-\alpha t} - \gamma K_0 e^{-\gamma t}$$</p>
+<p>$$\left.\frac{dq}{dt}\right|_{t=0} = B - \alpha A - \gamma K_0 = 0$$</p>
+<p>Substitute $A = -K_0$:</p>
+<p>$$B - \alpha(-K_0) - \gamma K_0 = 0 \implies B = (\gamma - \alpha)K_0$$</p>
+<p>Substituting $A$ and $B$ back into the solution:</p>
+<p>$$q(t) = \left[ -K_0 + (\gamma - \alpha)K_0 t \right] e^{-\alpha t} + K_0 e^{-\gamma t}$$</p>
+<p>$$q(t) = \frac{\pi a^2 B_0 \gamma}{L (\gamma - \alpha)^2} \left[ e^{-\gamma t} - \left( 1 - (\gamma - \alpha)t \right) e^{-\alpha t} \right]$$</p>
+<hr />
+<h4>Part 4: Calculation of Non-Conservative Induced Electric Field</h4>
+<p>Apply the integral Maxwell-Faraday equation along a circular path of radius $r$ ($r &gt; a$):</p>
+<p>$$\oint_C \vec{E}_{\text{ind}} \cdot d\vec{\ell} = -\frac{d\Phi_B}{dt}$$</p>
+<p>By rotational symmetry, $\vec{E}_{\text{ind}}$ is purely tangential with constant magnitude along path $r$:</p>
+<p>$$E_{\text{ind}} (2\pi r) = \left| -\frac{d\Phi_B}{dt} \right| = \pi a^2 B_0 \gamma e^{-\gamma t}$$</p>
+<p>Solve for $E_{\text{ind}}(r, t)$:</p>
+<p>$$E_{\text{ind}}(r, t) = \frac{\pi a^2 B_0 \gamma e^{-\gamma t}}{2\pi r} = \frac{a^2 B_0 \gamma e^{-\gamma t}}{2r}$$</p>
+<blockquote>
+<p><strong>Final Verification:</strong> As $r \to \infty$, $E_{\text{ind}} \to 0$, satisfying spatial decay constraints. Units match $[\text{V/m}]$, verifying mathematical consistency.</p>
+</blockquote>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Physics C: Electricity & Magnetism?</h2>
+      <p>Secure admission and advanced standing at top institutions like Caltech with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

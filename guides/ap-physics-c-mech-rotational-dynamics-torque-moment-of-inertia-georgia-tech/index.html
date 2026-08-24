@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rotational Dynamics, Torque & Variable Inertia Integrals Guide: AP Physics C: Mechanics Score 5 for Georgia Tech | AP STEM PATH</title>
+  <meta name="description" content="Master Rotational Dynamics, Torque & Variable Inertia Integrals in AP Physics C: Mechanics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Georgia Tech applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Rotational Dynamics, Torque & Variable Inertia Integrals Guide: AP Physics C: Mechanics Score 5 for Georgia Tech",
+    "description": "Master Rotational Dynamics, Torque & Variable Inertia Integrals in AP Physics C: Mechanics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Georgia Tech applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Physics C: Mechanics • Score 5 Strategy</span>
+      <h1>Rotational Dynamics, Torque & Variable Inertia Integrals Guide: AP Physics C: Mechanics Score 5 for Georgia Tech</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Physics C: Mechanics Master Guide</h1>
+<h2>Rotational Dynamics, Torque &amp; Variable Inertia Integrals</h2>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>Rotational Dynamics represents one of the most mathematically demanding and conceptually dense segments of the AP Physics C: Mechanics curriculum. Accounted for within <strong>Units 5 and 6</strong> of the College Board course framework, rotational motion and dynamics typically constitute <strong>14%–20%</strong> of the multiple-choice section and appear systematically as a major multi-part Free Response Question (FRQ).</p>
+<p>While basic rotational kinematics and constant-inertia systems are accessible to introductory students, top-tier performance—specifically securing a high <strong>Score 5</strong>—demands fluid mastery over non-uniform mass distributions, differential vector torques, and variable inertia calculations. The AP exam frequently tests whether a student can transition from discrete summation ($\sum r_i^2 m_i$) to continuous variable-density integrals ($\int r^2 dm$), set up correct calculus-based differential equations, and evaluate instantaneous linear-rotational dynamic couplings.</p>
+<p>For high-achieving STEM applicants aiming for elite institutions such as the <strong>Georgia Institute of Technology</strong>, executing these multi-step derivations with absolute mathematical precision is the baseline expectation.</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>2.1 Continuous Mass Integration for Variable Moment of Inertia</h3>
+<p>The moment of inertia $I$ measures a body's rotational inertia about a specified axis. For a continuous mass distribution, $I$ is defined as:</p>
+<p>$$I = \int r^2 dm$$</p>
+<p>where $r$ is the perpendicular distance from the axis of rotation to the differential mass element $dm$. To evaluate this integral, $dm$ must be expressed in terms of geometric spatial variables ($dx$, $dr$, $dA$, or $dV$) using the appropriate mass density function:</p>
+<ul>
+<li><strong>1D Linear Density ($\lambda$):</strong> $dm = \lambda(x) \, dx$</li>
+<li><strong>2D Area Density ($\sigma$):</strong> $dm = \sigma(r) \, dA = \sigma(r) (2\pi r \, dr)$ (for radial symmetry)</li>
+<li><strong>3D Volume Density ($\rho$):</strong> $dm = \rho(r) \, dV = \rho(r) (4\pi r^2 \, dr)$ (for spherical symmetry)</li>
+</ul>
+<h4>Rigorous Proof &amp; Derivation: Non-Uniform Density Rod</h4>
+<p>Consider a slender rod of length $L$ aligned along the $x$-axis from $x = 0$ to $x = L$. Its linear mass density varies linearly according to:</p>
+<p>$$\lambda(x) = \lambda_0 \left(1 + \frac{x}{L}\right)$$</p>
+<h5>Step 1: Calculate Total Mass $M$</h5>
+<p>$$M = \int dm = \int_0^L \lambda(x) \, dx = \int_0^L \lambda_0 \left(1 + \frac{x}{L}\right) dx = \lambda_0 \left[ x + \frac{x^2}{2L} \right]_0^L = \lambda_0 \left( L + \frac{L}{2} \right) = \frac{3}{2} \lambda_0 L$$</p>
+<p>Thus, $\lambda_0 = \frac{2M}{3L}$.</p>
+<h5>Step 2: Compute Moment of Inertia $I_{pivot}$ about the Axis $x = 0$</h5>
+<p>$$I_{pivot} = \int_0^L x^2 dm = \int_0^L x^2 \left[ \lambda_0 \left(1 + \frac{x}{L}\right) \right] dx = \lambda_0 \int_0^L \left( x^2 + \frac{x^3}{L} \right) dx$$</p>
+<p>$$I_{pivot} = \lambda_0 \left[ \frac{x^3}{3} + \frac{x^4}{4L} \right]_0^L = \lambda_0 \left( \frac{L^3}{3} + \frac{L^3}{4} \right) = \frac{7}{12} \lambda_0 L^3$$</p>
+<p>Substituting $\lambda_0 = \frac{2M}{3L}$:</p>
+<p>$$I_{pivot} = \frac{7}{12} \left( \frac{2M}{3L} \right) L^3 = \frac{7}{18} M L^2$$</p>
+<hr />
+<h3>2.2 Proof of the Parallel Axis Theorem</h3>
+<p>The Parallel Axis Theorem states that $I = I_{cm} + M d^2$, where $I_{cm}$ is the moment of inertia about a parallel axis passing through the center of mass, $M$ is total mass, and $d$ is the perpendicular distance between the two axes.</p>
+<pre><code>         Axis through CM              Parallel Axis (P)
+               |                             |
+               |         d                   |
+               |&lt;---------------------------&gt;|
+               |                             |
+               o (x_cm = 0)                  o (x_P = -d)
+               |   . (dm at position x)      |
+</code></pre>
+<h4>Analytical Proof:</h4>
+<p>Let the center of mass be at the origin $(0,0,0)$. The moment of inertia about an axis parallel to the $z$-axis passing through $P = (-d, 0, 0)$ is:</p>
+<p>$$I_P = \int r_P^2 \, dm = \int \left( (x + d)^2 + y^2 \right) dm$$</p>
+<p>Expanding the integrand:</p>
+<p>$$I_P = \int \left( x^2 + 2xd + d^2 + y^2 \right) dm = \int (x^2 + y^2) \, dm + 2d \int x \, dm + d^2 \int dm$$</p>
+<ol>
+<li>$\int (x^2 + y^2) \, dm = I_{cm}$ (definition of moment of inertia about the CM axis).</li>
+<li>$\int x \, dm = M x_{cm} = 0$ (since the origin is defined at the center of mass).</li>
+<li>$d^2 \int dm = M d^2$.</li>
+</ol>
+<p>Therefore:</p>
+<p>$$I_P = I_{cm} + M d^2 \quad \blacksquare$$</p>
+<hr />
+<h3>2.3 Differential Form of Rotational Dynamics</h3>
+<p>Newton's Second Law for rotational systems in its most fundamental dynamic vector form is:</p>
+<p>$$\vec{\tau}_{net} = \frac{d\vec{L}}{dt}$$</p>
+<p>When angular momentum is written as $\vec{L} = I\vec{\omega}$, and both moment of inertia $I$ and angular velocity $\vec{\omega}$ vary with respect to time:</p>
+<p>$$\vec{\tau}_{net} = \frac{d}{dt}\left( I(t)\vec{\omega}(t) \right) = I(t)\vec{\alpha}(t) + \vec{\omega}(t)\frac{dI}{dt}$$</p>
+<p>This differential formulation is required when systems shed mass, reel in mass (e.g., tethered satellites), or reconfigure internal mass geometry continuously.</p>
+<hr />
+<h3>2.4 Computational Physics Implementation</h3>
+<p>The following Python script computes the exact theoretical moment of inertia for non-uniform density profiles via high-precision numerical quadrature (<code>scipy.integrate.quad</code>) and simulates the rotational trajectory $\theta(t), \omega(t)$ of a dynamic non-uniform beam under non-linear fluid drag torques.</p>
+<pre><code class="language-python">import numpy as np
+from scipy.integrate import quad, solve_ivp
+import matplotlib.pyplot as plt
+
+# --- PHYSICAL CONSTANTS &amp; GEOMETRY ---
+L = 2.0         # Length of rod (m)
+M_target = 5.0  # Target total mass (kg)
+b_drag = 0.15   # Rotational drag coefficient (N m s^2)
+g = 9.81        # Gravity (m/s^2)
+
+# --- NON-UNIFORM MASS DENSITY PROFILE ---
+# lambda(x) = C * (1 + (x/L)**2)
+def density_unnormalized(x, L):
+    return 1.0 + (x / L)**2
+
+# Compute normalization constant C to enforce total mass = M_target
+mass_uncapped, _ = quad(density_unnormalized, 0, L, args=(L,))
+C_norm = M_target / mass_uncapped
+
+def lambda_x(x, L, C):
+    return C * density_unnormalized(x, L)
+
+# --- NUMERICAL INTEGRATION FOR I AND X_CM ---
+# 1. Total Mass Check
+mass_calc, _ = quad(lambda_x, 0, L, args=(L, C_norm))
+
+# 2. Center of Mass: x_cm = (1/M) * integral(x * dm)
+x_dm_integral, _ = quad(lambda x, L, C: x * lambda_x(x, L, C), 0, L, args=(L, C_norm))
+x_cm = x_dm_integral / mass_calc
+
+# 3. Moment of Inertia about pivot (x = 0)
+I_pivot, _ = quad(lambda x, L, C: (x**2) * lambda_x(x, L, C), 0, L, args=(L, C_norm))
+
+print(f&quot;--- SYSTEM METRICS ---&quot;)
+print(f&quot;Calculated Mass   : {mass_calc:.4f} kg&quot;)
+print(f&quot;Center of Mass    : {x_cm:.4f} m (from pivot)&quot;)
+print(f&quot;I_pivot           : {I_pivot:.4f} kg*m^2&quot;)
+
+# --- DYNAMIC SIMULATION OF ROTATIONAL MOTION ---
+# Equation of Motion: I_pivot * alpha = Tau_gravity - Tau_drag
+# Tau_gravity = M * g * x_cm * cos(theta)
+# Tau_drag = b_drag * omega |omega|
+
+def equations_of_motion(t, y):
+    theta, omega = y
+    tau_gravity = mass_calc * g * x_cm * np.cos(theta)
+    tau_drag = b_drag * omega * np.abs(omega)
+    tau_net = tau_gravity - tau_drag
+
+    dtheta_dt = omega
+    domega_dt = tau_net / I_pivot
+    return [dtheta_dt, domega_dt]
+
+# Initial conditions: Released horizontally at rest (theta = 0, omega = 0)
+y0 = [0.0, 0.0]
+t_span = (0.0, 5.0)
+t_eval = np.linspace(0.0, 5.0, 500)
+
+solution = solve_ivp(equations_of_motion, t_span, y0, t_eval=t_eval, method='RK45')
+
+# --- VISUALIZATION ---
+plt.figure(figsize=(10, 5))
+plt.plot(solution.t, solution.y[0], label=r'$\theta(t)$ (rad)', color='navy', linewidth=2)
+plt.plot(solution.t, solution.y[1], label=r'$\omega(t)$ (rad/s)', color='crimson', linestyle='--', linewidth=2)
+plt.title('Rotational Dynamics of Non-Uniform Rod with Drag', fontsize=12, fontweight='bold')
+plt.xlabel('Time (s)')
+plt.ylabel('State Variables')
+plt.grid(True, linestyle=':', alpha=0.7)
+plt.legend(loc='upper right')
+plt.tight_layout()
+plt.savefig('rotational_dynamics_sim.png', dpi=300)
+plt.show()
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<h3>Scoring Differences: Score 4 vs. Score 5 Performance</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Analytical Feature</th>
+<th style="text-align: left;">Score 4 Response (Competent)</th>
+<th style="text-align: left;">Score 5 Response (Exemplary Mastery)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Density Integrals</strong></td>
+<td style="text-align: left;">Sets up $I = \int x^2 dm$ correctly but treats $dm = \frac{M}{L} dx$ even when linear density $\lambda(x)$ is non-uniform.</td>
+<td style="text-align: left;">Correctly expresses $dm = \lambda(x) dx$, solves for normalization constants via $M = \int \lambda(x) dx$, and evaluates boundary limits rigorously.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Torque &amp; Pivots</strong></td>
+<td style="text-align: left;">Sums torques about arbitrary points without matching the axis of rotation for moment of inertia $I$.</td>
+<td style="text-align: left;">Always sums torques about either the fixed pivot point OR the instantaneous center of mass, ensuring $I$ matches the selected reference frame.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rolling Without Slipping</strong></td>
+<td style="text-align: left;">Applies $a_{cm} = \alpha R$ mechanically without checking vector direction signs, leading to incorrect signs in linear systems.</td>
+<td style="text-align: left;">Sets up consistent sign conventions for $F_{net} = m a_{cm}$ and $\tau_{net} = I \alpha$, explicitly stating constraints like $a_{cm} = -\alpha R$ based on dynamic coordinates.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Variable Mass Dynamics</strong></td>
+<td style="text-align: left;">Uses $\tau = I \alpha$ universally, ignoring situations where $I$ changes with time or geometry ($dI/dt \neq 0$).</td>
+<td style="text-align: left;">Applies $\tau_{net} = \frac{dL}{dt} = I \frac{d\omega}{dt} + \omega \frac{dI}{dt}$ when mass geometry evolves dynamically.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. Georgia Tech Placement Pathway</h2>
+<h3>Course Exemption &amp; Acceleration Details</h3>
+<p>Achieving a <strong>Score 5</strong> on the AP Physics C: Mechanics exam yields direct course credit at the <strong>Georgia Institute of Technology</strong> for:</p>
+<ul>
+<li><strong>Exempted Course:</strong> <strong>PHYS 2211 (Introductory Physics I - 4 Credit Hours)</strong></li>
+<li><strong>Requirement Fulfilled:</strong> Full course exemption including the core laboratory component.</li>
+</ul>
+<pre><code>                    AP Physics C: Mechanics (Score 5)
+                                  |
+                                  v
+                  [Waives PHYS 2211 (4 Credits + Lab)]
+                                  |
+         +------------------------+------------------------+
+         |                                                 |
+         v                                                 v
+  Aerospace / Mechanical Track                     Electrical / Physics Track
+  Accelerates to:                                  Accelerates to:
+  • COE 2001 (Statics) - Fall Freshman            • PHYS 2212 (Intro Physics II)
+  • ME 2202 / AE 2220 (Dynamics) - Spring          • Accelerated Math/E&amp;M Track
+</code></pre>
+<h3>Strategic Placement Advantage for GT Engineers</h3>
+<p>Georgia Tech’s College of Engineering (nationally ranked in Aerospace #1–2 and Mechanical #2–3) operates on an intense sequence:</p>
+<ol>
+<li><strong>Bypassing the Gatekeeper:</strong> PHYS 2211 at Georgia Tech is a notorious weed-out course characterized by complex vector-calculus formulations and computer-modeling labs (using VPython/VPython-GlowScript). Placing out saves critical GPA margin during the transitional freshman fall semester.</li>
+<li><strong>Immediate Engineering Track Acceleration:</strong> Students waiving PHYS 2211 can enroll directly into <strong>COE 2001 (Statics)</strong> during their first term. This unlocks <strong>ME 2202 (Dynamics)</strong> or <strong>AE 2220 (Aero Dynamics)</strong> a full semester ahead of schedule.</li>
+<li><strong>Co-op and Internship Readiness:</strong> Accelerated completion of foundational mechanics allows students to participate in GT's flagship <strong>Co-op Program</strong> or secure undergraduate research positions at the <strong>Georgia Tech Research Institute (GTRI)</strong> as early as their sophomore year.</li>
+</ol>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution Checklist</h2>
+<h3>Problem Statement</h3>
+<p>A thin non-uniform rod of length $L$ and total mass $M$ is pivoted frictionlessly at one end (Point $A$, $x=0$). The rod's linear mass density is given by:</p>
+<p>$$\lambda(x) = C x^2$$</p>
+<p>where $C$ is a positive constant and $x$ is the distance from the pivot $A$.</p>
+<pre><code>Pivot A
+  |=======================================================&gt; Rod
+  (x=0)                                                  (x=L)
+  o=======================================================|
+</code></pre>
+<ol>
+<li><strong>(a)</strong> Derive an expression for the constant $C$ in terms of $M$ and $L$.</li>
+<li><strong>(b)</strong> Determine the moment of inertia $I_A$ of the rod about an axis passing through $A$ perpendicular to the rod.</li>
+<li><strong>(c)</strong> Calculate the location of the rod's center of mass, $x_{cm}$, relative to Point $A$.</li>
+<li><strong>(d)</strong> The rod is held horizontally and released from rest. Determine the initial angular acceleration $\alpha_0$ of the rod immediately after release.</li>
+<li><strong>(e)</strong> Calculate the magnitude of the vertical reaction force exerted by the pivot on the rod immediately after release.</li>
+</ol>
+<hr />
+<h3>Step-by-Step Solution Checklist</h3>
+<h4>Part (a): Mass Density Constant $C$</h4>
+<p>Set up total mass as the integral of linear mass density:</p>
+<p>$$M = \int_0^L dm = \int_0^L \lambda(x) \, dx = \int_0^L C x^2 \, dx$$</p>
+<p>$$M = C \left[ \frac{x^3}{3} \right]_0^L = \frac{C L^3}{3}$$</p>
+<p>Solving for $C$:</p>
+<p>$$C = \frac{3M}{L^3}$$</p>
+<hr />
+<h4>Part (b): Moment of Inertia $I_A$</h4>
+<p>Apply the definition of moment of inertia about the origin:</p>
+<p>$$I_A = \int_0^L x^2 dm = \int_0^L x^2 \left( C x^2 \, dx \right) = C \int_0^L x^4 \, dx$$</p>
+<p>$$I_A = C \left[ \frac{x^5}{5} \right]_0^L = \frac{C L^5}{5}$$</p>
+<p>Substitute $C = \frac{3M}{L^3}$:</p>
+<p>$$I_A = \left(\frac{3M}{L^3}\right) \frac{L^5}{5} = \frac{3}{5} M L^2$$</p>
+<hr />
+<h4>Part (c): Center of Mass $x_{cm}$</h4>
+<p>By definition:</p>
+<p>$$x_{cm} = \frac{1}{M} \int_0^L x \, dm = \frac{1}{M} \int_0^L x (C x^2 \, dx) = \frac{C}{M} \int_0^L x^3 \, dx$$</p>
+<p>$$x_{cm} = \frac{C}{M} \left[ \frac{x^4}{4} \right]_0^L = \frac{C L^4}{4 M}$$</p>
+<p>Substitute $C = \frac{3M}{L^3}$:</p>
+<p>$$x_{cm} = \frac{\left(\frac{3M}{L^3}\right) L^4}{4 M} = \frac{3}{4} L$$</p>
+<hr />
+<h4>Part (d): Initial Angular Acceleration $\alpha_0$</h4>
+<pre><code>          F_y (Pivot Force)
+            ^
+            |
+  Pivot A   |
+    o=======|====================o==================|
+    |                            |                  |
+    |                            v Mg               |
+    |&lt;--------------------------&gt;|                  |
+               x_cm = (3/4)L
+</code></pre>
+<p>Calculate torque about pivot point $A$:</p>
+<p>$$\tau_A = M g x_{cm} = M g \left(\frac{3}{4} L\right) = \frac{3}{4} M g L$$</p>
+<p>Apply Newton's Second Law for Rotation about point $A$:</p>
+<p>$$\tau_A = I_A \alpha_0$$</p>
+<p>$$\frac{3}{4} M g L = \left(\frac{3}{5} M L^2\right) \alpha_0$$</p>
+<p>Solve for $\alpha_0$:</p>
+<p>$$\alpha_0 = \frac{\frac{3}{4} M g L}{\frac{3}{5} M L^2} = \frac{5}{4} \frac{g}{L}$$</p>
+<hr />
+<h4>Part (e): Vertical Pivot Reaction Force $F_y$</h4>
+<p>The translational acceleration of the rod's center of mass $a_{cm, y}$ is linked to angular acceleration by:</p>
+<p>$$a_{cm, y} = x_{cm} \alpha_0$$</p>
+<p>Substitute $x_{cm} = \frac{3}{4} L$ and $\alpha_0 = \frac{5}{4} \frac{g}{L}$:</p>
+<p>$$a_{cm, y} = \left(\frac{3}{4} L\right) \left(\frac{5}{4} \frac{g}{L}\right) = \frac{15}{16} g$$</p>
+<p>Apply Newton's Second Law for translation in the vertical downward direction:</p>
+<p>$$\sum F_y = M g - F_{y, pivot} = M a_{cm, y}$$</p>
+<p>$$M g - F_{y, pivot} = M \left(\frac{15}{16} g\right)$$</p>
+<p>$$F_{y, pivot} = M g - \frac{15}{16} M g = \frac{1}{16} M g$$</p>
+<hr />
+<h3>AP Scoring Rubric &amp; Point Distribution</h3>
+<ul>
+<li><strong>Part (a) [2 Points]</strong></li>
+<li><strong>1 Point:</strong> Correct setup of integral $\int \lambda(x) dx = M$.</li>
+<li>
+<p><strong>1 Point:</strong> Correct algebraic evaluation yielding $C = \frac{3M}{L^3}$.</p>
+</li>
+<li>
+<p><strong>Part (b) [3 Points]</strong></p>
+</li>
+<li><strong>1 Point:</strong> Substitution of $dm = \lambda(x) dx$ into the moment of inertia integral.</li>
+<li><strong>1 Point:</strong> Correct integration steps ($\int x^4 dx = \frac{x^5}{5}$).</li>
+<li>
+<p><strong>1 Point:</strong> Correct final substitution showing $I_A = \frac{3}{5} M L^2$.</p>
+</li>
+<li>
+<p><strong>Part (c) [2 Points]</strong></p>
+</li>
+<li><strong>1 Point:</strong> Correct $x_{cm}$ integral setup utilizing mass element $dm$.</li>
+<li>
+<p><strong>1 Point:</strong> Correct final answer $x_{cm} = \frac{3}{4} L$.</p>
+</li>
+<li>
+<p><strong>Part (d) [2 Points]</strong></p>
+</li>
+<li><strong>1 Point:</strong> Torque formulation about point $A$ using $\tau = M g x_{cm}$.</li>
+<li>
+<p><strong>1 Point:</strong> Setting $\tau_A = I_A \alpha_0$ and solving for $\alpha_0 = \frac{5}{4}\frac{g}{L}$.</p>
+</li>
+<li>
+<p><strong>Part (e) [3 Points]</strong></p>
+</li>
+<li><strong>1 Point:</strong> Correct connection between angular acceleration and linear acceleration of CM ($a_{cm} = x_{cm} \alpha$).</li>
+<li><strong>1 Point:</strong> Application of translational Newton's Second Law $\sum F_y = M a_{cm, y}$.</li>
+<li><strong>1 Point:</strong> Correct vertical force magnitude $F_y = \frac{1}{16} M g$.</li>
+</ul>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Physics C: Mechanics?</h2>
+      <p>Secure admission and advanced standing at top institutions like Georgia Tech with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

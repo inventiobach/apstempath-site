@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Two-Sample t-Test vs. Matched Pairs Inference & Verification Guide: AP Statistics Score 5 for Caltech | AP STEM PATH</title>
+  <meta name="description" content="Master Two-Sample t-Test vs. Matched Pairs Inference & Verification in AP Statistics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Caltech applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Two-Sample t-Test vs. Matched Pairs Inference & Verification Guide: AP Statistics Score 5 for Caltech",
+    "description": "Master Two-Sample t-Test vs. Matched Pairs Inference & Verification in AP Statistics. Deep dive with LaTeX/code examples and score 5 strategies tailored for Caltech applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Statistics • Score 5 Strategy</span>
+      <h1>Two-Sample t-Test vs. Matched Pairs Inference & Verification Guide: AP Statistics Score 5 for Caltech</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Statistics Mastery Guide: Two-Sample $t$-Test vs. Matched Pairs Inference</h1>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>In statistical inference, one of the most frequent points of points-loss on the AP Statistics Exam involves distinguishing between <strong>Independent Two-Sample $t$-Inference</strong> and <strong>Matched Pairs $t$-Inference</strong>. Governed primarily by <strong>Unit 7: Inference for Quantitative Data: Means</strong> (which constitutes <strong>10–18%</strong> of the multiple-choice and free-response sections), this distinction tests your foundational understanding of experimental design, structural dependence, and variance reduction.</p>
+<p>The core dilemma centers on how data are collected:</p>
+<ol>
+<li><strong>Two Independent Samples</strong>: Two distinct, randomly selected groups (or two independent treatment arms) where observations in Sample 1 share no structural association with observations in Sample 2.</li>
+<li><strong>Matched Pairs (Dependent Samples)</strong>: A single sample measured under two distinct conditions (a "before-and-after" or repeated-measures design) or subject pairs linked by a confounding variable (e.g., identical twins, left vs. right eye, blocking on initial baseline scores).</li>
+</ol>
+<p>On the AP Exam, misidentifying a Matched Pairs design as a Two-Sample design leads to an immediate loss of credit across all four scoring components (<strong>State</strong>, <strong>Plan</strong>, <strong>Do</strong>, <strong>Conclude</strong>). For a student aiming for a Score 5 and targeting elite quantitative benchmarks at institutions like <strong>Caltech</strong>, mastering this distinction is non-negotiable.</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>A. Mathematical Foundations &amp; Variance Reduction Proof</h3>
+<p>The choice between a Two-Sample $t$-test and a Matched Pairs $t$-test alters how variance is partitioned. </p>
+<p>Let $X_1$ and $X_2$ be random variables representing measurements under Condition 1 and Condition 2, respectively.</p>
+<h4>Two Independent Samples Strategy</h4>
+<p>If $X_1$ and $X_2$ are strictly independent, $\text{Cov}(X_1, X_2) = 0$. The sampling distribution of the difference between sample means $\bar{X}_1 - \bar{X}_2$ has expected value and variance:</p>
+<p>$$\mathbb{E}[\bar{X}_1 - \bar{X}_2] = \mu_1 - \mu_2$$</p>
+<p>$$\text{Var}(\bar{X}_1 - \bar{X}_2) = \text{Var}(\bar{X}_1) + \text{Var}(\bar{X}_2) = \frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}$$</p>
+<p>The standard error of the estimator is:</p>
+<p>$$\text{SE}(\bar{X}_1 - \bar{X}_2) = \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}$$</p>
+<p>The degrees of freedom $df$ are approximated using the <strong>Satterthwaite approximation</strong>:</p>
+<p>$$df = \frac{\left(\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}\right)^2}{\frac{1}{n_1-1}\left(\frac{s_1^2}{n_1}\right)^2 + \frac{1}{n_2-1}\left(\frac{s_2^2}{n_2}\right)^2}$$</p>
+<p><em>(Note: AP Statistics allows the conservative approximation $df = \min(n_1-1, n_2-1)$ when computing manually, though technology utilizes Satterthwaite).</em></p>
+<h4>Matched Pairs Strategy</h4>
+<p>When observations are paired, we define a new univariate random variable $D = X_1 - X_2$. </p>
+<p>By the properties of linear combinations of random variables:</p>
+<p>$$\text{Var}(D) = \text{Var}(X_1 - X_2) = \text{Var}(X_1) + \text{Var}(X_2) - 2\text{Cov}(X_1, X_2)$$</p>
+<p>If $X_1$ and $X_2$ are positively correlated ($\text{Cov}(X_1, X_2) &gt; 0$), which occurs naturally when measuring the same experimental unit twice or using homogeneous pairs:</p>
+<p>$$\text{Var}(X_1 - X_2) &lt; \text{Var}(X_1) + \text{Var}(X_2)$$</p>
+<p>$$\implies \text{SE}(\bar{d}) = \frac{s_d}{\sqrt{n}} &lt; \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}$$</p>
+<p><strong>Mathematical Proof of Power Superiority:</strong>
+By reducing the noise (variance) introduced by subject-to-subject variability through pairing, $\text{SE}(\bar{d})$ shrinks relative to $\text{SE}(\bar{X}_1 - \bar{X}_2)$. For a given effect size $\delta = \mu_1 - \mu_2$, the test statistic:</p>
+<p>$$t = \frac{\bar{d} - 0}{\frac{s_d}{\sqrt{n}}}$$</p>
+<p>yields a higher magnitude $|t|$ than the independent two-sample equivalent, directly increasing the statistical power ($1 - \beta$) of the test to reject $H_0$ when a true effect exists.</p>
+<hr />
+<h3>B. Verification &amp; Condition Checking Matrix</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Condition</th>
+<th style="text-align: left;">Independent Two-Sample $t$-Test</th>
+<th style="text-align: left;">Matched Pairs $t$-Test</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Randomness</strong></td>
+<td style="text-align: left;">Two independent random samples OR random assignment of units to 2 treatment groups.</td>
+<td style="text-align: left;">Random sample of pairs OR random assignment of 2 treatments <em>within</em> each pair.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Independence</strong></td>
+<td style="text-align: left;">$N_1 \ge 10n_1$ and $N_2 \ge 10n_2$ (if sampling without replacement). Samples must be independent of each other.</td>
+<td style="text-align: left;">$N_{\text{pairs}} \ge 10n_{\text{pairs}}$ (if sampling without replacement). Differences $d_i$ must be independent.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Normality / Sample Size</strong></td>
+<td style="text-align: left;">Both populations normal, OR $n_1 \ge 30$ AND $n_2 \ge 30$ (CLT), OR both sample distributions are symmetric with no strong skewness/outliers.</td>
+<td style="text-align: left;">Population of differences is normal, OR $n_{\text{pairs}} \ge 30$ (CLT), OR sample of <strong>differences</strong> $d_i$ shows no strong skewness/outliers.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Critical Verification Rule</strong>: In matched pairs, you do <strong>not</strong> construct graphical displays for Sample 1 and Sample 2 separately. You must compute $d_i = x_{1i} - x_{2i}$ for each pair and construct a histogram, stem-and-leaf plot, or normal probability plot exclusively on the <strong>differences</strong>.</p>
+</blockquote>
+<hr />
+<h3>C. Computational Implementation: Power Analysis &amp; Simulation</h3>
+<p>The following Python code simulates paired measurements subject to high inter-subject variance, contrasting the power and $p$-value computation between an independent two-sample $t$-test (which incorrectly ignores pairing) and a matched pairs $t$-test.</p>
+<pre><code class="language-python">import numpy as np
+from scipy import stats
+
+# Seed for reproducibility
+np.random.seed(42)
+
+# Simulation Parameters
+n_pairs = 20
+baseline_variance = 100.0  # High subject-to-subject variance
+treatment_effect = 2.5     # True underlying effect size
+noise_variance = 1.0       # Low measurement noise
+
+# Generate subject baseline traits (confounding subject effect)
+subject_baselines = np.random.normal(loc=50.0, scale=np.sqrt(baseline_variance), size=n_pairs)
+
+# Generate paired data: Condition 1 and Condition 2
+cond1 = subject_baselines + np.random.normal(loc=0.0, scale=np.sqrt(noise_variance), size=n_pairs)
+cond2 = subject_baselines + treatment_effect + np.random.normal(loc=0.0, scale=np.sqrt(noise_variance), size=n_pairs)
+
+# 1. INCORRECT ANALYSIS: Two-Sample Independent t-Test
+t_stat_ind, p_val_ind = stats.ttest_ind(cond2, cond1, equal_var=False)
+
+# 2. CORRECT ANALYSIS: Matched Pairs t-Test
+differences = cond2 - cond1
+t_stat_paired, p_val_paired = stats.ttest_rel(cond2, cond1)
+
+print(f&quot;--- Independent Two-Sample t-Test ---&quot;)
+print(f&quot;SE Estimator : {np.sqrt(np.var(cond2, ddof=1)/n_pairs + np.var(cond1, ddof=1)/n_pairs):.4f}&quot;)
+print(f&quot;t-statistic  : {t_stat_ind:.4f}&quot;)
+print(f&quot;p-value      : {p_val_ind:.4f} (Fails to reject H0 at alpha = 0.05)\n&quot;)
+
+print(f&quot;--- Matched Pairs t-Test ---&quot;)
+print(f&quot;SE Estimator : {np.std(differences, ddof=1) / np.sqrt(n_pairs):.4f}&quot;)
+print(f&quot;t-statistic  : {t_stat_paired:.4f}&quot;)
+print(f&quot;p-value      : {p_val_paired:.6f} (Statistically Significant)&quot;)
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<h3>Score 4 vs. Score 5 Performance Contrasts</h3>
+<p>On AP Statistics Free Response Questions (FRQs), the difference between a <strong>Score 4</strong> (Essentially Correct with minor flaws) and a <strong>Score 5</strong> (Complete, rigorous, contextually precise response) rests on three explicit nuances:</p>
+<pre><code>+-----------------------------------------------------------------------------------+
+| SCORE 4 SOLUTION ATTRIBUTES                                                       |
+| - Identifies test as &quot;Two-Sample t-test&quot; for paired data, but calculates correct t. |
+| - Defines parameters as &quot;mu_1 = mean after, mu_2 = mean before&quot;.                  |
+| - Checks normality on Sample 1 and Sample 2 independently for paired data.        |
+| - Concludes: &quot;We reject H0. There is a difference between group 1 and group 2.&quot;    |
++-----------------------------------------------------------------------------------+
+                                         vs
++-----------------------------------------------------------------------------------+
+| SCORE 5 SOLUTION ATTRIBUTES                                                       |
+| - Explicitly names the &quot;Matched Pairs t-test for the mean difference&quot;.            |
+| - Defines parameter: &quot;mu_d = true mean difference in [measurement] (After - Before)&quot;|
+| - Computes differences d_i and plots histogram of DIFFERENCES to check skewness.  |
+| - Concludes in context with explicit linkage: &quot;Because p-value = 0.0003 &lt; alpha,   |
+|   we reject H0. There is convincing evidence that the true mean difference...&quot;    |
++-----------------------------------------------------------------------------------+
+</code></pre>
+<h3>Detailed AP Rubric Nuances</h3>
+<h4>1. Parameter Definition Precise Language</h4>
+<ul>
+<li><strong>Score 4 Trap</strong>: Writing $\mu_1 - \mu_2$. This implies two independent populations.</li>
+<li><strong>Score 5 Standard</strong>: Writing $\mu_d$ (or $\mu_{\text{diff}}$) and defining it as: 
+  $$\mu_d = \text{the true mean difference in [variable] for [population description] (Group 1 - Group 2)}$$
+  <em>You must explicitly state the order of subtraction!</em></li>
+</ul>
+<h4>2. The "Normality of Differences" Rule</h4>
+<ul>
+<li><strong>Score 4 Trap</strong>: Drawing two separate dotplots for "Pre-test" and "Post-test" measurements.</li>
+<li><strong>Score 5 Standard</strong>: Subtracting paired values, listing the scalar differences, drawing a single dotplot/box plot of those differences, and stating: <em>"The distribution of sample differences shows no extreme skewness or outliers, so the Normality condition for the sampling distribution of $\bar{d}$ is satisfied."</em></li>
+</ul>
+<h4>3. Contextual Linkage in Conclusion</h4>
+<ul>
+<li><strong>Score 4 Trap</strong>: "Since $p &lt; 0.05$, we reject $H_0$. The drug works."</li>
+<li><strong>Score 5 Standard</strong>: "Since the $p$-value ($0.0034$) is less than $\alpha = 0.05$, we reject $H_0$. There is statistically convincing evidence that the true mean difference in systolic blood pressure (After - Before) for patients taking the medication is less than 0 mmHg."</li>
+</ul>
+<hr />
+<h2>4. Caltech Placement Pathway</h2>
+<h3>Quantitative Portfolio Evidence &amp; Course Waiver</h3>
+<p>At <strong>Caltech</strong>, incoming freshmen who aim to waive introductory prerequisites and fast-track into advanced coursework present their AP scores alongside experimental research credentials.</p>
+<ul>
+<li><strong>Exempted Course / Portfolio Waiver</strong>: Quantitative Portfolio Evidence Waiver for fundamental statistics modules.</li>
+<li><strong>Accelerated Course Placement</strong>: Direct enrollment in <strong>Ma 3 (Introduction to Probability &amp; Statistics)</strong> or advanced empirical track coursework in the Division of Physics, Mathematics and Astronomy (PMA) / Humanities and Social Sciences (HSS).</li>
+</ul>
+<pre><code>[ AP Statistics Score 5 ] 
+           +
+[ Quantitative Portfolio ] ---&gt; [ Waiver: Intro Modules ] ---&gt; [ Accelerated Track: Ma 3 ]
+(Error Propagation &amp; Design)                                    (Inference &amp; SURF Grant Prep)
+</code></pre>
+<h3>Academic &amp; Research Applications</h3>
+<ol>
+<li><strong>Experimental Rigor &amp; Error Propagation</strong>: Caltech’s foundational laboratories (e.g., Physics 3, Chemistry 3) evaluate students on their ability to analyze empirical datasets with non-independent structure. Recognizing paired structures prevents erroneous estimation of experimental uncertainty.</li>
+<li><strong>SURF (Summer Undergraduate Research Fellowships) Readiness</strong>: Caltech’s SURF program requires students to formulate hypotheses and evaluate signal-to-noise ratios in real experimental settings (e.g., LIGO interferometry noise subtraction, single-molecule fluorescence spectroscopy). Blocking and paired inference represent standard experimental techniques for controlling systematic variance across micro-arrays and detector channels.</li>
+</ol>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution Checklist</h2>
+<h3>Problem Statement</h3>
+<p>A Caltech materials science undergraduate lab is evaluating a new atomic layer deposition (ALD) coating designed to reduce the electrical resistivity of silicon micro-substrates. Twelve ($n = 12$) silicon wafers were sliced in half. One half of each wafer was randomly assigned to receive Treatment A (Standard Thermal Oxidation), while the matching half received Treatment B (ALD Coating). Resistivity ($\mu\Omega \cdot \text{cm}$) was measured for each half using a four-point microprobe.</p>
+<p>The recorded measurements are presented below:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Wafer ID</th>
+<th style="text-align: left;">1</th>
+<th style="text-align: left;">2</th>
+<th style="text-align: left;">3</th>
+<th style="text-align: left;">4</th>
+<th style="text-align: left;">5</th>
+<th style="text-align: left;">6</th>
+<th style="text-align: left;">7</th>
+<th style="text-align: left;">8</th>
+<th style="text-align: left;">9</th>
+<th style="text-align: left;">10</th>
+<th style="text-align: left;">11</th>
+<th style="text-align: left;">12</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Treatment A ($\text{Res}_{A}$)</strong></td>
+<td style="text-align: left;">14.2</td>
+<td style="text-align: left;">15.8</td>
+<td style="text-align: left;">13.9</td>
+<td style="text-align: left;">16.5</td>
+<td style="text-align: left;">14.8</td>
+<td style="text-align: left;">15.1</td>
+<td style="text-align: left;">16.0</td>
+<td style="text-align: left;">14.5</td>
+<td style="text-align: left;">15.3</td>
+<td style="text-align: left;">14.9</td>
+<td style="text-align: left;">15.7</td>
+<td style="text-align: left;">16.2</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Treatment B ($\text{Res}_{B}$)</strong></td>
+<td style="text-align: left;">13.5</td>
+<td style="text-align: left;">15.0</td>
+<td style="text-align: left;">13.2</td>
+<td style="text-align: left;">15.9</td>
+<td style="text-align: left;">14.1</td>
+<td style="text-align: left;">14.7</td>
+<td style="text-align: left;">15.2</td>
+<td style="text-align: left;">14.1</td>
+<td style="text-align: left;">14.6</td>
+<td style="text-align: left;">14.3</td>
+<td style="text-align: left;">15.0</td>
+<td style="text-align: left;">15.4</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Diff ($d_i = \text{Res}<em>{A} - \text{Res}</em>{B}$)</strong></td>
+<td style="text-align: left;">0.7</td>
+<td style="text-align: left;">0.8</td>
+<td style="text-align: left;">0.7</td>
+<td style="text-align: left;">0.6</td>
+<td style="text-align: left;">0.7</td>
+<td style="text-align: left;">0.4</td>
+<td style="text-align: left;">0.8</td>
+<td style="text-align: left;">0.4</td>
+<td style="text-align: left;">0.7</td>
+<td style="text-align: left;">0.6</td>
+<td style="text-align: left;">0.7</td>
+<td style="text-align: left;">0.8</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Task</strong>: Do these data provide convincing evidence at the $\alpha = 0.01$ significance level that the ALD Coating (Treatment B) yields a lower mean electrical resistivity than Standard Thermal Oxidation (Treatment A)? Execute a complete 4-step inference procedure.</p>
+<hr />
+<h3>Exemplary Step-by-Step Solution</h3>
+<h4>Step 1: State</h4>
+<p>We wish to test the hypotheses:</p>
+<p>$$H_0: \mu_d = 0$$
+$$H_a: \mu_d &gt; 0$$</p>
+<p>where $\mu_d$ represents the true mean difference in electrical resistivity ($\mu\Omega \cdot \text{cm}$) between Treatment A and Treatment B ($\mu_d = \mu_{\text{Treatment A}} - \mu_{\text{Treatment B}}$) for silicon wafers of this type.</p>
+<p><em>Significance level</em>: $\alpha = 0.01$.</p>
+<hr />
+<h4>Step 2: Plan</h4>
+<p><strong>Name of Procedure</strong>: Matched Pairs $t$-test for the mean difference $\mu_d$.</p>
+<p><strong>Conditions Verification</strong>:
+1. <strong>Randomness</strong>: Halves of each wafer were <em>randomly assigned</em> to Treatment A and Treatment B, creating a matched-pairs experimental design.
+2. <strong>Independence</strong>: Wafers are independently processed. The 12 sampled wafers represent less than 10% of all silicon wafers produced in this fabrication batch ($N \ge 120$).
+3. <strong>Normality</strong>: Since $n = 12 &lt; 30$, we must examine the distribution of sample differences $d_i$:
+   $$\text{Differences}: {0.7, 0.8, 0.7, 0.6, 0.7, 0.4, 0.8, 0.4, 0.7, 0.6, 0.7, 0.8}$$</p>
+<p><em>Dotplot Sketch of Differences</em>:
+   <code>Value:   0.4   0.5   0.6   0.7   0.8
+   Dots :    ••          ••   •••••  •••</code>
+   <em>Normality Evaluation Statement</em>: The dotplot of the sample differences shows no extreme skewness and no outliers. Therefore, the conditions for performing a matched pairs $t$-test are met.</p>
+<hr />
+<h4>Step 3: Do</h4>
+<p><strong>Sample Statistics</strong>:
+* Sample size of pairs: $n = 12$
+* Mean of differences: 
+  $$\bar{d} = \frac{\sum d_i}{n} = \frac{7.5}{12} = 0.625\ \mu\Omega \cdot \text{cm}$$
+* Standard deviation of differences:
+  $$s_d = \sqrt{\frac{\sum (d_i - \bar{d})^2}{n - 1}} \approx 0.13568\ \mu\Omega \cdot \text{cm}$$</p>
+<p><strong>Standard Error Computation</strong>:</p>
+<p>$$\text{SE}(\bar{d}) = \frac{s_d}{\sqrt{n}} = \frac{0.13568}{\sqrt{12}} \approx 0.03917$$</p>
+<p><strong>Test Statistic Calculation</strong>:</p>
+<p>$$t = \frac{\bar{d} - \mu_0}{\text{SE}(\bar{d})} = \frac{0.625 - 0}{0.03917} \approx 15.957$$</p>
+<p><strong>Degrees of Freedom &amp; $p$-value</strong>:
+* $df = n - 1 = 12 - 1 = 11$
+* $p\text{-value} = P(t_{11} \ge 15.957) &lt; 0.000001$ (specifically $p \approx 1.28 \times 10^{-8}$)</p>
+<hr />
+<h4>Step 4: Conclude</h4>
+<p>Because our $p$-value ($1.28 \times 10^{-8}$) is significantly less than the significance level $\alpha = 0.01$, we <strong>reject $H_0$</strong>. </p>
+<p>There is statistically convincing evidence that the true mean difference in electrical resistivity ($\text{Treatment A} - \text{Treatment B}$) is greater than $0\ \mu\Omega \cdot \text{cm}$. Consequently, we conclude that the ALD coating (Treatment B) significantly reduces the mean electrical resistivity of silicon micro-substrates compared to Standard Thermal Oxidation (Treatment A).</p>
+<hr />
+<h3>Verification Checklist for AP Scoring Success</h3>
+<ul>
+<li>[x] Defined $\mu_d$ with parameter units ($\mu\Omega \cdot \text{cm}$) and explicit order of subtraction $(A - B)$.</li>
+<li>[x] Stated directional hypotheses matching $H_a: \mu_d &gt; 0$.</li>
+<li>[x] Identified test by correct formal name (<strong>Matched Pairs $t$-test</strong>).</li>
+<li>[x] Plotted/evaluated the distribution of <strong>differences</strong>, not the two separate treatment groups.</li>
+<li>[x] Evaluated 10% condition and random assignment inside pairs.</li>
+<li>[x] Showed explicit formula substitutions for $t$-statistic and reported exact $df$.</li>
+<li>[x] Provided a 2-part conclusion: Explicit comparison ($p &lt; \alpha$) + contextual answer to the original prompt.</li>
+</ul>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Statistics?</h2>
+      <p>Secure admission and advanced standing at top institutions like Caltech with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

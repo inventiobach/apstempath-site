@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AP Physics C（Mechanics / E&amp;M）完全攻略＆「Score 5」獲得法 | AP STEM PATH</title>
+<meta content="AP Physics C (Mechanics &amp; E/M) のScore 5を獲得するための専門指導ページ。Calculus BCで培った微積分をフル活用し、代数物理（Physics 1/2）をスキップして最難関物理を制覇する戦略とFRQ採点基準（Rubric）を徹底解説。" name="description"/>
+<link href="/ap-physics-c/" rel="canonical"/>
+<style>
+    :root {
+      --bg-dark: #0f172a;
+      --bg-card: #1e293b;
+      --accent-blue: #38bdf8;
+      --accent-green: #34d399;
+      --accent-purple: #c084fc;
+      --accent-red: #f87171;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.7;
+    }
+
+    .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+
+    /* 全ページ共通 Header */
+    .site-header {
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .site-logo { font-size: 1.3rem; font-weight: 800; color: #f8fafc; text-decoration: none; letter-spacing: -0.5px; white-space: nowrap; flex-shrink: 0; }
+    .logo-accent { color: var(--accent-blue); }
+
+    .nav-menu-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--accent-blue);
+      font-size: 1.2rem;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .nav-list {
+      display: flex;
+      list-style: none;
+      gap: 16px;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-item {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+    .nav-item:hover, .nav-item.active { color: var(--accent-blue); }
+
+    .cta-nav-item {
+      background: var(--accent-blue);
+      color: #0f172a !important;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-weight: 700;
+      white-space: nowrap;
+      display: inline-block;
+    }
+    .cta-nav-item:hover { background: #7dd3fc !important; }
+
+    .dropdown { position: relative; }
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 0;
+      list-style: none;
+      min-width: 220px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
+    }
+    .dropdown:hover .dropdown-menu { display: block; }
+    .dropdown-menu a {
+      display: block;
+      padding: 10px 16px;
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.88rem;
+      white-space: nowrap;
+    }
+    .dropdown-menu a:hover { background: var(--border); color: var(--accent-blue); }
+
+    @media (max-width: 768px) {
+      .nav-menu-toggle { display: block; }
+      .main-nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #0f172a;
+        border-bottom: 1px solid var(--border);
+        padding: 20px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      }
+      .main-nav.is-active { display: block; }
+      .nav-list { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .dropdown { width: 100%; }
+      .dropdown-menu {
+        position: static;
+        display: block;
+        background: rgba(30, 41, 59, 0.5);
+        border: none;
+        box-shadow: none;
+        padding-left: 15px;
+        margin-top: 8px;
+        border-radius: 6px;
+      }
+    }
+
+    /* Page Header */
+    .page-header { padding: 40px 0 30px; border-bottom: 1px solid var(--border); }
+    .breadcrumb { font-size: 0.85rem; color: var(--accent-blue); margin-bottom: 12px; font-weight: 700; letter-spacing: 0.5px; }
+    h1 { font-size: 2.1rem; line-height: 1.3; font-weight: 800; margin-bottom: 15px; }
+    .lead { font-size: 1.05rem; color: var(--text-muted); }
+
+    .content-section { padding: 45px 0; border-bottom: 1px solid var(--border); }
+    h2 { font-size: 1.5rem; color: var(--text-main); margin-bottom: 20px; border-left: 4px solid var(--accent-blue); padding-left: 12px; }
+    h3 { font-size: 1.2rem; color: var(--accent-blue); margin: 25px 0 12px; }
+    p { margin-bottom: 16px; color: #cbd5e1; font-size: 0.98rem; }
+
+    .feature-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      margin: 25px 0;
+    }
+    .feature-title { font-weight: 700; color: var(--accent-green); margin-bottom: 10px; font-size: 1.1rem; }
+
+    .compare-box {
+      background: #020617;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .bad-example { border-left: 4px solid var(--accent-red); padding-left: 15px; margin-bottom: 15px; }
+    .good-example { border-left: 4px solid var(--accent-green); padding-left: 15px; }
+    .example-title { font-weight: 700; font-size: 0.9rem; margin-bottom: 5px; }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 20px; }
+    .topic-card { background: var(--bg-card); border: 1px solid var(--border); padding: 20px; border-radius: 8px; }
+    .topic-card h4 { color: var(--accent-blue); margin-bottom: 8px; font-size: 1.05rem; }
+    .topic-card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0; line-height: 1.5; }
+
+    .faq-item { margin-bottom: 16px; background: var(--bg-card); padding: 20px; border-radius: 8px; border: 1px solid var(--border); }
+    .faq-q { font-weight: 700; margin-bottom: 8px; color: var(--accent-blue); font-size: 1rem; }
+    .faq-a { color: #cbd5e1; font-size: 0.92rem; line-height: 1.6; }
+
+    .next-step-container { margin: 50px 0 20px; }
+    .next-step-card {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border: 1px solid var(--accent-blue);
+      border-radius: 12px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(56, 189, 248, 0.15);
+    }
+    .next-step-label { color: var(--accent-blue); font-size: 0.8rem; font-weight: 800; letter-spacing: 1px; margin-bottom: 8px; }
+    .next-step-title { font-size: 1.4rem; color: #f8fafc; font-weight: 800; margin-bottom: 10px; }
+    .next-step-desc { color: var(--text-muted); font-size: 0.95rem; max-width: 600px; margin: 0 auto 20px; }
+    .next-step-button {
+      display: inline-block;
+      background: var(--accent-blue);
+      color: #0f172a;
+      font-weight: 800;
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .next-step-button:hover { background: #7dd3fc; }
+
+    .site-footer { background: #020617; border-top: 1px solid var(--border); padding: 50px 0 30px; color: var(--text-muted); font-size: 0.88rem; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .footer-logo { font-size: 1.2rem; font-weight: 800; color: #f8fafc; margin-bottom: 12px; }
+    .footer-desc { line-height: 1.6; max-width: 360px; font-size: 0.85rem; }
+    .footer-heading { color: #f8fafc; font-weight: 700; margin-bottom: 12px; font-size: 0.92rem; }
+    .footer-col ul { list-style: none; padding: 0; margin: 0; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom { text-align: center; border-top: 1px solid #1e293b; padding-top: 20px; font-size: 0.8rem; }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 1.6rem; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+  </style>
+<!-- GEO/SEO 構造化データ（JSON-LD） -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "EducationalOrganization",
+      "@id": "/#organization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/",
+      "logo": "https://apstempath.com/assets/logo.png",
+      "description": "G7〜G10学年別AP理数最難関4科目（CS A / Statistics / Calculus BC / Physics C）専門指導塾。AP Exam Score 5獲得に特化したデータ駆動型指導方針。",
+      "founder": {
+        "@type": "Person",
+        "name": "Founder & Lead Instructor",
+        "jobTitle": "Lead STEM Educator & AI Architect",
+        "knowsAbout": [
+          "AP Calculus BC Exam Prep & Score 5 Strategy",
+          "AP Computer Science A Java Programming & FRQ Scoring",
+          "AP Statistics Data Analysis & Hypothesis Testing",
+          "AP Physics C Mechanics & Electromagnetism",
+          "College Board AP Scoring Rubric Optimization"
+        ]
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "AP STEM Score 5 Intensive Courses",
+        "itemListElement": [
+          {
+            "@type": "Course",
+            "name": "AP Computer Science A Mastery",
+            "courseCode": "CSA-5",
+            "url": "https://apstempath.com/ap-computer-science-a/"
+          },
+          {
+            "@type": "Course",
+            "name": "AP Calculus BC Intensive",
+            "courseCode": "CALC-BC-5",
+            "url": "/ap-calculus-bc/"
+          },
+          {
+            "@type": "Course",
+            "name": "AP Statistics Mastery",
+            "courseCode": "STATS-5",
+            "url": "/ap-statistics/"
+          },
+          {
+            "@type": "Course",
+            "name": "AP Physics C Intensive",
+            "courseCode": "PHYS-C-5",
+            "url": "/ap-physics-c/"
+          }
+        ]
+      }
+    }
+  ]
+}
+</script>
+<!-- MathJax v3 (LaTeX数式レンダリングライブラリ) -->
+<script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-G474CNMCQT"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-G474CNMCQT');
+  </script>
+</head>
+<body>
+<!-- 全ページ共通 Header -->
+<header class="site-header">
+<div class="container nav-container">
+<a class="site-logo" href="/">
+<span class="logo-accent">AP</span> STEM PATH
+      </a>
+<button aria-label="Toggle navigation" class="nav-menu-toggle">☰ Menu</button>
+<nav class="main-nav">
+<ul class="nav-list">
+<li><a class="nav-item" href="/">Home</a></li>
+<li><a class="nav-item" href="/g7-roadmap/">学年別ロードマップ</a></li>
+<li><a class="nav-item" href="/ap-simulator/">ロードマップ診断</a></li>
+<li><a class="nav-item" href="/results/">実績・推移</a></li>
+<li><a class="nav-item" href="/pricing/">料金案内</a></li>
+<li><a class="nav-item" href="/about/">代表講師</a></li>
+<li><a class="nav-item cta-nav-item" href="/contact/">無料相談</a></li>
+<li class="dropdown">
+<a class="nav-item dropdown-toggle" href="#">AP 専科 ▾</a>
+<ul class="dropdown-menu">
+<li><a href="/ap-computer-science-a/">AP CS A (Java)</a></li>
+<li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
+<li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+<li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
+              <li><a href="/guides/">AP STEM Guides (学習ガイド)</a>
+            <a href="/calculator/">学費節約シミュレーター</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="container">
+<header class="page-header">
+<div class="breadcrumb">SUBJECT SPECIALIZED GUIDE</div>
+<h1>AP Physics C 完全攻略法<br/>Mechanics &amp; E/M 圧倒的「Score 5」獲得戦略</h1>
+<p class="lead">なぜPhysics 1/2をスキップして直接Physics Cに挑むのか？Calculus BC（微積分）を武器に、STEM最難関の物理モデルを根本から解き明かす決定版プログラム。</p>
+</header>
+<section class="content-section">
+<h2>1. なぜ代数物理（Physics 1/2）をスキップし「Physics C」に直接挑むのか？</h2>
+<p>一般的に高校では代数ベースの AP Physics 1 や 2 を先に履修させることが多いですが、トップレベルのSTEM出願（MIT, Stanford, Caltech等）を目指す場合、<strong>代数物理に時間を費やすのは大きな回り道</strong>となります。</p>
+<p>本コースでは、<strong>AP Calculus BC（微積分）を修了していること、または並行学習すること</strong>を前提としています。微積分という「物理を記述するための言語」をすでに手に入れている生徒にとって、Physics C は最も自然で美しく物理法則を理解できる科目となります。</p>
+<div class="feature-box">
+<div class="feature-title">Calculus既修者がPhysics Cで圧倒的有利に立つ3つの理由</div>
+<p style="margin-bottom:10px; font-size:0.95rem; line-height:1.8;">
+          1. <strong>公式暗記からの解放:</strong> 微分方程式 $\frac{dv}{dt}$ や $\int F \, dt$ の意味を知っているため、空気抵抗のある落下運動や慣性モーメントの導出を「丸暗記」ではなく「微積分による自力導出」で処理できます。<br/>
+          2. <strong>E&amp;M（電磁気学）の数学的障壁の完全無効化:</strong> ガウスの法則（$\oint \mathbf{E} \cdot d\mathbf{A}$）やアンペールの法則における線積分・面積分を、Calculus BCで習得した幾何・ベクトル感覚でスムーズに攻略できます。<br/>
+          3. <strong>出願時における最高峰のシグナリング:</strong> AP Physics C の両部門（MechanicsおよびE&amp;M）で Score 5 を揃えることは、大学合格査定官（Admissions Office）に対して圧倒的な理数能力の証明となります。
+        </p>
+</div>
+</section>
+<section class="content-section">
+<h2>2. College Board Rubricの攻略：微分方程式の立式と境界条件</h2>
+<p>AP Physics C の記述式（FRQ）では、単に最終的な答えの数値を出すことにはほとんど点数が配分されません。<strong>「物理現象を数学的モデル（Differential Equation）に落とし込むプロセス」</strong>に点数が集中します。</p>
+<p>特に、粘性抵抗（$F_r = -bv$）を受ける物体の運動や、RC/RL回路における電荷・電流の過渡現象における導出問題が毎年頻出します。</p>
+<h3>空気抵抗を受ける運動のFRQ記述比較</h3>
+<div class="compare-box">
+<div class="bad-example">
+<div class="example-title" style="color:var(--accent-red);">❌ 点数を大幅に失う回答（結果のみの記述）</div>
+<p style="font-size:0.9rem; margin:0; color:#94a3b8; line-height:1.6;">
+            $v(t) = \frac{mg}{b}\left(1 - e^{-\frac{b}{m}t}\right)$<br/>
+<span style="color:var(--accent-red); font-size:0.8rem;">※ 理由：物理公式集や記憶から最終結果だけを書いた場合、立式点（Differential Eq.）、変数分離点、初期条件適用点がすべて0点となり、配点の8割以上を失います。</span>
+</p>
+</div>
+<div class="good-example">
+<div class="example-title" style="color:var(--accent-green);">⭕️ 満点を獲得するRubric適合回答</div>
+<p style="font-size:0.9rem; margin:0; color:#e2e8f0; line-height:1.8;">
+            1. <strong>運動方程式の立式:</strong> $mg - bv = m \frac{dv}{dt}$ <span style="color:var(--accent-green); font-size:0.8rem;">[1点]</span><br/>
+            2. <strong>変数分離（Separation of Variables）:</strong> $\frac{dv}{g - \frac{b}{m}v} = dt$ <span style="color:var(--accent-green); font-size:0.8rem;">[1点]</span><br/>
+            3. <strong>積分実行と初期条件 $v(0)=0$ の適用:</strong> $-\frac{m}{b} \ln(g - \frac{b}{m}v) = t + C \implies C = -\frac{m}{b} \ln g$ <span style="color:var(--accent-green); font-size:0.8rem;">[1点]</span><br/>
+            4. <strong>$v(t)$ の明示的導出:</strong> $v(t) = \frac{mg}{b}\left(1 - e^{-\frac{b}{m}t}\right)$ <span style="color:var(--accent-green); font-size:0.8rem;">[1点]</span>
+</p>
+</div>
+</div>
+</section>
+<section class="content-section">
+<h2>3. ２つの最難関領域：Mechanics と Electricity &amp; Magnetism</h2>
+<p>AP Physics C は独立した2つの試験で構成されます。当塾では1年間の受講プログラムでこの2領域を同時に攻略します。</p>
+<div class="grid-2">
+<div class="topic-card">
+<h4>AP Physics C: Mechanics（力学）</h4>
+<p>運動学、ニュートンの運動方程式、仕事とエネルギー（保存力とポテンシャル $F = -\frac{dU}{dx}$）、重心・運動量保存、回転運動（慣性モーメントの積分導出 $\int r^2 dm$）、単振動（SHM）、および万有引力。</p>
+</div>
+<div class="topic-card">
+<h4>AP Physics C: E&amp;M（電磁気学）</h4>
+<p>静電気学、ガウスの法則（対称性の利用）、電位と電場（$E = -\nabla V$）、コンデンサ・RLC回路の微分方程式、ビオ・サバールの法則、アンペールの法則、ファラデーの電磁誘導、マックスウェル方程式。</p>
+</div>
+</div>
+</section>
+<section class="content-section">
+<h2>4. 受講生のプログレス：理数ポートフォリオを「完全完成」させる</h2>
+<p>CS A、Statistics、Calculus BCなどのAPスコアを早期から積み上げてきた受講生A君は、本プログラムのクライマックスである AP Physics C に挑みます。</p>
+<div class="feature-box" style="border-left: 4px solid var(--accent-purple);">
+<div class="feature-title" style="color:var(--accent-purple);">理数系最難関突破後のゴールイメージ</div>
+<p style="margin-bottom:0; font-size:0.95rem; line-height:1.8;">
+          ・<strong>5月本試験:</strong> AP Physics C: Mechanics および E&amp;M の双方で <strong>Score 5 獲得</strong><br/>
+          ・<strong>ポートフォリオの完成:</strong> 出願で要求されるAP理数最難関4科目（CS A / Stats / Calc BC / Physics C）がすべてScore 5で完全完結。<br/>
+<span style="color:var(--accent-blue); font-weight:700;">➔ 出願前の貴重な時間を、課外活動、研究プロジェクト、SAT/ACT対策、および大学出願エッセイ執筆に100%投入できる絶対的アドバンテージが確立されます。</span>
+</p>
+</div>
+</section>
+<section class="content-section">
+<h2>5. AP Physics Cに関するQ&amp;A</h2>
+<div class="faq-item">
+<div class="faq-q">Q. AP Physics 1や2を受験せずに、いきなりAP Physics C（Mechanics / E&amp;M）を受験できますか？</div>
+<div class="faq-a">完全に可能です。AP Physics 1/2は代数ベース（Algebra-based）であり、現象の背景にある物理法則を公式の力まかせで覚える必要があります。一方、AP Calculus BC（微積分）を修了している生徒にとって、微積分ベース（Calculus-based）のPhysics Cは、運動方程式や電磁気モデルを数式から直接導出できるため、むしろ概念的理解が格段に容易になります。</div>
+</div>
+<div class="faq-item">
+<div class="faq-q">Q. AP Physics Cの記述式問題（FRQ）で、微分方程式の導出において減点される主な原因は何ですか？</div>
+<div class="faq-a">College Boardの採点基準（Rubric）では、ニュートンの第二法則（$F_{net} = ma$）やキルヒホッフの法則からの立式段階（Differential Equationの構築）、変数分離（Separation of Variables）、および初期条件（Boundary / Initial Conditions）を用いた積分定数 C の特定プロセスが個別に点数化されています。途中式を跳ね飛ばして最終公式だけを書いても点数は与えられません。</div>
+</div>
+</section>
+</div>
+<!-- 次ステップ導線（全体ロードマップへ） -->
+<div class="container">
+<div class="next-step-container">
+<div class="next-step-card">
+<div class="next-step-label">NEXT ROADMAP STEP</div>
+<h3 class="next-step-title">学年別 戦略ロードマップへ進む ➔</h3>
+<p class="next-step-desc">学年別ロードマップと、再受験枠を活用したスコア底上げ戦略の全貌を再確認。</p>
+<a class="next-step-button" href="/g7-roadmap/">全体ロードマップを見る</a>
+</div>
+</div>
+</div>
+<!-- 全ページ共通 Footer -->
+<footer class="site-footer">
+<div class="container">
+<div class="footer-grid">
+<div class="footer-brand">
+<div class="footer-logo"><span class="logo-accent">AP</span> STEM PATH</div>
+<p class="footer-desc">戦略的AP受験。リカバリー設計と専門指導でG11までに理数最難関4科目のScore 5完全制覇を目指します。</p>
+</div>
+<div class="footer-col">
+<div class="footer-heading">ロードマップ &amp; 概要</div>
+<ul>
+<li><a href="/">トップページ</a></li>
+<li><a href="/g7-roadmap/">学年別ロードマップ</a></li>
+<li><a href="/ap-simulator/">ロードマップ診断</a></li>
+<li><a href="/results/">実績・スコア推移</a></li>
+<li><a href="/pricing/">料金案内</a></li>
+<li><a href="/about/">代表講師</a></li>
+<li><a href="/contact/">無料相談・お問い合わせ</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<div class="footer-heading">AP 理数4科目 専科</div>
+<ul>
+<li><a href="/ap-computer-science-a/">AP CS A (Java)</a></li>
+<li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
+<li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+<li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
+              <li><a href="/guides/">AP STEM Guides (学習ガイド)</a></li>
+          <li><a href="/calculator/">学費節約シミュレーター</a></li>
+          </ul>
+</div>
+</div>
+<div class="footer-bottom">
+<p>© 2026 AP STEM PATH  All rights reserved.</p>
+</div>
+</div>
+</footer>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggleBtn = document.querySelector('.nav-menu-toggle');
+      const mainNav = document.querySelector('.main-nav');
+      if (toggleBtn && mainNav) {
+        toggleBtn.addEventListener('click', function() {
+          mainNav.classList.toggle('is-active');
+        });
+      }
+    });
+  </script>
+</body>
+</html>

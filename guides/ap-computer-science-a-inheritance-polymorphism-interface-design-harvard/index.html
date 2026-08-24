@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inheritance, Abstract Classes & Dynamic Method Dispatch Guide: AP Computer Science A Score 5 for Harvard University | AP STEM PATH</title>
+  <meta name="description" content="Master Inheritance, Abstract Classes & Dynamic Method Dispatch in AP Computer Science A. Deep dive with LaTeX/code examples and score 5 strategies tailored for Harvard University applicants.">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- AP STEM PATH 公式デザインシステム完全準拠 CSS -->
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー・ナビゲーション（本体完全一致） */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue, #38bdf8); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover { color: var(--accent-blue, #38bdf8); }
+    .nav-menu a.active { color: var(--accent-blue, #38bdf8); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue, #38bdf8); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 230px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue, #38bdf8); }
+    .dropdown-content a.active { color: var(--accent-blue, #38bdf8); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan, #38bdf8);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-cta-nav:hover { opacity: 0.9; }
+
+    /* 記事メインコンテナ */
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .article-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+    }
+
+    /* 本文スタイル */
+    .content h2 {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 2.2em;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 14px;
+    }
+    .content h3 { color: #e2e8f0; font-size: 1.2rem; margin-top: 1.6em; }
+    .content p, .content li { color: #cbd5e1; font-size: 1.05rem; }
+    .content strong { color: #fff; }
+    .content ul, .content ol { padding-left: 24px; margin: 16px 0; }
+    .content li { margin-bottom: 8px; }
+    .content pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin: 20px 0;
+    }
+    .content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--accent-blue);
+    }
+    .content pre code { background: transparent; padding: 0; color: inherit; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(17, 27, 51, 0.95) 0%, rgba(7, 13, 30, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .cta-card h2 { border: none; padding: 0; color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .cta-card p { color: var(--text-muted); max-width: 600px; margin: 0 auto 24px auto; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    /* 共通フッター（本体完全一致・3カラム） */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Inheritance, Abstract Classes & Dynamic Method Dispatch Guide: AP Computer Science A Score 5 for Harvard University",
+    "description": "Master Inheritance, Abstract Classes & Dynamic Method Dispatch in AP Computer Science A. Deep dive with LaTeX/code examples and score 5 strategies tailored for Harvard University applicants.",
+    "author": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH"
+    },
+    "publisher": {
+      "@type": "EducationalOrganization",
+      "name": "AP STEM PATH",
+      "url": "https://apstempath.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（本体完全同期） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="https://apstempath.com/">Home</a></li>
+        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
+        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
+            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
+            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 記事メインコンテンツ -->
+  <main class="container">
+    <header class="article-header">
+      <span class="badge">Computer Science A • Score 5 Strategy</span>
+      <h1>Inheritance, Abstract Classes & Dynamic Method Dispatch Guide: AP Computer Science A Score 5 for Harvard University</h1>
+    </header>
+
+    <div class="content">
+      <h1>AP Computer Science A: Inheritance, Abstract Classes &amp; Dynamic Method Dispatch</h1>
+<p><strong>Target Institution:</strong> Harvard University (SEAS Acceleration Track into CS 51)<br />
+<strong>Goal:</strong> Master Score 5 Rigor &amp; Architectural Design Strategy  </p>
+<hr />
+<h2>1. Introduction &amp; AP Exam Weight</h2>
+<p>In the AP Computer Science A curriculum, <strong>Unit 9: Inheritance</strong> accounts for <strong>10–15%</strong> of the Multiple-Choice section and serves as a primary foundation for the Free-Response Questions (specifically FRQ 1 and FRQ 3/4, which evaluate Object-Oriented Design and Array/ArrayList manipulations of polymorphic objects).</p>
+<p>However, achieving a top score requires moving beyond simple syntax memorization. You must develop a precise execution model of the Java Virtual Machine (JVM). Dynamic Method Dispatch, reference type mechanics, polymorphism, and class hierarchies are not merely AP topics—they represent the fundamental building blocks of software architecture. </p>
+<h3>Placement &amp; Strategic Context: Harvard SEAS</h3>
+<p>At Harvard University, demonstrating mastery of these concepts on the AP Computer Science A exam (achieving a Score of 5) provides an exemption from introductory programming requirements. This path allows direct placement into <strong>CS 51: Abstraction and Design in Computation</strong>. CS 51 transitions students from object-oriented subtyping in Java to functional programming paradigms, abstract data types, structural subtyping, and module systems in OCaml. </p>
+<p>To prove readiness for CS 51, your code must demonstrate clear abstraction boundaries, proper subtyping logic, and zero runtime reference errors.</p>
+<hr />
+<h2>2. Deep Concept Breakdown</h2>
+<h3>A. The Formal Subtyping and Type Systems Rules</h3>
+<p>Let $T_{\text{compile}}$ denote the <strong>Declared (Compile-Time) Type</strong> of a reference variable, and $T_{\text{runtime}}$ denote the <strong>Actual (Run-Time) Type</strong> of the object instantiated on the heap.</p>
+<p>$$\text{Variable Declaration: } T_{\text{compile}} \ \text{obj} = \text{new } T_{\text{runtime}}();$$</p>
+<p>In Java’s static type system, the validity of assignment and method invocation is strictly governed by the subtype relation $\le$:</p>
+<ol>
+<li>
+<p><strong>Subtype Invariant (Liskov Substitution Principle):</strong>
+   An assignment $x = y$ is valid at compile time if and only if:
+   $$T_{\text{runtime}}(y) \le T_{\text{compile}}(x)$$
+   That is, $T_{\text{runtime}}$ must be the same class as, or a direct/indirect subclass of, $T_{\text{compile}}$.</p>
+</li>
+<li>
+<p><strong>Compile-Time Method Accessibility Check:</strong>
+   For a method call $\text{obj.method}(a_1, a_2, \dots, a_n)$, the compiler searches for a valid method signature $\text{method}(A_1, A_2, \dots, A_n)$ solely within $T_{\text{compile}}$ and its superclasses:
+   $$\text{HasMethod}(T_{\text{compile}}, \text{signature}) = \text{true}$$
+   If this condition is false, the compiler generates a <strong>Compile-Time Error</strong> (<code>cannot find symbol</code>), regardless of whether $T_{\text{runtime}}$ defines the method.</p>
+</li>
+<li>
+<p><strong>Run-Time Dynamic Method Dispatch Algorithm:</strong>
+   When executing $\text{obj.method}(a_1, a_2, \dots, a_n)$ at runtime:</p>
+</li>
+<li>The JVM inspects the memory header of the instance on the Heap to determine $T_{\text{runtime}}$.</li>
+<li>The JVM searches for the method implementation starting at $T_{\text{runtime}}$:
+     $$\text{Dispatch}(T_{\text{runtime}}, \text{signature}) = \begin{cases} 
+     \text{Execute } M_{T_{\text{runtime}}} &amp; \text{if } \text{Overridden}(T_{\text{runtime}}, \text{signature}) \
+     \text{Dispatch}(\text{Superclass}(T_{\text{runtime}}), \text{signature}) &amp; \text{otherwise}
+     \end{cases}$$</li>
+</ol>
+<hr />
+<h3>B. Class Hierarchies, Abstract Classes, and Execution Memory Layout</h3>
+<p>An <strong>Abstract Class</strong> defines an incomplete type that cannot be instantiated directly via <code>new</code>. It enforces an API contract across subclasses while permitting shared implementation code.</p>
+<p><em>Note on the AP Java Subset:</em> While direct authoring of <code>abstract</code> classes is lightly tested on the AP exam compared to concrete class extension, understanding abstract class hierarchies is critical for conceptual questions, advanced object modeling, and college placement equivalence.</p>
+<pre><code>       +-------------------+
+       |   BaseDataFilter  |  &lt;-- Abstract Class (Cannot be instantiated)
+       +-------------------+
+                 ^
+                 | extends
+       +-------------------+
+       | HighPassFilter    |  &lt;-- Concrete Subclass (Must implement abstract methods)
+       +-------------------+
+</code></pre>
+<h4>Heap and Stack Memory Topology</h4>
+<p>Consider the execution of:</p>
+<pre><code class="language-java">BaseDataFilter filter = new HighPassFilter(0.75);
+filter.process();
+</code></pre>
+<pre><code>STACK FRAME                                 HEAP MEMORY
++------------------------+                  +-----------------------------------+
+| filter                 |                  | HighPassFilter Instance           |
+| (Type: BaseDataFilter) |---------------&gt;  |-----------------------------------|
++------------------------+                  | Header: Class metadata pointer    |
+                                            |   --&gt; Points to HighPassFilter.class  |
+                                            | Fields:                           |
+                                            |   double threshold = 0.75         |
+                                            +-----------------------------------+
+</code></pre>
+<hr />
+<h3>C. Concrete Java Implementation: Mechanics of Dispatch &amp; Constructor Chaining</h3>
+<p>Below is a complete, syntactically precise Java implementation demonstrating abstract classes, constructor chaining via <code>super</code>, explicit casting, and dynamic method dispatch.</p>
+<pre><code class="language-java">/**
+ * Abstract class representing a general data processing node.
+ * Demonstrates state encapsulation and abstract method contracts.
+ */
+public abstract class DataProcessor {
+    private String processorId;
+
+    public DataProcessor(String processorId) {
+        // Explicit super() to Object occurs implicitly if omitted
+        this.processorId = processorId;
+    }
+
+    public String getProcessorId() {
+        return processorId;
+    }
+
+    /**
+     * Abstract method contract. Subclasses MUST override this method 
+     * unless they are also declared as abstract.
+     */
+    public abstract double processData(double input);
+
+    public void logAndProcess(double rawValue) {
+        // Dynamic method dispatch executes the subclass implementation 
+        // of processData at runtime.
+        double result = processData(rawValue);
+        System.out.println(&quot;Processor [&quot; + processorId + &quot;] Output: &quot; + result);
+    }
+}
+
+/**
+ * Concrete Subclass 1: Implements thresholding logic.
+ */
+public class ThresholdFilter extends DataProcessor {
+    private double cutoff;
+
+    public ThresholdFilter(String id, double cutoff) {
+        super(id); // Execution Step 1: Pass control to superclass constructor first
+        this.cutoff = cutoff;
+    }
+
+    @Override
+    public double processData(double input) {
+        if (input &lt; cutoff) {
+            return 0.0;
+        }
+        return input;
+    }
+
+    // Subclass-specific method NOT declared in DataProcessor
+    public void setCutoff(double newCutoff) {
+        this.cutoff = newCutoff;
+    }
+}
+</code></pre>
+<hr />
+<h2>3. Common AP Exam Pitfalls &amp; Score 5 Scoring Rubric Nuances</h2>
+<h3>Crucial Pitfalls That Separate Score 4 from Score 5</h3>
+<h4>Pitfall 1: Attempting to Invoke Subclass-Specific Methods via Supertype References</h4>
+<pre><code class="language-java">DataProcessor proc = new ThresholdFilter(&quot;TF-101&quot;, 5.0);
+proc.setCutoff(10.0); // COMPILE-TIME ERROR!
+</code></pre>
+<ul>
+<li><strong>Why it fails:</strong> $T_{\text{compile}}$ is <code>DataProcessor</code>. The compiler checks if <code>setCutoff(double)</code> exists in <code>DataProcessor</code>. Because it does not, compilation fails—even though $T_{\text{runtime}}$ (<code>ThresholdFilter</code>) possesses the method.</li>
+<li><strong>The Fix:</strong> Explicit downcasting with compile-time type verification:
+  <code>java
+  if (proc instanceof ThresholdFilter) {
+      ((ThresholdFilter) proc).setCutoff(10.0);
+  }</code></li>
+</ul>
+<h4>Pitfall 2: Implicit Constructor Call Failures (<code>super()</code>)</h4>
+<p>If a superclass defines a custom constructor with parameters and does <em>not</em> explicitly provide a no-argument constructor, any subclass constructor that omits <code>super(...)</code> will trigger a compilation error.</p>
+<pre><code class="language-java">public class Base {
+    public Base(int x) { ... }
+}
+
+public class Sub extends Base {
+    public Sub() {
+        // Java implicitly inserts super(); 
+        // COMPILE ERROR: Base() constructor is undefined!
+    }
+}
+</code></pre>
+<h4>Pitfall 3: Overriding vs. Overloading Signature Misunderstandings</h4>
+<ul>
+<li><strong>Overriding:</strong> Same method name, <strong>exact same parameter signature</strong>, same or covariant return type. Triggers <strong>Dynamic Method Dispatch</strong>.</li>
+<li><strong>Overloading:</strong> Same method name, <strong>different parameter signature</strong>. Resolved entirely at <strong>Compile-Time</strong>.</li>
+</ul>
+<pre><code class="language-java">public class Parent {
+    public void compute(double x) { System.out.println(&quot;Parent&quot;); }
+}
+
+public class Child extends Parent {
+    // Overloads, DOES NOT override!
+    public void compute(int x) { System.out.println(&quot;Child&quot;); } 
+}
+
+Parent obj = new Child();
+obj.compute(5.0); // Prints &quot;Parent&quot; because compute(double) is invoked!
+</code></pre>
+<hr />
+<h3>Score 4 vs. Score 5 AP Rubric Comparison</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Evaluation Category</th>
+<th style="text-align: left;">Score 4 Performance</th>
+<th style="text-align: left;">Score 5 Rigorous Performance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Polymorphic Arrays/ArrayLists</strong></td>
+<td style="text-align: left;">Loops through collections using explicit downcasts without checking type bounds, risking runtime exceptions.</td>
+<td style="text-align: left;">Iterates cleanly through base-type references, relying entirely on dynamic method dispatch without unsafe downcasting.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Encapsulation in Subclasses</strong></td>
+<td style="text-align: left;">Directly accesses superclass fields or attempts to modify <code>private</code> superclass variables directly.</td>
+<td style="text-align: left;">Uses explicit getter/setter mechanisms or calls <code>super(...)</code> constructors to preserve strict abstraction boundaries.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Constructor Mechanics</strong></td>
+<td style="text-align: left;">Forgets <code>super(...)</code> calls when superclass lacks default constructors, breaking compilation chains.</td>
+<td style="text-align: left;">Perfectly constructs object inheritance chains, placing <code>super(...)</code> strictly as the first line in subclass constructors.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Type Checking Diagnostics</strong></td>
+<td style="text-align: left;">Confuses compile-time scope checks with runtime exception behavior in MCQ tracing problems.</td>
+<td style="text-align: left;">Instantly differentiates between static type checking failures (<code>cannot find symbol</code>) and dynamic runtime failures (<code>ClassCastException</code>).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. Harvard University Placement Pathway</h2>
+<h3>Transitioning from Java OOP (AP CS A) to CS 51 (Harvard SEAS)</h3>
+<p>At Harvard SEAS, passing the AP CS A exam with a 5 allows you to fulfill introductory programming requirements and enter <strong>CS 51: Abstraction and Design in Computation</strong>. CS 51 introduces key functional design patterns that directly build on Java's dynamic dispatch model:</p>
+<pre><code>[ AP CS A: Java Nominal Subtyping ] 
+   └── Subclassing (`extends`)
+   └── Dynamic Method Dispatch (Runtime Method Lookup Table)
+        │
+        ▼  Transforming Object Design into Functional Paradigms
+[ Harvard CS 51: Abstraction &amp; Design ]
+   └── Structural Subtyping &amp; Parametric Polymorphism
+   └── OCaml Abstract Data Types (ADTs) &amp; Pattern Matching
+   └── First-Class Functions as Dispatch Mechanisms
+</code></pre>
+<h3>Key Conceptual Connections:</h3>
+<ol>
+<li>
+<p><strong>Nominal Subtyping vs. Parametric Polymorphism:</strong>
+   In Java (AP CS A), polymorphism is <em>nominal</em> (based on explicit class declarations: <code>class Sub extends Super</code>). In CS 51, you will evaluate <em>parametric polymorphism</em> and <em>structural subtyping</em>, where types are matched based on signatures and structural compatibility rather than explicit inheritance trees.</p>
+</li>
+<li>
+<p><strong>Dynamic Dispatch vs. Pattern Matching:</strong>
+   Dynamic method dispatch in Java delegates runtime decision-making to the instance's type:
+   <code>java
+   // Java Dynamic Dispatch
+   shape.draw(); // Action depends on whether shape is Circle, Square, etc.</code>
+   In CS 51, you will implement this same abstraction using algebraic data types and structural pattern matching in OCaml:
+   ```ocaml
+   (<em> OCaml Functional Equivalent in CS 51 </em>)
+   type shape = Circle of float | Square of float</p>
+</li>
+</ol>
+<p>let draw s = match s with
+     | Circle r -&gt; draw_circle r
+     | Square w -&gt; draw_square w
+   ```</p>
+<ol>
+<li><strong>Abstraction Barriers:</strong>
+   Understanding class encapsulation (<code>private</code>/<code>protected</code> access) prepares you for the formal abstraction barriers enforced by module interfaces (<code>sig ... end</code>) in CS 51.</li>
+</ol>
+<hr />
+<h2>5. High-Yield Practice Problem &amp; Step-by-Step Solution Checklist</h2>
+<h3>Free-Response Question Scenario</h3>
+<p>Design an analytics tracking system for an automated trading engine.</p>
+<ol>
+<li>Create an abstract base class <code>TradingStrategy</code> containing:</li>
+<li>A <code>private String strategyId</code> field.</li>
+<li>A constructor initializing <code>strategyId</code>.</li>
+<li>A getter method <code>getStrategyId()</code>.</li>
+<li>
+<p>An abstract method <code>evaluateSignal(double marketPrice)</code> returning a <code>String</code> ("BUY", "SELL", or "HOLD").</p>
+</li>
+<li>
+<p>Create a concrete subclass <code>MomentumStrategy</code> extending <code>TradingStrategy</code>:</p>
+</li>
+<li>A <code>private double targetPrice</code> field.</li>
+<li>A constructor taking <code>(String strategyId, double targetPrice)</code>.</li>
+<li>
+<p>An implementation of <code>evaluateSignal</code>:</p>
+<ul>
+<li>Returns <code>"BUY"</code> if <code>marketPrice &lt; targetPrice * 0.95</code></li>
+<li>Returns <code>"SELL"</code> if <code>marketPrice &gt; targetPrice * 1.05</code></li>
+<li>Returns <code>"HOLD"</code> otherwise.</li>
+</ul>
+</li>
+<li>
+<p>Complete the client class method <code>PortfolioManager.executeAll</code>:</p>
+</li>
+<li>Iterates through an <code>ArrayList&lt;TradingStrategy&gt;</code>, evaluates signals against a given <code>currentPrice</code>, and returns an array of strings containing execution records formatted as: <code>"[strategyId] -&gt; [SIGNAL]"</code>.</li>
+</ol>
+<hr />
+<h3>Canonical Solution</h3>
+<pre><code class="language-java">import java.util.ArrayList;
+
+// Part 1: Abstract Base Class
+public abstract class TradingStrategy {
+    private String strategyId;
+
+    public TradingStrategy(String strategyId) {
+        this.strategyId = strategyId;
+    }
+
+    public String getStrategyId() {
+        return strategyId;
+    }
+
+    public abstract String evaluateSignal(double marketPrice);
+}
+
+// Part 2: Concrete Subclass
+public class MomentumStrategy extends TradingStrategy {
+    private double targetPrice;
+
+    public MomentumStrategy(String strategyId, double targetPrice) {
+        super(strategyId); // Required call to superclass constructor
+        this.targetPrice = targetPrice;
+    }
+
+    @Override
+    public String evaluateSignal(double marketPrice) {
+        if (marketPrice &lt; targetPrice * 0.95) {
+            return &quot;BUY&quot;;
+        } else if (marketPrice &gt; targetPrice * 1.05) {
+            return &quot;SELL&quot;;
+        } else {
+            return &quot;HOLD&quot;;
+        }
+    }
+}
+
+// Part 3: Client Processing Class
+public class PortfolioManager {
+
+    /**
+     * Evaluates all strategies polymorphically using dynamic method dispatch.
+     */
+    public static String[] executeAll(ArrayList&lt;TradingStrategy&gt; strategies, double currentPrice) {
+        String[] results = new String[strategies.size()];
+
+        for (int i = 0; i &lt; strategies.size(); i++) {
+            TradingStrategy strat = strategies.get(i);
+
+            // Dynamic Method Dispatch: Dispatches to actual runtime subclass implementation
+            String signal = strat.evaluateSignal(currentPrice); 
+
+            results[i] = strat.getStrategyId() + &quot; -&gt; &quot; + signal;
+        }
+
+        return results;
+    }
+}
+</code></pre>
+<hr />
+<h3>Scoring Rubric &amp; Grading Checklist</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Points</th>
+<th style="text-align: left;">Scoring Criterion</th>
+<th style="text-align: left;">Implementation Detail Inspected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>1 pt</strong></td>
+<td style="text-align: left;"><strong>Header &amp; Extension</strong></td>
+<td style="text-align: left;"><code>public class MomentumStrategy extends TradingStrategy</code> correctly formed.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>1 pt</strong></td>
+<td style="text-align: left;"><strong>Constructor Chaining</strong></td>
+<td style="text-align: left;">Subclass constructor explicitly calls <code>super(strategyId)</code> as its <strong>first</strong> execution line.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>1 pt</strong></td>
+<td style="text-align: left;"><strong>Private Field Encapsulation</strong></td>
+<td style="text-align: left;"><code>targetPrice</code> declared as <code>private double</code>. No superclass private variables accessed directly.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>1 pt</strong></td>
+<td style="text-align: left;"><strong>Abstract Method Implementation</strong></td>
+<td style="text-align: left;"><code>@Override public String evaluateSignal(double marketPrice)</code> implemented with exact signature matching.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>1 pt</strong></td>
+<td style="text-align: left;"><strong>Correct Mathematical Logic</strong></td>
+<td style="text-align: left;">Bounds checked using correct thresholds (<code>* 0.95</code> and <code>* 1.05</code>) returning correct strings.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>1 pt</strong></td>
+<td style="text-align: left;"><strong>Array Initialization</strong></td>
+<td style="text-align: left;"><code>results</code> initialized to correct length <code>strategies.size()</code>.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>1 pt</strong></td>
+<td style="text-align: left;"><strong>Polymorphic Dispatch Loop</strong></td>
+<td style="text-align: left;">Loops through <code>ArrayList</code> using <code>get(i)</code> or enhanced <code>for</code> loop, calling <code>evaluateSignal</code> on abstract base reference type.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>1 pt</strong></td>
+<td style="text-align: left;"><strong>String Formatting &amp; Return</strong></td>
+<td style="text-align: left;">Correctly concatenates <code>getStrategyId() + " -&gt; " + signal</code> into string output array.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>6. Execution Model Summary Strategy for AP CSA Success</h2>
+<p>To achieve a 5 on the AP Exam and prepare for acceleration at top universities:</p>
+<p>$$\text{Declared Type } (T_{\text{compile}}) \implies \text{Validates Method Existence at Compile Time}$$</p>
+<p>$$\text{Actual Instance Type } (T_{\text{runtime}}) \implies \text{Determines Actual Executed Method Implementation at Run Time}$$</p>
+<ol>
+<li><strong>When evaluating static compilation:</strong> Look <em>only</em> at $T_{\text{compile}}$. If the method isn't declared there or in its superclasses, trigger a compile error.</li>
+<li><strong>When evaluating runtime execution:</strong> Look <em>only</em> at $T_{\text{runtime}}$. Follow the class hierarchy upward until you find the dynamic override, then execute that method implementation.</li>
+</ol>
+    </div>
+
+    <!-- CTAエリア -->
+    <section class="cta-card">
+      <h2>Aiming for a Score 5 in Computer Science A?</h2>
+      <p>Secure admission and advanced standing at top institutions like Harvard University with elite 1-on-1 AP STEM mentorship.</p>
+      <a href="https://apstempath.com/contact/" class="cta-btn">無料相談・学習プラン診断</a>
+    </section>
+  </main>
+
+  <!-- 共通フッター（本体完全同期） -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ & 概要</h4>
+        <ul>
+          <li><a href="https://apstempath.com/">トップページ</a></li>
+          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
+          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
+          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
+          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
+          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
+          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
+          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
