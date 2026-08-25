@@ -241,6 +241,180 @@
       .grid-2, .grid-4 { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr; gap: 24px; }
     }
+
+    /* --- ROI & Acceleration Section Styles --- */
+    .roi-section {
+      background: radial-gradient(circle at 50% 0%, #111e38 0%, #070d1e 100%);
+      padding: 80px 0;
+      border-top: 1px solid rgba(56, 189, 248, 0.15);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.15);
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .section-title {
+      font-size: 2rem;
+      line-height: 1.35;
+      margin-bottom: 18px;
+      color: #fff;
+    }
+    .text-cyan { color: var(--accent-blue); }
+    .section-sub {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .roi-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin: 40px 0 50px;
+    }
+    .roi-card {
+      background: #0d162d;
+      border: 1px solid #1e293b;
+      border-radius: 14px;
+      padding: 28px 22px;
+      position: relative;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .roi-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(56, 189, 248, 0.5);
+    }
+    .roi-card.featured {
+      background: linear-gradient(180deg, #112247 0%, #0d162d 100%);
+      border-color: rgba(56, 189, 248, 0.4);
+      box-shadow: 0 15px 35px -10px rgba(56, 189, 248, 0.2);
+    }
+    .roi-badge {
+      position: absolute;
+      top: -12px;
+      right: 20px;
+      background: #38bdf8;
+      color: #070d1e;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      letter-spacing: 0.04em;
+    }
+    .roi-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+    .roi-card h3 {
+      font-size: 1.15rem;
+      color: #ffffff;
+      margin-bottom: 6px;
+      line-height: 1.4;
+      border-left: none;
+      padding-left: 0;
+    }
+    .roi-metric {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #38bdf8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+    .roi-desc {
+      color: #94a3b8;
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+    .roi-table-wrapper {
+      background: #0d162d;
+      border: 1px solid #1e293b;
+      border-radius: 14px;
+      padding: 30px;
+      margin-bottom: 40px;
+    }
+    .table-title {
+      text-align: center;
+      font-size: 1.3rem;
+      color: #fff;
+      margin-bottom: 24px;
+      border-left: none;
+      padding-left: 0;
+    }
+    .roi-compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    .roi-compare-table th,
+    .roi-compare-table td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .roi-compare-table th {
+      background: #070d1e;
+      color: #94a3b8;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .roi-compare-table .col-head {
+      font-weight: 700;
+      color: #f8fafc;
+      width: 22%;
+    }
+    .roi-compare-table .highlight-col {
+      background: rgba(56, 189, 248, 0.06);
+      color: #f8fafc;
+      border-left: 2px solid #38bdf8;
+      border-right: 2px solid #38bdf8;
+    }
+    .roi-compare-table th.highlight-col {
+      color: #38bdf8;
+      font-weight: 800;
+    }
+    .roi-cta-box {
+      background: linear-gradient(90deg, #111e3b 0%, #172a54 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 12px;
+      padding: 24px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    .roi-cta-content h4 {
+      font-size: 1.15rem;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .roi-cta-content p {
+      color: #94a3b8;
+      font-size: 0.88rem;
+      margin: 0;
+    }
+    .btn-lg {
+      padding: 12px 24px;
+      font-size: 0.95rem;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 960px) {
+      .roi-cards-grid { grid-template-columns: 1fr; }
+      .roi-cta-box { flex-direction: column; text-align: center; }
+      .roi-table-wrapper { padding: 16px 10px; }
+    }
   </style>
 <script type="application/ld+json">
 {
@@ -447,24 +621,108 @@
 </a>
 </div>
 </section>
-<!-- 復活セクション3：よくあるご質問（FAQ） -->
-<section class="content-section">
-<h2>よくあるご質問（FAQ）</h2>
-<div class="faq-item">
-<div class="faq-q">Q. 中1（G7）や中2（G8）からAP科目を受けるのは早すぎませんか？</div>
-<div class="faq-a">いいえ。タイピングと基礎的な論理思考力さえ身につければ、G7〜G8は概念をスムーズに吸収できる最高の時期です。早期にJavaや統計のロジックを身につけることで、その後の高度数学・物理の理解速度が何倍にも加速します。</div>
 </div>
-<div class="faq-item">
-<div class="faq-q">Q. 最初にScore 3や4だった場合、不合格ということになりますか？</div>
-<div class="faq-a">全く違います。Score 3以上はCollege Boardから大学単位として認定される十分な合格水準です。G7〜G8でScore 3〜4を確実に確保し、G11までに再受験でScore 5へ引き上げる「リカバリー前提設計」こそが当塾の最大の強みです。</div>
-</div>
-<div class="faq-item">
-<div class="faq-q">Q. G9（中3）やG10（高1）からの途中スタートでも間に合いますか？</div>
-<div class="faq-a">十分に間に合います。当塾ではG9スタート向けに目的別の3つのショートカット（コースX/Y/Z）や、G10スタート向けの最重要2科目（Calculus BC / Physics C）集中コースを用意しており、出願までに最適なポートフォリオを完成させることができます。</div>
-</div>
-</section>
-</div>
-<!-- 全ページ共通 Footer -->
+
+<!-- ========================================== -->
+  <!-- BEYOND ADMISSIONS: ROI & ACCELERATION SECTION -->
+  <!-- ========================================== -->
+  <section id="roi-advantage" class="section roi-section">
+    <div class="container">
+      <div class="section-header" style="text-align:center;">
+        <div class="badge-tag">Beyond Admissions • 圧倒的な投資対効果</div>
+        <h2 class="section-title" style="border-left:none;">合格は通過点に過ぎない。<br>理数4科目 Score 5がもたらす<span class="text-cyan">「大学4年間の真の勝ち筋」</span></h2>
+        <p class="section-sub">
+          APは単なる高校の成績や出願要件ではありません。G11までに理数最難関4科目のScore 5を制覇することは、
+          米名門大学進学後の<strong>「学費$50,000+削減」「4年一貫での修士号（BS/MS）取得」「学部1年次からの最先端研究・テック企業インターン」</strong>を決定づける強力なレバレッジとなります。
+        </p>
+      </div>
+
+      <!-- 3大インパクト カードグリッド -->
+      <div class="roi-cards-grid">
+        <div class="roi-card">
+          <div class="roi-icon">🎓</div>
+          <h3>4年間で「学士＋修士」を同時取得</h3>
+          <p class="roi-metric">4-Year Combined BS/MS (Coterminal)</p>
+          <p class="roi-desc">
+            大学1年次の必修STEM基礎科目（15〜30単位）が丸ごと免除されるため、4年間の学費のまま大学院修士課程（CS・AI・ロボティクス等）を修了。大学院の学費と2年分の時間を浮かせ、初任給レンジを最大化します。
+          </p>
+        </div>
+
+        <div class="roi-card featured">
+          <div class="roi-badge">最大 $60,000+ 削減</div>
+          <div class="roi-icon">💰</div>
+          <h3>1年早期卒業 &amp; 学費・生活費の大幅圧縮</h3>
+          <p class="roi-metric">Up to 1-Year Acceleration</p>
+          <p class="roi-desc">
+            UC BerkeleyやGeorgia Techなどの公立トップ校では、AP理数4科目で最大30単位以上が認定。実質3年（6セメスター）での早期卒業が可能になり、年間$40,000〜$60,000（約600〜900万円）の学費・滞在費を節約できます。
+          </p>
+        </div>
+
+        <div class="roi-card">
+          <div class="roi-icon">🚀</div>
+          <h3>学部1〜2年次からのUROP・大型インターン</h3>
+          <p class="roi-metric">Early Research &amp; Industry Leadership</p>
+          <p class="roi-desc">
+            1年次秋学期から多変数微積やデータ構造、量子・電磁気学に直行。通常は3年生以降となるトップ研究室（UROP）配属やシリコンバレー大手テック企業のCo-opインターンへ、1〜2年次の段階で最速参画します。
+          </p>
+        </div>
+      </div>
+
+      <!-- タイムライン比較テーブル -->
+      <div class="roi-table-wrapper">
+        <h3 class="table-title">通常ルート vs AP理数4科目完全制覇ルート</h3>
+        <div class="table-responsive">
+          <table class="roi-compare-table">
+            <thead>
+              <tr>
+                <th>比較項目</th>
+                <th>通常ルート（APなし / 不十分）</th>
+                <th class="highlight-col">AP理数4科目 Score 5 制覇ルート</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-head">大学1年次の履修</td>
+                <td>入門微積分・入門物理・入門Javaの消化で過密スケジュール</td>
+                <td class="highlight-col">多変数微積分（18.02等）・データ構造・電磁気学へ即時飛び級</td>
+              </tr>
+              <tr>
+                <td class="col-head">研究参画（UROP）</td>
+                <td>基礎固めのため学部3年次後半〜4年次から</td>
+                <td class="highlight-col"><strong>学部1年次秋〜2年次</strong>から教授のトップ研究室に配属</td>
+              </tr>
+              <tr>
+                <td class="col-head">大型テック・インターン</td>
+                <td>学部3年次の夏に初めて応募資格を得る</td>
+                <td class="highlight-col"><strong>学部2年次の夏</strong>からFAANG等の長期インターンへ参画</td>
+              </tr>
+              <tr>
+                <td class="col-head">4年間の最終到達度</td>
+                <td>学士号（Bachelor of Science）のみ取得</td>
+                <td class="highlight-col"><strong>学士号（BS）＋ 修士号（MS）を4年間で同時取得</strong></td>
+              </tr>
+              <tr>
+                <td class="col-head">学費・キャリアROI</td>
+                <td>4年分学費 ＋ 大学院学費（$60,000+）</td>
+                <td class="highlight-col"><strong>大学院学費を実質ゼロに抑え、米国就職・初任給で圧倒的優位</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- アクション誘導 -->
+      <div class="roi-cta-box">
+        <div class="roi-cta-content">
+          <h4>G7〜G11からの戦略設計で、大学進学後の4年間を決定づける</h4>
+          <p>現役生の学年・現在の数学/英語力から、米名門大でのBS/MS一貫取得を見据えた個別ロードマップを無料で策定します。</p>
+        </div>
+        <a href="/contact/" class="btn-primary btn-lg">無料ロードマップ相談はこちら &rarr;</a>
+      </div>
+
+    </div>
+  </section>
+
 <!-- AP STEM PATH: Credit & Tuition Savings Calculator Component -->
 <section id="savings-calculator" class="calc-section">
   <div class="calc-container">
@@ -1210,14 +1468,27 @@
 })();
 </script>
 
+<!-- よくあるご質問（FAQ）: シミュレーターの下・フッターの直前に配置 -->
+<section class="content-section">
+  <div class="container">
+    <h2>よくあるご質問（FAQ）</h2>
+    <div class="faq-item">
+      <div class="faq-q">Q. 中1（G7）や中2（G8）からAP科目を受けるのは早すぎませんか？</div>
+      <div class="faq-a">いいえ。タイピングと基礎的な論理思考力さえ身につければ、G7〜G8は概念をスムーズに吸収できる最高の時期です。早期にJavaや統計のロジックを身につけることで、その後の高度数学・物理の理解速度が何倍にも加速します。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Q. 最初にScore 3や4だった場合、不合格ということになりますか？</div>
+      <div class="faq-a">全く違います。Score 3以上はCollege Boardから大学単位として認定される十分な合格水準です。G7〜G8でScore 3〜4を確実に確保し、G11までに再受験でScore 5へ引き上げる「リカバリー前提設計」こそが当塾の最大の強みです。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Q. G9（中3）やG10（高1）からの途中スタートでも間に合いますか？</div>
+      <div class="faq-a">十分に間に合います。当塾ではG9スタート向けに目的別の3つのショートカット（コースX/Y/Z）や、G10スタート向けの最重要2科目（Calculus BC / Physics C）集中コースを用意しており、出願までに最適なポートフォリオを完成させることができます。</div>
+    </div>
+  </div>
+</section>
 
-
-
-
-
-
-
-  <footer class="site-footer">
+<!-- 全ページ共通 Footer -->
+<footer class="site-footer">
 <div class="container">
 <div class="footer-grid">
 <div class="footer-brand">
