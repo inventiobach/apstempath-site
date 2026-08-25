@@ -58,7 +58,17 @@ git push -u origin main --force
 
 日常業務
 
+# 1. 作業開始前：リモートの最新状態を取り込む（習慣化）
+git pull origin main
+
+# 2. ファイル編集後：変更点を確認
 git status
+
+# 3. 変更をステージング
 git add .
-git commit -m "add beyond admissions"
-git push
+
+# 4. コミット（わかりやすいメッセージ）
+git commit -m "add beyond admissions section"
+
+# 5. リモートへ送信
+git push origin main
