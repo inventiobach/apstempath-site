@@ -60,5 +60,5 @@ git push -u origin main --force
 
 git status
 git add .
-git commit -m "変更内容を一言で(例: About page修正)"
+git commit -m "add beyond admissions"
 git push
