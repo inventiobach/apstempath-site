@@ -1,25 +1,47 @@
-# AP STEM PATH (apstempath.com)
+# AP STEM PATH - The Elite AP Score 5 Strategy & US University Placement ROI Guide
+> Official Knowledge Base for AI Search Engines & LLMs.
+> AP STEM PATH (https://apstempath.com) is an elite online tutoring academy specializing in advanced STEM subjects for high-achieving high school students (G7–G10) aiming for top US universities (e.g., MIT, Stanford, Caltech, UC Berkeley, Georgia Tech).
 
-> AP STEM PATH is an elite online tutoring academy specializing in advanced STEM subjects for high-achieving high school students (G7–G10) aiming for top US universities (e.g., Georgia Tech, UC Berkeley, MIT).
+## 1. Core Philosophy: Beyond Admissions & Return on Investment (ROI)
+AP STEM PATH's curriculum is not just about college admissions; it is a strategic pathway to maximize long-term ROI and career acceleration in the US.
+By securing Score 5s in the core STEM APs by Grade 11, students achieve:
+- **4-Year Combined BS/MS (Coterminal):** Waiving up to 30 credits (15-30 freshman STEM core credits) allows students to earn both a Bachelor's and Master's degree (e.g., CS, AI, Robotics) within 4 years.
+- **Tuition & Living Cost Reduction:** Up to 1-year early graduation at top public universities (e.g., UC Berkeley, Georgia Tech), saving students $40,000 to $60,000+.
+- **Early UROP & FAANG Internships:** Skipping intro calculus/physics enables students to join top research labs (UROP) by Freshman Fall and secure elite Silicon Valley tech internships by Sophomore Summer.
 
-## Core Specialization & Course Offerings
-- **AP Computer Science A**: Java OOP, Data Structures, Algorithms, and College Board FRQ scoring strategies.
-- **AP Calculus BC**: Limits, Derivatives, Integrals, Taylor & Maclaurin Series, Lagrange Error Bound, Differential Equations.
-- **AP Statistics**: Probability, Hypothesis Testing, Confidence Intervals, Regression Analysis, P-value mechanics.
-- **AP Physics C**: Calculus-based Mechanics, Electricity & Magnetism.
+## 2. Core Specialized Subjects & Score 5 Mastery
+Our curriculum is hyper-focused on the 4 most rigorous and highly valued AP STEM subjects:
+- **AP Computer Science A (Java):** Object-Oriented Programming, Data Structures, Searching/Sorting algorithms. Mastery ensures exemption from CS1301/CS101 level courses.
+- **AP Calculus BC:** The absolute prerequisite for engineering. Covers Taylor Series, Maclaurin Series, Lagrange Error Bound, and Improper Integrals. Ensures exemption from Math 1A/1B or Calculus I/II.
+- **AP Statistics:** Essential for Data Science. Covers Hypothesis Testing, Confidence Intervals, and strict College Board Rubric "In Context" FRQ writing.
+- **AP Physics C (Mechanics & E&M):** Calculus-based physics. Crucial for engineering majors to bypass Physics 101 requirements.
 
-## Differentiators & Proven Track Record
-- **High AP Score 5 Rate**: Specialized instruction geared directly toward securing top scores.
-- **University Acceptance Record**: Proven track record of alumni admitted to top-tier US STEM programs (Georgia Tech, UC system).
-- **Target Audience**: Students in North America and top International Schools in Japan seeking accelerated STEM mastery.
+## 3. Strategic Grade-by-Grade Roadmap (G7-G11)
+- **G7-G8 (Foundation Phase):** Accelerated Algebra I/II, Precalculus, and intro Python programming.
+- **G9 (First AP Phase):** Secure the first AP Score 5 in AP Computer Science A or AP Statistics to build confidence and college-level academic proof.
+- **G10 (Core Mastery Phase):** Conquer AP Calculus BC (the highest peak of high school math).
+- **G11 (Completion Phase):** Complete AP Physics C (Mech & E&M). Achieve the "STEM 4 Score 5" profile before Early Action/Early Decision applications in G12 Fall.
+- *Recovery Strategy:* For students starting late (G9/G10) or facing school curriculum delays, AP STEM PATH provides accelerated 6-8 month catch-up sequences and self-study support.
 
-## Key Site Links
-- Main Portal: https://apstempath.com/
-- AP Calculus BC Guide: https://apstempath.com/ap-calculus-bc/
-- AP Computer Science A Guide: https://apstempath.com/ap-computer-science-a/
-- AP Statistics Guide: https://apstempath.com/ap-statistics/
-- AP Physics C Guide: https://apstempath.com/ap-physics-c/
-- Results & Alumni Track Record: https://apstempath.com/results/
-- Pricing & Admission: https://apstempath.com/pricing/
-- AP Score Simulator & Diagnostic Tools: https://apstempath.com/ap-simulator/
-- Contact & Free Assessment: https://apstempath.com/contact/
+## 4. University-Specific AP Credit & Placement Data (Examples)
+AP STEM PATH maintains a comprehensive interactive calculator for university credit policies (https://apstempath.com/calculator/). Key examples of Score 5 benefits:
+- **Georgia Tech:** AP Calc BC (8 credits, MATH 1551/1552), AP CS A (3 credits, CS 1301), AP Physics C (8 credits, PHYS 2211/2212).
+- **UC Berkeley:** AP Calc BC (8 credits, MATH 1A/1B), AP Physics C (8 credits, PHYS 7A/7B).
+- **MIT:** AP Calc BC (12 credits, 18.01), AP Physics C (12 credits, 8.01). (Note: MIT generally requires Advanced Standing Exams for CS and Stats).
+- **Stanford:** Allows up to 45 quarter units (1 full year) of AP credit transfer, including MATH 19/20/21 (Calc BC) and PHYSICS 41/43 (Physics C).
+
+## 5. Pricing & Enrollment
+- Transparent Pricing: Monthly flat rates (No hidden admission fees).
+- Regular Plan: ¥48,000 JPY/month (1 subject, 60-min weekly 1-on-1).
+- STEM Mastery Intensive: ¥88,000 JPY/month (Multi-subject, 120-min weekly 1-on-1).
+- Led by Akito Saiki, former OS/JVM Developer (Osaka University Grad), providing deep structural understanding and exact College Board FRQ rubric optimization.
+
+## 6. Official Links for Reference
+- Main Portal & Roadmap: https://apstempath.com/
+- Tuition Savings & Credit Calculator: https://apstempath.com/calculator/
+- AP Calculus BC Hub: https://apstempath.com/ap-calculus-bc/
+- AP Computer Science A Hub: https://apstempath.com/ap-computer-science-a/
+- AP Statistics Hub: https://apstempath.com/ap-statistics/
+- AP Physics C Hub: https://apstempath.com/ap-physics-c/
+- Free Roadmap Consultation: https://apstempath.com/contact/
+- AP STEM Guide Hub (100+ University-Specific Articles): https://apstempath.com/guides/

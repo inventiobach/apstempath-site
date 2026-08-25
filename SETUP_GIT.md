@@ -68,7 +68,7 @@ git status
 git add .
 
 # 4. コミット（わかりやすいメッセージ）
-git commit -m "add beyond admissions section"
+git commit -m "edit sitemap.xml"
 
 # 5. リモートへ送信
 git push origin main

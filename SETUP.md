@@ -29,3 +29,7 @@ G-G474CNMCQT
 
   gtag('config', 'G-G474CNMCQT');
 </script>
+
+
+https://apstempath.com/sitemap.xml
+を入力し、[送信]をクリックする。
