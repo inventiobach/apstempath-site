@@ -68,7 +68,7 @@ git status
 git add .
 
 # 4. コミット（わかりやすいメッセージ）
-git commit -m "edit sitemap.xml"
+git commit -m "post to x"
 
 # 5. リモートへ送信
 git push origin main

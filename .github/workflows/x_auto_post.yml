@@ -1,0 +1,31 @@
+name: X Auto Post
+
+on:
+  workflow_dispatch: # GitHub画面から手動実行可能
+  # schedule:
+  #   - cron: '0 12 * * *' # 毎日日本時間21:00 (UTC 12:00) に定期実行する場合
+
+jobs:
+  tweet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install tweepy
+
+      - name: Run post script
+        env:
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_KEY_SECRET: ${{ secrets.X_API_KEY_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+        run: |
+          python scripts/post_to_x.py
