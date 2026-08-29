@@ -1,12 +1,6 @@
 [
   {
     "id": 1,
-<<<<<<< HEAD
-    "text": "【米トップ大 × AP戦略】\nCMU・MIT・UC Berkeley等の名門校はAP Calculus BCのスコア「5」を単なる通過点として見ます。\n\n高校早期に微積分を修了し、何で差をつけるべきか？戦略マップを公開中👇\nhttps://apstempath.com/",
-    "posted": true,
-    "posted_at": "2026-08-28 11:32:53 JST",
-    "tweet_id": "2093164888059437309"
-=======
     "slug": "ap-calculus-bc-lagrange-error-bound-taylor-series-mit",
     "university": "MIT",
     "subject": "Calculus BC",
@@ -19,7 +13,6 @@
     "posted": true,
     "posted_at": "2026-08-28 11:30:00 JST",
     "first_tweet_id": null
->>>>>>> 208194c (post to x auto all)
   },
   {
     "id": 2,
