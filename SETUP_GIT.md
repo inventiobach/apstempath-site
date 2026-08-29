@@ -72,3 +72,23 @@ git commit -m "post to x auto all"
 
 # 5. リモートへ送信
 git push origin main
+
+
+---
+
+今後の手順
+
+Step 1: 作業前に最新状態を取り込む（必須）
+git pull origin main
+
+Step 2: ファイルの編集とコミット
+git add .
+git commit -m "ここにコミットメッセージ"
+
+Step 3: GitHubへプッシュ
+git push origin main
+
+
+（参考）もしプッシュが弾かれた場合
+git pull --rebase origin main
+git push origin main
