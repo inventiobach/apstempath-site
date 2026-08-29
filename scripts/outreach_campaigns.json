@@ -1,0 +1,25 @@
+[
+  {
+    "id": "report-georgia-tech-calc-bc",
+    "subject": "【プレス・教育レポート】ジョージア工科大（Georgia Tech）におけるAP Calculus BC単位免除と学費900万削減戦略",
+    "target_group": "press_education",
+    "university": "Georgia Tech",
+    "headline": "AP Calculus BC「Score 5」で工学部数学6単位を即免除。学部1年次からの研究・インターン参画モデル",
+    "summary_bullets": [
+      "Math 1551/1552（計6単位）の免除により初学期から線形代数（Math 1554）へ飛び級",
+      "最大1年分の単位充当で学費・生活費を約600〜900万円圧縮、または4年一貫BS/MS（修士取得）へ直結",
+      "G7〜G10からの早期数学トラック設計により、一発勝負を回避するリカバリー再受験枠を確保"
+    ],
+    "link_url": "https://apstempath.com/guides/ap-calculus-bc-improper-integrals-series-convergence-georgia-tech/",
+    "calculator_url": "https://apstempath.com/calculator/",
+    "status": "ready",
+    "sent_at": null,
+    "recipients": [
+      {
+        "name": "ご担当者",
+        "email": "inventio.bach@gmail.com",
+        "sent": false
+      }
+    ]
+  }
+]

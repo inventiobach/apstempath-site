@@ -1,0 +1,40 @@
+name: Programmatic Outreach Pipeline
+
+on:
+  workflow_dispatch: # 管理画面からの手動実行
+  schedule:
+    # 毎週月曜 日本時間 10:00 (UTC 01:00) に自動配信チェック
+    - cron: '0 1 * * 1'
+
+permissions:
+  contents: write
+
+jobs:
+  outreach:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install resend
+
+      - name: Run outreach script
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+        run: |
+          python scripts/send_outreach.py
+
+      - name: Commit and push tracking changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add scripts/outreach_campaigns.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto: Update outreach status [skip ci]" && git push)
