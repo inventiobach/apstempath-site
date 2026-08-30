@@ -12,14 +12,13 @@
     ],
     "link_url": "https://apstempath.com/guides/ap-calculus-bc-improper-integrals-series-convergence-georgia-tech/",
     "calculator_url": "https://apstempath.com/calculator/",
-    "status": "sent",
-    "sent_at": "2026-08-29 16:07:58 JST",
+    "status": "ready",
+    "sent_at": null,
     "recipients": [
       {
         "name": "ご担当者",
         "email": "inventio.bach@gmail.com",
-        "sent": true,
-        "sent_at": "2026-08-29 16:07:58 JST"
+        "sent": false
       }
     ]
   }
