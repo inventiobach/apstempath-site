@@ -91,14 +91,13 @@
   },
   {
     "id": 7,
-    "slug": "ap-calculus-bc-polar-parametric-vector-calculus-uc-berkeley",
-    "university": "UC Berkeley",
-    "subject": "Calculus BC",
+    "slug": "tool-launch-scholarship-simulator",
+    "university": "All Major US STEM Unis",
+    "subject": "Scholarship & Net Cost",
     "thread": [
-      "UC Berkeley合格の瞬間、約900万円（年間学費・生活費）を浮かせる最強の武器。それが「AP Calculus BC」でのScore 5獲得です。高校在学中にこれを攻略すれば、1年目の必修数学Math 1A/1B（8単位）が免除され、圧倒的有利にスタートできます。",
-      "UC Berkeleyの最難関EECS（電気工学・コンピューター科学）や機械工学科では、8単位免除が大きな差を生みます。入学直後からMath 53（多変数微分積分）に飛び級でき、1年目からUROP（先端研究）や大手テック企業の大型インターン枠へ参入可能です。",
-      "戦略の肝はG11までにScore 5を確実に奪取すること。G7〜G10からの早期設計により一発勝負を避け、再受験のリカバリー枠を確保します。渡米前に勝負を決め、4年一貫BS/MS（修士併成）や1年早期卒業という最高のROIを実現しましょう。",
-      "UC Berkeleyの最新AP単位認定ガイドと学費削減シミュレーターはこちら。今すぐチェックして戦略を立てましょう！\nガイド: https://apstempath.com/guides/ap-calculus-bc-polar-parametric-vector-calculus-uc-berkeley/\n計算機: https://apstempath.com/calculator/"
+      "【新機能リリース】米大学の学費高騰と円安に立ち向かう「米大学 奨学金＆実質自己負担シミュレーター」を公開しました！\n日本の主要8大給付型奨学金（柳井・孫正義・笹川等）の指定校判定ロジックと大学独自支援、さらにAP単位免除を統合して、年間の最終自己負担額を瞬時に試算します。",
+      "例えばGeorgia Tech（年費用約$52,000）。AP理数4科目でScore 5なら最大19単位認定で約$20,000を圧縮。さらに柳井正財団の指定校枠や大学のMerit減免が適用されれば、年間自己負担は「実質0円」まで持ち込めます。志望校ごとにどの奨学金が使えるかを可視化しました。",
+      "「米大学＝学費で破産」ではありません。制度を正しくハックし、高校のうちにAP理数で学術的卓越性（Score 5）を証明することが最大の奨学金対策になります。\n全米主要校と8大財団の組み合わせをぜひ試算してみてください👇\nhttps://apstempath.com/scholarship-simulator/"
     ],
     "posted": false,
     "posted_at": null,
@@ -106,14 +105,13 @@
   },
   {
     "id": 8,
-    "slug": "ap-calculus-bc-polar-parametric-vector-calculus-georgia-tech",
-    "university": "Georgia Tech",
-    "subject": "Calculus BC",
+    "slug": "ap-csa-pitfall-arraylist-removal",
+    "university": "AP Exam Strategy",
+    "subject": "Computer Science A",
     "thread": [
-      "Georgia Tech志望必見！高校でAP Calculus BCのScore 5を取れば大学1年数学6単位（Math 1551/1552）が即免除。航空宇宙や機械工学必修トラックを劇的に加速できます。年間約600〜900万円の学費削滅や4年一貫BS/MS修了への最強の一手です。",
-      "GT進学後、6単位免除により入学直後から多変数微分積分学（Math 2551）へ飛び級可能。早い段階で専門研究（UROP）や大手テックのインターン枠を獲得できます。米最難関STEMでのアドバンテージは高校時代のAP戦略で決まります。",
-      "極方程式の求積やパラメトリック運動など難関単元を攻略し、G11までにScore 5を確定させるのが鉄則。G7〜G10からの早期設計で一発勝負を避け、再受験のリカバリー枠を確保することで、合格率と進学後のROIを最大化できます。",
-      "GTで学費と時間を劇的に節約するCalculus BC戦略の解説ガイドはこちら👇\nhttps://apstempath.com/guides/ap-calculus-bc-polar-parametric-vector-calculus-georgia-tech/\n学費削減シミュレーターも公開中！\nhttps://apstempath.com/calculator/"
+      "【AP CS Aで毎年多発する即減点トラップ】\nFRQでArrayListを走査しながら条件に合う要素を削除する問題。初心者が必ずやるミスが「普通のforループで走査しながらlist.remove(i)を実行すること」です。要素を消すとインデックスが1つ前に詰まるため、次の要素がスキップされます。",
+      "このインデックスずれバグは、College Boardの公式Rubricで「ループの完全走査」「要素アクセスの正確性」など複数の配点を一気に吹き飛ばす致命的なミスになります。回避策は2つだけ。「末尾からの逆順ループ（for(int i=size-1; i>=0; i--)）」を使うか、「Iteratorのit.remove()」を使うことです。",
+      "元JVM開発者として断言しますが、AP CSAの満点（Score 5）はJavaの構文暗記ではなく、メモリ内の参照とインデックスの挙動を正確にトレースできるかで決まります。減点されない答案作成をG9〜G10から鍛えましょう。\nhttps://apstempath.com/ap-computer-science-a/"
     ],
     "posted": false,
     "posted_at": null,
@@ -121,14 +119,13 @@
   },
   {
     "id": 9,
-    "slug": "ap-calculus-bc-improper-integrals-series-convergence-mit",
-    "university": "MIT",
-    "subject": "Calculus BC",
+    "slug": "parent-consult-g10-algebra2-recovery",
+    "university": "US College Admissions",
+    "subject": "Roadmap & Planning",
     "thread": [
-      "MIT進学を狙うならAP Calculus BCの「Score 5」獲得は絶対条件。必修単位（18.01）が免除され、最大約900万円（$60,000）の学費・生活費削減や、4年間で修士まで取得するBS/MSコースへの道が開けます。中高生からの戦略的アプローチが最強のROIを生みます。",
-      "Score 5獲得により18.01（1変数微分積分）が免除され、1年目から18.02（多変数微積）や18.03（微分方程式）へスキップ可能。MITで不可欠な広義積分や級数収束の完璧な理解は、1〜2年次からのUROP（学部先端研究）参画やシリコンバレーでの大型インターン獲得に直結します。",
-      "この圧倒的有利なポジションを確保するには、G7〜G10からの早期設計が不可欠です。高学年での一発勝負を避け、失敗してもリカバリーできる再受験枠を計算に入れて対策を進めるのが成功の鍵。難関STEM専攻へのトップ合格と進学後のスタートダッシュを同時に実現しましょう。",
-      "MIT合格と学費圧縮を両立するAP Calculus BC攻略法と、学費削減シミュレーターはこちらから！\n\n▼詳細解説ガイド\nhttps://apstempath.com/guides/ap-calculus-bc-improper-integrals-series-convergence-mit/\n\n▼学費削減シミュレーター\nhttps://apstempath.com/calculator/"
+      "インター校の保護者から最も多い相談：「学校のカリキュラムだとG10でAlgebra 2です。G11秋の出願までにCalculus BCのScore 5は間に合いますか？」\n結論：学校の進度を待っていたら100%間に合いません。Calculus BCがG12（出願後）になってしまうからです。",
+      "解決策は「数学の先行裏トラック」を走らせること。学校のAlgebra 2と並行して、当塾でPrecalculus（James Stewart）の基幹概念（三角関数・極方程式・極限）をG10冬までに前倒し修了させます。同時にPythonの素養を活かしてAP CS AとAP StatisticsのScore 5をG10で先に確定させます。",
+      "この2年間集中ルートを組むことで、G11ではCalculus BCとPhysics Cだけに全エネルギーを集中させ、出願直前に理数最難関4科目すべてのScore 5を揃えられます。学校のカリキュラム制限は外部設計でバイパスできます。\nhttps://apstempath.com/"
     ],
     "posted": false,
     "posted_at": null,
@@ -136,14 +133,13 @@
   },
   {
     "id": 10,
-    "slug": "ap-calculus-bc-improper-integrals-series-convergence-cmu",
-    "university": "Carnegie Mellon University",
-    "subject": "Calculus BC",
+    "slug": "ap-stats-pitfall-in-context-hypothesis",
+    "university": "AP Exam Strategy",
+    "subject": "Statistics",
     "thread": [
-      "CMU（カーネギーメロン大）SCSを目指すならAP Calculus BCで「5」獲得は極めて強力な武器。10単位免除で年間学費約600万円相当の節約・早期卒業が可能に！さらに4年一貫BS/MS（修士取得）への最短ルートが開けます。早期戦略が投資対効果（ROI）を極大化します。",
-      "CMUではCalculus BC「5」で「21-120」が免除、即「21-122」へ飛び級。離散数学やアルゴリズム解析の基礎を早期消化できるため、1年次から最先端AI研究や大手テック企業の大型インターン枠を競合より圧倒的優位に獲得可能です。",
-      "勝因はG7〜G10からの早期設計。高難度のImproper IntegralsやSeries Convergenceを中高前半で攻略し、G11での再受験枠（リカバリー戦略）を確保。G11までにSTEM最難関4科目のScore 5を揃えることがCMU合格を引き寄せます。",
-      "CMU進学のROIを極大化するAP攻略ガイドと学費削減シミュレーターはこちら！\n解説ガイド: https://apstempath.com/guides/ap-calculus-bc-improper-integrals-series-convergence-cmu/\nシミュレーター: https://apstempath.com/calculator/"
+      "【AP Statistics FRQで採点官が真っ先に削る言葉】\n仮説検定（Hypothesis Testing）の結論記述で、p値が有意水準alphaより大きかった時。「帰無仮説H0を採択（Accept）する」「H0が真であることが証明された」と書いた瞬間、その記述点は0点になります。",
+      "統計学において、p値が大きいことは「H0を棄却する十分な証拠が得られなかった（Fail to reject H0）」ことを意味するだけで、H0が正しいと証明したわけではありません。公式Rubricでは「In Context（問題の文脈に沿って）」かつ「証拠が不十分である」という厳密な言い回しが必須です。",
+      "AP Statsは計算問題ではなく、英語による「論理的証明・論述試験」です。日本語で数理的本質を深く理解し、英語で減点されないテンプレートを叩き込む。これが文系・理系問わずG9〜G10から確実にScore 5を獲る秘訣です。\nhttps://apstempath.com/ap-statistics/"
     ],
     "posted": false,
     "posted_at": null,
@@ -151,14 +147,13 @@
   },
   {
     "id": 11,
-    "slug": "ap-calculus-bc-improper-integrals-series-convergence-uc-berkeley",
-    "university": "UC Berkeley",
+    "slug": "ap-calculus-bc-lagrange-error-bound-pitfall",
+    "university": "AP Exam Strategy",
     "subject": "Calculus BC",
     "thread": [
-      "UC Berkeleyを目指すならAP Calculus BCの「Score 5」獲得は必須！Improper IntegralsやSeriesを完ペキにし最高評価を得れば、コア数学8単位が免除。学費最大900万円節約や早期卒業、BS/MS進学への道が一気に拓けます！",
-      "UC Berkeley工学部等でAP Calculus BCの5を取得すると「Math 1A/1B（8単位）」が免除され、入学直後から「Math 53/54」へ飛び級可能。浮いた時間で1年次からUROP先端研究やシリコンバレーでのAIインターンに参画できます！",
-      "トップ大合格の鍵はG7〜G10からの早期戦略設計です。G11までにCalculus BCを含む理数4科目（CS A, Stats, Physics C）でScore 5を揃えれば、万が一の再受験枠を確保しつつ圧倒的な学業評価を獲得できます。",
-      "UC Berkeleyで圧倒的アドバンテージを得るAP攻略法を公開中！\n詳細ガイド：https://apstempath.com/guides/ap-calculus-bc-improper-integrals-series-convergence-uc-berkeley/\n学費節約シミュレーター：https://apstempath.com/calculator/"
+      "【Calculus BC最難関：Lagrange Error BoundでScore 5を逃す理由】\nテイラー多項式の誤差限界 |R_n(x)| <= M/(n+1)! * |x-c|^(n+1)。受験生の多くが「最大値Mをどこで探すか」の区間指定を答案に書かずに1〜2点を落とします。",
+      "Mは「中心cと評価点xの間の閉区間」における導関数 f^(n+1)(t) の絶対値の最大値です。単に数値を代入するだけでなく、「区間[c, x]において|f^(n+1)(t)| <= M であるため」という1行の論拠があるかどうかが、MITやStanfordが認めるScore 5答案の境界線です。",
+      "大学入試の微積分を暗記公式で乗り切ることは不可能です。グラフの凸凹や関数の上限（Supremum）の感覚を直感的に掴むことで、Unit 10の級数分野は一気に得意分野に変わります。\nhttps://apstempath.com/ap-calculus-bc/"
     ],
     "posted": false,
     "posted_at": null,
@@ -166,14 +161,13 @@
   },
   {
     "id": 12,
-    "slug": "ap-calculus-bc-improper-integrals-series-convergence-georgia-tech",
-    "university": "Georgia Tech",
-    "subject": "Calculus BC",
+    "slug": "case-study-score3-recovery-strategy",
+    "university": "Case Study",
+    "subject": "Recovery Architecture",
     "thread": [
-      "【トップ工科大Georgia Techを攻略する最速ルート】\nAP Calculus BCで「Score 5」を獲ることは単なる合格対策ではありません。大学の基礎数学6単位を免除し、学費・生活費を数百万円単位で浮かせ、4年で修士号まで取得するBS/MS戦略の核となります。",
-      "GTではCalculus BCで「5」を獲得するとMath 1551/1552の計6単位が即免除。入学初学期からMath 1554（線形代数）に飛び級できます。1年目の難関数学の壁を突破し、工学部コア科目や早期UROP（研究）参画へ一気に加速可能です。",
-      "高倍率のトップ校で勝ち抜くにはG7〜G10からの早期戦略設計が不可欠。G11までにBCを含む主要STEM科目でScore 5を揃えれば、G12での一発勝負を避け再受験枠も確保できます。投資対効果（ROI）を最大化する鍵は早期設計です。",
-      "GT進学を有利にするAP Calculus BC攻略法の詳細ガイドと、AP単位でいくら学費を削減できるか試せるシミュレーターを公開中！\n▼詳細ガイド\nhttps://apstempath.com/guides/ap-calculus-bc-improper-integrals-series-convergence-georgia-tech/\n▼シミュレーター\nhttps://apstempath.com/calculator/"
+      "【実録：一発勝負を排除するリカバリー設計の強さ】\n「中1や中2でAPを受けるのは早すぎるのでは？」とよく聞かれます。しかし、早期挑戦の最大のメリットは「満点を取ること」ではなく「再受験枠を常時キープできること」にあります。",
+      "実際の受講生ST006は、G7（中1）でAP CS Aに初挑戦してScore 3を獲得。中1の時点で米大学の単位認定水準をクリアした上で、翌年G8で再受験してScore 4、さらにAP StatsでもScore 3を確保しました。プレッシャーゼロで実戦経験を積めるため、本番に極めて強くなります。",
+      "高校生になってから「落ちたら終わり」のプレッシャー下で受験させるのは悪手です。早期着手＋リカバリー前提のトラックこそが、G11出願期に最難関4科目のScore 5を確実に揃えるための最も安全な工学的手法です。\nhttps://apstempath.com/#results"
     ],
     "posted": false,
     "posted_at": null,
@@ -181,14 +175,13 @@
   },
   {
     "id": 13,
-    "slug": "ap-physics-c-mech-rotational-dynamics-torque-moment-of-inertia-mit",
-    "university": "MIT",
-    "subject": "Physics C: Mechanics",
+    "slug": "ap-physics-c-gauss-law-symmetry",
+    "university": "AP Exam Strategy",
+    "subject": "Physics C: E&M",
     "thread": [
-      "【MIT合格の先にある学費900万円節約術】MITで必修Physics(8.01)を免除するにはAP Physics C(Mechanics & E&M)の両方で「スコア5」が絶対条件。早期単位取得が年間約600〜900万円の学費・生活費浮かせの鍵です！",
-      "AP Physics Cで5を獲得すれば、Course 6(EECS)やCourse 2(MechE)の一般教養物理を速攻クリア。1年目からAdvanced Mechanics(8.012)や先端研究(UROP)に参画し、大手テックでの超有料インターンへ直結します。",
-      "MITレベルの微積分物理（回転力学や慣性モーメントの積分）は一朝一夕では身につきません。G7〜G10から戦略的に履修計画を立て、不合格リスクを回避する「リカバリー再受験」の枠を確保するのが世界の勝ちパターンです。",
-      "MIT進学後の投資対効果（ROI）を極大化するAP戦略の全貌を解説！詳細ガイドと学費削減シミュレーターはこちらからチェック👇\nガイド: https://apstempath.com/guides/ap-physics-c-mech-rotational-dynamics-torque-moment-of-inertia-mit/\n計算機: https://apstempath.com/calculator/"
+      "【AP Physics C: E&M ガウスの法則の記述陷穽】\n閉曲面積分 ∮ E・dA = Q_enclosed / ε_0。多くの受験生が右辺のQ_enclosed（内包電荷）の積分計算に熱中するあまり、左辺の「電場Eが閉曲面上で一定である対称性の論証」を省略して減点されます。",
+      "球対称・円筒対称・平面対称のいずれであっても、「なぜ内積が外れて E * Area にできるのか」という電場と法線ベクトルの平行性、面上の電場の大きさの均一性を答案で明示する必要があります。物理の本質は数式変形ではなく対称性の把握です。",
+      "Calculus BCを道具として完全に使いこなせて初めて、Physics Cの電磁気学は数式が「物理的意味」を持って見えてきます。数学先行トラックが必須とされる理由がここにあります。\nhttps://apstempath.com/ap-physics-c/"
     ],
     "posted": false,
     "posted_at": null,
@@ -196,14 +189,13 @@
   },
   {
     "id": 14,
-    "slug": "ap-physics-c-mech-rotational-dynamics-torque-moment-of-inertia-cmu",
-    "university": "Carnegie Mellon University",
-    "subject": "Physics C: Mechanics",
+    "slug": "roi-uc-berkeley-acceleration",
+    "university": "UC Berkeley",
+    "subject": "Tuition & ROI",
     "thread": [
-      "CMU（カーネギーメロン大学）工学部・ロボティクスを目指すなら、AP Physics C: MechanicsのScore 5獲得が最強の投資に。難関のRotational Dynamicsを攻略し、入学前に12単位を獲得。学費削減と早期大学院修了（BS/MS）への最速切符を手に入れましょう。",
-      "CMUではAP Physics Cで「5」を取得すると、必修科目33-141（12 units）が免除され、1年目から応用科目33-142へ飛び級可能。回転動学や慣性モーメントの積分表現の深い理解は、出願時・進学後の双方で圧倒的な評価に繋がります。",
-      "確実に「Score 5」を制覇するためには、G7〜G10段階からの戦略的早期設計が不可欠です。高学年での一発勝負を避け、再受験のリカバリー枠を確保しておくことで、最難関の微積分物理を完璧にマスターし合格率を劇的に高められます。",
-      "CMU合格を引き寄せる詳細攻略ガイドと、学費節約効果を即座に試算できるシミュレーターはこちら。▼詳細ガイド\nhttps://apstempath.com/guides/ap-physics-c-mech-rotational-dynamics-torque-moment-of-inertia-cmu/\n▼学費シミュレーター\nhttps://apstempath.com/calculator/"
+      "【UC Berkeleyで学費約700万円を浮かせるAP戦略】\nUC Berkeleyでは留学生向けのNeed-based奨学金が原則ありません。しかし、AP理数4科目（BC, CSA, Stats, Physics C）でScore 5を揃えると、最大約30単位（1学年分以上）が認定されます。",
+      "1年分の単位が免除されれば、実質3年での早期卒業（学期短縮）が可能になり、年間の学費・高騰するベイエリアの生活費（約$70,000＝約1,000万円以上）を丸ごと圧縮できます。さらに空いた時間で1年次から多変数微積やデータ構造へ飛び級し、シリコンバレーでの有給インターンに直行できます。",
+      "APは高校の成績証明書を飾るためだけのものではありません。進学後の学費回収とキャリア初速を最大化するための実利的な投資です。志望校ごとの免除単位はこちらで試算できます👇\nhttps://apstempath.com/calculator/"
     ],
     "posted": false,
     "posted_at": null,
@@ -211,14 +203,13 @@
   },
   {
     "id": 15,
-    "slug": "ap-physics-c-mech-rotational-dynamics-torque-moment-of-inertia-uc-berkeley",
-    "university": "UC Berkeley",
-    "subject": "Physics C: Mechanics",
+    "slug": "mit-bs-ms-acceleration-truth",
+    "university": "MIT / Top STEM",
+    "subject": "Acceleration & BS/MS",
     "thread": [
-      "UC Berkeley工学部志望必見。高校でAP Physics C MechanicsのScore 5を取れば、Physics 7A(4単位)が即免除！1年目の重い物理ラボから解放され、年間約600〜900万円の学費削減やBS/MS（修士併修）への最短ルートが開けます。",
-      "免除された時間は1年目からのUROP（学部研究）やシリコンバレー大手テックでのインターン獲得に直結。特に最難関の剛体の回転運動や慣性モーメントの積分演算をG10〜G11で極めておけば、berkeleyの物理トラック（Physics 7Bへ飛び級）でも無双できます。",
-      "UC BerkeleyやMITレベルのSTEM合格者は、G11終了までにAP理数最難関をScore 5で揃えるのが鉄則。一発勝負を避けG7〜G10から戦略的に履修を始めることで、不合格リスクを排したリカバリー再受験枠も確保可能。早期設計こそが合否とROIを分かちます。",
-      "【UC Berkeley攻略ガイド公開】\nPhysics Cの最難関「回転動力学・慣性モーメント積分」の攻略法と学費シミュレーターはこちら！\nガイド: https://apstempath.com/guides/ap-physics-c-mech-rotational-dynamics-torque-moment-of-inertia-uc-berkeley/\n計算機: https://apstempath.com/calculator/"
+      "【MIT・StanfordでのAPの真の価値：単位節約ではなく「時間の飛び級」】\n「最難関大ではAPの単位免除が厳しい」と言われます。しかしMITではCalculus BCのScore 5で18.01（1変数微積）、Physics Cで8.01（力学）が確実に免除されます。",
+      "この免除の本質は、学費のディスカウントではなく「1年次秋から2年次レベルの上級コアや研究室（UROP）へ直行できること」です。初年度の入門講義の過密スケジュールから解放され、教授のトップ研究室に1年生から配属されることで、4年間で学部＋修士（BS/MS）を同時修了する道が開けます。",
+      "米トップ大学での勝敗は、入学前の高校時代にどれだけ先行アドバンテージを築けていたかで決まります。G7〜G11での戦略的AP制覇こそが、その最大のレバレッジです。\nhttps://apstempath.com/"
     ],
     "posted": false,
     "posted_at": null,
