@@ -90,7 +90,7 @@
             background: #0f172a;
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            min-width: 220px;
+            min-width: 240px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             padding: 8px 0;
             z-index: 1001;
@@ -104,6 +104,7 @@
             text-decoration: none;
         }
         .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue); }
+        .dropdown-content a.active { color: var(--accent-blue); font-weight: 700; }
 
         .btn-cta-nav {
             background: var(--btn-cyan);
@@ -249,23 +250,25 @@
 
   <header class="site-header">
     <div class="nav-container">
-      <a href="https://apstempath.com/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <a href="/" class="nav-brand">AP STEM <span>PATH</span></a>
       <ul class="nav-menu">
-        <li><a href="https://apstempath.com/">Home</a></li>
-        <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
-        <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
-        <li><a href="https://apstempath.com/#results">実績・推移</a></li>
-        <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
-        <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
-        <li><a href="https://apstempath.com/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/g7-roadmap/">学年別ロードマップ</a></li>
+        <li><a href="/ap-simulator/">ロードマップ診断</a></li>
+        <li><a href="/results/">実績・推移</a></li>
+        <li><a href="/pricing/">料金案内</a></li>
+        <li><a href="/about/">代表講師</a></li>
+        <li><a href="/contact/" class="btn-cta-nav">無料相談</a></li>
         <li class="dropdown">
           <button class="dropdown-btn">AP 専科 &#9662;</button>
           <div class="dropdown-content">
-            <a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a>
-            <a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a>
-            <a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a>
-            <a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a>
-            <a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a>
+            <a href="/ap-computer-science-a/">AP CS A (Java)</a>
+            <a href="/ap-statistics/">AP Statistics (統計)</a>
+            <a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="/guides/" class="active">AP STEM Guides (学習ガイド)</a>
+            <a href="/calculator/">AP単位認定シミュレーター</a>
+            <a href="/scholarship-simulator/">奨学金＆自己負担シミュレーター</a>
           </div>
         </li>
       </ul>
@@ -1237,23 +1240,25 @@
       <div class="footer-col">
         <h4>ロードマップ & 概要</h4>
         <ul>
-          <li><a href="https://apstempath.com/">トップページ</a></li>
-          <li><a href="https://apstempath.com/#roadmap">学年別ロードマップ</a></li>
-          <li><a href="https://apstempath.com/#diagnosis">ロードマップ診断</a></li>
-          <li><a href="https://apstempath.com/#results">実績・スコア推移</a></li>
-          <li><a href="https://apstempath.com/#pricing">料金案内</a></li>
-          <li><a href="https://apstempath.com/#instructor">代表講師</a></li>
-          <li><a href="https://apstempath.com/contact/">無料相談・お問い合わせ</a></li>
+          <li><a href="/">トップページ</a></li>
+          <li><a href="/g7-roadmap/">学年別ロードマップ</a></li>
+          <li><a href="/ap-simulator/">ロードマップ診断</a></li>
+          <li><a href="/results/">実績・スコア推移</a></li>
+          <li><a href="/pricing/">料金案内</a></li>
+          <li><a href="/about/">代表講師</a></li>
+          <li><a href="/contact/">無料相談・お問い合わせ</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>AP 理数4科目 専科</h4>
         <ul>
-          <li><a href="https://apstempath.com/ap-csa/">AP CS A (Java)</a></li>
-          <li><a href="https://apstempath.com/ap-statistics/">AP Statistics (統計)</a></li>
-          <li><a href="https://apstempath.com/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
-          <li><a href="https://apstempath.com/ap-physics-c/">AP Physics C (物理)</a></li>
-          <li><a href="https://apstempath.com/guides/">AP STEM Guides (学習ガイド)</a></li>
+          <li><a href="/ap-computer-science-a/">AP CS A (Java)</a></li>
+          <li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="/guides/">AP STEM Guides (学習ガイド)</a></li>
+          <li><a href="/calculator/">AP単位認定シミュレーター</a></li>
+          <li><a href="/scholarship-simulator/">奨学金＆自己負担シミュレーター</a></li>
         </ul>
       </div>
     </div>

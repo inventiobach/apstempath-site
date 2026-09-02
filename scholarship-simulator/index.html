@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>米大学 奨学金・大学独自支援＆実質自己負担シミュレーター | AP STEM PATH</title>
+  <meta name="description" content="日本の8大給付型奨学金（柳井・孫正義・笹川・江副・篠原・グルー・重田・JASSO等）と米大学独自の留学生向け特待奨学金（Merit/Need-based）、AP単位免除を統合した実質自己負担額シミュレーター。">
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: #111b33;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --btn-cyan: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    /* 共通ヘッダー */
+    .site-header {
+      background: rgba(7, 13, 30, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--accent-blue); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-menu a:hover, .nav-menu a.active { color: var(--accent-blue); }
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      color: #cbd5e1;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .dropdown-btn:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #0f172a;
+      border: 1px solid var(--border-color, #1e293b);
+      border-radius: 8px;
+      min-width: 240px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 8px 0;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue); }
+    .dropdown-content a.active { color: var(--accent-blue); font-weight: 700; }
+    .btn-cta-nav {
+      background: var(--btn-cyan);
+      color: #070d1e !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+
+    /* 共通フッター */
+    .site-footer {
+      background: #040711;
+      border-top: 1px solid var(--border-color);
+      margin-top: 100px;
+      padding: 60px 24px 30px 24px;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-col h3 { font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 16px; }
+    .footer-col h3 span { color: var(--accent-blue); }
+    .footer-col p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.7; }
+    .footer-col h4 { font-size: 1rem; color: #ffffff; margin-bottom: 18px; font-weight: 700; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a { color: var(--text-muted); text-decoration: none; font-size: 0.92rem; transition: color 0.2s ease; }
+    .footer-col a:hover { color: var(--accent-blue); }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+      font-size: 0.88rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .footer-container { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 共通ヘッダーナビゲーション（完全ルート相対パス） -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <ul class="nav-menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/g7-roadmap/">学年別ロードマップ</a></li>
+        <li><a href="/ap-simulator/">ロードマップ診断</a></li>
+        <li><a href="/results/">実績・推移</a></li>
+        <li><a href="/pricing/">料金案内</a></li>
+        <li><a href="/about/">代表講師</a></li>
+        <li><a href="/contact/" class="btn-cta-nav">無料相談</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <div class="dropdown-content">
+            <a href="/ap-computer-science-a/">AP CS A (Java)</a>
+            <a href="/ap-statistics/">AP Statistics (統計)</a>
+            <a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a>
+            <a href="/ap-physics-c/">AP Physics C (物理)</a>
+            <a href="/guides/">AP STEM Guides (学習ガイド)</a>
+            <a href="/calculator/">AP単位認定シミュレーター</a>
+            <a href="/scholarship-simulator/" class="active">奨学金＆自己負担シミュレーター</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- メインシミュレーター -->
+  <main>
+    <section id="scholarship-calculator" class="calc-section">
+      <div class="calc-container">
+        <div class="calc-header">
+          <span class="calc-badge">All-in-One Financial Simulator</span>
+          <h2>米大学 奨学金＆実質自己負担シミュレーター</h2>
+          <p class="calc-sub">希望大学の学費、日本の主要給付奨学金（全8制度の指定校判定）、大学独自の留学生向け特待制度、AP単位免除を統合した実質的な年間自己負担額を算出します。</p>
+        </div>
+
+        <div class="calc-grid">
+          <!-- 入力パネル -->
+          <div class="calc-input-card">
+            <!-- 1. 志望大学を選択 -->
+            <div class="form-group">
+              <label for="calc-university">1. 志望大学を選択</label>
+              <select id="calc-university" class="calc-select">
+                <optgroup label="理工・STEMトップ名門校">
+                  <option value="gatech" selected>Georgia Institute of Technology</option>
+                  <option value="mit">Massachusetts Institute of Technology (MIT)</option>
+                  <option value="stanford">Stanford University</option>
+                  <option value="caltech">California Institute of Technology (Caltech)</option>
+                  <option value="cmu">Carnegie Mellon University (CMU)</option>
+                  <option value="cornell">Cornell University</option>
+                </optgroup>
+                <optgroup label="留学生向け全額/大型Merit枠あり">
+                  <option value="vanderbilt">Vanderbilt University (全額Merit枠)</option>
+                  <option value="bu">Boston University (全額Merit枠)</option>
+                </optgroup>
+                <optgroup label="名門州立トップ（UC群・Big Ten）">
+                  <option value="uc_berkeley">University of California, Berkeley</option>
+                  <option value="ucla">University of California, Los Angeles (UCLA)</option>
+                  <option value="uiuc">Univ. of Illinois Urbana-Champaign (UIUC)</option>
+                  <option value="umich">University of Michigan (Ann Arbor)</option>
+                  <option value="purdue">Purdue University</option>
+                  <option value="utaustin">University of Texas at Austin (UT Austin)</option>
+                  <option value="uw">University of Washington (Seattle)</option>
+                </optgroup>
+                <optgroup label="最難関私立・リベラルアーツ（LAC）">
+                  <option value="harvard">Harvard University</option>
+                  <option value="princeton">Princeton University</option>
+                  <option value="yale">Yale University</option>
+                  <option value="amherst">Amherst College (指定LAC)</option>
+                  <option value="williams">Williams College (指定LAC)</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <!-- 2. 科目別 予想 / 取得スコア -->
+            <div class="subject-score-group">
+              <label class="group-label">2. 科目別 予想 / 取得スコア</label>
+              
+              <div class="subject-row">
+                <div class="subject-info">
+                  <span class="subject-title">AP Calculus BC</span>
+                  <span class="subject-tag">微積分</span>
+                </div>
+                <div class="score-pills" data-subject="calc_bc">
+                  <button type="button" class="pill" data-score="none">未受験</button>
+                  <button type="button" class="pill" data-score="4">Score 4</button>
+                  <button type="button" class="pill active" data-score="5">Score 5</button>
+                </div>
+              </div>
+
+              <div class="subject-row">
+                <div class="subject-info">
+                  <span class="subject-title">AP Computer Science A</span>
+                  <span class="subject-tag">Java</span>
+                </div>
+                <div class="score-pills" data-subject="cs_a">
+                  <button type="button" class="pill" data-score="none">未受験</button>
+                  <button type="button" class="pill" data-score="4">Score 4</button>
+                  <button type="button" class="pill active" data-score="5">Score 5</button>
+                </div>
+              </div>
+
+              <div class="subject-row">
+                <div class="subject-info">
+                  <span class="subject-title">AP Statistics</span>
+                  <span class="subject-tag">統計学</span>
+                </div>
+                <div class="score-pills" data-subject="stats">
+                  <button type="button" class="pill" data-score="none">未受験</button>
+                  <button type="button" class="pill" data-score="4">Score 4</button>
+                  <button type="button" class="pill active" data-score="5">Score 5</button>
+                </div>
+              </div>
+
+              <div class="subject-row">
+                <div class="subject-info">
+                  <span class="subject-title">AP Physics C (Mech &amp; E/M)</span>
+                  <span class="subject-tag">物理</span>
+                </div>
+                <div class="score-pills" data-subject="physics_c">
+                  <button type="button" class="pill" data-score="none">未受験</button>
+                  <button type="button" class="pill" data-score="4">Score 4</button>
+                  <button type="button" class="pill active" data-score="5">Score 5</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. 日本の給付型奨学金（全8制度・指定校外は無効化） -->
+            <div class="form-group" style="margin-top: 20px;">
+              <label class="group-label">3. 利用を検討する日本の給付型奨学金（全8制度）</label>
+              <div class="sch-grid" id="sch-selector">
+                <button type="button" class="sch-pill active" data-sch="yanai">
+                  <span class="sch-name">柳井正財団</span>
+                  <span class="sch-cap">指定校: 最大$95k~$115k</span>
+                </button>
+                <button type="button" class="sch-pill" data-sch="son">
+                  <span class="sch-name">孫正義育英財団</span>
+                  <span class="sch-cap">全校対象: 実費全額支援</span>
+                </button>
+                <button type="button" class="sch-pill" data-sch="sasakawa">
+                  <span class="sch-name">笹川平和財団</span>
+                  <span class="sch-cap">指定校: 実費+$15k/年</span>
+                </button>
+                <button type="button" class="sch-pill" data-sch="ezoe">
+                  <span class="sch-name">江副記念リクルート</span>
+                  <span class="sch-cap">全校対象: 年上限約$95k</span>
+                </button>
+                <button type="button" class="sch-pill" data-sch="shinohara">
+                  <span class="sch-name">篠原欣子記念財団</span>
+                  <span class="sch-cap">全校対象: 年最大500万円</span>
+                </button>
+                <button type="button" class="sch-pill" data-sch="grew">
+                  <span class="sch-name">グルー・バンクロフト</span>
+                  <span class="sch-cap">指定LAC: 授業料支援</span>
+                </button>
+                <button type="button" class="sch-pill" data-sch="shigeta">
+                  <span class="sch-name">重田教育財団</span>
+                  <span class="sch-cap">全校対象: 年$22,000</span>
+                </button>
+                <button type="button" class="sch-pill" data-sch="jasso">
+                  <span class="sch-name">JASSO（公的）</span>
+                  <span class="sch-cap">全校対象: 年約$35,000</span>
+                </button>
+                <button type="button" class="sch-pill" data-sch="none" style="grid-column: span 2;">
+                  <span class="sch-name">日本の奨学金なし（大学独自支援・AP免除のみで試算）</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 4. 大学独自の留学生向け支援（ON/OFF） -->
+            <div class="form-group" style="margin-top: 15px;">
+              <label class="group-label">4. 大学独自の留学生支援制度（Institutional Aid）</label>
+              <div class="univ-aid-toggle-card">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div>
+                    <span id="univ-aid-title" style="font-weight: 700; color: #f1f5f9; font-size: 0.92rem;"></span>
+                    <div id="univ-aid-badge" class="aid-badge" style="margin-top: 4px;"></div>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="univ-aid-checkbox" checked>
+                    <span class="slider"></span>
+                  </label>
+                </div>
+                <p id="univ-aid-desc" style="font-size: 0.8rem; color: #94a3b8; margin-top: 8px; line-height: 1.5;"></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 結果表示パネル -->
+          <div class="calc-result-card">
+            <div class="result-headline">
+              <span class="result-label">年間 実質自己負担額（推定）</span>
+              <div class="result-amount-usd" id="res-net-usd">$0</div>
+              <div class="result-amount-jpy" id="res-net-jpy">実質 0 円 / 年</div>
+            </div>
+
+            <!-- 収支ブレイクダウン -->
+            <div class="financial-breakdown">
+              <div class="fb-row">
+                <span class="fb-label">大学年間総費用（学費＋生活費）</span>
+                <span class="fb-val" id="res-univ-total">$0</span>
+              </div>
+              <div class="fb-row highlight-green">
+                <span class="fb-label" id="res-sch-label">日本の給付奨学金</span>
+                <span class="fb-val" id="res-sch-val">- $0</span>
+              </div>
+              <div class="fb-row highlight-purple">
+                <span class="fb-label" id="res-univ-aid-label">大学独自支援・Merit特待</span>
+                <span class="fb-val" id="res-univ-aid-val">- $0</span>
+              </div>
+              <div class="fb-row highlight-cyan">
+                <span class="fb-label">AP単位免除（4年平均按分）</span>
+                <span class="fb-val" id="res-ap-val">- $0</span>
+              </div>
+            </div>
+
+            <div class="result-metrics">
+              <div class="metric-item">
+                <span class="metric-num" id="res-credits">0</span>
+                <span class="metric-title">AP認定単位 (Credits)</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-num" id="res-ap-savings-total">$0</span>
+                <span class="metric-title">AP学費削減総額</span>
+              </div>
+            </div>
+
+            <div class="waived-box">
+              <h4>進学・奨学金 総合戦略メモ:</h4>
+              <p id="res-policy-memo" style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.6;"></p>
+            </div>
+
+            <div class="calc-cta">
+              <p>G9〜G11でのAP 4科目「Score 5」が奨学金採択と学費圧縮の絶対条件です。</p>
+              <a href="/contact/" class="calc-cta-btn">最短ロードマップを無料相談する &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      :root {
+        --calc-bg-dark: #070d1e;
+        --calc-bg-card: #111b33;
+        --calc-accent-blue: #38bdf8;
+        --calc-text-main: #f8fafc;
+        --calc-text-muted: #94a3b8;
+        --calc-border: #1e293b;
+      }
+
+      .calc-section {
+        padding: 70px 20px;
+        background: var(--calc-bg-dark);
+        color: var(--calc-text-main);
+      }
+      .calc-container { max-width: 1080px; margin: 0 auto; }
+      .calc-header { text-align: center; margin-bottom: 40px; }
+      .calc-badge {
+        display: inline-block;
+        padding: 4px 14px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--calc-accent-blue);
+        background: rgba(56, 189, 248, 0.1);
+        border: 1px solid rgba(56, 189, 248, 0.3);
+        border-radius: 9999px;
+        margin-bottom: 12px;
+      }
+      .calc-header h2 { font-size: 2.1rem; font-weight: 800; color: #ffffff; margin-bottom: 12px; }
+      .calc-sub { color: var(--calc-text-muted); font-size: 1rem; max-width: 760px; margin: 0 auto; }
+      
+      .calc-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 30px; }
+      .calc-input-card, .calc-result-card {
+        background: var(--calc-bg-card);
+        border: 1px solid var(--calc-border);
+        border-radius: 16px;
+        padding: 30px;
+      }
+      .form-group { margin-bottom: 18px; }
+      .form-group label, .group-label { display: block; font-size: 0.95rem; font-weight: 700; color: #e2e8f0; margin-bottom: 8px; }
+      .calc-select {
+        width: 100%;
+        padding: 12px 16px;
+        background: #0b1329;
+        border: 1px solid #334155;
+        border-radius: 8px;
+        color: #ffffff;
+        font-size: 1rem;
+        outline: none;
+        cursor: pointer;
+      }
+      .calc-select:focus { border-color: var(--calc-accent-blue); }
+
+      .subject-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .subject-row:last-child { border-bottom: none; }
+      .subject-info { display: flex; flex-direction: column; }
+      .subject-title { font-weight: 600; font-size: 0.95rem; color: #f1f5f9; }
+      .subject-tag { font-size: 0.78rem; color: #64748b; }
+      .score-pills { display: flex; gap: 6px; }
+      .pill {
+        background: #0b1329;
+        border: 1px solid #334155;
+        color: var(--calc-text-muted);
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      .pill:hover { color: #fff; border-color: #64748b; }
+      .pill.active {
+        background: var(--calc-accent-blue);
+        color: #070d1e;
+        border-color: var(--calc-accent-blue);
+        font-weight: 700;
+      }
+
+      /* 奨学金グリッド */
+      .sch-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+      .sch-pill {
+        background: #0b1329;
+        border: 1px solid #334155;
+        border-radius: 8px;
+        padding: 8px 10px;
+        text-align: left;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        flex-direction: column;
+      }
+      .sch-pill:hover:not(.disabled) { border-color: var(--calc-accent-blue); }
+      .sch-pill.active {
+        background: rgba(56, 189, 248, 0.15);
+        border-color: var(--calc-accent-blue);
+      }
+      .sch-pill.active .sch-name { color: var(--calc-accent-blue); }
+      .sch-pill.disabled {
+        opacity: 0.25;
+        cursor: not-allowed;
+        background: #080d1a;
+        border-color: #1e293b;
+      }
+      .sch-name { font-weight: 700; font-size: 0.85rem; color: #f1f5f9; }
+      .sch-cap { font-size: 0.72rem; color: #64748b; margin-top: 2px; }
+
+      /* 大学独自支援トグルカード */
+      .univ-aid-toggle-card {
+        background: rgba(7, 13, 30, 0.7);
+        border: 1px solid #1e293b;
+        border-radius: 8px;
+        padding: 12px 16px;
+      }
+      .aid-badge {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: 4px;
+      }
+      .aid-badge.full { background: rgba(34, 197, 94, 0.2); color: #4ade80; }
+      .aid-badge.partial { background: rgba(56, 189, 248, 0.2); color: #38bdf8; }
+      .aid-badge.none { background: rgba(148, 163, 184, 0.2); color: #94a3b8; }
+
+      /* Switch CSS */
+      .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+      .switch input { opacity: 0; width: 0; height: 0; }
+      .slider {
+        position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+        background-color: #334155; transition: .3s; border-radius: 24px;
+      }
+      .slider:before {
+        position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px;
+        background-color: white; transition: .3s; border-radius: 50%;
+      }
+      input:checked + .slider { background-color: var(--calc-accent-blue); }
+      input:checked + .slider:before { transform: translateX(20px); }
+
+      /* 結果カード */
+      .calc-result-card {
+        background: linear-gradient(145deg, #132247 0%, #0c152c 100%);
+        border: 1px solid rgba(56, 189, 248, 0.35);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .result-headline {
+        text-align: center;
+        padding-bottom: 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .result-label { font-size: 0.88rem; color: var(--calc-text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+      .result-amount-usd { font-size: 2.6rem; font-weight: 800; color: var(--calc-accent-blue); line-height: 1.1; margin: 6px 0 2px 0; }
+      .result-amount-jpy { font-size: 1.05rem; font-weight: 600; color: #cbd5e1; }
+
+      .financial-breakdown { margin: 14px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 10px; }
+      .fb-row { display: flex; justify-content: space-between; font-size: 0.86rem; margin-bottom: 5px; color: #94a3b8; }
+      .fb-val { font-weight: 700; color: #f1f5f9; }
+      .highlight-green .fb-val { color: #4ade80; }
+      .highlight-purple .fb-val { color: #c084fc; }
+      .highlight-cyan .fb-val { color: var(--calc-accent-blue); }
+
+      .result-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+      .metric-item { background: rgba(7, 13, 30, 0.6); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 10px; text-align: center; }
+      .metric-num { display: block; font-size: 1.4rem; font-weight: 800; color: #ffffff; }
+      .metric-title { font-size: 0.78rem; color: var(--calc-text-muted); }
+      .waived-box { background: rgba(7, 13, 30, 0.4); border-radius: 8px; padding: 12px; margin-bottom: 14px; }
+      .waived-box h4 { font-size: 0.85rem; color: #e2e8f0; margin-bottom: 4px; }
+      
+      .calc-cta { text-align: center; }
+      .calc-cta p { font-size: 0.82rem; color: var(--calc-text-muted); margin-bottom: 10px; }
+      .calc-cta-btn {
+        display: block;
+        background: var(--calc-accent-blue);
+        color: #070d1e;
+        font-weight: 800;
+        padding: 12px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: opacity 0.2s ease;
+      }
+      .calc-cta-btn:hover { opacity: 0.9; }
+
+      @media (max-width: 840px) {
+        .calc-grid { grid-template-columns: 1fr; }
+        .sch-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+
+    <script>
+    (function() {
+      const db = {
+        usd_to_jpy: 155,
+        scholarships: {
+          yanai: { name: "柳井正財団", cap: 95000, type: "指定校 (米英トップ)" },
+          son: { name: "孫正義育英財団", cap: 100000, type: "全校対象 (異能・実費)" },
+          sasakawa: { name: "笹川平和財団", cap: 95000, type: "指定校 (総合/LAC)" },
+          ezoe: { name: "江副記念リクルート", cap: 95000, type: "全校対象 (学術/STEM)" },
+          shinohara: { name: "篠原欣子記念財団", cap: 33000, type: "全校対象 (年上限500万)" },
+          grew: { name: "グルー・バンクロフト基金", cap: 65000, type: "指定リベラルアーツ校" },
+          shigeta: { name: "重田教育財団", cap: 22000, type: "全校対象 (年$22,000)" },
+          jasso: { name: "JASSO（公的）", cap: 35000, type: "全校対象 (年約$35,000)" },
+          none: { name: "日本の奨学金なし", cap: 0, type: "大学支援・自費のみ" }
+        },
+        unis: {
+          gatech: {
+            name: "Georgia Tech",
+            tuition: 33000,
+            totalCost: 52000,
+            cost_per_credit: 1040,
+            yanai: true,
+            sasakawa: false,
+            grew: false,
+            aid_name: "Provost / President's Merit減免",
+            aid_amount: 18000,
+            aid_type: "partial",
+            aid_desc: "留学生向け特待制度（年間約$18,000減免・州外差額免除枠あり）。",
+            policies: {
+              calc_bc: { "4": 4, "5": 8 },
+              cs_a: { "4": 3, "5": 3 },
+              stats: { "4": 0, "5": 3 },
+              physics_c: { "4": 4, "5": 8 }
+            }
+          },
+          vanderbilt: {
+            name: "Vanderbilt University",
+            tuition: 63000,
+            totalCost: 86000,
+            cost_per_credit: 1400,
+            yanai: true,
+            sasakawa: true,
+            grew: false,
+            aid_name: "Cornelius Vanderbilt Scholarship",
+            aid_amount: 63000,
+            aid_type: "full",
+            aid_desc: "留学生も応募可能な全額授業料免除特待奨学金（Full Tuition Merit）。",
+            policies: {
+              calc_bc: { "4": 4, "5": 8 },
+              cs_a: { "4": 0, "5": 3 },
+              stats: { "4": 3, "5": 3 },
+              physics_c: { "4": 0, "5": 8 }
+            }
+          },
+          bu: {
+            name: "Boston University",
+            tuition: 64000,
+            totalCost: 88000,
+            cost_per_credit: 1400,
+            yanai: false,
+            sasakawa: false,
+            grew: false,
+            aid_name: "Trustee Scholarship (全額免除)",
+            aid_amount: 64000,
+            aid_type: "full",
+            aid_desc: "留学生も対象となる4年間全額授業料免除のMerit-based奨学金。",
+            policies: {
+              calc_bc: { "4": 4, "5": 8 },
+              cs_a: { "4": 0, "5": 4 },
+              stats: { "4": 0, "5": 4 },
+              physics_c: { "4": 0, "5": 8 }
+            }
+          },
+          mit: {
+            name: "MIT",
+            tuition: 62000,
+            totalCost: 86000,
+            cost_per_credit: 1450,
+            yanai: true,
+            sasakawa: true,
+            grew: false,
+            aid_name: "Need-Blind 家計全額支援",
+            aid_amount: 86000,
+            aid_type: "full",
+            aid_desc: "留学生も合否に一切影響せず、必要額全額が大学から支給されます。",
+            policies: {
+              calc_bc: { "4": 0, "5": 12 },
+              cs_a: { "4": 0, "5": 0 },
+              stats: { "4": 0, "5": 0 },
+              physics_c: { "4": 0, "5": 12 }
+            }
+          },
+          stanford: {
+            name: "Stanford University",
+            tuition: 62000,
+            totalCost: 89000,
+            cost_per_credit: 1400,
+            yanai: true,
+            sasakawa: true,
+            grew: false,
+            aid_name: "Need-Aware 100% Need Met",
+            aid_amount: 89000,
+            aid_type: "full",
+            aid_desc: "合格時は家庭の経済状況に応じた必要学資が全額支給されます。",
+            policies: {
+              calc_bc: { "4": 0, "5": 10 },
+              cs_a: { "4": 0, "5": 5 },
+              stats: { "4": 0, "5": 5 },
+              physics_c: { "4": 0, "5": 8 }
+            }
+          },
+          caltech: {
+            name: "Caltech",
+            tuition: 63000,
+            totalCost: 87000,
+            cost_per_credit: 1420,
+            yanai: true,
+            sasakawa: true,
+            grew: false,
+            aid_name: "Caltech Undergraduate Aid",
+            aid_amount: 87000,
+            aid_type: "full",
+            aid_desc: "合格した留学生に対する手厚い家計支援枠（100% Need Met）。",
+            policies: {
+              calc_bc: { "4": 0, "5": 9 },
+              cs_a: { "4": 0, "5": 0 },
+              stats: { "4": 0, "5": 0 },
+              physics_c: { "4": 0, "5": 9 }
+            }
+          },
+          cmu: {
+            name: "Carnegie Mellon (CMU)",
+            tuition: 62000,
+            totalCost: 85000,
+            cost_per_credit: 1420,
+            yanai: true,
+            sasakawa: false,
+            grew: false,
+            aid_name: "留学生向け大学FA枠なし",
+            aid_amount: 0,
+            aid_type: "none",
+            aid_desc: "留学生向け独自奨学金は極小。日本の財団獲得またはAP単位免除が主軸。",
+            policies: {
+              calc_bc: { "4": 0, "5": 10 },
+              cs_a: { "4": 0, "5": 10 },
+              stats: { "4": 0, "5": 9 },
+              physics_c: { "4": 0, "5": 10 }
+            }
+          },
+          cornell: {
+            name: "Cornell University",
+            tuition: 65000,
+            totalCost: 88000,
+            cost_per_credit: 1430,
+            yanai: true,
+            sasakawa: true,
+            grew: false,
+            aid_name: "Cornell Need-Based Aid",
+            aid_amount: 88000,
+            aid_type: "full",
+            aid_desc: "留学生向けNeed-Based支援あり（出願時に申請必須）。",
+            policies: {
+              calc_bc: { "4": 4, "5": 8 },
+              cs_a: { "4": 0, "5": 4 },
+              stats: { "4": 0, "5": 4 },
+              physics_c: { "4": 0, "5": 8 }
+            }
+          },
+          uc_berkeley: {
+            name: "UC Berkeley",
+            tuition: 48000,
+            totalCost: 76000,
+            cost_per_credit: 1250,
+            yanai: true,
+            sasakawa: true,
+            grew: false,
+            aid_name: "州外生FAなし (AP免除重視)",
+            aid_amount: 0,
+            aid_type: "none",
+            aid_desc: "留学生向け大学支援は原則なし。AP最大30単位認定（学費700万円超圧縮）が武器。",
+            policies: {
+              calc_bc: { "4": 8, "5": 8 },
+              cs_a: { "4": 2, "5": 2 },
+              stats: { "4": 4, "5": 4 },
+              physics_c: { "4": 4, "5": 8 }
+            }
+          },
+          ucla: {
+            name: "UCLA",
+            tuition: 48000,
+            totalCost: 76000,
+            cost_per_credit: 1220,
+            yanai: true,
+            sasakawa: true,
+            grew: false,
+            aid_name: "州外生FAなし (AP免除重視)",
+            aid_amount: 0,
+            aid_type: "none",
+            aid_desc: "留学生向け大学支援なし。AP単位認定による学期短縮でトータル学費を節約。",
+            policies: {
+              calc_bc: { "4": 8, "5": 8 },
+              cs_a: { "4": 2, "5": 2 },
+              stats: { "4": 4, "5": 4 },
+              physics_c: { "4": 4, "5": 8 }
+            }
+          },
+          uiuc: {
+            name: "UIUC (イリノイ大)",
+            tuition: 39000,
+            totalCost: 60000,
+            cost_per_credit: 1100,
+            yanai: true,
+            sasakawa: false,
+            grew: false,
+            aid_name: "International Merit一部減免",
+            aid_amount: 10000,
+            aid_type: "partial",
+            aid_desc: "成績優秀な留学生に対する一部学費減免枠（年約$10,000）。",
+            policies: {
+              calc_bc: { "4": 5, "5": 8 },
+              cs_a: { "4": 3, "5": 3 },
+              stats: { "4": 3, "5": 3 },
+              physics_c: { "4": 4, "5": 8 }
+            }
+          },
+          umich: {
+            name: "Univ. of Michigan",
+            tuition: 55000,
+            totalCost: 78000,
+            cost_per_credit: 1180,
+            yanai: true,
+            sasakawa: true,
+            grew: false,
+            aid_name: "留学生向け大学FA極小",
+            aid_amount: 0,
+            aid_type: "none",
+            aid_desc: "大学独自支援は限定的。柳井・笹川両財団の指定校枠を活用。",
+            policies: {
+              calc_bc: { "4": 4, "5": 8 },
+              cs_a: { "4": 4, "5": 4 },
+              stats: { "4": 0, "5": 4 },
+              physics_c: { "4": 5, "5": 10 }
+            }
+          },
+          purdue: {
+            name: "Purdue University",
+            tuition: 31000,
+            totalCost: 46000,
+            cost_per_credit: 980,
+            yanai: false,
+            sasakawa: false,
+            grew: false,
+            aid_name: "学費凍結政策 ＋ Merit一部",
+            aid_amount: 5000,
+            aid_type: "partial",
+            aid_desc: "年学費約$31,000と全米屈指の安さ。一部成績優秀者減免枠あり。",
+            policies: {
+              calc_bc: { "4": 5, "5": 10 },
+              cs_a: { "4": 3, "5": 3 },
+              stats: { "4": 3, "5": 3 },
+              physics_c: { "4": 4, "5": 8 }
+            }
+          },
+          utaustin: {
+            name: "UT Austin",
+            tuition: 40000,
+            totalCost: 59000,
+            cost_per_credit: 1050,
+            yanai: false,
+            sasakawa: false,
+            grew: false,
+            aid_name: "Competitive Scholarship Waiver",
+            aid_amount: 20000,
+            aid_type: "partial",
+            aid_desc: "特待獲得により留学生学費を州内生料金（約$20,000引）に引き下げる制度あり。",
+            policies: {
+              calc_bc: { "4": 4, "5": 8 },
+              cs_a: { "4": 3, "5": 3 },
+              stats: { "4": 3, "5": 3 },
+              physics_c: { "4": 4, "5": 8 }
+            }
+          },
+          uw: {
+            name: "Univ. of Washington",
+            tuition: 41000,
+            totalCost: 61000,
+            cost_per_credit: 1080,
+            yanai: false,
+            sasakawa: false,
+            grew: false,
+            aid_name: "留学生向け大学FAなし",
+            aid_amount: 0,
+            aid_type: "none",
+            aid_desc: "大学独自FAなし。孫正義/江副/篠原/重田/JASSOまたはAP単位免除を活用。",
+            policies: {
+              calc_bc: { "4": 5, "5": 10 },
+              cs_a: { "4": 4, "5": 4 },
+              stats: { "4": 0, "5": 5 },
+              physics_c: { "4": 5, "5": 10 }
+            }
+          },
+          harvard: {
+            name: "Harvard University",
+            tuition: 60000,
+            totalCost: 85000,
+            cost_per_credit: 1450,
+            yanai: true,
+            sasakawa: true,
+            grew: false,
+            aid_name: "Need-Blind 家計全額支援",
+            aid_amount: 85000,
+            aid_type: "full",
+            aid_desc: "国籍問わず家庭年収に応じた全額支援が大学から給付されます。",
+            policies: {
+              calc_bc: { "4": 0, "5": 8 },
+              cs_a: { "4": 0, "5": 4 },
+              stats: { "4": 0, "5": 4 },
+              physics_c: { "4": 0, "5": 8 }
+            }
+          },
+          princeton: {
+            name: "Princeton University",
+            tuition: 60000,
+            totalCost: 85000,
+            cost_per_credit: 1450,
+            yanai: true,
+            sasakawa: true,
+            grew: false,
+            aid_name: "Need-Blind 家計全額支援",
+            aid_amount: 85000,
+            aid_type: "full",
+            aid_desc: "留学生もローンなしの全額グラント（給付金）対象。",
+            policies: {
+              calc_bc: { "4": 0, "5": 8 },
+              cs_a: { "4": 0, "5": 4 },
+              stats: { "4": 0, "5": 0 },
+              physics_c: { "4": 0, "5": 8 }
+            }
+          },
+          yale: {
+            name: "Yale University",
+            tuition: 64000,
+            totalCost: 88000,
+            cost_per_credit: 1450,
+            yanai: true,
+            sasakawa: true,
+            grew: false,
+            aid_name: "Need-Blind 家計全額支援",
+            aid_amount: 88000,
+            aid_type: "full",
+            aid_desc: "留学生も合否不問で100%の学資必要額が補填されます。",
+            policies: {
+              calc_bc: { "4": 0, "5": 8 },
+              cs_a: { "4": 0, "5": 4 },
+              stats: { "4": 0, "5": 0 },
+              physics_c: { "4": 0, "5": 8 }
+            }
+          },
+          amherst: {
+            name: "Amherst College",
+            tuition: 66000,
+            totalCost: 88000,
+            cost_per_credit: 1450,
+            yanai: true,
+            sasakawa: true,
+            grew: true,
+            aid_name: "Need-Blind / グルー指定",
+            aid_amount: 88000,
+            aid_type: "full",
+            aid_desc: "トップリベラルアーツ校。柳井・笹川・グルー指定校。留学生もNeed-Blind全額支援。",
+            policies: {
+              calc_bc: { "4": 4, "5": 8 },
+              cs_a: { "4": 0, "5": 4 },
+              stats: { "4": 0, "5": 4 },
+              physics_c: { "4": 0, "5": 8 }
+            }
+          },
+          williams: {
+            name: "Williams College",
+            tuition: 65000,
+            totalCost: 88000,
+            cost_per_credit: 1450,
+            yanai: true,
+            sasakawa: true,
+            grew: true,
+            aid_name: "Need-Blind / グルー指定",
+            aid_amount: 88000,
+            aid_type: "full",
+            aid_desc: "リベラルアーツ最高峰。柳井・笹川・グルー指定校。手厚い全額Need-based支援。",
+            policies: {
+              calc_bc: { "4": 0, "5": 8 },
+              cs_a: { "4": 0, "5": 4 },
+              stats: { "4": 0, "5": 4 },
+              physics_c: { "4": 0, "5": 8 }
+            }
+          }
+        }
+      };
+
+      let selectedSch = 'yanai';
+
+      const uniSelect = document.getElementById('calc-university');
+      const pillGroups = document.querySelectorAll('.score-pills');
+      const schPills = document.querySelectorAll('.sch-pill');
+      const univAidToggle = document.getElementById('univ-aid-checkbox');
+
+      const univAidTitle = document.getElementById('univ-aid-title');
+      const univAidBadge = document.getElementById('univ-aid-badge');
+      const univAidDesc = document.getElementById('univ-aid-desc');
+
+      const resNetUsd = document.getElementById('res-net-usd');
+      const resNetJpy = document.getElementById('res-net-jpy');
+      const resUnivTotal = document.getElementById('res-univ-total');
+      const resSchLabel = document.getElementById('res-sch-label');
+      const resSchVal = document.getElementById('res-sch-val');
+      const resUnivAidLabel = document.getElementById('res-univ-aid-label');
+      const resUnivAidVal = document.getElementById('res-univ-aid-val');
+      const resApVal = document.getElementById('res-ap-val');
+      const resCredits = document.getElementById('res-credits');
+      const resApSavingsTotal = document.getElementById('res-ap-savings-total');
+      const resPolicyMemo = document.getElementById('res-policy-memo');
+
+      function updateUI() {
+        const uniId = uniSelect.value;
+        const uni = db.unis[uniId];
+
+        // 奨学金ピルの制御（指定校判定）
+        schPills.forEach(pill => {
+          const schType = pill.getAttribute('data-sch');
+          let eligible = true;
+          if (schType === 'yanai' && !uni.yanai) eligible = false;
+          if (schType === 'sasakawa' && !uni.sasakawa) eligible = false;
+          if (schType === 'grew' && !uni.grew) eligible = false;
+
+          if (!eligible) {
+            pill.classList.add('disabled');
+            if (selectedSch === schType) selectedSch = 'son';
+          } else {
+            pill.classList.remove('disabled');
+          }
+        });
+
+        schPills.forEach(pill => {
+          if (pill.getAttribute('data-sch') === selectedSch) {
+            pill.classList.add('active');
+          } else {
+            pill.classList.remove('active');
+          }
+        });
+
+        // 大学独自支援の表示更新
+        univAidTitle.textContent = `${uni.name}: ${uni.aid_name}`;
+        univAidDesc.textContent = uni.aid_desc;
+
+        if (uni.aid_type === 'full') {
+          univAidBadge.textContent = "全額支援 / Full Merit枠あり";
+          univAidBadge.className = "aid-badge full";
+        } else if (uni.aid_type === 'partial') {
+          univAidBadge.textContent = `減免枠あり (約$${uni.aid_amount.toLocaleString()}/年)`;
+          univAidBadge.className = "aid-badge partial";
+        } else {
+          univAidBadge.textContent = "留学生向けFAなし";
+          univAidBadge.className = "aid-badge none";
+        }
+      }
+
+      function calculate() {
+        const uniId = uniSelect.value;
+        const uni = db.unis[uniId];
+        if (!uni) return;
+
+        updateUI();
+        const sch = db.scholarships[selectedSch];
+
+        // AP単位・学費削減計算
+        let totalCredits = 0;
+        pillGroups.forEach(group => {
+          const subject = group.getAttribute('data-subject');
+          const activePill = group.querySelector('.pill.active');
+          const score = activePill ? activePill.getAttribute('data-score') : 'none';
+
+          if (score !== 'none' && uni.policies[subject]) {
+            const policy = uni.policies[subject];
+            const credits = policy[score] || 0;
+            totalCredits += credits;
+          }
+        });
+
+        totalCredits = Math.min(totalCredits, 32);
+        const totalApSavingsUsd = totalCredits * uni.cost_per_credit;
+        const annualApSavingsUsd = totalApSavingsUsd / 4; // 4年按分
+
+        // 1. 日本の給付奨学金額
+        let grantAnnualUsd = 0;
+        if (selectedSch !== 'none') {
+          grantAnnualUsd = Math.min(uni.totalCost, sch.cap);
+        }
+
+        // 2. 大学独自の支援額
+        let univAidAnnualUsd = 0;
+        if (univAidToggle.checked && uni.aid_amount > 0) {
+          const remainingCost = Math.max(0, uni.totalCost - grantAnnualUsd);
+          univAidAnnualUsd = Math.min(remainingCost, uni.aid_amount);
+        }
+
+        // 3. 最終年間自己負担額
+        let netAnnualUsd = Math.max(0, uni.totalCost - grantAnnualUsd - univAidAnnualUsd - annualApSavingsUsd);
+        let netAnnualJpyMan = Math.round((netAnnualUsd * db.usd_to_jpy) / 10000);
+        let totalApSavingsJpyMan = Math.round((totalApSavingsUsd * db.usd_to_jpy) / 10000);
+
+        // 表示更新
+        resUnivTotal.textContent = "$" + uni.totalCost.toLocaleString() + " /年";
+        resSchLabel.textContent = sch.name;
+        resSchVal.textContent = "- $" + grantAnnualUsd.toLocaleString() + " /年";
+
+        resUnivAidLabel.textContent = uni.aid_name;
+        resUnivAidVal.textContent = univAidToggle.checked && uni.aid_amount > 0 ? "- $" + univAidAnnualUsd.toLocaleString() + " /年" : "$0";
+
+        resApVal.textContent = "- $" + Math.round(annualApSavingsUsd).toLocaleString() + " /年";
+        resCredits.textContent = totalCredits;
+        resApSavingsTotal.textContent = "$" + totalApSavingsUsd.toLocaleString() + " (約" + totalApSavingsJpyMan + "万円)";
+
+        if (netAnnualUsd === 0) {
+          resNetUsd.textContent = "$0";
+          resNetJpy.textContent = "実質 0 円 / 年（全額カバー）";
+        } else {
+          resNetUsd.textContent = "$" + Math.round(netAnnualUsd).toLocaleString();
+          resNetJpy.textContent = "（約 " + netAnnualJpyMan.toLocaleString() + " 万円 / 年）";
+        }
+
+        resPolicyMemo.innerHTML = `
+          <strong>【${uni.name}の資金戦略】</strong><br>
+          ${uni.aid_desc}<br>
+          さらに AP ${totalCredits}単位の認定により、4年間で約 <strong>$${totalApSavingsUsd.toLocaleString()}（約${totalApSavingsJpyMan}万円）</strong> の学費圧縮効果が得られます。
+        `;
+      }
+
+      uniSelect.addEventListener('change', calculate);
+      univAidToggle.addEventListener('change', calculate);
+
+      pillGroups.forEach(group => {
+        group.querySelectorAll('.pill').forEach(btn => {
+          btn.addEventListener('click', function() {
+            group.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+            this.classList.add('active');
+            calculate();
+          });
+        });
+      });
+
+      schPills.forEach(pill => {
+        pill.addEventListener('click', function() {
+          if (this.classList.contains('disabled')) return;
+          selectedSch = this.getAttribute('data-sch');
+          calculate();
+        });
+      });
+
+      calculate();
+    })();
+    </script>
+  </main>
+
+  <!-- 共通フッター -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AP STEM <span>PATH</span></h3>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+      </div>
+      <div class="footer-col">
+        <h4>ロードマップ &amp; 概要</h4>
+        <ul>
+          <li><a href="/">トップページ</a></li>
+          <li><a href="/g7-roadmap/">学年別ロードマップ</a></li>
+          <li><a href="/ap-simulator/">ロードマップ診断</a></li>
+          <li><a href="/results/">実績・スコア推移</a></li>
+          <li><a href="/pricing/">料金案内</a></li>
+          <li><a href="/about/">代表講師</a></li>
+          <li><a href="/contact/">無料相談・お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>AP 理数4科目 専科</h4>
+        <ul>
+          <li><a href="/ap-computer-science-a/">AP CS A (Java)</a></li>
+          <li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
+          <li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+          <li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
+          <li><a href="/guides/">AP STEM Guides (学習ガイド)</a></li>
+          <li><a href="/calculator/">AP単位認定シミュレーター</a></li>
+          <li><a href="/scholarship-simulator/">奨学金＆自己負担シミュレーター</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
