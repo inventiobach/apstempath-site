@@ -113,9 +113,9 @@
       "このインデックスずれバグは、College Boardの公式Rubricで「ループの完全走査」「要素アクセスの正確性」など複数の配点を一気に吹き飛ばす致命的なミスになります。回避策は2つだけ。「末尾からの逆順ループ（for(int i=size-1; i>=0; i--)）」を使うか、「Iteratorのit.remove()」を使うことです。",
       "元JVM開発者として断言しますが、AP CSAの満点（Score 5）はJavaの構文暗記ではなく、メモリ内の参照とインデックスの挙動を正確にトレースできるかで決まります。減点されない答案作成をG9〜G10から鍛えましょう。\nhttps://apstempath.com/ap-computer-science-a/"
     ],
-    "posted": false,
-    "posted_at": null,
-    "first_tweet_id": null
+    "posted": true,
+    "posted_at": "2026-09-04 00:36:37 JST",
+    "first_tweet_id": "2095536422459461658"
   },
   {
     "id": 9,
