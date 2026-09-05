@@ -141,9 +141,9 @@
       "統計学において、p値が大きいことは「H0を棄却する十分な証拠が得られなかった（Fail to reject H0）」ことを意味するだけで、H0が正しいと証明したわけではありません。公式Rubricでは「In Context（問題の文脈に沿って）」かつ「証拠が不十分である」という厳密な言い回しが必須です。",
       "AP Statsは計算問題ではなく、英語による「論理的証明・論述試験」です。日本語で数理的本質を深く理解し、英語で減点されないテンプレートを叩き込む。これが文系・理系問わずG9〜G10から確実にScore 5を獲る秘訣です。\nhttps://apstempath.com/ap-statistics/"
     ],
-    "posted": false,
-    "posted_at": null,
-    "first_tweet_id": null
+    "posted": true,
+    "posted_at": "2026-09-05 23:22:42 JST",
+    "first_tweet_id": "2096242596393713684"
   },
   {
     "id": 11,
