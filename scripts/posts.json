@@ -155,9 +155,9 @@
       "Mは「中心cと評価点xの間の閉区間」における導関数 f^(n+1)(t) の絶対値の最大値です。単に数値を代入するだけでなく、「区間[c, x]において|f^(n+1)(t)| <= M であるため」という1行の論拠があるかどうかが、MITやStanfordが認めるScore 5答案の境界線です。",
       "大学入試の微積分を暗記公式で乗り切ることは不可能です。グラフの凸凹や関数の上限（Supremum）の感覚を直感的に掴むことで、Unit 10の級数分野は一気に得意分野に変わります。\nhttps://apstempath.com/ap-calculus-bc/"
     ],
-    "posted": false,
-    "posted_at": null,
-    "first_tweet_id": null
+    "posted": true,
+    "posted_at": "2026-09-06 23:45:11 JST",
+    "first_tweet_id": "2096610642719658396"
   },
   {
     "id": 12,
