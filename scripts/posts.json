@@ -214,5 +214,101 @@
     "posted": true,
     "posted_at": "2026-09-11 00:39:29 JST",
     "first_tweet_id": "2098073860243648851"
+  },
+  {
+    "id": 16,
+    "slug": "note-international-school-math-blindspot",
+    "university": "Bilingual STEM Strategy",
+    "subject": "Calculus BC & Bilingualism",
+    "topic": "インター校Mathの空洞化",
+    "thread": [
+      "インター校や現地校に通い「Mathは成績オールA」だった子が、高校のAP微積分（Calculus BC）の記述問題（FRQ）で1点も取れずに大失速するケースが多発しています。\n英語が流暢でGPAも優秀な生徒たちが、なぜ高度な数理科学で突如玉砕するのか？元OS・JVM開発者が構造的盲点を解説します。(1/4)🧵",
+      "原因は「英単語の暗記」と「概念の定着」の混同です。\nderivative等の単語を覚えても、「なぜその定理が成り立つのか」を論理の極限まで突き詰める思考力は育ちません。語学力が高い子ほど雰囲気で理解した気になり、本質的な数理モデリングが空洞化してしまうのです。(2/4)",
+      "数理の深い抽象思考は、最も直観の働く「母語（日本語）」で徹底的に腑に落とすのが最短ルート。\n母語で厳密な論理体系を脳に焼き付け、その上で世界基準（College Board採点基準）の英語FRQ論証に接続する。この「思考＝母語、出力＝英語」のハイブリッドこそがAP満点への決定打になります。(3/4)",
+      "インター校・帰国生が直面する「Math空洞化の脱出法」と具体的なカリキュラム設計の全貌は、noteで詳しく解説しています。\nお子様の現在地を確かめたい方はぜひご一読ください👇\nhttps://note.com/apstempath/n/nb9bb749cfcbb\n(4/4)"
+    ],
+    "posted": false,
+    "posted_at": null,
+    "first_tweet_id": null
+  },
+  {
+    "id": 17,
+    "slug": "note-kumon-limits-and-ap-calculus-frq",
+    "university": "Calculus Modeling Strategy",
+    "subject": "Calculus BC vs Kumon",
+    "topic": "公文式の壁とAP微積分の玉砕",
+    "thread": [
+      "「小学生で公文を数IIIまで終えた神童」が、なぜ高校のAP微積分（Calculus BC）で玉砕するのか？\n計算ドリルを先取りした秀才の多くが、高校最難関の記述問題（FRQ）でScore 4すら取れず大失速します。元JVM開発者の視点から「計算力」と「数理モデリング力」の致命的な断絶を解明します。(1/4)🧵",
+      "公文式が鍛えるのは「完成した数式」に公式を当てはめて速く解く【計算処理力】。これは電卓やAIが一瞬で終える作業です。\n一方、米AP試験が求めるのは「現実の現象から変化を見出し、微積分の方程式を自ら組んで英語で論証する」【数理モデリング力】。全くの別競技なのです。(2/4)",
+      "計算スピードの反復を何年続けても、数理モデリングの壁は突破できません。\n必要なのは「手計算の美徳」から脱却し、TI-84グラフ電卓を道具として身体化させ、人間は「変化率の幾何学的直観」と「手書き論証」に全脳力を使う訓練。中学生のうちにこの転換ができるかで勝負が決まります。(3/4)",
+      "公文の先取りで満足して失速しないための「数理モデリングへの脱出ルート」をnoteで完全解説しました。小中学生で算数・数学が得意なお子様を持つ親御さんは必読です👇\nhttps://note.com/apstempath/n/n062ed98ee8f9\n(4/4)"
+    ],
+    "posted": false,
+    "posted_at": null,
+    "first_tweet_id": null
+  },
+  {
+    "id": 18,
+    "slug": "note-scratch-to-python-java-jvm-order",
+    "university": "Computer Science Education",
+    "subject": "AP CS A & JVM Architecture",
+    "topic": "Scratchの罠とコード習得の正しい順序",
+    "thread": [
+      "「小学生からScratchを3年習ったのに、中学生でJavaやPythonが1行も書けない…」\n教育熱心な保護者から激増している相談です。Scratchを何百時間極めても、本格的なテキストプログラミングへ進めないのには明確な構造的理由があります。元JVM内部開発者がその正体を解き明かします。(1/4)🧵",
+      "Scratchは親切心ゆえに、コンピュータの本質である3大ブラックボックス\n①変数の「型」とメモリ領域\n②実行順序と同期・非同期の境界\n③厳密な構文エラー\nをすべて隠蔽しています。ブロックを繋げば動く世界に慣れると、1文字のミスも許されないテキストコードの世界で拒絶反応が起きるのです。(2/4)",
+      "中学生が世界基準のコード力を手に入れる王道は、いきなり曖昧な動的言語をやることではなく、Javaによる「型の規律」と「メモリ図（スタックとヒープ）」の可視化から入ることです。\n動く原理（コンピュータの頭脳）を理解すれば、中1でもAP CS A（Java）満点（Score 5）へ最短で到達できます。(3/4)",
+      "ブロック崩し症候群から脱出し、本物のソフトウェア設計力を育てる「正しいコード習得順序」の全貌をnoteにまとめました。プログラミング教室選びに悩むご家庭はぜひご覧ください👇\nhttps://note.com/apstempath/n/n48889491d0a2\n(4/4)"
+    ],
+    "posted": false,
+    "posted_at": null,
+    "first_tweet_id": null
+  },
+  {
+    "id": 19,
+    "slug": "note-scholarships-and-ap-credits-roi",
+    "university": "US College ROI Strategy",
+    "subject": "Scholarship & AP Credits",
+    "topic": "8大給付奨学金×AP単位免除の資金ハック",
+    "thread": [
+      "「1ドル＝150円超の円安で、米大学4年間の費用が4,000万〜5,000万円に達する…」\nこの現実に圧倒され、海外進学を諦めていませんか？\n米国の高等教育は「定価で払う人」と「制度を論理的にハックして自己負担を最小化する人」で二極化しています。その資金設計の全貌を公開します。(1/4)🧵",
+      "鍵は【①日本の8大給付型奨学金（柳井・孫・笹川・江副等）】×【②米私立大独自の留学生向けNeed-Blind支援】×【③高校AP理数4科目の単位認定による学期短縮】の3重掛け合わせです。\n特にAP主要4科目でScore 5を揃えれば、大学で最大1年分の単位（30単位前後）を事前取得して入学できます。(2/4)",
+      "例えばUC Berkeleyでは最大約30単位が免除され、実質3年卒業により約1,000万円（$70,000+）がキャッシュバック。Georgia Techでは最大19単位認定。\n給付型奨学金とAP単位短縮を組み合わせれば、自己負担を極限まで抑えて世界最高峰の学位と修士号（BS/MS）を手にすることが可能です。(3/4)",
+      "円安と学費高騰を論理的に突破する「8大給付奨学金の指定校ロジック」と「AP単位スキップのROI試算」をnoteで完全公開しました。資金計画の現実的な解法はこちら👇\nhttps://note.com/apstempath/n/n90e47359b444\n(4/4)"
+    ],
+    "posted": false,
+    "posted_at": null,
+    "first_tweet_id": null
+  },
+  {
+    "id": 20,
+    "slug": "note-cmu-scs-ap-calculus-bc-strategy",
+    "university": "Carnegie Mellon University",
+    "subject": "SCS Calculus BC Acceleration",
+    "topic": "CMUコンピュータ科学部（SCS）攻略",
+    "thread": [
+      "世界最高峰のコンピュータ科学教育機関、Carnegie Mellon大学（CMU）SCSを目指すなら、G11までにAP Calculus BCで「Score 5」を絶対獲得すべき理由。\n単なる入試対策を超え、最大900万円相当の学費削減や1年目からの先端AI研究参画という巨大な投資対効果（ROI）を生み出します。(1/4)🧵",
+      "CMUではCalculus BCの「5」で10単位が免除され、1年次秋から即座に上位コースへ飛び級可能に。\n広義積分や無限級数の収束判定は、アルゴリズム計算量解析（Big-O）や機械学習モデルの根幹です。これらを早期にマスターしている証明が出願で絶大な効力を持ちます。(2/4)",
+      "合格率数%のCMU SCSを突破するには、高校一発勝負は危険すぎます。\nG7〜G10からの早期数学トラック設計でG9〜G10に初受験し、万一のリカバリー再受験枠を確保する「二段階安全網」がエリート層の勝ち筋です。入学後も1年目から先端研究（UROP）や大手テックのインターン枠を引き寄せます。(3/4)",
+      "CMU SCSが求める「高度な数学的厳密性」と、中学生からの具体的なロードマップをnoteで徹底解説しました。将来トップCS専攻を目指す中高生と親御さんは必読です👇\nhttps://note.com/apstempath/n/nd060e8fe6a28\n(4/4)"
+    ],
+    "posted": false,
+    "posted_at": null,
+    "first_tweet_id": null
+  },
+  {
+    "id": 21,
+    "slug": "note-georgia-tech-ap-calculus-bc-skip",
+    "university": "Georgia Tech",
+    "subject": "Engineering Calculus BC Acceleration",
+    "topic": "Georgia Tech工学部攻略とBS/MS飛び級",
+    "thread": [
+      "全米屈指の工科大学Georgia Tech。留学生にとって州外学費は年間約600〜900万円に達しますが、高校でAP Calculus BCの「Score 5」を獲れば、初学期から6単位が即免除され線形代数へ飛び級できます。\n工学部での圧倒的なスタートダッシュを決める戦略的アプローチを解説します。(1/4)🧵",
+      "新入生が苦戦する微積分コアを免除されることで、1年目から高いGPAを維持しつつ、AI・応用工学の基盤科目へ直行できます。\n理数4科目（BC, CSA, Stats, Physics C）で単位を固めれば、最大1年分の学費削減や、4年分の学費で修士号まで取得する「BS/MS一貫」が実現します。(2/4)",
+      "基礎数学をバイパスした学生は、学部1〜2年次から最先端ラボのUROP（学部生研究プログラム）へ最優先配属。教授の強力な推薦状を得て、大手テック企業の有給サマーインターン（月給$8,000+）への道を切り拓きます。\n勝負の分水嶺は、G7〜G10から逆算した計画的履修です。(3/4)",
+      "Georgia Tech攻略の単位認定インパクトと、学費削減シミュレーションの全貌をnoteでまとめました。名門工科大を最短ルートで駆け抜けるロードマップはこちらから👇\nhttps://note.com/apstempath/n/n56c73feab3ae\n(4/4)"
+    ],
+    "posted": false,
+    "posted_at": null,
+    "first_tweet_id": null
   }
 ]
