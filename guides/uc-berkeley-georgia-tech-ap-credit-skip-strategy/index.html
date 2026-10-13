@@ -43,6 +43,7 @@
     "@type": "Person",
     "name": "済木 明人",
     "jobTitle": "代表講師（大阪大学大学院 工学研究科 修士修了 / 元リアルタイムOS・JVM内部開発者）",
+    "image": "https://apstempath.com/assets/images/instructor-saiki.jpg",
     "url": "https://apstempath.com/about/"
   },
   "publisher": {
@@ -117,82 +118,94 @@
     a:hover { text-decoration: underline; }
 
     .site-header {
-      background: rgba(7, 13, 30, 0.95);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 1px solid var(--border-color);
+      padding: 16px 0;
       position: sticky;
       top: 0;
       z-index: 1000;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(8px);
     }
     .nav-container {
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 24px;
+      padding: 0 20px;
+      position: relative;
     }
-    .nav-brand {
+    .site-logo {
       font-weight: 800;
-      font-size: 1.35rem;
-      color: #fff;
-      text-decoration: none;
+      font-size: 1.3rem;
+      color: #f8fafc;
+      text-decoration: none !important;
+      letter-spacing: -0.5px;
       white-space: nowrap;
     }
-    .nav-brand span { color: var(--accent-blue); }
-    .nav-menu {
+    .logo-accent { color: var(--accent-blue); }
+    .nav-menu-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--accent-blue);
+      font-size: 1.2rem;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .nav-list {
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 16px;
       list-style: none;
+      margin: 0;
+      padding: 0;
     }
-    .nav-menu a {
-      color: #cbd5e1;
-      text-decoration: none;
-      font-size: 0.9rem;
+    .nav-item {
+      color: var(--text-muted);
+      text-decoration: none !important;
+      font-size: 0.88rem;
       font-weight: 600;
       white-space: nowrap;
+      transition: color 0.2s;
     }
-    .nav-menu a:hover { color: var(--accent-blue); }
-    .btn-cta-nav {
+    .nav-item:hover, .nav-item.active { color: var(--accent-blue); }
+    .cta-nav-item {
       background: var(--accent-blue);
-      color: #070d1e !important;
+      color: #0f172a !important;
       font-weight: 700 !important;
-      padding: 7px 16px;
+      padding: 6px 14px;
       border-radius: 6px;
+      white-space: nowrap;
+      display: inline-block;
     }
+    .cta-nav-item:hover { background: #7dd3fc !important; }
     .dropdown { position: relative; }
-    .dropdown-btn {
-      color: #cbd5e1;
-      background: none;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      padding: 6px 10px;
-      border-radius: 6px;
-    }
-    .dropdown-content {
+    .dropdown-menu {
       display: none;
       position: absolute;
       top: 100%;
-      right: 0;
-      background: #0f172a;
-      border: 1px solid var(--border-color);
+      left: 0;
+      background: #1e293b;
+      border: 1px solid #334155;
       border-radius: 8px;
       min-width: 240px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
       padding: 8px 0;
+      list-style: none;
       z-index: 1001;
     }
-    .dropdown:hover .dropdown-content { display: block; }
-    .dropdown-content a {
+    .dropdown:hover .dropdown-menu { display: block; }
+    .dropdown-menu a {
       display: block;
-      padding: 10px 18px;
+      padding: 10px 16px;
       color: #cbd5e1;
+      text-decoration: none !important;
       font-size: 0.88rem;
+      white-space: nowrap;
     }
-    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue); }
+    .dropdown-menu a:hover { background: #334155; color: var(--accent-blue); }
 
     .container {
       max-width: 900px;
@@ -409,8 +422,32 @@
     .footer-col a:hover { color: var(--accent-blue); }
     .footer-bottom { text-align: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; font-size: 0.82rem; color: #64748b; }
 
-    @media (max-width: 860px) {
-      .nav-menu { display: none; }
+    @media (max-width: 768px) {
+      .nav-menu-toggle { display: block; }
+      .main-nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #0f172a;
+        border-bottom: 1px solid var(--border-color);
+        padding: 20px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      }
+      .main-nav.is-active { display: block; }
+      .nav-list { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .dropdown { width: 100%; }
+      .dropdown-menu {
+        position: static;
+        display: block;
+        background: rgba(30, 41, 59, 0.5);
+        border: none;
+        box-shadow: none;
+        padding-left: 15px;
+        margin-top: 8px;
+        border-radius: 6px;
+      }
       .article-card { padding: 22px 16px; }
       .footer-container { grid-template-columns: 1fr; }
     }
@@ -419,34 +456,47 @@
 <body>
   <header class="site-header">
     <div class="nav-container">
-      <a href="/" class="nav-brand"><span>AP</span> STEM PATH</a>
-      <ul class="nav-menu">
-        <li><a href="/">Home</a></li>
-        <li><a href="/g7-roadmap/">学年別ロードマップ</a></li>
-        <li><a href="/ap-simulator/">ロードマップ診断</a></li>
-        <li><a href="/results/">実績・推移</a></li>
-        <li><a href="/pricing/">料金案内</a></li>
-        <li><a href="/about/">代表講師</a></li>
-        <li><a href="/contact/" class="btn-cta-nav">無料相談</a></li>
-        <li class="dropdown">
-          <button class="dropdown-btn">AP 専科 &#9662;</button>
-          <div class="dropdown-content">
-            <a href="/ap-computer-science-a/">AP CS A (Java)</a>
-            <a href="/ap-statistics/">AP Statistics (統計)</a>
-            <a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a>
-            <a href="/ap-physics-c/">AP Physics C (物理)</a>
-            <a href="/guides/">AP専門コラム・学習ガイド</a>
-            <a href="/calculator/">AP単位認定シミュレーター</a>
-            <a href="/scholarship-simulator/">奨学金＆自己負担シミュレーター</a>
-          </div>
-        </li>
-      </ul>
+      <a class="site-logo" href="/"><span class="logo-accent">AP</span> STEM PATH</a>
+      <button aria-label="Toggle navigation" class="nav-menu-toggle">☰ Menu</button>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a class="nav-item" href="/">Home</a></li>
+          <li><a class="nav-item" href="/g7-roadmap/">学年別ロードマップ</a></li>
+          <li class="dropdown">
+            <a class="nav-item dropdown-toggle" href="/ap-simulator/">ロードマップ診断 ▾</a>
+            <ul class="dropdown-menu">
+              <li><a href="/ap-simulator/">10秒 ロードマップ診断</a></li>
+              <li><a href="/calculator/">AP単位認定シミュレーター</a></li>
+              <li><a href="/scholarship-simulator/">奨学金＆自己負担シミュレーター</a></li>
+            </ul>
+          </li>
+          <li><a class="nav-item" href="/results/">実績・推移</a></li>
+          <li><a class="nav-item active" href="/guides/">専門コラム</a></li>
+          <li class="dropdown">
+            <a class="nav-item dropdown-toggle" href="#">AP 専科 ▾</a>
+            <ul class="dropdown-menu">
+              <li><a href="/ap-computer-science-a/">AP CS A (Java)</a></li>
+              <li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
+              <li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+              <li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="nav-item dropdown-toggle" href="/pricing/">料金案内 ▾</a>
+            <ul class="dropdown-menu">
+              <li><a href="/pricing/">料金案内</a></li>
+              <li><a href="/about/">代表講師</a></li>
+            </ul>
+          </li>
+          <li><a class="nav-item cta-nav-item" href="/contact/">無料相談</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
 
   <main class="container">
     <div style="margin-bottom: 1.5rem;">
-      <a href="/guides/" style="color: var(--accent-blue); font-size: 0.92rem; font-weight: 600;">➔ AP専門コラム・学習ガイド一覧へ戻る</a>
+      <a href="/guides/" style="color: var(--accent-blue); font-size: 0.92rem; font-weight: 600;">➔ 専門コラム一覧へ戻る</a>
     </div>
 
     <article class="article-card">
@@ -603,10 +653,15 @@ APで20〜30単位を事前取得していれば、残りの90〜100単位を3�
 
       <!-- 執筆者プロフィール・監修 -->
       <div style="margin-top: 3rem; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 10px; padding: 1.5rem;">
-        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.8rem; flex-wrap: wrap;">
-          <span class="badge">記事執筆・監修</span>
-          <strong style="color: #fff; font-size: 1.05rem;">済木 明人（Akito Saiki）</strong>
-          <span style="font-size: 0.85rem; color: var(--text-muted);">(大阪大学大学院 工学研究科 修士課程修了)</span>
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.9rem; flex-wrap: wrap;">
+          <img src="/assets/images/instructor-saiki.jpg" alt="代表講師 済木 明人" style="width: 64px; height: 64px; border-radius: 50%; object-fit: cover; object-position: center 20%; border: 2px solid var(--accent-blue); flex-shrink: 0;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.25rem;">
+              <span class="badge">記事執筆・監修</span>
+              <strong style="color: #fff; font-size: 1.05rem;">済木 明人（Akito Saiki）</strong>
+            </div>
+            <span style="font-size: 0.82rem; color: var(--text-muted); display: block;">大阪大学大学院 工学研究科 修士課程修了 / 元リアルタイムOS・JVM内部開発者</span>
+          </div>
         </div>
         <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; margin: 0;">
           元μITRONリアルタイムOSおよびJava仮想マシン（JVM）内部開発者。College Board採点基準（Rubric）に完全準拠した手書きFRQ添削と、G7〜G10からの「二段階安全網」設計により、AP理数最難関4科目（Calculus BC / CS A / Statistics / Physics C）のScore 5完全制覇と米国トップ大学での単位スキップ・奨学金獲得を指導。小学生・中学生向けプレAP指導機関「<a href="https://stemprepath.com/" target="_blank" rel="noopener">STEMPrepath</a>」代表兼任。
@@ -641,6 +696,7 @@ APで20〜30単位を事前取得していれば、残りの90〜100単位を3�
           <li><a href="/g7-roadmap/">学年別ロードマップ</a></li>
           <li><a href="/ap-simulator/">ロードマップ診断</a></li>
           <li><a href="/results/">実績・スコア推移</a></li>
+          <li><a href="/guides/">専門コラム</a></li>
           <li><a href="/pricing/">料金案内</a></li>
           <li><a href="/about/">代表講師</a></li>
           <li><a href="/contact/">無料相談・お問い合わせ</a></li>
@@ -648,13 +704,12 @@ APで20〜30単位を事前取得していれば、残りの90〜100単位を3�
         </ul>
       </div>
       <div class="footer-col">
-        <h4>AP 理数4科目 専科</h4>
+        <h4>AP 理数4科目 ＆ シミュレーター</h4>
         <ul>
           <li><a href="/ap-computer-science-a/">AP CS A (Java)</a></li>
           <li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
           <li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
           <li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
-          <li><a href="/guides/">AP専門コラム・学習ガイド</a></li>
           <li><a href="/calculator/">AP単位認定シミュレーター</a></li>
           <li><a href="/scholarship-simulator/">奨学金＆自己負担シミュレーター</a></li>
         </ul>
@@ -664,5 +719,16 @@ APで20〜30単位を事前取得していれば、残りの90〜100単位を3�
       <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
     </div>
   </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggleBtn = document.querySelector('.nav-menu-toggle');
+      const mainNav = document.querySelector('.main-nav');
+      if (toggleBtn && mainNav) {
+        toggleBtn.addEventListener('click', function() {
+          mainNav.classList.toggle('is-active');
+        });
+      }
+    });
+  </script>
 </body>
 </html>

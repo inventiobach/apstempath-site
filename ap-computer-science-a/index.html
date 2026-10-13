@@ -97,7 +97,7 @@
       display: none;
       position: absolute;
       top: 100%;
-      right: 0;
+      left: 0;
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 8px;
@@ -310,23 +310,33 @@
 <ul class="nav-list">
 <li><a class="nav-item" href="/">Home</a></li>
 <li><a class="nav-item" href="/g7-roadmap/">学年別ロードマップ</a></li>
-<li><a class="nav-item" href="/ap-simulator/">ロードマップ診断</a></li>
-<li><a class="nav-item" href="/results/">実績・推移</a></li>
-<li><a class="nav-item" href="/pricing/">料金案内</a></li>
-<li><a class="nav-item" href="/about/">代表講師</a></li>
-<li><a class="nav-item cta-nav-item" href="/contact/">無料相談</a></li>
 <li class="dropdown">
-<a class="nav-item dropdown-toggle" href="#">AP 専科 ▾</a>
+<a class="nav-item dropdown-toggle" href="/ap-simulator/">ロードマップ診断 ▾</a>
+<ul class="dropdown-menu">
+<li><a href="/ap-simulator/">10秒 ロードマップ診断</a></li>
+<li><a href="/calculator/">AP単位認定シミュレーター</a></li>
+<li><a href="/scholarship-simulator/">奨学金＆自己負担シミュレーター</a></li>
+</ul>
+</li>
+<li><a class="nav-item" href="/results/">実績・推移</a></li>
+<li><a class="nav-item" href="/guides/">専門コラム</a></li>
+<li class="dropdown">
+<a class="nav-item dropdown-toggle active" href="#">AP 専科 ▾</a>
 <ul class="dropdown-menu">
 <li><a href="/ap-computer-science-a/">AP CS A (Java)</a></li>
 <li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
 <li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
 <li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
-              <li><a href="/guides/">AP STEM Guides (学習ガイド)</a></li>
-              <li><a href="/calculator/">AP単位認定シミュレーター</a></li>
-              <li><a href="/scholarship-simulator/">奨学金＆自己負担シミュレーター</a></li>
 </ul>
 </li>
+<li class="dropdown">
+<a class="nav-item dropdown-toggle" href="/pricing/">料金案内 ▾</a>
+<ul class="dropdown-menu">
+<li><a href="/pricing/">料金案内</a></li>
+<li><a href="/about/">代表講師</a></li>
+</ul>
+</li>
+<li><a class="nav-item cta-nav-item" href="/contact/">無料相談</a></li>
 </ul>
 </nav>
 </div>
@@ -465,7 +475,7 @@
 <li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
 <li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
 <li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
-              <li><a href="/guides/">AP STEM Guides (学習ガイド)</a></li>
+              <li><a href="/guides/">専門コラム</a></li>
           <li><a href="/calculator/">AP単位認定シミュレーター</a></li>
             <li><a href="/scholarship-simulator/">奨学金＆自己負担シミュレーター</a></li>
           </ul>

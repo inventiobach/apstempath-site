@@ -58,6 +58,7 @@ def render_guide_detail_html(guide):
             "@type": "Person",
             "name": "済木 明人",
             "jobTitle": "代表講師（大阪大学大学院 工学研究科 修士修了 / 元リアルタイムOS・JVM内部開発者）",
+            "image": f"{SITE_URL}/assets/images/instructor-saiki.jpg",
             "url": f"{SITE_URL}/about/"
         },
         "publisher": {
@@ -184,82 +185,94 @@ def render_guide_detail_html(guide):
     a:hover {{ text-decoration: underline; }}
 
     .site-header {{
-      background: rgba(7, 13, 30, 0.95);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 1px solid var(--border-color);
+      padding: 16px 0;
       position: sticky;
       top: 0;
       z-index: 1000;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(8px);
     }}
     .nav-container {{
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 24px;
+      padding: 0 20px;
+      position: relative;
     }}
-    .nav-brand {{
+    .site-logo {{
       font-weight: 800;
-      font-size: 1.35rem;
-      color: #fff;
-      text-decoration: none;
+      font-size: 1.3rem;
+      color: #f8fafc;
+      text-decoration: none !important;
+      letter-spacing: -0.5px;
       white-space: nowrap;
     }}
-    .nav-brand span {{ color: var(--accent-blue); }}
-    .nav-menu {{
+    .logo-accent {{ color: var(--accent-blue); }}
+    .nav-menu-toggle {{
+      display: none;
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--accent-blue);
+      font-size: 1.2rem;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }}
+    .nav-list {{
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 16px;
       list-style: none;
+      margin: 0;
+      padding: 0;
     }}
-    .nav-menu a {{
-      color: #cbd5e1;
-      text-decoration: none;
-      font-size: 0.9rem;
+    .nav-item {{
+      color: var(--text-muted);
+      text-decoration: none !important;
+      font-size: 0.88rem;
       font-weight: 600;
       white-space: nowrap;
+      transition: color 0.2s;
     }}
-    .nav-menu a:hover {{ color: var(--accent-blue); }}
-    .btn-cta-nav {{
+    .nav-item:hover, .nav-item.active {{ color: var(--accent-blue); }}
+    .cta-nav-item {{
       background: var(--accent-blue);
-      color: #070d1e !important;
+      color: #0f172a !important;
       font-weight: 700 !important;
-      padding: 7px 16px;
+      padding: 6px 14px;
       border-radius: 6px;
+      white-space: nowrap;
+      display: inline-block;
     }}
+    .cta-nav-item:hover {{ background: #7dd3fc !important; }}
     .dropdown {{ position: relative; }}
-    .dropdown-btn {{
-      color: #cbd5e1;
-      background: none;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      padding: 6px 10px;
-      border-radius: 6px;
-    }}
-    .dropdown-content {{
+    .dropdown-menu {{
       display: none;
       position: absolute;
       top: 100%;
-      right: 0;
-      background: #0f172a;
-      border: 1px solid var(--border-color);
+      left: 0;
+      background: #1e293b;
+      border: 1px solid #334155;
       border-radius: 8px;
       min-width: 240px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
       padding: 8px 0;
+      list-style: none;
       z-index: 1001;
     }}
-    .dropdown:hover .dropdown-content {{ display: block; }}
-    .dropdown-content a {{
+    .dropdown:hover .dropdown-menu {{ display: block; }}
+    .dropdown-menu a {{
       display: block;
-      padding: 10px 18px;
+      padding: 10px 16px;
       color: #cbd5e1;
+      text-decoration: none !important;
       font-size: 0.88rem;
+      white-space: nowrap;
     }}
-    .dropdown-content a:hover {{ background: rgba(56, 189, 248, 0.1); color: var(--accent-blue); }}
+    .dropdown-menu a:hover {{ background: #334155; color: var(--accent-blue); }}
 
     .container {{
       max-width: 900px;
@@ -476,8 +489,32 @@ def render_guide_detail_html(guide):
     .footer-col a:hover {{ color: var(--accent-blue); }}
     .footer-bottom {{ text-align: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; font-size: 0.82rem; color: #64748b; }}
 
-    @media (max-width: 860px) {{
-      .nav-menu {{ display: none; }}
+    @media (max-width: 768px) {{
+      .nav-menu-toggle {{ display: block; }}
+      .main-nav {{
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #0f172a;
+        border-bottom: 1px solid var(--border-color);
+        padding: 20px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      }}
+      .main-nav.is-active {{ display: block; }}
+      .nav-list {{ flex-direction: column; align-items: flex-start; gap: 16px; }}
+      .dropdown {{ width: 100%; }}
+      .dropdown-menu {{
+        position: static;
+        display: block;
+        background: rgba(30, 41, 59, 0.5);
+        border: none;
+        box-shadow: none;
+        padding-left: 15px;
+        margin-top: 8px;
+        border-radius: 6px;
+      }}
       .article-card {{ padding: 22px 16px; }}
       .footer-container {{ grid-template-columns: 1fr; }}
     }}
@@ -486,34 +523,47 @@ def render_guide_detail_html(guide):
 <body>
   <header class="site-header">
     <div class="nav-container">
-      <a href="/" class="nav-brand"><span>AP</span> STEM PATH</a>
-      <ul class="nav-menu">
-        <li><a href="/">Home</a></li>
-        <li><a href="/g7-roadmap/">学年別ロードマップ</a></li>
-        <li><a href="/ap-simulator/">ロードマップ診断</a></li>
-        <li><a href="/results/">実績・推移</a></li>
-        <li><a href="/pricing/">料金案内</a></li>
-        <li><a href="/about/">代表講師</a></li>
-        <li><a href="/contact/" class="btn-cta-nav">無料相談</a></li>
-        <li class="dropdown">
-          <button class="dropdown-btn">AP 専科 &#9662;</button>
-          <div class="dropdown-content">
-            <a href="/ap-computer-science-a/">AP CS A (Java)</a>
-            <a href="/ap-statistics/">AP Statistics (統計)</a>
-            <a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a>
-            <a href="/ap-physics-c/">AP Physics C (物理)</a>
-            <a href="/guides/">AP専門コラム・学習ガイド</a>
-            <a href="/calculator/">AP単位認定シミュレーター</a>
-            <a href="/scholarship-simulator/">奨学金＆自己負担シミュレーター</a>
-          </div>
-        </li>
-      </ul>
+      <a class="site-logo" href="/"><span class="logo-accent">AP</span> STEM PATH</a>
+      <button aria-label="Toggle navigation" class="nav-menu-toggle">☰ Menu</button>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a class="nav-item" href="/">Home</a></li>
+          <li><a class="nav-item" href="/g7-roadmap/">学年別ロードマップ</a></li>
+          <li class="dropdown">
+            <a class="nav-item dropdown-toggle" href="/ap-simulator/">ロードマップ診断 ▾</a>
+            <ul class="dropdown-menu">
+              <li><a href="/ap-simulator/">10秒 ロードマップ診断</a></li>
+              <li><a href="/calculator/">AP単位認定シミュレーター</a></li>
+              <li><a href="/scholarship-simulator/">奨学金＆自己負担シミュレーター</a></li>
+            </ul>
+          </li>
+          <li><a class="nav-item" href="/results/">実績・推移</a></li>
+          <li><a class="nav-item active" href="/guides/">専門コラム</a></li>
+          <li class="dropdown">
+            <a class="nav-item dropdown-toggle" href="#">AP 専科 ▾</a>
+            <ul class="dropdown-menu">
+              <li><a href="/ap-computer-science-a/">AP CS A (Java)</a></li>
+              <li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
+              <li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+              <li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="nav-item dropdown-toggle" href="/pricing/">料金案内 ▾</a>
+            <ul class="dropdown-menu">
+              <li><a href="/pricing/">料金案内</a></li>
+              <li><a href="/about/">代表講師</a></li>
+            </ul>
+          </li>
+          <li><a class="nav-item cta-nav-item" href="/contact/">無料相談</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
 
   <main class="container">
     <div style="margin-bottom: 1.5rem;">
-      <a href="/guides/" style="color: var(--accent-blue); font-size: 0.92rem; font-weight: 600;">➔ AP専門コラム・学習ガイド一覧へ戻る</a>
+      <a href="/guides/" style="color: var(--accent-blue); font-size: 0.92rem; font-weight: 600;">➔ 専門コラム一覧へ戻る</a>
     </div>
 
     <article class="article-card">
@@ -540,10 +590,15 @@ def render_guide_detail_html(guide):
 
       <!-- 執筆者プロフィール・監修 -->
       <div style="margin-top: 3rem; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 10px; padding: 1.5rem;">
-        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.8rem; flex-wrap: wrap;">
-          <span class="badge">記事執筆・監修</span>
-          <strong style="color: #fff; font-size: 1.05rem;">済木 明人（Akito Saiki）</strong>
-          <span style="font-size: 0.85rem; color: var(--text-muted);">(大阪大学大学院 工学研究科 修士課程修了)</span>
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.9rem; flex-wrap: wrap;">
+          <img src="/assets/images/instructor-saiki.jpg" alt="代表講師 済木 明人" style="width: 64px; height: 64px; border-radius: 50%; object-fit: cover; object-position: center 20%; border: 2px solid var(--accent-blue); flex-shrink: 0;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.25rem;">
+              <span class="badge">記事執筆・監修</span>
+              <strong style="color: #fff; font-size: 1.05rem;">済木 明人（Akito Saiki）</strong>
+            </div>
+            <span style="font-size: 0.82rem; color: var(--text-muted); display: block;">大阪大学大学院 工学研究科 修士課程修了 / 元リアルタイムOS・JVM内部開発者</span>
+          </div>
         </div>
         <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; margin: 0;">
           元μITRONリアルタイムOSおよびJava仮想マシン（JVM）内部開発者。College Board採点基準（Rubric）に完全準拠した手書きFRQ添削と、G7〜G10からの「二段階安全網」設計により、AP理数最難関4科目（Calculus BC / CS A / Statistics / Physics C）のScore 5完全制覇と米国トップ大学での単位スキップ・奨学金獲得を指導。小学生・中学生向けプレAP指導機関「<a href="https://stemprepath.com/" target="_blank" rel="noopener">STEMPrepath</a>」代表兼任。
@@ -578,6 +633,7 @@ def render_guide_detail_html(guide):
           <li><a href="/g7-roadmap/">学年別ロードマップ</a></li>
           <li><a href="/ap-simulator/">ロードマップ診断</a></li>
           <li><a href="/results/">実績・スコア推移</a></li>
+          <li><a href="/guides/">専門コラム</a></li>
           <li><a href="/pricing/">料金案内</a></li>
           <li><a href="/about/">代表講師</a></li>
           <li><a href="/contact/">無料相談・お問い合わせ</a></li>
@@ -585,13 +641,12 @@ def render_guide_detail_html(guide):
         </ul>
       </div>
       <div class="footer-col">
-        <h4>AP 理数4科目 専科</h4>
+        <h4>AP 理数4科目 ＆ シミュレーター</h4>
         <ul>
           <li><a href="/ap-computer-science-a/">AP CS A (Java)</a></li>
           <li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
           <li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
           <li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
-          <li><a href="/guides/">AP専門コラム・学習ガイド</a></li>
           <li><a href="/calculator/">AP単位認定シミュレーター</a></li>
           <li><a href="/scholarship-simulator/">奨学金＆自己負担シミュレーター</a></li>
         </ul>
@@ -601,37 +656,43 @@ def render_guide_detail_html(guide):
       <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
     </div>
   </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {{
+      const toggleBtn = document.querySelector('.nav-menu-toggle');
+      const mainNav = document.querySelector('.main-nav');
+      if (toggleBtn && mainNav) {{
+        toggleBtn.addEventListener('click', function() {{
+          mainNav.classList.toggle('is-active');
+        }});
+      }}
+    }});
+  </script>
 </body>
 </html>
 """
 
 def update_guides_index(jp_guides):
     index_path = os.path.join(GUIDES_OUT_DIR, "index.html")
-    with open(index_path, "r", encoding="utf-8") as f:
-        raw_index = f.read()
-
-    # Extract existing English archive cards if present
-    # Look for <article class="guide-card"> blocks that link to /guides/ap-...
-    en_cards = re.findall(r'(<article class="guide-card">\s*<div class="badge">AP [^\n]+</div>[\s\S]*?</article>)', raw_index)
 
     jp_cards_html = []
     for g in jp_guides:
-        prompt_snip = ""
-        if g.get("parent_prompt"):
-            prompt_snip = f'<div style="background: rgba(192,132,252,0.08); border-left: 3px solid #c084fc; padding: 8px 12px; border-radius: 4px; font-size: 0.84rem; color: #e2e8f0; margin-bottom: 14px;"><strong>💬 保護者相談例：</strong>{g["parent_prompt"]}</div>'
         jp_cards_html.append(f"""
-        <article class="guide-card" style="border-color: rgba(56, 189, 248, 0.35); background: linear-gradient(180deg, #111b33 0%, #0d1528 100%);">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
-                <div class="badge" style="margin-bottom: 0;">{g['category']}</div>
-                <span style="font-size: 0.82rem; color: var(--text-muted);">公開・更新: {g['date']}</span>
+        <article class="guide-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; flex-wrap: wrap; gap: 8px;">
+              <span class="badge" style="margin-bottom: 0;">{g['category']}</span>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">{g['date']}</span>
             </div>
-            <h2 style="font-size: 1.3rem; margin-bottom: 10px; line-height: 1.45;"><a href="/guides/{g['slug']}/">{g['title']}</a></h2>
-            {prompt_snip}
-            <p style="font-size: 0.93rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.7;">{g['summary']}</p>
-            <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-size: 0.8rem; color: var(--text-muted);">監修: 済木 明人（阪大院修了・元JVM開発者）</span>
-                <a href="/guides/{g['slug']}/" class="read-more">専門コラム全文を読む &rarr;</a>
-            </div>
+            <h2 style="font-size: 1.15rem; color: #fff; line-height: 1.45; margin-bottom: 0.7rem;">
+              <a href="/guides/{g['slug']}/" style="color: #fff; text-decoration: none;">{g['title']}</a>
+            </h2>
+            <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 0;">
+              {g['summary']}
+            </p>
+          </div>
+          <div style="margin-top: 1.2rem; padding-top: 0.8rem; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+            <a href="/guides/{g['slug']}/" class="read-more">記事全文を読む ➔</a>
+          </div>
         </article>
         """)
 
@@ -648,149 +709,147 @@ def update_guides_index(jp_guides):
       gtag('js', new Date());
       gtag('config', 'G-G474CNMCQT');
     </script>
-    <title>AP理数・米国難関大 専門コラム＆学習ガイド一覧 | AP STEM PATH</title>
+    <title>専門コラム・AP理数戦略ガイド一覧 | AP STEM PATH</title>
     <meta name="description" content="MIT・Stanford・CMU・UC Berkeley・Georgia Tech等の米国トップ理系大学合格と、AP理数4科目（Calculus BC, CS A, Statistics, Physics C）Score 5制覇・単位免除・8大給付型奨学金ハックを解説する保護者・中高生向け専門コラム。">
     <link rel="canonical" href="https://apstempath.com/guides/">
     <style>
         :root {{
-            --bg-dark: #070d1e;
-            --bg-card: #111b33;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
             --accent-blue: #38bdf8;
-            --accent-indigo: #818cf8;
-            --btn-cyan: #38bdf8;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --border-color: #1e293b;
+            --border-color: #334155;
         }}
         * {{ box-sizing: border-box; margin: 0; padding: 0; }}
         body {{
             background-color: var(--bg-dark);
             color: var(--text-main);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.75;
+            line-height: 1.7;
         }}
         .site-header {{
-            background: rgba(7, 13, 30, 0.95);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(15, 23, 42, 0.95);
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(8px);
         }}
         .nav-container {{
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 24px;
+            padding: 0 20px;
+            position: relative;
         }}
-        .nav-brand {{
+        .site-logo {{
             font-weight: 800;
-            font-size: 1.4rem;
-            color: #fff;
+            font-size: 1.3rem;
+            color: #f8fafc;
             text-decoration: none;
-            letter-spacing: 0.02em;
-        }}
-        .nav-brand span {{ color: var(--accent-blue); }}
-        .nav-menu {{
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            list-style: none;
-        }}
-        .nav-menu a {{
-            color: #cbd5e1;
-            text-decoration: none;
-            font-size: 0.92rem;
-            font-weight: 500;
-            transition: color 0.2s ease;
+            letter-spacing: -0.5px;
             white-space: nowrap;
         }}
-        .nav-menu a:hover, .nav-menu a.active {{ color: var(--accent-blue); }}
-        .dropdown {{ position: relative; }}
-        .dropdown-btn {{
-            color: #cbd5e1;
-            background: none;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            font-size: 0.92rem;
-            font-weight: 500;
+        .logo-accent {{ color: var(--accent-blue); }}
+        .nav-menu-toggle {{
+            display: none;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--accent-blue);
+            font-size: 1.2rem;
+            padding: 6px 12px;
+            border-radius: 6px;
             cursor: pointer;
+        }}
+        .nav-list {{
             display: flex;
             align-items: center;
-            gap: 4px;
-            padding: 6px 10px;
-            border-radius: 6px;
+            gap: 16px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
         }}
-        .dropdown-btn:hover {{ border-color: var(--accent-blue); color: var(--accent-blue); }}
-        .dropdown-content {{
+        .nav-item {{
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 600;
+            transition: color 0.2s;
+            white-space: nowrap;
+        }}
+        .nav-item:hover, .nav-item.active {{ color: var(--accent-blue); }}
+        .cta-nav-item {{
+            background: var(--accent-blue);
+            color: #0f172a !important;
+            font-weight: 700 !important;
+            padding: 6px 14px;
+            border-radius: 6px;
+            white-space: nowrap;
+            display: inline-block;
+        }}
+        .cta-nav-item:hover {{ background: #7dd3fc !important; }}
+        .dropdown {{ position: relative; }}
+        .dropdown-menu {{
             display: none;
             position: absolute;
             top: 100%;
-            right: 0;
-            background: #0f172a;
+            left: 0;
+            background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 8px;
             min-width: 240px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
             padding: 8px 0;
+            list-style: none;
             z-index: 1001;
         }}
-        .dropdown:hover .dropdown-content {{ display: block; }}
-        .dropdown-content a {{
+        .dropdown:hover .dropdown-menu {{ display: block; }}
+        .dropdown-menu a {{
             display: block;
-            padding: 10px 18px;
+            padding: 10px 16px;
             color: #cbd5e1;
             font-size: 0.88rem;
             text-decoration: none;
+            white-space: nowrap;
         }}
-        .dropdown-content a:hover {{ background: rgba(56, 189, 248, 0.1); color: var(--accent-blue); }}
-        .dropdown-content a.active {{ color: var(--accent-blue); font-weight: 700; }}
-        .btn-cta-nav {{
-            background: var(--btn-cyan);
-            color: #070d1e !important;
-            font-weight: 700 !important;
-            padding: 8px 18px;
-            border-radius: 6px;
-        }}
+        .dropdown-menu a:hover {{ background: var(--border-color); color: var(--accent-blue); }}
+
         .container {{
-            max-width: 960px;
+            max-width: 1100px;
             margin: 50px auto;
-            padding: 0 24px;
+            padding: 0 20px;
         }}
         .hero {{
             margin-bottom: 45px;
             text-align: center;
         }}
         .hero h1 {{
-            font-size: 2.2rem;
+            font-size: 2.1rem;
             line-height: 1.35;
+            margin-top: 10px;
             margin-bottom: 14px;
             color: #ffffff;
         }}
         .hero p {{
             color: var(--text-muted);
-            font-size: 1.02rem;
-            max-width: 740px;
+            font-size: 1.0rem;
+            max-width: 720px;
             margin: 0 auto;
-        }}
-        .section-heading {{
-            font-size: 1.5rem;
-            color: #fff;
-            margin: 40px 0 20px;
-            padding-left: 14px;
-            border-left: 4px solid var(--accent-blue);
         }}
         .guides-grid {{
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 24px;
         }}
         .guide-card {{
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 28px;
+            border-radius: 12px;
+            padding: 24px;
             transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
         }}
         .guide-card:hover {{
@@ -801,113 +860,125 @@ def update_guides_index(jp_guides):
         .badge {{
             display: inline-block;
             padding: 4px 12px;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             font-weight: 700;
             color: var(--accent-blue);
-            background: rgba(56, 189, 248, 0.1);
-            border: 1px solid rgba(56, 189, 248, 0.25);
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.3);
             border-radius: 9999px;
-            margin-bottom: 14px;
         }}
-        .guide-card h2 {{
-            font-size: 1.4rem;
-            margin-bottom: 10px;
-            line-height: 1.35;
-        }}
-        .guide-card h2 a {{
-            color: #ffffff;
-            text-decoration: none;
-        }}
-        .guide-card h2 a:hover {{ color: var(--accent-blue); }}
-        .guide-card p {{
-            color: var(--text-muted);
-            font-size: 0.96rem;
-            margin-bottom: 18px;
-        }}
-        .card-footer {{
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            padding-top: 14px;
-        }}
+        .guide-card h2 a:hover {{ color: var(--accent-blue) !important; }}
         .read-more {{
             color: var(--accent-blue);
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.88rem;
             text-decoration: none;
         }}
         .read-more:hover {{ text-decoration: underline; }}
+
         .site-footer {{
-            background: #040711;
+            background: #020617;
             border-top: 1px solid var(--border-color);
-            margin-top: 100px;
-            padding: 60px 24px 30px 24px;
+            margin-top: 80px;
+            padding: 50px 20px 30px;
         }}
         .footer-container {{
             max-width: 1100px;
-            margin: 0 auto;
+            margin: 0 auto 40px;
             display: grid;
-            grid-template-columns: 2fr 1.2fr 1.2fr;
-            gap: 50px;
-            margin-bottom: 50px;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
         }}
-        .footer-col h3 {{ font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 16px; }}
+        .footer-col h3 {{ font-size: 1.2rem; font-weight: 800; color: #f8fafc; margin-bottom: 12px; }}
         .footer-col h3 span {{ color: var(--accent-blue); }}
-        .footer-col p {{ color: var(--text-muted); font-size: 0.92rem; line-height: 1.7; }}
-        .footer-col h4 {{ font-size: 1rem; color: #ffffff; margin-bottom: 18px; font-weight: 700; }}
+        .footer-col p {{ color: var(--text-muted); font-size: 0.85rem; line-height: 1.6; max-width: 360px; }}
+        .footer-col h4 {{ font-size: 0.92rem; color: #f8fafc; margin-bottom: 12px; font-weight: 700; }}
         .footer-col ul {{ list-style: none; }}
-        .footer-col li {{ margin-bottom: 12px; }}
-        .footer-col a {{ color: var(--text-muted); text-decoration: none; font-size: 0.92rem; }}
+        .footer-col li {{ margin-bottom: 8px; }}
+        .footer-col a {{ color: var(--text-muted); text-decoration: none; font-size: 0.88rem; }}
         .footer-col a:hover {{ color: var(--accent-blue); }}
-        .footer-bottom {{ text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 24px; font-size: 0.88rem; color: #64748b; }}
-        @media (max-width: 900px) {{
-            .nav-menu {{ display: none; }}
-            .footer-container {{ grid-template-columns: 1fr; gap: 30px; }}
+        .footer-bottom {{ text-align: center; border-top: 1px solid #1e293b; padding-top: 20px; font-size: 0.8rem; color: var(--text-muted); }}
+
+        @media (max-width: 768px) {{
+            .nav-menu-toggle {{ display: block; }}
+            .main-nav {{
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #0f172a;
+                border-bottom: 1px solid var(--border-color);
+                padding: 20px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            }}
+            .main-nav.is-active {{ display: block; }}
+            .nav-list {{ flex-direction: column; align-items: flex-start; gap: 16px; }}
+            .dropdown {{ width: 100%; }}
+            .dropdown-menu {{
+                position: static;
+                display: block;
+                background: rgba(30, 41, 59, 0.5);
+                border: none;
+                box-shadow: none;
+                padding-left: 15px;
+                margin-top: 8px;
+                border-radius: 6px;
+            }}
+            .footer-container {{ grid-template-columns: 1fr; gap: 24px; }}
         }}
     </style>
 </head>
 <body>
   <header class="site-header">
     <div class="nav-container">
-      <a href="/" class="nav-brand"><span>AP</span> STEM PATH</a>
-      <ul class="nav-menu">
-        <li><a href="/">Home</a></li>
-        <li><a href="/g7-roadmap/">学年別ロードマップ</a></li>
-        <li><a href="/ap-simulator/">ロードマップ診断</a></li>
-        <li><a href="/results/">実績・推移</a></li>
-        <li><a href="/pricing/">料金案内</a></li>
-        <li><a href="/about/">代表講師</a></li>
-        <li><a href="/contact/" class="btn-cta-nav">無料相談</a></li>
-        <li class="dropdown">
-          <button class="dropdown-btn">AP 専科 &#9662;</button>
-          <div class="dropdown-content">
-            <a href="/ap-computer-science-a/">AP CS A (Java)</a>
-            <a href="/ap-statistics/">AP Statistics (統計)</a>
-            <a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a>
-            <a href="/ap-physics-c/">AP Physics C (物理)</a>
-            <a href="/guides/" class="active">AP専門コラム・学習ガイド</a>
-            <a href="/calculator/">AP単位認定シミュレーター</a>
-            <a href="/scholarship-simulator/">奨学金＆自己負担シミュレーター</a>
-          </div>
-        </li>
-      </ul>
+      <a class="site-logo" href="/"><span class="logo-accent">AP</span> STEM PATH</a>
+      <button aria-label="Toggle navigation" class="nav-menu-toggle">☰ Menu</button>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a class="nav-item" href="/">Home</a></li>
+          <li><a class="nav-item" href="/g7-roadmap/">学年別ロードマップ</a></li>
+          <li class="dropdown">
+            <a class="nav-item dropdown-toggle" href="/ap-simulator/">ロードマップ診断 ▾</a>
+            <ul class="dropdown-menu">
+              <li><a href="/ap-simulator/">10秒 ロードマップ診断</a></li>
+              <li><a href="/calculator/">AP単位認定シミュレーター</a></li>
+              <li><a href="/scholarship-simulator/">奨学金＆自己負担シミュレーター</a></li>
+            </ul>
+          </li>
+          <li><a class="nav-item" href="/results/">実績・推移</a></li>
+          <li><a class="nav-item active" href="/guides/">専門コラム</a></li>
+          <li class="dropdown">
+            <a class="nav-item dropdown-toggle" href="#">AP 専科 ▾</a>
+            <ul class="dropdown-menu">
+              <li><a href="/ap-computer-science-a/">AP CS A (Java)</a></li>
+              <li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
+              <li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+              <li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="nav-item dropdown-toggle" href="/pricing/">料金案内 ▾</a>
+            <ul class="dropdown-menu">
+              <li><a href="/pricing/">料金案内</a></li>
+              <li><a href="/about/">代表講師</a></li>
+            </ul>
+          </li>
+          <li><a class="nav-item cta-nav-item" href="/contact/">無料相談</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
 
   <main class="container">
     <header class="hero">
-      <span class="badge">AI Consultation &amp; US Top STEM Admissions Knowledge Base</span>
-      <h1>AP理数・米国難関大 専門コラム＆学習ガイド</h1>
-      <p>G7〜G11からの「AP理数4科目 Score 5完全制覇」、MIT・CMU・UC Berkeley・Georgia Tech等の単位免除（Credit Transfer）、そして日本の8大給付型奨学金による資金戦略を体系化した専門ナレッジベースです。</p>
+      <span class="badge">STEM Insights &amp; US Top Admissions Guides</span>
+      <h1>専門コラム・AP理数戦略ガイド</h1>
+      <p>米国トップ理系大学合格と「AP理数4科目 Score 5完全制覇」、大学単位免除（Credit Transfer）、そして日本の給付型奨学金による資金戦略を解説します。</p>
     </header>
 
-    <h2 class="section-heading">🇯🇵 保護者・中高生向け 専門戦略コラム（日本語解説）</h2>
     <section class="guides-grid">
       {''.join(jp_cards_html)}
-    </section>
-
-    <h2 class="section-heading" style="margin-top: 70px;">🌐 University-Specific AP Placement Reference Archives（大学・単元別 英語リファレンス）</h2>
-    <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 24px;">米国主要トップ大学（MIT, Stanford, Harvard, Caltech, CMU, UC Berkeley, Georgia Tech）におけるAP各単元の英語リファレンス・アーカイブ一覧です。</p>
-    <section class="guides-grid">
-      {chr(10).join(en_cards)}
     </section>
   </main>
 
@@ -915,7 +986,7 @@ def update_guides_index(jp_guides):
     <div class="footer-container">
       <div class="footer-col">
         <h3><span>AP</span> STEM PATH</h3>
-        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに出願に強い理数最難関4科目のScore 5完全制覇を目指します。</p>
+        <p>G7（中1）からの戦略的AP受験。リカバリー設計と専門指導でG11までに理数最難関4科目のScore 5完全制覇を目指します。</p>
       </div>
       <div class="footer-col">
         <h4>ロードマップ &amp; 概要</h4>
@@ -924,6 +995,7 @@ def update_guides_index(jp_guides):
           <li><a href="/g7-roadmap/">学年別ロードマップ</a></li>
           <li><a href="/ap-simulator/">ロードマップ診断</a></li>
           <li><a href="/results/">実績・スコア推移</a></li>
+          <li><a href="/guides/">専門コラム</a></li>
           <li><a href="/pricing/">料金案内</a></li>
           <li><a href="/about/">代表講師</a></li>
           <li><a href="/contact/">無料相談・お問い合わせ</a></li>
@@ -931,13 +1003,12 @@ def update_guides_index(jp_guides):
         </ul>
       </div>
       <div class="footer-col">
-        <h4>AP 理数4科目 専科</h4>
+        <h4>AP 理数4科目 ＆ シミュレーター</h4>
         <ul>
           <li><a href="/ap-computer-science-a/">AP CS A (Java)</a></li>
           <li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
           <li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
           <li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
-          <li><a href="/guides/">AP専門コラム・学習ガイド</a></li>
           <li><a href="/calculator/">AP単位認定シミュレーター</a></li>
           <li><a href="/scholarship-simulator/">奨学金＆自己負担シミュレーター</a></li>
         </ul>
@@ -947,12 +1018,23 @@ def update_guides_index(jp_guides):
       <p>&copy; 2026 AP STEM PATH. All rights reserved.</p>
     </div>
   </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {{
+      const toggleBtn = document.querySelector('.nav-menu-toggle');
+      const mainNav = document.querySelector('.main-nav');
+      if (toggleBtn && mainNav) {{
+        toggleBtn.addEventListener('click', function() {{
+          mainNav.classList.toggle('is-active');
+        }});
+      }}
+    }});
+  </script>
 </body>
 </html>
 """
     with open(index_path, "w", encoding="utf-8") as f:
         f.write(new_index_html)
-    print("✅ Updated: guides/index.html (with Japanese Specialized Columns at top)")
+    print("✅ Updated: guides/index.html (Clean Japanese Specialized Columns only)")
 
 def update_llms_and_sitemap(jp_guides):
     # 1. Update llms.txt (Japanese + English Hybrid for GEO/LLMO)

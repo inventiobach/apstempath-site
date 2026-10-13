@@ -97,7 +97,7 @@
       display: none;
       position: absolute;
       top: 100%;
-      right: 0;
+      left: 0;
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 8px;
@@ -276,8 +276,9 @@
       "description": "G7〜G10学年別AP理数最難関4科目（CS A / Statistics / Calculus BC / Physics C）専門指導塾。AP Exam Score 5獲得に特化したデータ駆動型指導方針。",
       "founder": {
         "@type": "Person",
-        "name": "Founder & Lead Instructor",
-        "jobTitle": "Lead STEM Educator & AI Architect",
+        "name": "済木 明人 (Akito Saiki)",
+        "jobTitle": "代表講師（大阪大学大学院 工学研究科 修士修了 / 元リアルタイムOS・JVM内部開発者）",
+        "image": "https://apstempath.com/assets/images/instructor-saiki.jpg",
         "knowsAbout": [
           "AP Calculus BC Exam Prep & Score 5 Strategy",
           "AP Computer Science A Java Programming & FRQ Scoring",
@@ -342,11 +343,16 @@
 <ul class="nav-list">
 <li><a class="nav-item" href="/">Home</a></li>
 <li><a class="nav-item" href="/g7-roadmap/">学年別ロードマップ</a></li>
-<li><a class="nav-item" href="/ap-simulator/">ロードマップ診断</a></li>
+<li class="dropdown">
+<a class="nav-item dropdown-toggle" href="/ap-simulator/">ロードマップ診断 ▾</a>
+<ul class="dropdown-menu">
+<li><a href="/ap-simulator/">10秒 ロードマップ診断</a></li>
+<li><a href="/calculator/">AP単位認定シミュレーター</a></li>
+<li><a href="/scholarship-simulator/">奨学金＆自己負担シミュレーター</a></li>
+</ul>
+</li>
 <li><a class="nav-item" href="/results/">実績・推移</a></li>
-<li><a class="nav-item" href="/pricing/">料金案内</a></li>
-<li><a class="nav-item active" href="/about/">代表講師</a></li>
-<li><a class="nav-item cta-nav-item" href="/contact/">無料相談</a></li>
+<li><a class="nav-item" href="/guides/">専門コラム</a></li>
 <li class="dropdown">
 <a class="nav-item dropdown-toggle" href="#">AP 専科 ▾</a>
 <ul class="dropdown-menu">
@@ -354,11 +360,16 @@
 <li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
 <li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
 <li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
-              <li><a href="/guides/">AP STEM Guides (学習ガイド)</a></li>
-              <li><a href="/calculator/">AP単位認定シミュレーター</a></li>
-              <li><a href="/scholarship-simulator/">奨学金＆自己負担シミュレーター</a></li>
-            </ul>
+</ul>
 </li>
+<li class="dropdown">
+<a class="nav-item dropdown-toggle active" href="/pricing/">料金案内 ▾</a>
+<ul class="dropdown-menu">
+<li><a href="/pricing/">料金案内</a></li>
+<li><a href="/about/">代表講師</a></li>
+</ul>
+</li>
+<li><a class="nav-item cta-nav-item" href="/contact/">無料相談</a></li>
 </ul>
 </nav>
 </div>
@@ -373,13 +384,14 @@
 <section class="content-section">
 <h2>代表講師プロフィール</h2>
 <div class="profile-card">
-<div class="profile-header">
+<div class="profile-header" style="justify-content: flex-start; align-items: center; gap: 22px;">
+<img src="/assets/images/instructor-saiki.jpg" alt="代表講師 済木 明人" style="width: 108px; height: 108px; border-radius: 50%; object-fit: cover; object-position: center 20%; border: 3px solid var(--accent-blue); box-shadow: 0 6px 20px rgba(56, 189, 248, 0.25); flex-shrink: 0;">
 <div>
 <div class="profile-title-tag">AP STEM PATH FOUNDER &amp; LEAD INSTRUCTOR</div>
-<div class="profile-name">済木 明人 <span style="font-size:1.1rem; font-weight:normal; color:var(--text-muted);">(Saiki Akihito)</span></div>
+<div class="profile-name">済木 明人 <span style="font-size:1.1rem; font-weight:normal; color:var(--text-muted);">(Akito Saiki)</span></div>
+<div class="profile-degree" style="margin-bottom: 0; margin-top: 4px;">大阪大学大学院 工学研究科 修士課程修了</div>
 </div>
 </div>
-<div class="profile-degree">大阪大学大学院 工学研究科 修士課程修了</div>
 <p>
           高度な論理構築と厳格なシステム設計が要求されるソフトウェアエンジニアリングの現場で、基幹システムの開発に直接従事してきたエンジニア・教育者。
         </p>
@@ -468,7 +480,7 @@
 <li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
 <li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
 <li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
-              <li><a href="/guides/">AP STEM Guides (学習ガイド)</a></li>
+              <li><a href="/guides/">専門コラム</a></li>
           <li><a href="/calculator/">AP単位認定シミュレーター</a></li>
             <li><a href="/scholarship-simulator/">奨学金＆自己負担シミュレーター</a></li>
           </ul>

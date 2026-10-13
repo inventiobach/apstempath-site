@@ -88,7 +88,7 @@
       display: none;
       position: absolute;
       top: 100%;
-      right: 0;
+      left: 0;
       background: #0f172a;
       border: 1px solid var(--border-color, #1e293b);
       border-radius: 8px;
@@ -156,27 +156,37 @@
   <!-- 共通ヘッダーナビゲーション -->
   <header class="site-header">
     <div class="nav-container">
-      <a href="/" class="nav-brand">AP STEM <span>PATH</span></a>
+      <a href="/" class="nav-brand"><span>AP</span> STEM PATH</a>
       <ul class="nav-menu">
         <li><a href="/">Home</a></li>
         <li><a href="/g7-roadmap/">学年別ロードマップ</a></li>
-        <li><a href="/ap-simulator/">ロードマップ診断</a></li>
-        <li><a href="/results/">実績・推移</a></li>
-        <li><a href="/pricing/">料金案内</a></li>
-        <li><a href="/about/">代表講師</a></li>
-        <li><a href="/contact/" class="btn-cta-nav">無料相談</a></li>
         <li class="dropdown">
-          <button class="dropdown-btn">AP 専科 &#9662;</button>
+          <a href="/ap-simulator/" class="active">ロードマップ診断 &#9662;</a>
+          <div class="dropdown-content">
+            <a href="/ap-simulator/">10秒 ロードマップ診断</a>
+            <a href="/calculator/">AP単位認定シミュレーター</a>
+            <a href="/scholarship-simulator/">奨学金＆自己負担シミュレーター</a>
+          </div>
+        </li>
+        <li><a href="/results/">実績・推移</a></li>
+        <li><a href="/guides/">専門コラム</a></li>
+        <li class="dropdown">
+          <a href="#">AP 専科 &#9662;</a>
           <div class="dropdown-content">
             <a href="/ap-computer-science-a/">AP CS A (Java)</a>
             <a href="/ap-statistics/">AP Statistics (統計)</a>
             <a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a>
             <a href="/ap-physics-c/">AP Physics C (物理)</a>
-            <a href="/guides/">AP STEM Guides (学習ガイド)</a>
-            <a href="/calculator/" class="active">AP単位認定シミュレーター</a>
-            <a href="/scholarship-simulator/">奨学金＆自己負担シミュレーター</a>
           </div>
         </li>
+        <li class="dropdown">
+          <a href="/pricing/">料金案内 &#9662;</a>
+          <div class="dropdown-content">
+            <a href="/pricing/">料金案内</a>
+            <a href="/about/">代表講師</a>
+          </div>
+        </li>
+        <li><a href="/contact/" class="btn-cta-nav">無料相談</a></li>
       </ul>
     </div>
   </header>
@@ -702,7 +712,7 @@
           <li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
           <li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
           <li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
-          <li><a href="/guides/">AP STEM Guides (学習ガイド)</a></li>
+          <li><a href="/guides/">専門コラム</a></li>
           <li><a href="/calculator/">AP単位認定シミュレーター</a></li>
           <li><a href="/scholarship-simulator/">奨学金＆自己負担シミュレーター</a></li>
         </ul>
