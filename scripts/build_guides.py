@@ -272,7 +272,16 @@ def render_guide_detail_html(guide):
       padding: 8px 0;
       list-style: none;
       z-index: 1001;
-      margin-top: 6px;
+      margin-top: 0;
+    }}
+    .dropdown-menu::before {{
+      content: "";
+      position: absolute;
+      top: -12px;
+      left: 0;
+      width: 100%;
+      height: 12px;
+      display: block;
     }}
     .dropdown:hover .dropdown-menu {{ display: block; }}
     .dropdown-menu a {{
@@ -827,7 +836,16 @@ def update_guides_index(jp_guides):
             padding: 8px 0;
             list-style: none;
             z-index: 1001;
-            margin-top: 6px;
+            margin-top: 0;
+        }}
+        .dropdown-menu::before {{
+            content: "";
+            position: absolute;
+            top: -12px;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            display: block;
         }}
         .dropdown:hover .dropdown-menu {{ display: block; }}
         .dropdown-menu a {{

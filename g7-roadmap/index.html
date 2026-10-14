@@ -127,7 +127,16 @@
       min-width: 240px;
       box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
       z-index: 1001;
-      margin-top: 6px;
+      margin-top: 0;
+    }
+    .dropdown-menu::before {
+      content: "";
+      position: absolute;
+      top: -12px;
+      left: 0;
+      width: 100%;
+      height: 12px;
+      display: block;
     }
     .dropdown:hover .dropdown-menu {
       display: block;
@@ -248,7 +257,7 @@
       padding: 4px 10px;
       border-radius: 4px;
       display: inline-block;
-      margin-top: 6px;
+      margin-top: 0;
     }
 
     /* Comparison Table (学年列を除外した全学年共通表) */
