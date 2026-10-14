@@ -187,36 +187,43 @@ def render_guide_detail_html(guide):
     .site-header {{
       background: rgba(15, 23, 42, 0.95);
       border-bottom: 1px solid var(--border-color);
-      padding: 16px 0;
+      padding: 12px 0;
       position: sticky;
       top: 0;
       z-index: 1000;
       backdrop-filter: blur(8px);
     }}
+    .site-header .nav-container,
     .nav-container {{
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 20px;
+      padding: 0 24px;
       position: relative;
+      box-sizing: border-box;
     }}
     .site-logo {{
+      font-size: 1.35rem;
       font-weight: 800;
-      font-size: 1.3rem;
       color: #f8fafc;
       text-decoration: none !important;
       letter-spacing: -0.5px;
       white-space: nowrap;
+      margin-right: 24px;
+      display: inline-flex;
+      align-items: center;
+      line-height: 1.2;
     }}
+    .site-logo .logo-accent,
     .logo-accent {{ color: var(--accent-blue); }}
     .nav-menu-toggle {{
       display: none;
       background: transparent;
       border: 1px solid var(--border-color);
       color: var(--accent-blue);
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       padding: 6px 12px;
       border-radius: 6px;
       cursor: pointer;
@@ -236,6 +243,7 @@ def render_guide_detail_html(guide):
       font-weight: 600;
       white-space: nowrap;
       transition: color 0.2s;
+      line-height: 1.5;
     }}
     .nav-item:hover, .nav-item.active {{ color: var(--accent-blue); }}
     .cta-nav-item {{
@@ -246,6 +254,8 @@ def render_guide_detail_html(guide):
       border-radius: 6px;
       white-space: nowrap;
       display: inline-block;
+      line-height: 1.4;
+      transition: background 0.2s;
     }}
     .cta-nav-item:hover {{ background: #7dd3fc !important; }}
     .dropdown {{ position: relative; }}
@@ -262,6 +272,7 @@ def render_guide_detail_html(guide):
       padding: 8px 0;
       list-style: none;
       z-index: 1001;
+      margin-top: 6px;
     }}
     .dropdown:hover .dropdown-menu {{ display: block; }}
     .dropdown-menu a {{
@@ -731,36 +742,43 @@ def update_guides_index(jp_guides):
         .site-header {{
             background: rgba(15, 23, 42, 0.95);
             border-bottom: 1px solid var(--border-color);
-            padding: 16px 0;
+            padding: 12px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
             backdrop-filter: blur(8px);
         }}
+        .site-header .nav-container,
         .nav-container {{
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 20px;
+            padding: 0 24px;
             position: relative;
+            box-sizing: border-box;
         }}
         .site-logo {{
+            font-size: 1.35rem;
             font-weight: 800;
-            font-size: 1.3rem;
             color: #f8fafc;
-            text-decoration: none;
+            text-decoration: none !important;
             letter-spacing: -0.5px;
             white-space: nowrap;
+            margin-right: 24px;
+            display: inline-flex;
+            align-items: center;
+            line-height: 1.2;
         }}
+        .site-logo .logo-accent,
         .logo-accent {{ color: var(--accent-blue); }}
         .nav-menu-toggle {{
             display: none;
             background: transparent;
             border: 1px solid var(--border-color);
             color: var(--accent-blue);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             padding: 6px 12px;
             border-radius: 6px;
             cursor: pointer;
@@ -775,11 +793,12 @@ def update_guides_index(jp_guides):
         }}
         .nav-item {{
             color: var(--text-muted);
-            text-decoration: none;
+            text-decoration: none !important;
             font-size: 0.88rem;
             font-weight: 600;
             transition: color 0.2s;
             white-space: nowrap;
+            line-height: 1.5;
         }}
         .nav-item:hover, .nav-item.active {{ color: var(--accent-blue); }}
         .cta-nav-item {{
@@ -790,6 +809,8 @@ def update_guides_index(jp_guides):
             border-radius: 6px;
             white-space: nowrap;
             display: inline-block;
+            line-height: 1.4;
+            transition: background 0.2s;
         }}
         .cta-nav-item:hover {{ background: #7dd3fc !important; }}
         .dropdown {{ position: relative; }}
@@ -806,6 +827,7 @@ def update_guides_index(jp_guides):
             padding: 8px 0;
             list-style: none;
             z-index: 1001;
+            margin-top: 6px;
         }}
         .dropdown:hover .dropdown-menu {{ display: block; }}
         .dropdown-menu a {{
@@ -813,8 +835,9 @@ def update_guides_index(jp_guides):
             padding: 10px 16px;
             color: #cbd5e1;
             font-size: 0.88rem;
-            text-decoration: none;
+            text-decoration: none !important;
             white-space: nowrap;
+            line-height: 1.4;
         }}
         .dropdown-menu a:hover {{ background: var(--border-color); color: var(--accent-blue); }}
 

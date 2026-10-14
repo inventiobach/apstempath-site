@@ -26,93 +26,147 @@
       line-height: 1.75;
     }
 
-    /* 共通ヘッダー */
+    /* 全ページ共通 Header (完全統一レイアウト & レスポンシブ) */
     .site-header {
-      background: rgba(7, 13, 30, 0.95);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 1px solid var(--border-color, #1e293b);
+      padding: 12px 0;
       position: sticky;
       top: 0;
       z-index: 1000;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(8px);
     }
+    .site-header .nav-container,
     .nav-container {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 24px;
+      padding: 0 24px;
+      position: relative;
+      box-sizing: border-box;
     }
-    .nav-brand {
+    .site-logo {
+      font-size: 1.35rem;
       font-weight: 800;
-      font-size: 1.4rem;
-      color: #fff;
-      text-decoration: none;
-      letter-spacing: 0.02em;
+      color: #f8fafc;
+      text-decoration: none !important;
+      letter-spacing: -0.5px;
       white-space: nowrap;
-    }
-    .nav-brand span { color: var(--accent-blue); }
-    .nav-menu {
-      display: flex;
+      margin-right: 24px;
+      display: inline-flex;
       align-items: center;
-      gap: 16px;
+      line-height: 1.2;
+    }
+    .site-logo .logo-accent,
+    .logo-accent {
+      color: var(--accent-blue);
+    }
+    .nav-menu-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--accent-blue);
+      font-size: 1.1rem;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .nav-list {
+      display: flex;
       list-style: none;
+      gap: 16px;
+      align-items: center;
       margin: 0;
       padding: 0;
     }
-    .nav-menu a {
-      color: #cbd5e1;
-      text-decoration: none;
-      font-size: 0.92rem;
-      font-weight: 500;
-      transition: color 0.2s ease;
+    .nav-item {
+      color: var(--text-muted);
+      text-decoration: none !important;
+      font-size: 0.88rem;
+      font-weight: 600;
       white-space: nowrap;
+      transition: color 0.2s;
+      line-height: 1.5;
     }
-    .nav-menu a:hover, .nav-menu a.active { color: var(--accent-blue); }
-    .dropdown { position: relative; }
-    .dropdown-btn {
-      color: #cbd5e1;
-      background: none;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      font-size: 0.92rem;
-      font-weight: 500;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      padding: 6px 10px;
+    .nav-item:hover, .nav-item.active {
+      color: var(--accent-blue);
+    }
+    .cta-nav-item {
+      background: var(--accent-blue);
+      color: #0f172a !important;
+      padding: 6px 14px;
       border-radius: 6px;
+      font-weight: 700 !important;
+      white-space: nowrap;
+      display: inline-block;
+      line-height: 1.4;
+      transition: background 0.2s;
     }
-    .dropdown-btn:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
-    .dropdown-content {
+    .cta-nav-item:hover {
+      background: #7dd3fc !important;
+    }
+    .dropdown {
+      position: relative;
+    }
+    .dropdown-menu {
       display: none;
       position: absolute;
       top: 100%;
       left: 0;
-      background: #0f172a;
-      border: 1px solid var(--border-color, #1e293b);
+      background: #1e293b;
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 8px;
-      min-width: 240px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
       padding: 8px 0;
+      list-style: none;
+      min-width: 240px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
       z-index: 1001;
+      margin-top: 6px;
     }
-    .dropdown:hover .dropdown-content { display: block; }
-    .dropdown-content a {
+    .dropdown:hover .dropdown-menu {
       display: block;
-      padding: 10px 18px;
-      color: #cbd5e1;
-      font-size: 0.88rem;
-      text-decoration: none;
     }
-    .dropdown-content a:hover { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue); }
-    .dropdown-content a.active { color: var(--accent-blue); font-weight: 700; }
-    .btn-cta-nav {
-      background: var(--btn-cyan);
-      color: #070d1e !important;
-      font-weight: 700 !important;
-      padding: 8px 18px;
-      border-radius: 6px;
+    .dropdown-menu a {
+      display: block;
+      padding: 10px 16px;
+      color: #cbd5e1;
+      text-decoration: none !important;
+      font-size: 0.88rem;
+      white-space: nowrap;
+      line-height: 1.4;
+    }
+    .dropdown-menu a:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--accent-blue);
+    }
+    @media (max-width: 860px) {
+      .nav-menu-toggle { display: block; }
+      .main-nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #0f172a;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      }
+      .main-nav.is-active { display: block; }
+      .nav-list { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .dropdown { width: 100%; }
+      .dropdown-menu {
+        position: static;
+        display: block;
+        background: rgba(30, 41, 59, 0.5);
+        border: none;
+        box-shadow: none;
+        padding-left: 15px;
+        margin-top: 8px;
+        border-radius: 6px;
+      }
     }
 
     /* 共通フッター */
@@ -155,41 +209,44 @@
 
   <!-- 共通ヘッダーナビゲーション -->
   <header class="site-header">
-    <div class="nav-container">
-      <a href="/" class="nav-brand"><span>AP</span> STEM PATH</a>
-      <ul class="nav-menu">
-        <li><a href="/">Home</a></li>
-        <li><a href="/g7-roadmap/">学年別ロードマップ</a></li>
-        <li class="dropdown">
-          <a href="/ap-simulator/" class="active">ロードマップ診断 &#9662;</a>
-          <div class="dropdown-content">
-            <a href="/ap-simulator/">10秒 ロードマップ診断</a>
-            <a href="/calculator/">AP単位認定シミュレーター</a>
-            <a href="/scholarship-simulator/">奨学金＆自己負担シミュレーター</a>
-          </div>
-        </li>
-        <li><a href="/results/">実績・推移</a></li>
-        <li><a href="/guides/">専門コラム</a></li>
-        <li class="dropdown">
-          <a href="#">AP 専科 &#9662;</a>
-          <div class="dropdown-content">
-            <a href="/ap-computer-science-a/">AP CS A (Java)</a>
-            <a href="/ap-statistics/">AP Statistics (統計)</a>
-            <a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a>
-            <a href="/ap-physics-c/">AP Physics C (物理)</a>
-          </div>
-        </li>
-        <li class="dropdown">
-          <a href="/pricing/">料金案内 &#9662;</a>
-          <div class="dropdown-content">
-            <a href="/pricing/">料金案内</a>
-            <a href="/about/">代表講師</a>
-          </div>
-        </li>
-        <li><a href="/contact/" class="btn-cta-nav">無料相談</a></li>
-      </ul>
-    </div>
-  </header>
+<div class="nav-container">
+<a class="site-logo" href="/"><span class="logo-accent">AP</span> STEM PATH</a>
+<button aria-label="Toggle navigation" class="nav-menu-toggle">☰ Menu</button>
+<nav class="main-nav">
+<ul class="nav-list">
+<li><a class="nav-item" href="/">Home</a></li>
+<li><a class="nav-item" href="/g7-roadmap/">学年別ロードマップ</a></li>
+<li class="dropdown">
+<a class="nav-item dropdown-toggle active" href="/ap-simulator/">ロードマップ診断 ▾</a>
+<ul class="dropdown-menu">
+<li><a href="/ap-simulator/">10秒 ロードマップ診断</a></li>
+<li><a href="/calculator/">AP単位認定シミュレーター</a></li>
+<li><a href="/scholarship-simulator/">奨学金＆自己負担シミュレーター</a></li>
+</ul>
+</li>
+<li><a class="nav-item" href="/results/">実績・推移</a></li>
+<li><a class="nav-item" href="/guides/">専門コラム</a></li>
+<li class="dropdown">
+<a class="nav-item dropdown-toggle" href="#">AP 専科 ▾</a>
+<ul class="dropdown-menu">
+<li><a href="/ap-computer-science-a/">AP CS A (Java)</a></li>
+<li><a href="/ap-statistics/">AP Statistics (統計)</a></li>
+<li><a href="/ap-calculus-bc/">AP Calculus BC (微積分)</a></li>
+<li><a href="/ap-physics-c/">AP Physics C (物理)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a class="nav-item dropdown-toggle" href="/pricing/">料金案内 ▾</a>
+<ul class="dropdown-menu">
+<li><a href="/pricing/">料金案内</a></li>
+<li><a href="/about/">代表講師</a></li>
+</ul>
+</li>
+<li><a class="nav-item cta-nav-item" href="/contact/">無料相談</a></li>
+</ul>
+</nav>
+</div>
+</header>
 
   <!-- メインシミュレーター -->
   <main>
@@ -723,5 +780,16 @@
     </div>
   </footer>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggleBtn = document.querySelector('.nav-menu-toggle');
+      const mainNav = document.querySelector('.main-nav');
+      if (toggleBtn && mainNav) {
+        toggleBtn.addEventListener('click', function() {
+          mainNav.classList.toggle('is-active');
+        });
+      }
+    });
+  </script>
 </body>
 </html>

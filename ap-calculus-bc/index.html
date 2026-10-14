@@ -30,37 +30,53 @@
     .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
 
     /* 全ページ共通 Header */
+        /* 全ページ共通 Header (完全統一レイアウト & レスポンシブ) */
     .site-header {
-      border-bottom: 1px solid var(--border);
-      padding: 16px 0;
       background: rgba(15, 23, 42, 0.95);
-      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
       position: sticky;
       top: 0;
       z-index: 1000;
+      backdrop-filter: blur(8px);
     }
+    .site-header .nav-container,
     .nav-container {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 24px;
+      padding: 0 24px;
+      position: relative;
+      box-sizing: border-box;
     }
-    .site-logo { font-size: 1.3rem; font-weight: 800; color: #f8fafc; text-decoration: none; letter-spacing: -0.5px; white-space: nowrap; flex-shrink: 0; }
-    .logo-accent { color: var(--accent-blue); }
-
+    .site-logo {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #f8fafc;
+      text-decoration: none !important;
+      letter-spacing: -0.5px;
+      white-space: nowrap;
+      margin-right: 24px;
+      display: inline-flex;
+      align-items: center;
+      line-height: 1.2;
+    }
+    .site-logo .logo-accent,
+    .logo-accent {
+      color: var(--accent-blue);
+    }
     .nav-menu-toggle {
       display: none;
       background: transparent;
       border: 1px solid var(--border);
       color: var(--accent-blue);
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       padding: 6px 12px;
       border-radius: 6px;
       cursor: pointer;
     }
-
     .nav-list {
       display: flex;
       list-style: none;
@@ -69,29 +85,35 @@
       margin: 0;
       padding: 0;
     }
-
     .nav-item {
       color: var(--text-muted);
-      text-decoration: none;
+      text-decoration: none !important;
       font-size: 0.88rem;
       font-weight: 600;
       white-space: nowrap;
       transition: color 0.2s;
+      line-height: 1.5;
     }
-    .nav-item:hover, .nav-item.active { color: var(--accent-blue); }
-
+    .nav-item:hover, .nav-item.active {
+      color: var(--accent-blue);
+    }
     .cta-nav-item {
       background: var(--accent-blue);
       color: #0f172a !important;
       padding: 6px 14px;
       border-radius: 6px;
-      font-weight: 700;
+      font-weight: 700 !important;
       white-space: nowrap;
       display: inline-block;
+      line-height: 1.4;
+      transition: background 0.2s;
     }
-    .cta-nav-item:hover { background: #7dd3fc !important; }
-
-    .dropdown { position: relative; }
+    .cta-nav-item:hover {
+      background: #7dd3fc !important;
+    }
+    .dropdown {
+      position: relative;
+    }
     .dropdown-menu {
       display: none;
       position: absolute;
@@ -102,21 +124,28 @@
       border-radius: 8px;
       padding: 8px 0;
       list-style: none;
-      min-width: 220px;
+      min-width: 240px;
       box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
+      z-index: 1001;
+      margin-top: 6px;
     }
-    .dropdown:hover .dropdown-menu { display: block; }
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
     .dropdown-menu a {
       display: block;
       padding: 10px 16px;
       color: #cbd5e1;
-      text-decoration: none;
+      text-decoration: none !important;
       font-size: 0.88rem;
       white-space: nowrap;
+      line-height: 1.4;
     }
-    .dropdown-menu a:hover { background: var(--border); color: var(--accent-blue); }
-
-    @media (max-width: 768px) {
+    .dropdown-menu a:hover {
+      background: var(--border);
+      color: var(--accent-blue);
+    }
+    @media (max-width: 860px) {
       .nav-menu-toggle { display: block; }
       .main-nav {
         display: none;
@@ -306,7 +335,7 @@
 <body>
 <!-- 全ページ共通 Header -->
 <header class="site-header">
-<div class="container nav-container">
+<div class="nav-container">
 <a class="site-logo" href="/">
 <span class="logo-accent">AP</span> STEM PATH
       </a>
